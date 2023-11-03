@@ -15,6 +15,7 @@ prefixes:
   schema: http://schema.org/
   PATO: http://purl.obolibrary.org/obo/PATO_
   example: https://example.org/
+  OBI: http://purl.obolibrary.org/obo/OBI_
 default_prefix: shareyourcloning_linkml
 default_range: string
 
@@ -68,23 +69,47 @@ classes:
       Represents the source of a sequence
     slots:
       - id
-    attributes:
-      - has input:
-          range: Sequence
-          multivalued: true
-          inlined: true
-      - has output:
-          range: Sequence
-          inlined: true
+      - has output
+      - has input
+
+  ExternalSource:
+    is_a: Source
+    abstract: true
+    description: >-
+      Represents the source of a sequence that is external to the cloning strategy,
+      and therefore has no inputs.
+    slot_usage:
+      has input:
+        value_presence: ABSENT
+      has output:
+        required: true
+
+  InternalSource:
+    is_a: Source
+    abstract: true
+    description: >-
+      Represents the source of a sequence that is internal to the cloning strategy,
+      and therefore has inputs.
+    slot_usage:
+      has input:
+        value_presence: PRESENT
+      has output:
+        required: true
 
   RepositoryIdSource:
-    is_a: Source
+    is_a: ExternalSource
     description: >-
       Represents the source of a sequence that is identified by a repository id
     attributes:
-      - repository_id:
-          range: string
-          required: true
+      - repository_name:
+          range: RepositoryName
+
+  RestrictionEnzymeDigestionSource:
+    is_a: Source
+    description: >-
+      Represents the source of a sequence that is generated via restriction enzyme digestion
+    slots:
+      - restriction_enzyme
 
   Sequence:
     is_a: NamedThing
@@ -111,9 +136,24 @@ slots:
     slot_uri: schema:description
     description: A human-readable description for a thing
     range: string
+  restriction_enzyme:
+    exact_mappings:
+      - OBI_0000732
+    range: string
+  has input:
+    range: Sequence
+    multivalued: true
+    inlined: true
+  has output:
+    range: Sequence
+    inlined: true
 
 enums:
   RepositoryName:
     permissible_values:
-      - addgene
-      - genbank
+      addgene:
+        description: >-
+          Addgene
+      genbank:
+        description: >-
+          GenBank
