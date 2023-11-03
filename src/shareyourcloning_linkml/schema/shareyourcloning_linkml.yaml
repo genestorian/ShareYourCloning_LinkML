@@ -21,8 +21,22 @@ default_range: string
 imports:
   - linkml:types
 
-classes:
+  # source sequence relationship:
+  #   represents_relationship: true
+  #   description: >-
+  #     A relationship between a source and a sequence
+  #   abstract: true
+  #   domain: source
+  #   range: sequence
 
+  # has input:
+  #   is_a: source sequence relationship
+  #   description: >-
+  #     A relationship between a source and its input sequence
+  #   domain: source
+  #   range: sequence
+
+classes:
   NamedThing:
     description: >-
       A generic grouping for any identifiable entity
@@ -34,32 +48,61 @@ classes:
 
   CloningStrategy:
     is_a: NamedThing
-    description: >-
-      Represents a CloningStrategy
-    slots:
-      - primary_email
-      - birth_date
-      - age_in_years
-      - vital_status
-    slot_usage:
-      primary_email:
-        pattern: "^\\S+@[\\S+\\.]+\\S+"
-
-  CloningStrategyCollection:
     tree_root: true
     description: >-
-      A holder for CloningStrategy objects
+      Represents a cloning strategy
     attributes:
-      entries:
-        range: CloningStrategy
-        multivalued: true
-        inlined: true
+      - sequences:
+          range: Sequence
+          multivalued: true
+      - sources:
+          range: Source
+          multivalued: true
+    slots:
+      - description
+
+  Source:
+    is_a: NamedThing
+    abstract: true
+    description: >-
+      Represents the source of a sequence
+    slots:
+      - id
+    attributes:
+      - has input:
+          range: Sequence
+          multivalued: true
+          inlined: true
+      - has output:
+          range: Sequence
+          inlined: true
+
+  RepositoryIdSource:
+    is_a: Source
+    description: >-
+      Represents the source of a sequence that is identified by a repository id
+    attributes:
+      - repository_id:
+          range: string
+          required: true
+
+  Sequence:
+    is_a: NamedThing
+    description: >-
+      Represents a sequence
+    slots:
+      - id
+    attributes:
+      - file_extension:
+          range: string
+      - file_content:
+          range: string
 
 slots:
   id:
     identifier: true
     slot_uri: schema:identifier
-    range: uriorcurie
+    range: integer
     description: A unique identifier for a thing
   name:
     slot_uri: schema:name
@@ -67,30 +110,10 @@ slots:
   description:
     slot_uri: schema:description
     description: A human-readable description for a thing
-  primary_email:
-    slot_uri: schema:email
-    description: The main email address of a person
-  birth_date:
-    slot_uri: schema:birthDate
-    range: date
-    description: Date on which a person is born
-  age_in_years:
-    range: integer
-    description: Number of years since birth
-  vital_status:
-    range: PersonStatus
-    description: living or dead status
+    range: string
 
 enums:
-  PersonStatus:
+  RepositoryName:
     permissible_values:
-      ALIVE:
-        description: the person is living
-        meaning: PATO:0001421
-      DEAD:
-        description: the person is deceased
-        meaning: PATO:0001422
-      UNKNOWN:
-        description: the vital status is not known
-        todos:
-          - map this to an ontology
+      - addgene
+      - genbank
