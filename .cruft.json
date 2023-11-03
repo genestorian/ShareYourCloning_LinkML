@@ -1,0 +1,27 @@
+{
+  "template": "https://github.com/linkml/linkml-project-cookiecutter",
+  "commit": "25f79639c171193366d7e02dc50363c9f7d0e1b7",
+  "checkout": null,
+  "context": {
+    "cookiecutter": {
+      "project_name": "ShareYourCloning_LinkML",
+      "__project_slug": "shareyourcloning_linkml",
+      "github_org": "genestorian",
+      "__source_path": "src/shareyourcloning_linkml/schema/shareyourcloning_linkml.yaml",
+      "project_description": "A LinkML data model for ShareYourCloning",
+      "full_name": "Manuel Lera-Ramirez",
+      "email": "manuel.lera-ramirez@ucl.ac.uk",
+      "__author": "Manuel Lera-Ramirez <manuel.lera-ramirez@ucl.ac.uk>",
+      "license": "MIT",
+      "main_schema_class": "CloningStrategy",
+      "create_python_classes": "Yes",
+      "use_schemasheets": "No",
+      "google_sheet_id": "1wVoaiFg47aT9YWNeRfTZ8tYHN8s8PAuDx5i2HUcDpvQ",
+      "google_sheet_tabs": "personinfo enums",
+      "__google_sheet_module": "personinfo_enums",
+      "github_token_for_pypi_deployment": "PYPI_PASSWORD",
+      "_template": "https://github.com/linkml/linkml-project-cookiecutter"
+    }
+  },
+  "directory": null
+}

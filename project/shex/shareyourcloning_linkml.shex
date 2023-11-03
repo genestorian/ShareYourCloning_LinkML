@@ -1,0 +1,74 @@
+BASE <https://w3id.org/genestorian/ShareYourCloning_LinkML/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX linkml: <https://w3id.org/linkml/>
+PREFIX schema: <http://schema.org/>
+
+
+linkml:String xsd:string
+
+linkml:Integer xsd:integer
+
+linkml:Boolean xsd:boolean
+
+linkml:Float xsd:float
+
+linkml:Double xsd:double
+
+linkml:Decimal xsd:decimal
+
+linkml:Time xsd:time
+
+linkml:Date xsd:date
+
+linkml:Datetime xsd:dateTime
+
+linkml:DateOrDatetime linkml:DateOrDatetime
+
+linkml:Uriorcurie IRI
+
+linkml:Curie xsd:string
+
+linkml:Uri IRI
+
+linkml:Ncname xsd:string
+
+linkml:Objectidentifier IRI
+
+linkml:Nodeidentifier NONLITERAL
+
+linkml:Jsonpointer xsd:string
+
+linkml:Jsonpath xsd:string
+
+linkml:Sparqlpath xsd:string
+
+<CloningStrategy> CLOSED {
+    (  $<CloningStrategy_tes> (  &<NamedThing_tes> ;
+          rdf:type [ schema:Thing ] ? ;
+          schema:email @linkml:String ? ;
+          schema:birthDate @linkml:Date ? ;
+          <age_in_years> @linkml:Integer ? ;
+          <vital_status> @<PersonStatus> ?
+       ) ;
+       rdf:type [ <CloningStrategy> ]
+    )
+}
+
+<CloningStrategyCollection> CLOSED {
+    (  $<CloningStrategyCollection_tes> <entries> @<CloningStrategy> * ;
+       rdf:type [ <CloningStrategyCollection> ] ?
+    )
+}
+
+<NamedThing>  (
+    CLOSED {
+       (  $<NamedThing_tes> (  schema:name @linkml:String ? ;
+             schema:description @linkml:String ?
+          ) ;
+          rdf:type [ schema:Thing ]
+       )
+    } OR @<CloningStrategy>
+)
+
+
