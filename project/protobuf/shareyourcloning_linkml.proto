@@ -4,6 +4,7 @@ message GenomeCoordinatesSource
   integer id = 0
  repeated  integer input = 0
   integer output = 0
+  sourceType type = 0
   string kind = 0
   string assemblyAccession = 0
   string sequenceAccession = 0
@@ -12,7 +13,6 @@ message GenomeCoordinatesSource
   integer start = 0
   integer stop = 0
   integer strand = 0
-  sourceType type = 0
  }
 // Represents the source of a sequence that is manually typed by the user
 message ManuallyTypedSource
@@ -20,9 +20,9 @@ message ManuallyTypedSource
   integer id = 0
  repeated  integer input = 0
   integer output = 0
+  sourceType type = 0
   string kind = 0
   string userInput = 0
-  sourceType type = 0
  }
 message NamedThing
  {
@@ -34,10 +34,10 @@ message RepositoryIdSource
   integer id = 0
  repeated  integer input = 0
   integer output = 0
+  sourceType type = 0
   string kind = 0
   repositoryName repositoryName = 0
   string repositoryId = 0
-  sourceType type = 0
  }
 // Represents the source of a sequence that is uploaded as a file
 message UploadedFileSource
@@ -45,8 +45,9 @@ message UploadedFileSource
   integer id = 0
  repeated  integer input = 0
   integer output = 0
+  sourceType type = 0
   string kind = 0
   string fileName = 0
   integer indexInFile = 0
-  sourceType type = 0
+  sequenceFileFormat fileFormat = 0
  }

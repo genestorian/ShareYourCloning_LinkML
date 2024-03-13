@@ -52,17 +52,7 @@ linkml:Sparqlpath xsd:string
           <gene_id> @linkml:Integer ? ;
           <start> @linkml:Integer ;
           <stop> @linkml:Integer ;
-          <strand> @linkml:Integer ;
-          <type> [ <https://w3id.org/genestorian/ShareYourCloning_LinkML/SourceType#repository_id>
-             <https://w3id.org/genestorian/ShareYourCloning_LinkML/SourceType#file>
-             <https://w3id.org/genestorian/ShareYourCloning_LinkML/SourceType#restriction>
-             <https://w3id.org/genestorian/ShareYourCloning_LinkML/SourceType#ligation>
-             <https://w3id.org/genestorian/ShareYourCloning_LinkML/SourceType#PCR>
-             <https://w3id.org/genestorian/ShareYourCloning_LinkML/SourceType#homologous_recombination>
-             <https://w3id.org/genestorian/ShareYourCloning_LinkML/SourceType#gibson_assembly>
-             <https://w3id.org/genestorian/ShareYourCloning_LinkML/SourceType#restriction_and_ligation>
-             <https://w3id.org/genestorian/ShareYourCloning_LinkML/SourceType#genome_coordinates>
-             <https://w3id.org/genestorian/ShareYourCloning_LinkML/SourceType#manually_typed> ]
+          <strand> @linkml:Integer
        ) ;
        rdf:type [ <GenomeCoordinatesSource> ]
     )
@@ -71,17 +61,7 @@ linkml:Sparqlpath xsd:string
 <ManuallyTypedSource> CLOSED {
     (  $<ManuallyTypedSource_tes> (  &<Source_tes> ;
           rdf:type [ <Source> ] ? ;
-          <user_input> @linkml:String ? ;
-          <type> [ <https://w3id.org/genestorian/ShareYourCloning_LinkML/SourceType#repository_id>
-             <https://w3id.org/genestorian/ShareYourCloning_LinkML/SourceType#file>
-             <https://w3id.org/genestorian/ShareYourCloning_LinkML/SourceType#restriction>
-             <https://w3id.org/genestorian/ShareYourCloning_LinkML/SourceType#ligation>
-             <https://w3id.org/genestorian/ShareYourCloning_LinkML/SourceType#PCR>
-             <https://w3id.org/genestorian/ShareYourCloning_LinkML/SourceType#homologous_recombination>
-             <https://w3id.org/genestorian/ShareYourCloning_LinkML/SourceType#gibson_assembly>
-             <https://w3id.org/genestorian/ShareYourCloning_LinkML/SourceType#restriction_and_ligation>
-             <https://w3id.org/genestorian/ShareYourCloning_LinkML/SourceType#genome_coordinates>
-             <https://w3id.org/genestorian/ShareYourCloning_LinkML/SourceType#manually_typed> ]
+          <user_input> @linkml:String ?
        ) ;
        rdf:type [ <ManuallyTypedSource> ]
     )
@@ -100,17 +80,7 @@ linkml:Sparqlpath xsd:string
           rdf:type [ <Source> ] ? ;
           <repository_name> [ <https://w3id.org/genestorian/ShareYourCloning_LinkML/RepositoryName#addgene>
              <https://w3id.org/genestorian/ShareYourCloning_LinkML/RepositoryName#genbank> ] ;
-          <repository_id> @linkml:String ;
-          <type> [ <https://w3id.org/genestorian/ShareYourCloning_LinkML/SourceType#repository_id>
-             <https://w3id.org/genestorian/ShareYourCloning_LinkML/SourceType#file>
-             <https://w3id.org/genestorian/ShareYourCloning_LinkML/SourceType#restriction>
-             <https://w3id.org/genestorian/ShareYourCloning_LinkML/SourceType#ligation>
-             <https://w3id.org/genestorian/ShareYourCloning_LinkML/SourceType#PCR>
-             <https://w3id.org/genestorian/ShareYourCloning_LinkML/SourceType#homologous_recombination>
-             <https://w3id.org/genestorian/ShareYourCloning_LinkML/SourceType#gibson_assembly>
-             <https://w3id.org/genestorian/ShareYourCloning_LinkML/SourceType#restriction_and_ligation>
-             <https://w3id.org/genestorian/ShareYourCloning_LinkML/SourceType#genome_coordinates>
-             <https://w3id.org/genestorian/ShareYourCloning_LinkML/SourceType#manually_typed> ]
+          <repository_id> @linkml:String
        ) ;
        rdf:type [ <RepositoryIdSource> ]
     )
@@ -123,8 +93,8 @@ linkml:Sparqlpath xsd:string
 <Source_struct> {
     (  $<Source_tes> (  &<NamedThing_tes> ;
           rdf:type [ schema:Thing ] ? ;
-          <input> @linkml:Integer + ;
-          <output> @linkml:Integer ;
+          <input> @linkml:Integer * ;
+          <output> @linkml:Integer ? ;
           <type> [ <https://w3id.org/genestorian/ShareYourCloning_LinkML/SourceType#repository_id>
              <https://w3id.org/genestorian/ShareYourCloning_LinkML/SourceType#file>
              <https://w3id.org/genestorian/ShareYourCloning_LinkML/SourceType#restriction>
@@ -146,16 +116,9 @@ linkml:Sparqlpath xsd:string
           rdf:type [ <Source> ] ? ;
           <file_name> @linkml:String ? ;
           <index_in_file> @linkml:Integer ? ;
-          <type> [ <https://w3id.org/genestorian/ShareYourCloning_LinkML/SourceType#repository_id>
-             <https://w3id.org/genestorian/ShareYourCloning_LinkML/SourceType#file>
-             <https://w3id.org/genestorian/ShareYourCloning_LinkML/SourceType#restriction>
-             <https://w3id.org/genestorian/ShareYourCloning_LinkML/SourceType#ligation>
-             <https://w3id.org/genestorian/ShareYourCloning_LinkML/SourceType#PCR>
-             <https://w3id.org/genestorian/ShareYourCloning_LinkML/SourceType#homologous_recombination>
-             <https://w3id.org/genestorian/ShareYourCloning_LinkML/SourceType#gibson_assembly>
-             <https://w3id.org/genestorian/ShareYourCloning_LinkML/SourceType#restriction_and_ligation>
-             <https://w3id.org/genestorian/ShareYourCloning_LinkML/SourceType#genome_coordinates>
-             <https://w3id.org/genestorian/ShareYourCloning_LinkML/SourceType#manually_typed> ]
+          <file_format> [ <https://w3id.org/genestorian/ShareYourCloning_LinkML/SequenceFileFormat#fasta>
+             <https://w3id.org/genestorian/ShareYourCloning_LinkML/SequenceFileFormat#genbank>
+             <https://w3id.org/genestorian/ShareYourCloning_LinkML/SequenceFileFormat#snapgene> ] ?
        ) ;
        rdf:type [ <UploadedFileSource> ]
     )

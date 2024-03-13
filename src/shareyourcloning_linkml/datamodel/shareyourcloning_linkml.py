@@ -1,5 +1,5 @@
 # Auto generated from shareyourcloning_linkml.yaml by pythongen.py version: 0.0.1
-# Generation date: 2024-03-13T18:09:20
+# Generation date: 2024-03-13T19:06:19
 # Schema: ShareYourCloning_LinkML
 #
 # id: https://w3id.org/genestorian/ShareYourCloning_LinkML
@@ -100,23 +100,12 @@ class Source(NamedThing):
     class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.Source
 
     id: Union[int, SourceId] = None
-    input: Union[int, List[int]] = None
-    output: int = None
     type: Union[str, "SourceType"] = None
     kind: str = None
+    input: Optional[Union[int, List[int]]] = empty_list()
+    output: Optional[int] = None
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
-        if self._is_empty(self.input):
-            self.MissingRequiredField("input")
-        if not isinstance(self.input, list):
-            self.input = [self.input] if self.input is not None else []
-        self.input = [v if isinstance(v, int) else int(v) for v in self.input]
-
-        if self._is_empty(self.output):
-            self.MissingRequiredField("output")
-        if not isinstance(self.output, int):
-            self.output = int(self.output)
-
         if self._is_empty(self.type):
             self.MissingRequiredField("type")
         if not isinstance(self.type, SourceType):
@@ -126,6 +115,13 @@ class Source(NamedThing):
             self.MissingRequiredField("kind")
         if not isinstance(self.kind, str):
             self.kind = str(self.kind)
+
+        if not isinstance(self.input, list):
+            self.input = [self.input] if self.input is not None else []
+        self.input = [v if isinstance(v, int) else int(v) for v in self.input]
+
+        if self.output is not None and not isinstance(self.output, int):
+            self.output = int(self.output)
 
         super().__post_init__(**kwargs)
 
@@ -143,10 +139,8 @@ class ManuallyTypedSource(Source):
     class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.ManuallyTypedSource
 
     id: Union[int, ManuallyTypedSourceId] = None
-    input: Union[int, List[int]] = None
-    output: int = None
-    kind: str = None
     type: Union[str, "SourceType"] = None
+    kind: str = None
     user_input: Optional[str] = None
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
@@ -154,11 +148,6 @@ class ManuallyTypedSource(Source):
             self.MissingRequiredField("id")
         if not isinstance(self.id, ManuallyTypedSourceId):
             self.id = ManuallyTypedSourceId(self.id)
-
-        if self._is_empty(self.type):
-            self.MissingRequiredField("type")
-        if not isinstance(self.type, SourceType):
-            self.type = SourceType(self.type)
 
         if self.user_input is not None and not isinstance(self.user_input, str):
             self.user_input = str(self.user_input)
@@ -179,12 +168,11 @@ class UploadedFileSource(Source):
     class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.UploadedFileSource
 
     id: Union[int, UploadedFileSourceId] = None
-    input: Union[int, List[int]] = None
-    output: int = None
-    kind: str = None
     type: Union[str, "SourceType"] = None
+    kind: str = None
     file_name: Optional[str] = None
     index_in_file: Optional[int] = None
+    file_format: Optional[Union[str, "SequenceFileFormat"]] = None
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
         if self._is_empty(self.id):
@@ -192,16 +180,14 @@ class UploadedFileSource(Source):
         if not isinstance(self.id, UploadedFileSourceId):
             self.id = UploadedFileSourceId(self.id)
 
-        if self._is_empty(self.type):
-            self.MissingRequiredField("type")
-        if not isinstance(self.type, SourceType):
-            self.type = SourceType(self.type)
-
         if self.file_name is not None and not isinstance(self.file_name, str):
             self.file_name = str(self.file_name)
 
         if self.index_in_file is not None and not isinstance(self.index_in_file, int):
             self.index_in_file = int(self.index_in_file)
+
+        if self.file_format is not None and not isinstance(self.file_format, SequenceFileFormat):
+            self.file_format = SequenceFileFormat(self.file_format)
 
         super().__post_init__(**kwargs)
 
@@ -219,12 +205,10 @@ class RepositoryIdSource(Source):
     class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.RepositoryIdSource
 
     id: Union[int, RepositoryIdSourceId] = None
-    input: Union[int, List[int]] = None
-    output: int = None
+    type: Union[str, "SourceType"] = None
     kind: str = None
     repository_name: Union[str, "RepositoryName"] = None
     repository_id: str = None
-    type: Union[str, "SourceType"] = None
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
         if self._is_empty(self.id):
@@ -242,11 +226,6 @@ class RepositoryIdSource(Source):
         if not isinstance(self.repository_id, str):
             self.repository_id = str(self.repository_id)
 
-        if self._is_empty(self.type):
-            self.MissingRequiredField("type")
-        if not isinstance(self.type, SourceType):
-            self.type = SourceType(self.type)
-
         super().__post_init__(**kwargs)
 
 
@@ -263,14 +242,12 @@ class GenomeCoordinatesSource(Source):
     class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.GenomeCoordinatesSource
 
     id: Union[int, GenomeCoordinatesSourceId] = None
-    input: Union[int, List[int]] = None
-    output: int = None
+    type: Union[str, "SourceType"] = None
     kind: str = None
     sequence_accession: str = None
     start: int = None
     stop: int = None
     strand: int = None
-    type: Union[str, "SourceType"] = None
     assembly_accession: Optional[str] = None
     locus_tag: Optional[str] = None
     gene_id: Optional[int] = None
@@ -300,11 +277,6 @@ class GenomeCoordinatesSource(Source):
             self.MissingRequiredField("strand")
         if not isinstance(self.strand, int):
             self.strand = int(self.strand)
-
-        if self._is_empty(self.type):
-            self.MissingRequiredField("type")
-        if not isinstance(self.type, SourceType):
-            self.type = SourceType(self.type)
 
         if self.assembly_accession is not None and not isinstance(self.assembly_accession, str):
             self.assembly_accession = str(self.assembly_accession)
@@ -349,6 +321,16 @@ class SourceType(EnumDefinitionImpl):
         name="SourceType",
     )
 
+class SequenceFileFormat(EnumDefinitionImpl):
+
+    fasta = PermissibleValue(text="fasta")
+    genbank = PermissibleValue(text="genbank")
+    snapgene = PermissibleValue(text="snapgene")
+
+    _defn = EnumDefinition(
+        name="SequenceFileFormat",
+    )
+
 # Slots
 class slots:
     pass
@@ -360,10 +342,10 @@ slots.restriction_enzyme = Slot(uri=SHAREYOURCLONING_LINKML.restriction_enzyme, 
                    model_uri=SHAREYOURCLONING_LINKML.restriction_enzyme, domain=None, range=Optional[str])
 
 slots.input = Slot(uri=SHAREYOURCLONING_LINKML.input, name="input", curie=SHAREYOURCLONING_LINKML.curie('input'),
-                   model_uri=SHAREYOURCLONING_LINKML.input, domain=None, range=Union[int, List[int]])
+                   model_uri=SHAREYOURCLONING_LINKML.input, domain=None, range=Optional[Union[int, List[int]]])
 
 slots.output = Slot(uri=SHAREYOURCLONING_LINKML.output, name="output", curie=SHAREYOURCLONING_LINKML.curie('output'),
-                   model_uri=SHAREYOURCLONING_LINKML.output, domain=None, range=int)
+                   model_uri=SHAREYOURCLONING_LINKML.output, domain=None, range=Optional[int])
 
 slots.type = Slot(uri=SHAREYOURCLONING_LINKML.type, name="type", curie=SHAREYOURCLONING_LINKML.curie('type'),
                    model_uri=SHAREYOURCLONING_LINKML.type, domain=None, range=Union[str, "SourceType"])
@@ -380,6 +362,9 @@ slots.uploadedFileSource__file_name = Slot(uri=SHAREYOURCLONING_LINKML.file_name
 
 slots.uploadedFileSource__index_in_file = Slot(uri=SHAREYOURCLONING_LINKML.index_in_file, name="uploadedFileSource__index_in_file", curie=SHAREYOURCLONING_LINKML.curie('index_in_file'),
                    model_uri=SHAREYOURCLONING_LINKML.uploadedFileSource__index_in_file, domain=None, range=Optional[int])
+
+slots.uploadedFileSource__file_format = Slot(uri=SHAREYOURCLONING_LINKML.file_format, name="uploadedFileSource__file_format", curie=SHAREYOURCLONING_LINKML.curie('file_format'),
+                   model_uri=SHAREYOURCLONING_LINKML.uploadedFileSource__file_format, domain=None, range=Optional[Union[str, "SequenceFileFormat"]])
 
 slots.repositoryIdSource__repository_name = Slot(uri=SHAREYOURCLONING_LINKML.repository_name, name="repositoryIdSource__repository_name", curie=SHAREYOURCLONING_LINKML.curie('repository_name'),
                    model_uri=SHAREYOURCLONING_LINKML.repositoryIdSource__repository_name, domain=None, range=Union[str, "RepositoryName"])
@@ -407,15 +392,3 @@ slots.genomeCoordinatesSource__stop = Slot(uri=SHAREYOURCLONING_LINKML.stop, nam
 
 slots.genomeCoordinatesSource__strand = Slot(uri=SHAREYOURCLONING_LINKML.strand, name="genomeCoordinatesSource__strand", curie=SHAREYOURCLONING_LINKML.curie('strand'),
                    model_uri=SHAREYOURCLONING_LINKML.genomeCoordinatesSource__strand, domain=None, range=int)
-
-slots.ManuallyTypedSource_type = Slot(uri=SHAREYOURCLONING_LINKML.type, name="ManuallyTypedSource_type", curie=SHAREYOURCLONING_LINKML.curie('type'),
-                   model_uri=SHAREYOURCLONING_LINKML.ManuallyTypedSource_type, domain=ManuallyTypedSource, range=Union[str, "SourceType"])
-
-slots.UploadedFileSource_type = Slot(uri=SHAREYOURCLONING_LINKML.type, name="UploadedFileSource_type", curie=SHAREYOURCLONING_LINKML.curie('type'),
-                   model_uri=SHAREYOURCLONING_LINKML.UploadedFileSource_type, domain=UploadedFileSource, range=Union[str, "SourceType"])
-
-slots.RepositoryIdSource_type = Slot(uri=SHAREYOURCLONING_LINKML.type, name="RepositoryIdSource_type", curie=SHAREYOURCLONING_LINKML.curie('type'),
-                   model_uri=SHAREYOURCLONING_LINKML.RepositoryIdSource_type, domain=RepositoryIdSource, range=Union[str, "SourceType"])
-
-slots.GenomeCoordinatesSource_type = Slot(uri=SHAREYOURCLONING_LINKML.type, name="GenomeCoordinatesSource_type", curie=SHAREYOURCLONING_LINKML.curie('type'),
-                   model_uri=SHAREYOURCLONING_LINKML.GenomeCoordinatesSource_type, domain=GenomeCoordinatesSource, range=Union[str, "SourceType"])

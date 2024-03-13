@@ -1,8 +1,9 @@
 type GenomeCoordinatesSource
   {
     id: Integer!
-    input: [Integer]!
-    output: Integer!
+    input: [Integer]
+    output: Integer
+    type: SourceType!
     kind: String!
     assemblyAccession: String
     sequenceAccession: String!
@@ -11,17 +12,16 @@ type GenomeCoordinatesSource
     start: Integer!
     stop: Integer!
     strand: Integer!
-    type: SourceType!
   }
 
 type ManuallyTypedSource
   {
     id: Integer!
-    input: [Integer]!
-    output: Integer!
+    input: [Integer]
+    output: Integer
+    type: SourceType!
     kind: String!
     userInput: String
-    type: SourceType!
   }
 
 type NamedThing
@@ -32,19 +32,19 @@ type NamedThing
 type RepositoryIdSource
   {
     id: Integer!
-    input: [Integer]!
-    output: Integer!
+    input: [Integer]
+    output: Integer
+    type: SourceType!
     kind: String!
     repositoryName: RepositoryName!
     repositoryId: String!
-    type: SourceType!
   }
 
 interface Source
   {
     id: Integer!
-    input: [Integer]!
-    output: Integer!
+    input: [Integer]
+    output: Integer
     type: SourceType!
     kind: String!
   }
@@ -52,11 +52,12 @@ interface Source
 type UploadedFileSource
   {
     id: Integer!
-    input: [Integer]!
-    output: Integer!
+    input: [Integer]
+    output: Integer
+    type: SourceType!
     kind: String!
     fileName: String
     indexInFile: Integer
-    type: SourceType!
+    fileFormat: SequenceFileFormat
   }
 

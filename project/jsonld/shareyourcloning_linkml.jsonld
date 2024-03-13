@@ -404,6 +404,22 @@
           "text": "manually_typed"
         }
       ]
+    },
+    {
+      "name": "SequenceFileFormat",
+      "definition_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/SequenceFileFormat",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "permissible_values": [
+        {
+          "text": "fasta"
+        },
+        {
+          "text": "genbank"
+        },
+        {
+          "text": "snapgene"
+        }
+      ]
     }
   ],
   "slots": [
@@ -448,7 +464,6 @@
         "Source"
       ],
       "range": "integer",
-      "required": true,
       "@type": "SlotDefinition"
     },
     {
@@ -462,7 +477,6 @@
         "Source"
       ],
       "range": "integer",
-      "required": true,
       "@type": "SlotDefinition"
     },
     {
@@ -530,6 +544,19 @@
         "UploadedFileSource"
       ],
       "range": "integer",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "uploadedFileSource__file_format",
+      "description": "The format of the file",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/file_format",
+      "alias": "file_format",
+      "owner": "UploadedFileSource",
+      "domain_of": [
+        "UploadedFileSource"
+      ],
+      "range": "SequenceFileFormat",
       "@type": "SlotDefinition"
     },
     {
@@ -653,82 +680,6 @@
       "range": "integer",
       "required": true,
       "@type": "SlotDefinition"
-    },
-    {
-      "name": "ManuallyTypedSource_type",
-      "definition_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/type",
-      "description": "The type of the source",
-      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
-      "is_a": "type",
-      "domain": "ManuallyTypedSource",
-      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/type",
-      "alias": "type",
-      "owner": "ManuallyTypedSource",
-      "domain_of": [
-        "ManuallyTypedSource"
-      ],
-      "is_usage_slot": true,
-      "usage_slot_name": "type",
-      "range": "SourceType",
-      "required": true,
-      "@type": "SlotDefinition"
-    },
-    {
-      "name": "UploadedFileSource_type",
-      "definition_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/type",
-      "description": "The type of the source",
-      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
-      "is_a": "type",
-      "domain": "UploadedFileSource",
-      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/type",
-      "alias": "type",
-      "owner": "UploadedFileSource",
-      "domain_of": [
-        "UploadedFileSource"
-      ],
-      "is_usage_slot": true,
-      "usage_slot_name": "type",
-      "range": "SourceType",
-      "required": true,
-      "@type": "SlotDefinition"
-    },
-    {
-      "name": "RepositoryIdSource_type",
-      "definition_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/type",
-      "description": "The type of the source",
-      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
-      "is_a": "type",
-      "domain": "RepositoryIdSource",
-      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/type",
-      "alias": "type",
-      "owner": "RepositoryIdSource",
-      "domain_of": [
-        "RepositoryIdSource"
-      ],
-      "is_usage_slot": true,
-      "usage_slot_name": "type",
-      "range": "SourceType",
-      "required": true,
-      "@type": "SlotDefinition"
-    },
-    {
-      "name": "GenomeCoordinatesSource_type",
-      "definition_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/type",
-      "description": "The type of the source",
-      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
-      "is_a": "type",
-      "domain": "GenomeCoordinatesSource",
-      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/type",
-      "alias": "type",
-      "owner": "GenomeCoordinatesSource",
-      "domain_of": [
-        "GenomeCoordinatesSource"
-      ],
-      "is_usage_slot": true,
-      "usage_slot_name": "type",
-      "range": "SourceType",
-      "required": true,
-      "@type": "SlotDefinition"
     }
   ],
   "classes": [
@@ -783,9 +734,9 @@
         "id",
         "input",
         "output",
+        "type",
         "source__kind",
-        "manuallyTypedSource__user_input",
-        "ManuallyTypedSource_type"
+        "manuallyTypedSource__user_input"
       ],
       "slot_usage": {},
       "attributes": [
@@ -797,6 +748,26 @@
         }
       ],
       "class_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/ManuallyTypedSource",
+      "rules": [
+        {
+          "postconditions": {
+            "slot_conditions": [
+              {
+                "name": "type",
+                "any_of": [
+                  {
+                    "equals_string": "manually_typed",
+                    "@type": "AnonymousSlotExpression"
+                  }
+                ],
+                "@type": "SlotDefinition"
+              }
+            ],
+            "@type": "AnonymousClassExpression"
+          },
+          "@type": "ClassRule"
+        }
+      ],
       "@type": "ClassDefinition"
     },
     {
@@ -809,10 +780,11 @@
         "id",
         "input",
         "output",
+        "type",
         "source__kind",
         "uploadedFileSource__file_name",
         "uploadedFileSource__index_in_file",
-        "UploadedFileSource_type"
+        "uploadedFileSource__file_format"
       ],
       "slot_usage": {},
       "attributes": [
@@ -827,9 +799,35 @@
           "description": "The index of the sequence in the file",
           "range": "integer",
           "@type": "SlotDefinition"
+        },
+        {
+          "name": "file_format",
+          "description": "The format of the file",
+          "range": "SequenceFileFormat",
+          "@type": "SlotDefinition"
         }
       ],
       "class_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/UploadedFileSource",
+      "rules": [
+        {
+          "postconditions": {
+            "slot_conditions": [
+              {
+                "name": "type",
+                "any_of": [
+                  {
+                    "equals_string": "file",
+                    "@type": "AnonymousSlotExpression"
+                  }
+                ],
+                "@type": "SlotDefinition"
+              }
+            ],
+            "@type": "AnonymousClassExpression"
+          },
+          "@type": "ClassRule"
+        }
+      ],
       "@type": "ClassDefinition"
     },
     {
@@ -842,10 +840,10 @@
         "id",
         "input",
         "output",
+        "type",
         "source__kind",
         "repositoryIdSource__repository_name",
-        "repositoryIdSource__repository_id",
-        "RepositoryIdSource_type"
+        "repositoryIdSource__repository_id"
       ],
       "slot_usage": {},
       "attributes": [
@@ -864,6 +862,38 @@
         }
       ],
       "class_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/RepositoryIdSource",
+      "rules": [
+        {
+          "postconditions": {
+            "slot_conditions": [
+              {
+                "name": "type",
+                "any_of": [
+                  {
+                    "equals_string": "repository_id",
+                    "@type": "AnonymousSlotExpression"
+                  }
+                ],
+                "@type": "SlotDefinition"
+              }
+            ],
+            "@type": "AnonymousClassExpression"
+          },
+          "@type": "ClassRule"
+        }
+      ],
+      "slot_conditions": [
+        {
+          "name": "type",
+          "any_of": [
+            {
+              "equals_string": "repository_id",
+              "@type": "AnonymousSlotExpression"
+            }
+          ],
+          "@type": "SlotDefinition"
+        }
+      ],
       "@type": "ClassDefinition"
     },
     {
@@ -876,6 +906,7 @@
         "id",
         "input",
         "output",
+        "type",
         "source__kind",
         "genomeCoordinatesSource__assembly_accession",
         "genomeCoordinatesSource__sequence_accession",
@@ -883,8 +914,7 @@
         "genomeCoordinatesSource__gene_id",
         "genomeCoordinatesSource__start",
         "genomeCoordinatesSource__stop",
-        "genomeCoordinatesSource__strand",
-        "GenomeCoordinatesSource_type"
+        "genomeCoordinatesSource__strand"
       ],
       "slot_usage": {},
       "attributes": [
@@ -936,14 +966,34 @@
         }
       ],
       "class_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/GenomeCoordinatesSource",
+      "rules": [
+        {
+          "postconditions": {
+            "slot_conditions": [
+              {
+                "name": "type",
+                "any_of": [
+                  {
+                    "equals_string": "repository_id",
+                    "@type": "AnonymousSlotExpression"
+                  }
+                ],
+                "@type": "SlotDefinition"
+              }
+            ],
+            "@type": "AnonymousClassExpression"
+          },
+          "@type": "ClassRule"
+        }
+      ],
       "@type": "ClassDefinition"
     }
   ],
   "metamodel_version": "1.7.0",
   "source_file": "shareyourcloning_linkml.yaml",
-  "source_file_date": "2024-03-13T18:09:04",
-  "source_file_size": 4807,
-  "generation_date": "2024-03-13T18:09:17",
+  "source_file_date": "2024-03-13T19:06:11",
+  "source_file_size": 5340,
+  "generation_date": "2024-03-13T19:06:16",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/shareyourcloning_linkml.context.jsonld",

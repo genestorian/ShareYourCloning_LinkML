@@ -14,6 +14,7 @@
 -- # Class: "UploadedFileSource" Description: "Represents the source of a sequence that is uploaded as a file"
 --     * Slot: file_name Description: The name of the file
 --     * Slot: index_in_file Description: The index of the sequence in the file
+--     * Slot: file_format Description: The format of the file
 --     * Slot: output Description: Identifier of the sequence that is the output of this source.
 --     * Slot: type Description: The type of the source
 --     * Slot: kind Description: The kind entity (always equal to "source"). Should probably be removed.
@@ -58,7 +59,7 @@ CREATE TABLE "NamedThing" (
 	PRIMARY KEY (id)
 );
 CREATE TABLE "Source" (
-	output INTEGER NOT NULL, 
+	output INTEGER, 
 	type VARCHAR(24) NOT NULL, 
 	kind TEXT NOT NULL, 
 	id INTEGER NOT NULL, 
@@ -66,7 +67,7 @@ CREATE TABLE "Source" (
 );
 CREATE TABLE "ManuallyTypedSource" (
 	user_input TEXT, 
-	output INTEGER NOT NULL, 
+	output INTEGER, 
 	type VARCHAR(24) NOT NULL, 
 	kind TEXT NOT NULL, 
 	id INTEGER NOT NULL, 
@@ -75,7 +76,8 @@ CREATE TABLE "ManuallyTypedSource" (
 CREATE TABLE "UploadedFileSource" (
 	file_name TEXT, 
 	index_in_file INTEGER, 
-	output INTEGER NOT NULL, 
+	file_format VARCHAR(8), 
+	output INTEGER, 
 	type VARCHAR(24) NOT NULL, 
 	kind TEXT NOT NULL, 
 	id INTEGER NOT NULL, 
@@ -84,7 +86,7 @@ CREATE TABLE "UploadedFileSource" (
 CREATE TABLE "RepositoryIdSource" (
 	repository_name VARCHAR(7) NOT NULL, 
 	repository_id TEXT NOT NULL, 
-	output INTEGER NOT NULL, 
+	output INTEGER, 
 	type VARCHAR(24) NOT NULL, 
 	kind TEXT NOT NULL, 
 	id INTEGER NOT NULL, 
@@ -98,7 +100,7 @@ CREATE TABLE "GenomeCoordinatesSource" (
 	start INTEGER NOT NULL, 
 	stop INTEGER NOT NULL, 
 	strand INTEGER NOT NULL, 
-	output INTEGER NOT NULL, 
+	output INTEGER, 
 	type VARCHAR(24) NOT NULL, 
 	kind TEXT NOT NULL, 
 	id INTEGER NOT NULL, 
@@ -106,31 +108,31 @@ CREATE TABLE "GenomeCoordinatesSource" (
 );
 CREATE TABLE "Source_input" (
 	"Source_id" INTEGER, 
-	input INTEGER NOT NULL, 
+	input INTEGER, 
 	PRIMARY KEY ("Source_id", input), 
 	FOREIGN KEY("Source_id") REFERENCES "Source" (id)
 );
 CREATE TABLE "ManuallyTypedSource_input" (
 	"ManuallyTypedSource_id" INTEGER, 
-	input INTEGER NOT NULL, 
+	input INTEGER, 
 	PRIMARY KEY ("ManuallyTypedSource_id", input), 
 	FOREIGN KEY("ManuallyTypedSource_id") REFERENCES "ManuallyTypedSource" (id)
 );
 CREATE TABLE "UploadedFileSource_input" (
 	"UploadedFileSource_id" INTEGER, 
-	input INTEGER NOT NULL, 
+	input INTEGER, 
 	PRIMARY KEY ("UploadedFileSource_id", input), 
 	FOREIGN KEY("UploadedFileSource_id") REFERENCES "UploadedFileSource" (id)
 );
 CREATE TABLE "RepositoryIdSource_input" (
 	"RepositoryIdSource_id" INTEGER, 
-	input INTEGER NOT NULL, 
+	input INTEGER, 
 	PRIMARY KEY ("RepositoryIdSource_id", input), 
 	FOREIGN KEY("RepositoryIdSource_id") REFERENCES "RepositoryIdSource" (id)
 );
 CREATE TABLE "GenomeCoordinatesSource_input" (
 	"GenomeCoordinatesSource_id" INTEGER, 
-	input INTEGER NOT NULL, 
+	input INTEGER, 
 	PRIMARY KEY ("GenomeCoordinatesSource_id", input), 
 	FOREIGN KEY("GenomeCoordinatesSource_id") REFERENCES "GenomeCoordinatesSource" (id)
 );

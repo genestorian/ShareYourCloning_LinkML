@@ -61,12 +61,24 @@
                 "start",
                 "stop",
                 "strand",
-                "input",
-                "output",
                 "type",
                 "kind",
                 "id"
             ],
+            "then": {
+                "properties": {
+                    "type": {
+                        "anyOf": [
+                            {
+                                "const": "repository_id"
+                            }
+                        ]
+                    }
+                },
+                "required": [
+                    "type"
+                ]
+            },
             "title": "GenomeCoordinatesSource",
             "type": "object"
         },
@@ -103,12 +115,24 @@
                 }
             },
             "required": [
-                "input",
-                "output",
                 "type",
                 "kind",
                 "id"
             ],
+            "then": {
+                "properties": {
+                    "type": {
+                        "anyOf": [
+                            {
+                                "const": "manually_typed"
+                            }
+                        ]
+                    }
+                },
+                "required": [
+                    "type"
+                ]
+            },
             "title": "ManuallyTypedSource",
             "type": "object"
         },
@@ -165,12 +189,24 @@
             "required": [
                 "repository_name",
                 "repository_id",
-                "input",
-                "output",
                 "type",
                 "kind",
                 "id"
             ],
+            "then": {
+                "properties": {
+                    "type": {
+                        "anyOf": [
+                            {
+                                "const": "repository_id"
+                            }
+                        ]
+                    }
+                },
+                "required": [
+                    "type"
+                ]
+            },
             "title": "RepositoryIdSource",
             "type": "object"
         },
@@ -181,6 +217,16 @@
                 "genbank"
             ],
             "title": "RepositoryName",
+            "type": "string"
+        },
+        "SequenceFileFormat": {
+            "description": "",
+            "enum": [
+                "fasta",
+                "genbank",
+                "snapgene"
+            ],
+            "title": "SequenceFileFormat",
             "type": "string"
         },
         "SourceType": {
@@ -204,6 +250,10 @@
             "additionalProperties": false,
             "description": "Represents the source of a sequence that is uploaded as a file",
             "properties": {
+                "file_format": {
+                    "$ref": "#/$defs/SequenceFileFormat",
+                    "description": "The format of the file"
+                },
                 "file_name": {
                     "description": "The name of the file",
                     "type": "string"
@@ -237,12 +287,24 @@
                 }
             },
             "required": [
-                "input",
-                "output",
                 "type",
                 "kind",
                 "id"
             ],
+            "then": {
+                "properties": {
+                    "type": {
+                        "anyOf": [
+                            {
+                                "const": "file"
+                            }
+                        ]
+                    }
+                },
+                "required": [
+                    "type"
+                ]
+            },
             "title": "UploadedFileSource",
             "type": "object"
         }

@@ -43,10 +43,6 @@ classes:
         description: >-
           The kind entity (always equal to "source"). Should probably be removed.
         range: string
-      # info:
-      #   description: >-
-      #     Additional information about the source
-      #   range: dict
 
   ManuallyTypedSource:
     is_a: Source
@@ -56,9 +52,12 @@ classes:
       - user_input:
           range: string
           pattern: ^[acgtACGT]+$
-    slot_usage:
-      type:
-        # ifabsent: manually_typed
+    rules:
+      - postconditions:
+          slot_conditions:
+            type:
+              any_of:
+                - equals_string: "manually_typed"
 
   UploadedFileSource:
     is_a: Source
@@ -77,9 +76,12 @@ classes:
           range: SequenceFileFormat
           description: >-
             The format of the file
-    slot_usage:
-      type:
-        # ifabsent: file
+    rules:
+      - postconditions:
+          slot_conditions:
+            type:
+              any_of:
+                - equals_string: file
 
   RepositoryIdSource:
     is_a: Source
@@ -94,9 +96,20 @@ classes:
           description: >-
             The id of the sequence in the repository
           required: true
+    # TODO: Check which one works
+    slot_conditions:
+      type:
+        any_of:
+          - equals_string: repository_id
     slot_usage:
       type:
-        # ifabsent: repository_id
+        ifabsent: SourceType.repository_id
+    rules:
+      - postconditions:
+          slot_conditions:
+            type:
+              any_of:
+                - equals_string: repository_id
 
   GenomeCoordinatesSource:
     is_a: Source
@@ -138,9 +151,12 @@ classes:
           description: >-
             The strand of the sequence in the sequence accession, should be 1 or -1
           required: true
-    slot_usage:
-      type:
-        # ifabsent: genome_coordinates
+    rules:
+      - postconditions:
+          slot_conditions:
+            type:
+              any_of:
+                - equals_string: "repository_id"
 
 slots:
   id:
@@ -153,14 +169,14 @@ slots:
       - OBI:0000732
     range: string
   input:
-    required: true
+    required: false
     description: >-
       Identifiers of the sequences that are an input to this source.
       If the source represents external import of a sequence, it's empty.
     range: integer
     multivalued: true
   output:
-    required: true
+    required: false
     description: >-
       Identifier of the sequence that is the output of this source.
     range: integer

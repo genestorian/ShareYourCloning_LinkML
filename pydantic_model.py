@@ -65,6 +65,17 @@ class SourceType(str, Enum):
     
     
 
+class SequenceFileFormat(str, Enum):
+    
+    
+    fasta = "fasta"
+    
+    genbank = "genbank"
+    
+    snapgene = "snapgene"
+    
+    
+
 class NamedThing(ConfiguredBaseModel):
     
     id: int = Field(..., description="""A unique identifier for a thing""")
@@ -75,8 +86,8 @@ class Source(NamedThing):
     """
     Represents the source of a sequence
     """
-    input: List[int] = Field(default_factory=list, description="""Identifiers of the sequences that are an input to this source. If the source represents external import of a sequence, it's empty.""")
-    output: int = Field(..., description="""Identifier of the sequence that is the output of this source.""")
+    input: Optional[List[int]] = Field(default_factory=list, description="""Identifiers of the sequences that are an input to this source. If the source represents external import of a sequence, it's empty.""")
+    output: Optional[int] = Field(None, description="""Identifier of the sequence that is the output of this source.""")
     type: SourceType = Field(..., description="""The type of the source""")
     kind: str = Field(..., description="""The kind entity (always equal to \"source\"). Should probably be removed.""")
     id: int = Field(..., description="""A unique identifier for a thing""")
@@ -88,8 +99,8 @@ class ManuallyTypedSource(Source):
     Represents the source of a sequence that is manually typed by the user
     """
     user_input: Optional[str] = Field(None)
-    input: List[int] = Field(default_factory=list, description="""Identifiers of the sequences that are an input to this source. If the source represents external import of a sequence, it's empty.""")
-    output: int = Field(..., description="""Identifier of the sequence that is the output of this source.""")
+    input: Optional[List[int]] = Field(default_factory=list, description="""Identifiers of the sequences that are an input to this source. If the source represents external import of a sequence, it's empty.""")
+    output: Optional[int] = Field(None, description="""Identifier of the sequence that is the output of this source.""")
     type: SourceType = Field(..., description="""The type of the source""")
     kind: str = Field(..., description="""The kind entity (always equal to \"source\"). Should probably be removed.""")
     id: int = Field(..., description="""A unique identifier for a thing""")
@@ -114,8 +125,9 @@ class UploadedFileSource(Source):
     """
     file_name: Optional[str] = Field(None, description="""The name of the file""")
     index_in_file: Optional[int] = Field(None, description="""The index of the sequence in the file""")
-    input: List[int] = Field(default_factory=list, description="""Identifiers of the sequences that are an input to this source. If the source represents external import of a sequence, it's empty.""")
-    output: int = Field(..., description="""Identifier of the sequence that is the output of this source.""")
+    file_format: Optional[SequenceFileFormat] = Field(None, description="""The format of the file""")
+    input: Optional[List[int]] = Field(default_factory=list, description="""Identifiers of the sequences that are an input to this source. If the source represents external import of a sequence, it's empty.""")
+    output: Optional[int] = Field(None, description="""Identifier of the sequence that is the output of this source.""")
     type: SourceType = Field(..., description="""The type of the source""")
     kind: str = Field(..., description="""The kind entity (always equal to \"source\"). Should probably be removed.""")
     id: int = Field(..., description="""A unique identifier for a thing""")
@@ -128,8 +140,8 @@ class RepositoryIdSource(Source):
     """
     repository_name: RepositoryName = Field(...)
     repository_id: str = Field(..., description="""The id of the sequence in the repository""")
-    input: List[int] = Field(default_factory=list, description="""Identifiers of the sequences that are an input to this source. If the source represents external import of a sequence, it's empty.""")
-    output: int = Field(..., description="""Identifier of the sequence that is the output of this source.""")
+    input: Optional[List[int]] = Field(default_factory=list, description="""Identifiers of the sequences that are an input to this source. If the source represents external import of a sequence, it's empty.""")
+    output: Optional[int] = Field(None, description="""Identifier of the sequence that is the output of this source.""")
     type: SourceType = Field(..., description="""The type of the source""")
     kind: str = Field(..., description="""The kind entity (always equal to \"source\"). Should probably be removed.""")
     id: int = Field(..., description="""A unique identifier for a thing""")
@@ -147,8 +159,8 @@ class GenomeCoordinatesSource(Source):
     start: int = Field(..., description="""The starting coordinate (1-based) of the sequence in the sequence accession""")
     stop: int = Field(..., description="""The ending coordinate (1-based) of the sequence in the sequence accession""")
     strand: int = Field(..., description="""The strand of the sequence in the sequence accession, should be 1 or -1""")
-    input: List[int] = Field(default_factory=list, description="""Identifiers of the sequences that are an input to this source. If the source represents external import of a sequence, it's empty.""")
-    output: int = Field(..., description="""Identifier of the sequence that is the output of this source.""")
+    input: Optional[List[int]] = Field(default_factory=list, description="""Identifiers of the sequences that are an input to this source. If the source represents external import of a sequence, it's empty.""")
+    output: Optional[int] = Field(None, description="""Identifier of the sequence that is the output of this source.""")
     type: SourceType = Field(..., description="""The type of the source""")
     kind: str = Field(..., description="""The kind entity (always equal to \"source\"). Should probably be removed.""")
     id: int = Field(..., description="""A unique identifier for a thing""")
