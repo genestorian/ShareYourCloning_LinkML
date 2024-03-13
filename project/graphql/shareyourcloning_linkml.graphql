@@ -1,23 +1,67 @@
-type CloningStrategy
+type GenomeCoordinatesSource
   {
-    id: Uriorcurie!
-    name: String
-    description: String
-    primaryEmail: String
-    birthDate: Date
-    ageInYears: Integer
-    vitalStatus: PersonStatus
+    id: Integer!
+    input: [Integer]!
+    output: Integer!
+    kind: String!
+    info: String
+    assemblyAccession: String
+    sequenceAccession: String!
+    locusTag: String
+    geneId: Integer
+    start: Integer!
+    stop: Integer!
+    strand: Integer!
+    type: SourceType!
   }
 
-type CloningStrategyCollection
+type ManuallyTypedSource
   {
-    entries: [CloningStrategy]
+    id: Integer!
+    input: [Integer]!
+    output: Integer!
+    kind: String!
+    info: String
+    userInput: String
+    type: SourceType!
   }
 
 type NamedThing
   {
-    id: Uriorcurie!
-    name: String
-    description: String
+    id: Integer!
+  }
+
+type RepositoryIdSource
+  {
+    id: Integer!
+    input: [Integer]!
+    output: Integer!
+    kind: String!
+    info: String
+    repositoryName: RepositoryName!
+    repositoryId: String!
+    type: SourceType!
+  }
+
+interface Source
+  {
+    id: Integer!
+    input: [Integer]!
+    output: Integer!
+    type: SourceType!
+    kind: String!
+    info: String
+  }
+
+type UploadedFileSource
+  {
+    id: Integer!
+    input: [Integer]!
+    output: Integer!
+    kind: String!
+    info: String
+    fileName: String
+    indexInFile: Integer
+    type: SourceType!
   }
 

@@ -22,45 +22,11 @@ default_range: string
 imports:
   - linkml:types
 
-  # source sequence relationship:
-  #   represents_relationship: true
-  #   description: >-
-  #     A relationship between a source and a sequence
-  #   abstract: true
-  #   domain: source
-  #   range: sequence
-
-  # has input:
-  #   is_a: source sequence relationship
-  #   description: >-
-  #     A relationship between a source and its input sequence
-  #   domain: source
-  #   range: sequence
-
 classes:
   NamedThing:
-    description: >-
-      A generic grouping for any identifiable entity
     slots:
       - id
-      - name
-      - description
     class_uri: schema:Thing
-
-  CloningStrategy:
-    is_a: NamedThing
-    tree_root: true
-    description: >-
-      Represents a cloning strategy
-    attributes:
-      - sequences:
-          range: Sequence
-          multivalued: true
-      - sources:
-          range: Source
-          multivalued: true
-    slots:
-      - description
 
   Source:
     is_a: NamedThing
@@ -68,60 +34,108 @@ classes:
     description: >-
       Represents the source of a sequence
     slots:
-      - id
-      - has output
-      - has input
-
-  ExternalSource:
-    is_a: Source
-    abstract: true
-    description: >-
-      Represents the source of a sequence that is external to the cloning strategy,
-      and therefore has no inputs.
-    slot_usage:
-      has input:
-        value_presence: ABSENT
-      has output:
+      - input
+      - output
+      - type
+    attributes:
+      kind:
         required: true
+        description: >-
+          The kind entity (always equal to "source"). Should probably be removed.
+        range: string
+      info:
+        description: >-
+          Additional information about the source
 
-  InternalSource:
+  ManuallyTypedSource:
     is_a: Source
-    abstract: true
     description: >-
-      Represents the source of a sequence that is internal to the cloning strategy,
-      and therefore has inputs.
+      Represents the source of a sequence that is manually typed by the user
+    attributes:
+      - user_input:
+          range: string
+          pattern: ^[acgtACGT]+$
     slot_usage:
-      has input:
-        value_presence: PRESENT
-      has output:
-        required: true
+      type:
+        # ifabsent: manually_typed
+
+  UploadedFileSource:
+    is_a: Source
+    description: >-
+      Represents the source of a sequence that is uploaded as a file
+    attributes:
+      - file_name:
+          range: string
+          description: >-
+            The name of the file
+      - index_in_file:
+          range: integer
+          description: >-
+            The index of the sequence in the file
+    slot_usage:
+      type:
+        # ifabsent: file
 
   RepositoryIdSource:
-    is_a: ExternalSource
+    is_a: Source
     description: >-
       Represents the source of a sequence that is identified by a repository id
     attributes:
       - repository_name:
           range: RepositoryName
+          required: true
+      - repository_id:
+          range: string
+          description: >-
+            The id of the sequence in the repository
+          required: true
+    slot_usage:
+      type:
+        # ifabsent: repository_id
 
-  RestrictionEnzymeDigestionSource:
+  GenomeCoordinatesSource:
     is_a: Source
     description: >-
-      Represents the source of a sequence that is generated via restriction enzyme digestion
-    slots:
-      - restriction_enzyme
-
-  Sequence:
-    is_a: NamedThing
-    description: >-
-      Represents a sequence
-    slots:
-      - id
+      Represents the source of a sequence that is identified by genome coordinates, requested from NCBI
     attributes:
-      - file_extension:
+      - assembly_accession:
           range: string
-      - file_content:
+          description: >-
+            The accession of the assembly
+          required: false
+      - sequence_accession:
           range: string
+          description: >-
+            The accession of the sequence
+          required: true
+      - locus_tag:
+          range: string
+          description: >-
+            The locus tag of the sequence
+          required: false
+      - gene_id:
+          range: integer
+          description: >-
+            The gene id of the sequence
+          required: false
+      - start:
+          range: integer
+          description: >-
+            The starting coordinate (1-based) of the sequence in the sequence accession
+          required: true
+      - stop:
+          range: integer
+          description: >-
+            The ending coordinate (1-based) of the sequence in the sequence accession
+          required: true
+      - strand:
+          range: integer
+          description: >-
+            The strand of the sequence in the sequence accession, should be 1 or -1
+          required: true
+    slot_usage:
+      type:
+        # ifabsent: genome_coordinates
 
 slots:
   id:
@@ -129,25 +143,27 @@ slots:
     slot_uri: schema:identifier
     range: integer
     description: A unique identifier for a thing
-  name:
-    slot_uri: schema:name
-    description: A human-readable name for a thing
-  description:
-    slot_uri: schema:description
-    description: A human-readable description for a thing
-    range: string
   restriction_enzyme:
     exact_mappings:
-      - OBI_0000732
+      - OBI:0000732
     range: string
-  has input:
-    range: Sequence
+  input:
+    required: true
+    description: >-
+      Identifiers of the sequences that are an input to this source.
+      If the source represents external import of a sequence, it's empty.
+    range: integer
     multivalued: true
-    inlined: true
-  has output:
-    range: Sequence
-    inlined: true
-
+  output:
+    required: true
+    description: >-
+      Identifier of the sequence that is the output of this source.
+    range: integer
+  type:
+    required: true
+    description: >-
+      The type of the source
+    range: SourceType
 enums:
   RepositoryName:
     permissible_values:
@@ -157,3 +173,15 @@ enums:
       genbank:
         description: >-
           GenBank
+  SourceType:
+    permissible_values:
+      repository_id:
+      file:
+      restriction:
+      ligation:
+      PCR:
+      homologous_recombination:
+      gibson_assembly:
+      restriction_and_ligation:
+      genome_coordinates:
+      manually_typed:

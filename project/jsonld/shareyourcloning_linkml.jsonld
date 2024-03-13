@@ -34,6 +34,10 @@
     {
       "prefix_prefix": "example",
       "prefix_reference": "https://example.org/"
+    },
+    {
+      "prefix_prefix": "OBI",
+      "prefix_reference": "http://purl.obolibrary.org/obo/OBI_"
     }
   ],
   "default_prefix": "shareyourcloning_linkml",
@@ -350,26 +354,54 @@
   ],
   "enums": [
     {
-      "name": "PersonStatus",
-      "definition_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/PersonStatus",
+      "name": "RepositoryName",
+      "definition_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/RepositoryName",
       "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
       "permissible_values": [
         {
-          "text": "ALIVE",
-          "description": "the person is living",
-          "meaning": "PATO:0001421"
+          "text": "addgene",
+          "description": "Addgene"
         },
         {
-          "text": "DEAD",
-          "description": "the person is deceased",
-          "meaning": "PATO:0001422"
+          "text": "genbank",
+          "description": "GenBank"
+        }
+      ]
+    },
+    {
+      "name": "SourceType",
+      "definition_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/SourceType",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "permissible_values": [
+        {
+          "text": "repository_id"
         },
         {
-          "text": "UNKNOWN",
-          "description": "the vital status is not known",
-          "todos": [
-            "map this to an ontology"
-          ]
+          "text": "file"
+        },
+        {
+          "text": "restriction"
+        },
+        {
+          "text": "ligation"
+        },
+        {
+          "text": "PCR"
+        },
+        {
+          "text": "homologous_recombination"
+        },
+        {
+          "text": "gibson_assembly"
+        },
+        {
+          "text": "restriction_and_ligation"
+        },
+        {
+          "text": "genome_coordinates"
+        },
+        {
+          "text": "manually_typed"
         }
       ]
     }
@@ -389,134 +421,326 @@
       "domain_of": [
         "NamedThing"
       ],
-      "range": "uriorcurie",
+      "range": "integer",
       "required": true,
       "@type": "SlotDefinition"
     },
     {
-      "name": "name",
-      "definition_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/name",
-      "description": "A human-readable name for a thing",
+      "name": "restriction_enzyme",
+      "definition_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/restriction_enzyme",
       "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
-      "mappings": [
-        "http://schema.org/name"
+      "exact_mappings": [
+        "http://purl.obolibrary.org/obo/OBI_0000732"
       ],
-      "slot_uri": "http://schema.org/name",
-      "owner": "NamedThing",
+      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/restriction_enzyme",
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "input",
+      "definition_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/input",
+      "description": "Identifiers of the sequences that are an input to this source. If the source represents external import of a sequence, it's empty.",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/input",
+      "multivalued": true,
+      "owner": "Source",
       "domain_of": [
-        "NamedThing"
+        "Source"
+      ],
+      "range": "integer",
+      "required": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "output",
+      "definition_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/output",
+      "description": "Identifier of the sequence that is the output of this source.",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/output",
+      "owner": "Source",
+      "domain_of": [
+        "Source"
+      ],
+      "range": "integer",
+      "required": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "type",
+      "definition_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/type",
+      "description": "The type of the source",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/type",
+      "owner": "Source",
+      "domain_of": [
+        "Source"
+      ],
+      "range": "SourceType",
+      "required": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "source__kind",
+      "description": "The kind entity (always equal to \"source\"). Should probably be removed.",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/kind",
+      "alias": "kind",
+      "owner": "Source",
+      "domain_of": [
+        "Source"
+      ],
+      "range": "string",
+      "required": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "source__info",
+      "description": "Additional information about the source",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/info",
+      "alias": "info",
+      "owner": "Source",
+      "domain_of": [
+        "Source"
       ],
       "range": "string",
       "@type": "SlotDefinition"
     },
     {
-      "name": "description",
-      "definition_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/description",
-      "description": "A human-readable description for a thing",
+      "name": "manuallyTypedSource__user_input",
       "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
-      "mappings": [
-        "http://schema.org/description"
-      ],
-      "slot_uri": "http://schema.org/description",
-      "owner": "NamedThing",
+      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/user_input",
+      "alias": "user_input",
+      "owner": "ManuallyTypedSource",
       "domain_of": [
-        "NamedThing"
+        "ManuallyTypedSource"
+      ],
+      "range": "string",
+      "pattern": "^[acgtACGT]+$",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "uploadedFileSource__file_name",
+      "description": "The name of the file",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/file_name",
+      "alias": "file_name",
+      "owner": "UploadedFileSource",
+      "domain_of": [
+        "UploadedFileSource"
       ],
       "range": "string",
       "@type": "SlotDefinition"
     },
     {
-      "name": "primary_email",
-      "definition_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/primary_email",
-      "description": "The main email address of a person",
+      "name": "uploadedFileSource__index_in_file",
+      "description": "The index of the sequence in the file",
       "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
-      "mappings": [
-        "http://schema.org/email"
-      ],
-      "slot_uri": "http://schema.org/email",
-      "owner": "CloningStrategy",
+      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/index_in_file",
+      "alias": "index_in_file",
+      "owner": "UploadedFileSource",
       "domain_of": [
-        "CloningStrategy"
-      ],
-      "range": "string",
-      "@type": "SlotDefinition"
-    },
-    {
-      "name": "birth_date",
-      "definition_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/birth_date",
-      "description": "Date on which a person is born",
-      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
-      "mappings": [
-        "http://schema.org/birthDate"
-      ],
-      "slot_uri": "http://schema.org/birthDate",
-      "owner": "CloningStrategy",
-      "domain_of": [
-        "CloningStrategy"
-      ],
-      "range": "date",
-      "@type": "SlotDefinition"
-    },
-    {
-      "name": "age_in_years",
-      "definition_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/age_in_years",
-      "description": "Number of years since birth",
-      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
-      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/age_in_years",
-      "owner": "CloningStrategy",
-      "domain_of": [
-        "CloningStrategy"
+        "UploadedFileSource"
       ],
       "range": "integer",
       "@type": "SlotDefinition"
     },
     {
-      "name": "vital_status",
-      "definition_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/vital_status",
-      "description": "living or dead status",
+      "name": "repositoryIdSource__repository_name",
       "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
-      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/vital_status",
-      "owner": "CloningStrategy",
+      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/repository_name",
+      "alias": "repository_name",
+      "owner": "RepositoryIdSource",
       "domain_of": [
-        "CloningStrategy"
+        "RepositoryIdSource"
       ],
-      "range": "PersonStatus",
+      "range": "RepositoryName",
+      "required": true,
       "@type": "SlotDefinition"
     },
     {
-      "name": "cloningStrategyCollection__entries",
+      "name": "repositoryIdSource__repository_id",
+      "description": "The id of the sequence in the repository",
       "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
-      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/entries",
-      "multivalued": true,
-      "alias": "entries",
-      "owner": "CloningStrategyCollection",
+      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/repository_id",
+      "alias": "repository_id",
+      "owner": "RepositoryIdSource",
       "domain_of": [
-        "CloningStrategyCollection"
+        "RepositoryIdSource"
       ],
-      "range": "CloningStrategy",
-      "inlined": true,
+      "range": "string",
+      "required": true,
       "@type": "SlotDefinition"
     },
     {
-      "name": "CloningStrategy_primary_email",
-      "definition_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/primary_email",
-      "description": "The main email address of a person",
+      "name": "genomeCoordinatesSource__assembly_accession",
+      "description": "The accession of the assembly",
       "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
-      "mappings": [
-        "http://schema.org/email"
-      ],
-      "is_a": "primary_email",
-      "domain": "CloningStrategy",
-      "slot_uri": "http://schema.org/email",
-      "alias": "primary_email",
-      "owner": "CloningStrategy",
+      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/assembly_accession",
+      "alias": "assembly_accession",
+      "owner": "GenomeCoordinatesSource",
       "domain_of": [
-        "CloningStrategy"
+        "GenomeCoordinatesSource"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "genomeCoordinatesSource__sequence_accession",
+      "description": "The accession of the sequence",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/sequence_accession",
+      "alias": "sequence_accession",
+      "owner": "GenomeCoordinatesSource",
+      "domain_of": [
+        "GenomeCoordinatesSource"
+      ],
+      "range": "string",
+      "required": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "genomeCoordinatesSource__locus_tag",
+      "description": "The locus tag of the sequence",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/locus_tag",
+      "alias": "locus_tag",
+      "owner": "GenomeCoordinatesSource",
+      "domain_of": [
+        "GenomeCoordinatesSource"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "genomeCoordinatesSource__gene_id",
+      "description": "The gene id of the sequence",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/gene_id",
+      "alias": "gene_id",
+      "owner": "GenomeCoordinatesSource",
+      "domain_of": [
+        "GenomeCoordinatesSource"
+      ],
+      "range": "integer",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "genomeCoordinatesSource__start",
+      "description": "The starting coordinate (1-based) of the sequence in the sequence accession",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/start",
+      "alias": "start",
+      "owner": "GenomeCoordinatesSource",
+      "domain_of": [
+        "GenomeCoordinatesSource"
+      ],
+      "range": "integer",
+      "required": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "genomeCoordinatesSource__stop",
+      "description": "The ending coordinate (1-based) of the sequence in the sequence accession",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/stop",
+      "alias": "stop",
+      "owner": "GenomeCoordinatesSource",
+      "domain_of": [
+        "GenomeCoordinatesSource"
+      ],
+      "range": "integer",
+      "required": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "genomeCoordinatesSource__strand",
+      "description": "The strand of the sequence in the sequence accession, should be 1 or -1",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/strand",
+      "alias": "strand",
+      "owner": "GenomeCoordinatesSource",
+      "domain_of": [
+        "GenomeCoordinatesSource"
+      ],
+      "range": "integer",
+      "required": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "ManuallyTypedSource_type",
+      "definition_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/type",
+      "description": "The type of the source",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "is_a": "type",
+      "domain": "ManuallyTypedSource",
+      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/type",
+      "alias": "type",
+      "owner": "ManuallyTypedSource",
+      "domain_of": [
+        "ManuallyTypedSource"
       ],
       "is_usage_slot": true,
-      "usage_slot_name": "primary_email",
-      "range": "string",
-      "pattern": "^\\S+@[\\S+\\.]+\\S+",
+      "usage_slot_name": "type",
+      "range": "SourceType",
+      "required": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "UploadedFileSource_type",
+      "definition_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/type",
+      "description": "The type of the source",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "is_a": "type",
+      "domain": "UploadedFileSource",
+      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/type",
+      "alias": "type",
+      "owner": "UploadedFileSource",
+      "domain_of": [
+        "UploadedFileSource"
+      ],
+      "is_usage_slot": true,
+      "usage_slot_name": "type",
+      "range": "SourceType",
+      "required": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "RepositoryIdSource_type",
+      "definition_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/type",
+      "description": "The type of the source",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "is_a": "type",
+      "domain": "RepositoryIdSource",
+      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/type",
+      "alias": "type",
+      "owner": "RepositoryIdSource",
+      "domain_of": [
+        "RepositoryIdSource"
+      ],
+      "is_usage_slot": true,
+      "usage_slot_name": "type",
+      "range": "SourceType",
+      "required": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "GenomeCoordinatesSource_type",
+      "definition_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/type",
+      "description": "The type of the source",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "is_a": "type",
+      "domain": "GenomeCoordinatesSource",
+      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/type",
+      "alias": "type",
+      "owner": "GenomeCoordinatesSource",
+      "domain_of": [
+        "GenomeCoordinatesSource"
+      ],
+      "is_usage_slot": true,
+      "usage_slot_name": "type",
+      "range": "SourceType",
+      "required": true,
       "@type": "SlotDefinition"
     }
   ],
@@ -524,67 +748,225 @@
     {
       "name": "NamedThing",
       "definition_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/NamedThing",
-      "description": "A generic grouping for any identifiable entity",
       "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
       "mappings": [
         "schema:Thing"
       ],
       "slots": [
-        "id",
-        "name",
-        "description"
+        "id"
       ],
       "slot_usage": {},
       "class_uri": "http://schema.org/Thing",
       "@type": "ClassDefinition"
     },
     {
-      "name": "CloningStrategy",
-      "definition_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/CloningStrategy",
-      "description": "Represents a CloningStrategy",
+      "name": "Source",
+      "definition_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/Source",
+      "description": "Represents the source of a sequence",
       "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
       "is_a": "NamedThing",
+      "abstract": true,
       "slots": [
         "id",
-        "name",
-        "description",
-        "CloningStrategy_primary_email",
-        "birth_date",
-        "age_in_years",
-        "vital_status"
-      ],
-      "slot_usage": {},
-      "class_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/CloningStrategy",
-      "@type": "ClassDefinition"
-    },
-    {
-      "name": "CloningStrategyCollection",
-      "definition_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/CloningStrategyCollection",
-      "description": "A holder for CloningStrategy objects",
-      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
-      "slots": [
-        "cloningStrategyCollection__entries"
+        "input",
+        "output",
+        "type",
+        "source__kind",
+        "source__info"
       ],
       "slot_usage": {},
       "attributes": [
         {
-          "name": "entries",
-          "multivalued": true,
-          "range": "CloningStrategy",
-          "inlined": true,
+          "name": "kind",
+          "description": "The kind entity (always equal to \"source\"). Should probably be removed.",
+          "range": "string",
+          "required": true,
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "info",
+          "description": "Additional information about the source",
           "@type": "SlotDefinition"
         }
       ],
-      "class_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/CloningStrategyCollection",
-      "tree_root": true,
+      "class_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/Source",
+      "@type": "ClassDefinition"
+    },
+    {
+      "name": "ManuallyTypedSource",
+      "definition_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/ManuallyTypedSource",
+      "description": "Represents the source of a sequence that is manually typed by the user",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "is_a": "Source",
+      "slots": [
+        "id",
+        "input",
+        "output",
+        "source__kind",
+        "source__info",
+        "manuallyTypedSource__user_input",
+        "ManuallyTypedSource_type"
+      ],
+      "slot_usage": {},
+      "attributes": [
+        {
+          "name": "user_input",
+          "range": "string",
+          "pattern": "^[acgtACGT]+$",
+          "@type": "SlotDefinition"
+        }
+      ],
+      "class_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/ManuallyTypedSource",
+      "@type": "ClassDefinition"
+    },
+    {
+      "name": "UploadedFileSource",
+      "definition_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/UploadedFileSource",
+      "description": "Represents the source of a sequence that is uploaded as a file",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "is_a": "Source",
+      "slots": [
+        "id",
+        "input",
+        "output",
+        "source__kind",
+        "source__info",
+        "uploadedFileSource__file_name",
+        "uploadedFileSource__index_in_file",
+        "UploadedFileSource_type"
+      ],
+      "slot_usage": {},
+      "attributes": [
+        {
+          "name": "file_name",
+          "description": "The name of the file",
+          "range": "string",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "index_in_file",
+          "description": "The index of the sequence in the file",
+          "range": "integer",
+          "@type": "SlotDefinition"
+        }
+      ],
+      "class_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/UploadedFileSource",
+      "@type": "ClassDefinition"
+    },
+    {
+      "name": "RepositoryIdSource",
+      "definition_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/RepositoryIdSource",
+      "description": "Represents the source of a sequence that is identified by a repository id",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "is_a": "Source",
+      "slots": [
+        "id",
+        "input",
+        "output",
+        "source__kind",
+        "source__info",
+        "repositoryIdSource__repository_name",
+        "repositoryIdSource__repository_id",
+        "RepositoryIdSource_type"
+      ],
+      "slot_usage": {},
+      "attributes": [
+        {
+          "name": "repository_name",
+          "range": "RepositoryName",
+          "required": true,
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "repository_id",
+          "description": "The id of the sequence in the repository",
+          "range": "string",
+          "required": true,
+          "@type": "SlotDefinition"
+        }
+      ],
+      "class_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/RepositoryIdSource",
+      "@type": "ClassDefinition"
+    },
+    {
+      "name": "GenomeCoordinatesSource",
+      "definition_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/GenomeCoordinatesSource",
+      "description": "Represents the source of a sequence that is identified by genome coordinates, requested from NCBI",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "is_a": "Source",
+      "slots": [
+        "id",
+        "input",
+        "output",
+        "source__kind",
+        "source__info",
+        "genomeCoordinatesSource__assembly_accession",
+        "genomeCoordinatesSource__sequence_accession",
+        "genomeCoordinatesSource__locus_tag",
+        "genomeCoordinatesSource__gene_id",
+        "genomeCoordinatesSource__start",
+        "genomeCoordinatesSource__stop",
+        "genomeCoordinatesSource__strand",
+        "GenomeCoordinatesSource_type"
+      ],
+      "slot_usage": {},
+      "attributes": [
+        {
+          "name": "assembly_accession",
+          "description": "The accession of the assembly",
+          "range": "string",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "sequence_accession",
+          "description": "The accession of the sequence",
+          "range": "string",
+          "required": true,
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "locus_tag",
+          "description": "The locus tag of the sequence",
+          "range": "string",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "gene_id",
+          "description": "The gene id of the sequence",
+          "range": "integer",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "start",
+          "description": "The starting coordinate (1-based) of the sequence in the sequence accession",
+          "range": "integer",
+          "required": true,
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "stop",
+          "description": "The ending coordinate (1-based) of the sequence in the sequence accession",
+          "range": "integer",
+          "required": true,
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "strand",
+          "description": "The strand of the sequence in the sequence accession, should be 1 or -1",
+          "range": "integer",
+          "required": true,
+          "@type": "SlotDefinition"
+        }
+      ],
+      "class_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/GenomeCoordinatesSource",
       "@type": "ClassDefinition"
     }
   ],
   "metamodel_version": "1.7.0",
   "source_file": "shareyourcloning_linkml.yaml",
-  "source_file_date": "2023-11-03T13:27:02",
-  "source_file_size": 2321,
-  "generation_date": "2023-11-03T13:33:33",
+  "source_file_date": "2024-03-13T17:14:48",
+  "source_file_size": 4779,
+  "generation_date": "2024-03-13T17:14:56",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/shareyourcloning_linkml.context.jsonld",
