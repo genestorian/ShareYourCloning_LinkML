@@ -5,7 +5,6 @@ message GenomeCoordinatesSource
  repeated  integer input = 0
   integer output = 0
   string kind = 0
-  string info = 0
   string assemblyAccession = 0
   string sequenceAccession = 0
   string locusTag = 0
@@ -22,7 +21,6 @@ message ManuallyTypedSource
  repeated  integer input = 0
   integer output = 0
   string kind = 0
-  string info = 0
   string userInput = 0
   sourceType type = 0
  }
@@ -37,7 +35,6 @@ message RepositoryIdSource
  repeated  integer input = 0
   integer output = 0
   string kind = 0
-  string info = 0
   repositoryName repositoryName = 0
   string repositoryId = 0
   sourceType type = 0
@@ -49,7 +46,6 @@ message UploadedFileSource
  repeated  integer input = 0
   integer output = 0
   string kind = 0
-  string info = 0
   string fileName = 0
   integer indexInFile = 0
   sourceType type = 0

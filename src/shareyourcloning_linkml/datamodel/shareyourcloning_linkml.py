@@ -1,5 +1,5 @@
 # Auto generated from shareyourcloning_linkml.yaml by pythongen.py version: 0.0.1
-# Generation date: 2024-03-13T17:14:59
+# Generation date: 2024-03-13T18:09:20
 # Schema: ShareYourCloning_LinkML
 #
 # id: https://w3id.org/genestorian/ShareYourCloning_LinkML
@@ -104,7 +104,6 @@ class Source(NamedThing):
     output: int = None
     type: Union[str, "SourceType"] = None
     kind: str = None
-    info: Optional[str] = None
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
         if self._is_empty(self.input):
@@ -127,9 +126,6 @@ class Source(NamedThing):
             self.MissingRequiredField("kind")
         if not isinstance(self.kind, str):
             self.kind = str(self.kind)
-
-        if self.info is not None and not isinstance(self.info, str):
-            self.info = str(self.info)
 
         super().__post_init__(**kwargs)
 
@@ -374,9 +370,6 @@ slots.type = Slot(uri=SHAREYOURCLONING_LINKML.type, name="type", curie=SHAREYOUR
 
 slots.source__kind = Slot(uri=SHAREYOURCLONING_LINKML.kind, name="source__kind", curie=SHAREYOURCLONING_LINKML.curie('kind'),
                    model_uri=SHAREYOURCLONING_LINKML.source__kind, domain=None, range=str)
-
-slots.source__info = Slot(uri=SHAREYOURCLONING_LINKML.info, name="source__info", curie=SHAREYOURCLONING_LINKML.curie('info'),
-                   model_uri=SHAREYOURCLONING_LINKML.source__info, domain=None, range=Optional[str])
 
 slots.manuallyTypedSource__user_input = Slot(uri=SHAREYOURCLONING_LINKML.user_input, name="manuallyTypedSource__user_input", curie=SHAREYOURCLONING_LINKML.curie('user_input'),
                    model_uri=SHAREYOURCLONING_LINKML.manuallyTypedSource__user_input, domain=None, range=Optional[str],

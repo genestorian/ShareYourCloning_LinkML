@@ -43,9 +43,10 @@ classes:
         description: >-
           The kind entity (always equal to "source"). Should probably be removed.
         range: string
-      info:
-        description: >-
-          Additional information about the source
+      # info:
+      #   description: >-
+      #     Additional information about the source
+      #   range: dict
 
   ManuallyTypedSource:
     is_a: Source
@@ -72,6 +73,10 @@ classes:
           range: integer
           description: >-
             The index of the sequence in the file
+      - file_format:
+          range: SequenceFileFormat
+          description: >-
+            The format of the file
     slot_usage:
       type:
         # ifabsent: file
@@ -185,3 +190,8 @@ enums:
       restriction_and_ligation:
       genome_coordinates:
       manually_typed:
+  SequenceFileFormat:
+    permissible_values:
+      fasta:
+      genbank:
+      snapgene:

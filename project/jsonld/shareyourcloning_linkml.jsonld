@@ -494,19 +494,6 @@
       "@type": "SlotDefinition"
     },
     {
-      "name": "source__info",
-      "description": "Additional information about the source",
-      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
-      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/info",
-      "alias": "info",
-      "owner": "Source",
-      "domain_of": [
-        "Source"
-      ],
-      "range": "string",
-      "@type": "SlotDefinition"
-    },
-    {
       "name": "manuallyTypedSource__user_input",
       "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
       "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/user_input",
@@ -771,8 +758,7 @@
         "input",
         "output",
         "type",
-        "source__kind",
-        "source__info"
+        "source__kind"
       ],
       "slot_usage": {},
       "attributes": [
@@ -781,11 +767,6 @@
           "description": "The kind entity (always equal to \"source\"). Should probably be removed.",
           "range": "string",
           "required": true,
-          "@type": "SlotDefinition"
-        },
-        {
-          "name": "info",
-          "description": "Additional information about the source",
           "@type": "SlotDefinition"
         }
       ],
@@ -803,7 +784,6 @@
         "input",
         "output",
         "source__kind",
-        "source__info",
         "manuallyTypedSource__user_input",
         "ManuallyTypedSource_type"
       ],
@@ -830,7 +810,6 @@
         "input",
         "output",
         "source__kind",
-        "source__info",
         "uploadedFileSource__file_name",
         "uploadedFileSource__index_in_file",
         "UploadedFileSource_type"
@@ -864,7 +843,6 @@
         "input",
         "output",
         "source__kind",
-        "source__info",
         "repositoryIdSource__repository_name",
         "repositoryIdSource__repository_id",
         "RepositoryIdSource_type"
@@ -899,7 +877,6 @@
         "input",
         "output",
         "source__kind",
-        "source__info",
         "genomeCoordinatesSource__assembly_accession",
         "genomeCoordinatesSource__sequence_accession",
         "genomeCoordinatesSource__locus_tag",
@@ -964,9 +941,9 @@
   ],
   "metamodel_version": "1.7.0",
   "source_file": "shareyourcloning_linkml.yaml",
-  "source_file_date": "2024-03-13T17:14:48",
-  "source_file_size": 4779,
-  "generation_date": "2024-03-13T17:14:56",
+  "source_file_date": "2024-03-13T18:09:04",
+  "source_file_size": 4807,
+  "generation_date": "2024-03-13T18:09:17",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/shareyourcloning_linkml.context.jsonld",

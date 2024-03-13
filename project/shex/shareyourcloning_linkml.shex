@@ -135,8 +135,7 @@ linkml:Sparqlpath xsd:string
              <https://w3id.org/genestorian/ShareYourCloning_LinkML/SourceType#restriction_and_ligation>
              <https://w3id.org/genestorian/ShareYourCloning_LinkML/SourceType#genome_coordinates>
              <https://w3id.org/genestorian/ShareYourCloning_LinkML/SourceType#manually_typed> ] ;
-          <kind> @linkml:String ;
-          <info> @linkml:String ?
+          <kind> @linkml:String
        ) ;
        rdf:type [ <Source> ]
     )

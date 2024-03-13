@@ -16,10 +16,6 @@
                     "description": "A unique identifier for a thing",
                     "type": "integer"
                 },
-                "info": {
-                    "description": "Additional information about the source",
-                    "type": "string"
-                },
                 "input": {
                     "description": "Identifiers of the sequences that are an input to this source. If the source represents external import of a sequence, it's empty.",
                     "items": {
@@ -82,10 +78,6 @@
                     "description": "A unique identifier for a thing",
                     "type": "integer"
                 },
-                "info": {
-                    "description": "Additional information about the source",
-                    "type": "string"
-                },
                 "input": {
                     "description": "Identifiers of the sequences that are an input to this source. If the source represents external import of a sequence, it's empty.",
                     "items": {
@@ -142,10 +134,6 @@
                 "id": {
                     "description": "A unique identifier for a thing",
                     "type": "integer"
-                },
-                "info": {
-                    "description": "Additional information about the source",
-                    "type": "string"
                 },
                 "input": {
                     "description": "Identifiers of the sequences that are an input to this source. If the source represents external import of a sequence, it's empty.",
@@ -227,10 +215,6 @@
                 "index_in_file": {
                     "description": "The index of the sequence in the file",
                     "type": "integer"
-                },
-                "info": {
-                    "description": "Additional information about the source",
-                    "type": "string"
                 },
                 "input": {
                     "description": "Identifiers of the sequences that are an input to this source. If the source represents external import of a sequence, it's empty.",

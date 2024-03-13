@@ -79,7 +79,6 @@ class Source(NamedThing):
     output: int = Field(..., description="""Identifier of the sequence that is the output of this source.""")
     type: SourceType = Field(..., description="""The type of the source""")
     kind: str = Field(..., description="""The kind entity (always equal to \"source\"). Should probably be removed.""")
-    info: Optional[str] = Field(None, description="""Additional information about the source""")
     id: int = Field(..., description="""A unique identifier for a thing""")
     
     
@@ -93,7 +92,6 @@ class ManuallyTypedSource(Source):
     output: int = Field(..., description="""Identifier of the sequence that is the output of this source.""")
     type: SourceType = Field(..., description="""The type of the source""")
     kind: str = Field(..., description="""The kind entity (always equal to \"source\"). Should probably be removed.""")
-    info: Optional[str] = Field(None, description="""Additional information about the source""")
     id: int = Field(..., description="""A unique identifier for a thing""")
     
     
@@ -120,7 +118,6 @@ class UploadedFileSource(Source):
     output: int = Field(..., description="""Identifier of the sequence that is the output of this source.""")
     type: SourceType = Field(..., description="""The type of the source""")
     kind: str = Field(..., description="""The kind entity (always equal to \"source\"). Should probably be removed.""")
-    info: Optional[str] = Field(None, description="""Additional information about the source""")
     id: int = Field(..., description="""A unique identifier for a thing""")
     
     
@@ -135,7 +132,6 @@ class RepositoryIdSource(Source):
     output: int = Field(..., description="""Identifier of the sequence that is the output of this source.""")
     type: SourceType = Field(..., description="""The type of the source""")
     kind: str = Field(..., description="""The kind entity (always equal to \"source\"). Should probably be removed.""")
-    info: Optional[str] = Field(None, description="""Additional information about the source""")
     id: int = Field(..., description="""A unique identifier for a thing""")
     
     
@@ -155,7 +151,6 @@ class GenomeCoordinatesSource(Source):
     output: int = Field(..., description="""Identifier of the sequence that is the output of this source.""")
     type: SourceType = Field(..., description="""The type of the source""")
     kind: str = Field(..., description="""The kind entity (always equal to \"source\"). Should probably be removed.""")
-    info: Optional[str] = Field(None, description="""Additional information about the source""")
     id: int = Field(..., description="""A unique identifier for a thing""")
     
     

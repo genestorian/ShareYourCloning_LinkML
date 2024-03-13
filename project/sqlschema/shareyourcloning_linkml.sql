@@ -4,14 +4,12 @@
 --     * Slot: output Description: Identifier of the sequence that is the output of this source.
 --     * Slot: type Description: The type of the source
 --     * Slot: kind Description: The kind entity (always equal to "source"). Should probably be removed.
---     * Slot: info Description: Additional information about the source
 --     * Slot: id Description: A unique identifier for a thing
 -- # Class: "ManuallyTypedSource" Description: "Represents the source of a sequence that is manually typed by the user"
 --     * Slot: user_input Description: 
 --     * Slot: output Description: Identifier of the sequence that is the output of this source.
 --     * Slot: type Description: The type of the source
 --     * Slot: kind Description: The kind entity (always equal to "source"). Should probably be removed.
---     * Slot: info Description: Additional information about the source
 --     * Slot: id Description: A unique identifier for a thing
 -- # Class: "UploadedFileSource" Description: "Represents the source of a sequence that is uploaded as a file"
 --     * Slot: file_name Description: The name of the file
@@ -19,7 +17,6 @@
 --     * Slot: output Description: Identifier of the sequence that is the output of this source.
 --     * Slot: type Description: The type of the source
 --     * Slot: kind Description: The kind entity (always equal to "source"). Should probably be removed.
---     * Slot: info Description: Additional information about the source
 --     * Slot: id Description: A unique identifier for a thing
 -- # Class: "RepositoryIdSource" Description: "Represents the source of a sequence that is identified by a repository id"
 --     * Slot: repository_name Description: 
@@ -27,7 +24,6 @@
 --     * Slot: output Description: Identifier of the sequence that is the output of this source.
 --     * Slot: type Description: The type of the source
 --     * Slot: kind Description: The kind entity (always equal to "source"). Should probably be removed.
---     * Slot: info Description: Additional information about the source
 --     * Slot: id Description: A unique identifier for a thing
 -- # Class: "GenomeCoordinatesSource" Description: "Represents the source of a sequence that is identified by genome coordinates, requested from NCBI"
 --     * Slot: assembly_accession Description: The accession of the assembly
@@ -40,7 +36,6 @@
 --     * Slot: output Description: Identifier of the sequence that is the output of this source.
 --     * Slot: type Description: The type of the source
 --     * Slot: kind Description: The kind entity (always equal to "source"). Should probably be removed.
---     * Slot: info Description: Additional information about the source
 --     * Slot: id Description: A unique identifier for a thing
 -- # Class: "Source_input" Description: ""
 --     * Slot: Source_id Description: Autocreated FK slot
@@ -66,7 +61,6 @@ CREATE TABLE "Source" (
 	output INTEGER NOT NULL, 
 	type VARCHAR(24) NOT NULL, 
 	kind TEXT NOT NULL, 
-	info TEXT, 
 	id INTEGER NOT NULL, 
 	PRIMARY KEY (id)
 );
@@ -75,7 +69,6 @@ CREATE TABLE "ManuallyTypedSource" (
 	output INTEGER NOT NULL, 
 	type VARCHAR(24) NOT NULL, 
 	kind TEXT NOT NULL, 
-	info TEXT, 
 	id INTEGER NOT NULL, 
 	PRIMARY KEY (id)
 );
@@ -85,7 +78,6 @@ CREATE TABLE "UploadedFileSource" (
 	output INTEGER NOT NULL, 
 	type VARCHAR(24) NOT NULL, 
 	kind TEXT NOT NULL, 
-	info TEXT, 
 	id INTEGER NOT NULL, 
 	PRIMARY KEY (id)
 );
@@ -95,7 +87,6 @@ CREATE TABLE "RepositoryIdSource" (
 	output INTEGER NOT NULL, 
 	type VARCHAR(24) NOT NULL, 
 	kind TEXT NOT NULL, 
-	info TEXT, 
 	id INTEGER NOT NULL, 
 	PRIMARY KEY (id)
 );
@@ -110,7 +101,6 @@ CREATE TABLE "GenomeCoordinatesSource" (
 	output INTEGER NOT NULL, 
 	type VARCHAR(24) NOT NULL, 
 	kind TEXT NOT NULL, 
-	info TEXT, 
 	id INTEGER NOT NULL, 
 	PRIMARY KEY (id)
 );
