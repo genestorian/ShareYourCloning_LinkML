@@ -11,6 +11,8 @@ version = "0.1.0"
 linkml-runtime = "^1.1.24"
 python = "^3.9"
 rdflib = "6"
+linkml = "^1.7.8"
+pydna = "^5.2.0"
 
 [tool.poetry-dynamic-versioning]
 enable = true
