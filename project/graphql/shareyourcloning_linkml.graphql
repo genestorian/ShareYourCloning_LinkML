@@ -1,10 +1,27 @@
+type CloningStrategy
+  {
+    sequences: [Sequence]!
+    sources: [Source]!
+    primers: [Primer]
+    description: String
+  }
+
+type CutSource
+  {
+    id: Integer!
+    input: [Integer]
+    output: Integer
+    type: String
+    leftCut: SequenceCut
+    rightCut: SequenceCut
+  }
+
 type GenomeCoordinatesSource
   {
     id: Integer!
     input: [Integer]
     output: Integer
-    type: SourceType!
-    kind: String!
+    type: String
     assemblyAccession: String
     sequenceAccession: String!
     locusTag: String
@@ -19,9 +36,8 @@ type ManuallyTypedSource
     id: Integer!
     input: [Integer]
     output: Integer
-    type: SourceType!
-    kind: String!
-    userInput: String
+    type: String
+    userInput: String!
   }
 
 type NamedThing
@@ -29,15 +45,52 @@ type NamedThing
     id: Integer!
   }
 
+type Primer
+  {
+    id: Integer!
+    name: String
+    sequence: String
+  }
+
 type RepositoryIdSource
   {
     id: Integer!
     input: [Integer]
     output: Integer
-    type: SourceType!
-    kind: String!
+    type: String
     repositoryName: RepositoryName!
     repositoryId: String!
+  }
+
+type RestrictionCutSource
+  {
+    id: Integer!
+    input: [Integer]
+    output: Integer
+    type: String
+    leftCut: RestrictionSequenceCut
+    rightCut: RestrictionSequenceCut
+  }
+
+type RestrictionSequenceCut
+  {
+    id: Integer!
+    cutWatson: Integer
+    overhang: Integer
+    restrictionEnzyme: String!
+  }
+
+interface Sequence
+  {
+    id: Integer!
+    type: String
+  }
+
+type SequenceCut
+  {
+    id: Integer!
+    cutWatson: Integer
+    overhang: Integer
   }
 
 interface Source
@@ -45,8 +98,17 @@ interface Source
     id: Integer!
     input: [Integer]
     output: Integer
-    type: SourceType!
-    kind: String!
+    type: String
+  }
+
+type TextFileSequence
+  {
+    id: Integer!
+    type: String
+    sequenceFileFormat: SequenceFileFormat!
+    fileContent: String
+    overhangCrick3prime: Integer
+    overhangWatson3prime: Integer
   }
 
 type UploadedFileSource
@@ -54,10 +116,9 @@ type UploadedFileSource
     id: Integer!
     input: [Integer]
     output: Integer
-    type: SourceType!
-    kind: String!
+    type: String
+    sequenceFileFormat: SequenceFileFormat!
     fileName: String
     indexInFile: Integer
-    fileFormat: SequenceFileFormat
   }
 

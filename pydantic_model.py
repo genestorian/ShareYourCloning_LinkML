@@ -21,8 +21,7 @@ if int(PYDANTIC_VERSION[0])>=2:
         BaseModel,
         ConfigDict,
         Field,
-        field_validator,
-        validator
+        field_validator
     )
 else:
     from pydantic import (
@@ -38,7 +37,13 @@ version = "None"
 class WeakRefShimBaseModel(BaseModel):
     __slots__ = '__weakref__'
 
-class ConfiguredBaseModel(WeakRefShimBaseModel):
+class ConfiguredBaseModel(WeakRefShimBaseModel,
+                validate_assignment = True,
+                validate_all = True,
+                underscore_attrs_are_private = True,
+                extra = "forbid",
+                arbitrary_types_allowed = True,
+                use_enum_values = True):
     pass
 
 
@@ -100,11 +105,28 @@ class Primer(NamedThing):
         return v
 
 
+class SequenceCut(ConfiguredBaseModel):
+    """
+    Represents a cut in a DNA sequence
+    """
+    cut_watson: Optional[int] = Field(None, description="""The position of the cut in the watson strand. The cut is made before the base at this position (zero-based), so that cut position 1 cuts after the first base.""")
+    overhang: Optional[int] = Field(None, description="""The length of the overhang that is left after the cut. It can be negative, same meaning as in pydna's `dseq::ovhg` and biopython's `Bio.Restriction.RestrictionType.ovhg`.""")
+
+
+class RestrictionSequenceCut(SequenceCut):
+    """
+    Represents a cut in a DNA sequence that is made by a restriction enzyme
+    """
+    restriction_enzyme: str = Field(...)
+    cut_watson: Optional[int] = Field(None, description="""The position of the cut in the watson strand. The cut is made before the base at this position (zero-based), so that cut position 1 cuts after the first base.""")
+    overhang: Optional[int] = Field(None, description="""The length of the overhang that is left after the cut. It can be negative, same meaning as in pydna's `dseq::ovhg` and biopython's `Bio.Restriction.RestrictionType.ovhg`.""")
+
+
 class Source(NamedThing):
     """
     Represents the source of a sequence
     """
-    input: Optional[List[int]] = Field(default_factory=list, description="""Identifiers of the sequences that are an input to this source. If the source represents external import of a sequence, it's empty.""")
+    input: Optional[List[int]] = Field(default_factory=list, description="""The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.""")
     output: Optional[int] = Field(None, description="""Identifier of the sequence that is the output of this source.""")
     type: Literal["Source"] = Field("Source", description="""The type of the source""")
     id: int = Field(..., description="""A unique identifier for a thing""")
@@ -115,7 +137,8 @@ class ManuallyTypedSource(Source):
     Represents the source of a sequence that is manually typed by the user
     """
     user_input: str = Field(...)
-    input: Optional[List[int]] = Field(default_factory=list, description="""Identifiers of the sequences that are an input to this source. If the source represents external import of a sequence, it's empty.""")
+    circular: Optional[bool] = Field(None, description="""Whether the sequence is circular or not""")
+    input: Optional[List[int]] = Field(default_factory=list, description="""The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.""")
     output: Optional[int] = Field(None, description="""Identifier of the sequence that is the output of this source.""")
     type: Literal["ManuallyTypedSource"] = Field("ManuallyTypedSource", description="""The type of the source""")
     id: int = Field(..., description="""A unique identifier for a thing""")
@@ -140,7 +163,7 @@ class UploadedFileSource(Source):
     sequence_file_format: SequenceFileFormat = Field(..., description="""The format of a sequence file""")
     file_name: Optional[str] = Field(None, description="""The name of the file""")
     index_in_file: Optional[int] = Field(None, description="""The index of the sequence in the file""")
-    input: Optional[List[int]] = Field(default_factory=list, description="""Identifiers of the sequences that are an input to this source. If the source represents external import of a sequence, it's empty.""")
+    input: Optional[List[int]] = Field(default_factory=list, description="""The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.""")
     output: Optional[int] = Field(None, description="""Identifier of the sequence that is the output of this source.""")
     type: Literal["UploadedFileSource"] = Field("UploadedFileSource", description="""The type of the source""")
     id: int = Field(..., description="""A unique identifier for a thing""")
@@ -152,7 +175,7 @@ class RepositoryIdSource(Source):
     """
     repository_name: RepositoryName = Field(...)
     repository_id: str = Field(..., description="""The id of the sequence in the repository""")
-    input: Optional[List[int]] = Field(default_factory=list, description="""Identifiers of the sequences that are an input to this source. If the source represents external import of a sequence, it's empty.""")
+    input: Optional[List[int]] = Field(default_factory=list, description="""The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.""")
     output: Optional[int] = Field(None, description="""Identifier of the sequence that is the output of this source.""")
     type: Literal["RepositoryIdSource"] = Field("RepositoryIdSource", description="""The type of the source""")
     id: int = Field(..., description="""A unique identifier for a thing""")
@@ -169,10 +192,44 @@ class GenomeCoordinatesSource(Source):
     start: int = Field(..., description="""The starting coordinate (1-based) of the sequence in the sequence accession""")
     stop: int = Field(..., description="""The ending coordinate (1-based) of the sequence in the sequence accession""")
     strand: int = Field(..., description="""The strand of the sequence in the sequence accession, should be 1 or -1""")
-    input: Optional[List[int]] = Field(default_factory=list, description="""Identifiers of the sequences that are an input to this source. If the source represents external import of a sequence, it's empty.""")
+    input: Optional[List[int]] = Field(default_factory=list, description="""The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.""")
     output: Optional[int] = Field(None, description="""Identifier of the sequence that is the output of this source.""")
     type: Literal["GenomeCoordinatesSource"] = Field("GenomeCoordinatesSource", description="""The type of the source""")
     id: int = Field(..., description="""A unique identifier for a thing""")
+
+
+class CutSource(Source):
+    """
+    Represents the source of a sequence that is a subfragment of another sequence, generated by sequence cutting.
+    """
+    left_edge: Optional[SequenceCut] = Field(None)
+    right_edge: Optional[SequenceCut] = Field(None)
+    input: Optional[List[int]] = Field(default_factory=list, description="""The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.""")
+    output: Optional[int] = Field(None, description="""Identifier of the sequence that is the output of this source.""")
+    type: Literal["CutSource"] = Field("CutSource", description="""The type of the source""")
+    id: int = Field(..., description="""A unique identifier for a thing""")
+
+
+class RestrictionCutSource(CutSource):
+    """
+    Represents the source of a sequence that is a subfragment of another sequence, generated by sequence cutting using restriction enzymes.
+    """
+    left_edge: Optional[RestrictionSequenceCut] = Field(None)
+    right_edge: Optional[RestrictionSequenceCut] = Field(None)
+    input: Optional[List[int]] = Field(default_factory=list, description="""The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.""")
+    output: Optional[int] = Field(None, description="""Identifier of the sequence that is the output of this source.""")
+    type: Literal["RestrictionCutSource"] = Field("RestrictionCutSource", description="""The type of the source""")
+    id: int = Field(..., description="""A unique identifier for a thing""")
+
+
+class CloningStrategy(ConfiguredBaseModel):
+    """
+    Represents a cloning strategy
+    """
+    sequences: List[Union[Sequence,TextFileSequence]] = Field(default_factory=list, description="""The sequences that are used in the cloning strategy""")
+    sources: List[Union[Source,ManuallyTypedSource,UploadedFileSource,RepositoryIdSource,GenomeCoordinatesSource,CutSource,RestrictionCutSource]] = Field(default_factory=list, description="""The sources of the sequences that are used in the cloning strategy""")
+    primers: Optional[List[int]] = Field(default_factory=list, description="""The primers that are used in the cloning strategy""")
+    description: Optional[str] = Field(None, description="""A description of the cloning strategy""")
 
 
 # Update forward refs
@@ -181,9 +238,14 @@ NamedThing.update_forward_refs()
 Sequence.update_forward_refs()
 TextFileSequence.update_forward_refs()
 Primer.update_forward_refs()
+SequenceCut.update_forward_refs()
+RestrictionSequenceCut.update_forward_refs()
 Source.update_forward_refs()
 ManuallyTypedSource.update_forward_refs()
 UploadedFileSource.update_forward_refs()
 RepositoryIdSource.update_forward_refs()
 GenomeCoordinatesSource.update_forward_refs()
+CutSource.update_forward_refs()
+RestrictionCutSource.update_forward_refs()
+CloningStrategy.update_forward_refs()
 
