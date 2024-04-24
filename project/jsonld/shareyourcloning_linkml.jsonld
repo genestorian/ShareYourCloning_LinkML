@@ -1870,7 +1870,7 @@
   "source_file": "shareyourcloning_linkml.yaml",
   "source_file_date": "2024-04-24T14:18:18",
   "source_file_size": 13200,
-  "generation_date": "2024-04-24T14:45:37",
+  "generation_date": "2024-04-24T17:03:58",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/shareyourcloning_linkml.context.jsonld",

@@ -8,5 +8,7 @@
         "**/*.pyc": true,
         "**/__pycache__": true
     },
-    "python.defaultInterpreterPath": ".venv/bin/python",
+    "flake8.path": [".venv/bin/flake8"],
+    "pylint.path": [".venv/bin/pylint"],
+    "python.defaultInterpreterPath": ".venv/bin/python"
 }

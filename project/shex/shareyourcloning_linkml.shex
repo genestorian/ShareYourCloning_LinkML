@@ -2,7 +2,7 @@ BASE <https://w3id.org/genestorian/ShareYourCloning_LinkML/>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX linkml: <https://w3id.org/linkml/>
-PREFIX schema: <http://schema.org/>
+PREFIX schema1: <http://schema.org/>
 
 
 linkml:String xsd:string
@@ -128,7 +128,7 @@ linkml:Sparqlpath xsd:string
 <NamedThing>  (
     CLOSED {
        (  $<NamedThing_tes> rdf:type . * ;
-          rdf:type [ schema:Thing ]
+          rdf:type [ schema1:Thing ]
        )
     } OR @<Sequence> OR @<Source>
 )
@@ -165,7 +165,7 @@ linkml:Sparqlpath xsd:string
 <Primer> CLOSED {
     (  $<Primer_tes> (  &<Sequence_tes> ;
           rdf:type [ <Sequence> ] ? ;
-          schema:name @linkml:String ? ;
+          schema1:name @linkml:String ? ;
           <sequence> @linkml:String ?
        ) ;
        rdf:type [ <Primer> ]
@@ -217,7 +217,7 @@ linkml:Sparqlpath xsd:string
 
 <Sequence_struct> {
     (  $<Sequence_tes> (  &<NamedThing_tes> ;
-          rdf:type [ schema:Thing ] ? ;
+          rdf:type [ schema1:Thing ] ? ;
           <type> @linkml:String ?
        ) ;
        rdf:type [ <Sequence> ]
@@ -262,7 +262,7 @@ linkml:Sparqlpath xsd:string
 
 <Source_struct> {
     (  $<Source_tes> (  &<NamedThing_tes> ;
-          rdf:type [ schema:Thing ] ? ;
+          rdf:type [ schema1:Thing ] ? ;
           <input> @<Sequence> * ;
           <output> @<Sequence> ? ;
           <type> @linkml:String ?
