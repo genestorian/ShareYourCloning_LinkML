@@ -105,6 +105,10 @@ gen-examples:
 
 gen-project: $(PYMODEL)
 	$(RUN) gen-project ${GEN_PARGS} -d $(DEST) $(SOURCE_SCHEMA_PATH) && mv $(DEST)/*.py $(PYMODEL)
+	$(RUN) gen-pydantic \
+    	--pydantic-version 2\
+    	$(SOURCE_SCHEMA_PATH) \
+    	> $(PYMODEL)/_models.py
 
 
 test: test-schema test-python test-examples
