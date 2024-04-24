@@ -32,7 +32,7 @@
                 2
             ],
             "output": 4,
-            "type": "RestrictionCutSource",
+            "type": "RestrictionEnzymeDigestionSource",
             "left_edge": null,
             "right_edge": {
                 "cut_watson": 3,

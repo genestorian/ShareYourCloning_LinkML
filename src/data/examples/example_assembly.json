@@ -1,0 +1,49 @@
+{
+    "id": 11,
+    "input": [
+        3,
+        5,
+        7
+    ],
+    "output": 12,
+    "type": "AssemblySource",
+    "assembly": [
+        {
+            "left_fragment": 1,
+            "right_fragment": 2,
+            "left_location": {
+                "start": 18,
+                "end": 21
+            },
+            "right_location": {
+                "start": 1,
+                "end": 4
+            }
+        },
+        {
+            "left_fragment": 2,
+            "right_fragment": 3,
+            "left_location": {
+                "start": 9,
+                "end": 12
+            },
+            "right_location": {
+                "start": 1,
+                "end": 4
+            }
+        },
+        {
+            "left_fragment": 3,
+            "right_fragment": 1,
+            "left_location": {
+                "start": 10,
+                "end": 13
+            },
+            "right_location": {
+                "start": 1,
+                "end": 4
+            }
+        }
+    ],
+    "circular": true
+}

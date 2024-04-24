@@ -43,6 +43,29 @@ linkml:Jsonpath xsd:string
 
 linkml:Sparqlpath xsd:string
 
+<AssemblyJoin> CLOSED {
+    (  $<AssemblyJoin_tes> (  <left_fragment> @<Sequence> ;
+          <right_fragment> @<Sequence> ;
+          <left_location> @<SimpleSequenceLocation> ;
+          <right_location> @<SimpleSequenceLocation>
+       ) ;
+       rdf:type [ <AssemblyJoin> ] ?
+    )
+}
+
+<AssemblySource>  (
+    CLOSED {
+       (  $<AssemblySource_tes> (  &<Source_tes> ;
+             rdf:type [ <Source> ] ? ;
+             <circular> @linkml:Boolean ? ;
+             <assembly> @<AssemblyJoin> +
+          ) ;
+          rdf:type [ <AssemblySource> ]
+       )
+    } OR @<GibsonAssemblySource> OR @<HomologousRecombinationSource> OR @<LigationSource> OR @<PCRSource> OR
+    @<RestrictionAndLigationSource>
+)
+
 <CloningStrategy> CLOSED {
     (  $<CloningStrategy_tes> (  <sequences> @<Sequence> + ;
           <sources> @<Source> + ;
@@ -53,18 +76,6 @@ linkml:Sparqlpath xsd:string
     )
 }
 
-<CutSource>  (
-    CLOSED {
-       (  $<CutSource_tes> (  &<Source_tes> ;
-             rdf:type [ <Source> ] ? ;
-             <left_cut> @<SequenceCut> ? ;
-             <right_cut> @<SequenceCut> ?
-          ) ;
-          rdf:type [ <CutSource> ]
-       )
-    } OR @<RestrictionCutSource>
-)
-
 <GenomeCoordinatesSource> CLOSED {
     (  $<GenomeCoordinatesSource_tes> (  &<Source_tes> ;
           rdf:type [ <Source> ] ? ;
@@ -73,17 +84,42 @@ linkml:Sparqlpath xsd:string
           <locus_tag> @linkml:String ? ;
           <gene_id> @linkml:Integer ? ;
           <start> @linkml:Integer ;
-          <stop> @linkml:Integer ;
+          <end> @linkml:Integer ;
           <strand> @linkml:Integer
        ) ;
        rdf:type [ <GenomeCoordinatesSource> ]
     )
 }
 
+<GibsonAssemblySource> CLOSED {
+    (  $<GibsonAssemblySource_tes> (  &<AssemblySource_tes> ;
+          rdf:type [ <AssemblySource> ] ?
+       ) ;
+       rdf:type [ <GibsonAssemblySource> ]
+    )
+}
+
+<HomologousRecombinationSource> CLOSED {
+    (  $<HomologousRecombinationSource_tes> (  &<AssemblySource_tes> ;
+          rdf:type [ <AssemblySource> ] ?
+       ) ;
+       rdf:type [ <HomologousRecombinationSource> ]
+    )
+}
+
+<LigationSource> CLOSED {
+    (  $<LigationSource_tes> (  &<AssemblySource_tes> ;
+          rdf:type [ <AssemblySource> ] ?
+       ) ;
+       rdf:type [ <LigationSource> ]
+    )
+}
+
 <ManuallyTypedSource> CLOSED {
     (  $<ManuallyTypedSource_tes> (  &<Source_tes> ;
           rdf:type [ <Source> ] ? ;
-          <user_input> @linkml:String
+          <user_input> @linkml:String ;
+          <circular> @linkml:Boolean ?
        ) ;
        rdf:type [ <ManuallyTypedSource> ]
     )
@@ -94,12 +130,41 @@ linkml:Sparqlpath xsd:string
        (  $<NamedThing_tes> rdf:type . * ;
           rdf:type [ schema:Thing ]
        )
-    } OR @<Primer> OR @<Sequence> OR @<SequenceCut> OR @<Source>
+    } OR @<Sequence> OR @<Source>
 )
 
+<OligoHybridizationSource> CLOSED {
+    (  $<OligoHybridizationSource_tes> (  &<Source_tes> ;
+          rdf:type [ <Source> ] ? ;
+          <forward_oligo> @<Primer> ;
+          <reverse_oligo> @<Primer> ;
+          <overhang_crick_3prime> @linkml:Integer ?
+       ) ;
+       rdf:type [ <OligoHybridizationSource> ]
+    )
+}
+
+<PCRSource> CLOSED {
+    (  $<PCRSource_tes> (  &<AssemblySource_tes> ;
+          rdf:type [ <AssemblySource> ] ? ;
+          <forward_primer> @<Primer> ;
+          <reverse_primer> @<Primer>
+       ) ;
+       rdf:type [ <PCRSource> ]
+    )
+}
+
+<PolymeraseExtensionSource> CLOSED {
+    (  $<PolymeraseExtensionSource_tes> (  &<Source_tes> ;
+          rdf:type [ <Source> ] ?
+       ) ;
+       rdf:type [ <PolymeraseExtensionSource> ]
+    )
+}
+
 <Primer> CLOSED {
-    (  $<Primer_tes> (  &<NamedThing_tes> ;
-          rdf:type [ schema:Thing ] ? ;
+    (  $<Primer_tes> (  &<Sequence_tes> ;
+          rdf:type [ <Sequence> ] ? ;
           schema:name @linkml:String ? ;
           <sequence> @linkml:String ?
        ) ;
@@ -118,13 +183,22 @@ linkml:Sparqlpath xsd:string
     )
 }
 
-<RestrictionCutSource> CLOSED {
-    (  $<RestrictionCutSource_tes> (  &<CutSource_tes> ;
-          rdf:type [ <CutSource> ] ? ;
-          <left_cut> @<RestrictionSequenceCut> ? ;
-          <right_cut> @<RestrictionSequenceCut> ?
+<RestrictionAndLigationSource> CLOSED {
+    (  $<RestrictionAndLigationSource_tes> (  &<AssemblySource_tes> ;
+          rdf:type [ <AssemblySource> ] ? ;
+          <restriction_enzymes> @linkml:String +
        ) ;
-       rdf:type [ <RestrictionCutSource> ]
+       rdf:type [ <RestrictionAndLigationSource> ]
+    )
+}
+
+<RestrictionEnzymeDigestionSource> CLOSED {
+    (  $<RestrictionEnzymeDigestionSource_tes> (  &<SequenceCutSource_tes> ;
+          rdf:type [ <SequenceCutSource> ] ? ;
+          <left_edge> @<RestrictionSequenceCut> ? ;
+          <right_edge> @<RestrictionSequenceCut> ?
+       ) ;
+       rdf:type [ <RestrictionEnzymeDigestionSource> ]
     )
 }
 
@@ -133,42 +207,64 @@ linkml:Sparqlpath xsd:string
           rdf:type [ <SequenceCut> ] ? ;
           <restriction_enzyme> @linkml:String
        ) ;
-       rdf:type [ <RestrictionSequenceCut> ]
+       rdf:type [ <RestrictionSequenceCut> ] ?
     )
 }
 
 <Sequence>  (
-    {
-       (  $<Sequence_tes> (  &<NamedThing_tes> ;
-             rdf:type [ schema:Thing ] ? ;
-             <type> @linkml:String ?
-          ) ;
-          rdf:type [ <Sequence> ]
-       )
-    } OR @<TextFileSequence>
+    @<Primer> OR @<TextFileSequence>
 )
+
+<Sequence_struct> {
+    (  $<Sequence_tes> (  &<NamedThing_tes> ;
+          rdf:type [ schema:Thing ] ? ;
+          <type> @linkml:String ?
+       ) ;
+       rdf:type [ <Sequence> ]
+    )
+}
 
 <SequenceCut>  (
     CLOSED {
-       (  $<SequenceCut_tes> (  &<NamedThing_tes> ;
-             rdf:type [ schema:Thing ] ? ;
-             <cut_watson> @linkml:Integer ? ;
+       (  $<SequenceCut_tes> (  <cut_watson> @linkml:Integer ? ;
              <overhang> @linkml:Integer ?
           ) ;
-          rdf:type [ <SequenceCut> ]
+          rdf:type [ <SequenceCut> ] ?
        )
     } OR @<RestrictionSequenceCut>
 )
 
+<SequenceCutSource>  (
+    CLOSED {
+       (  $<SequenceCutSource_tes> (  &<Source_tes> ;
+             rdf:type [ <Source> ] ? ;
+             <left_edge> @<SequenceCut> ? ;
+             <right_edge> @<SequenceCut> ?
+          ) ;
+          rdf:type [ <SequenceCutSource> ]
+       )
+    } OR @<RestrictionEnzymeDigestionSource>
+)
+
+<SimpleSequenceLocation> CLOSED {
+    (  $<SimpleSequenceLocation_tes> (  <start> @linkml:Integer ;
+          <end> @linkml:Integer ;
+          <strand> @linkml:Integer ?
+       ) ;
+       rdf:type [ <SimpleSequenceLocation> ] ?
+    )
+}
+
 <Source>  (
-    @<CutSource> OR @<GenomeCoordinatesSource> OR @<ManuallyTypedSource> OR @<RepositoryIdSource> OR @<UploadedFileSource>
+    @<AssemblySource> OR @<GenomeCoordinatesSource> OR @<ManuallyTypedSource> OR @<OligoHybridizationSource> OR
+    @<PolymeraseExtensionSource> OR @<RepositoryIdSource> OR @<SequenceCutSource> OR @<UploadedFileSource>
 )
 
 <Source_struct> {
     (  $<Source_tes> (  &<NamedThing_tes> ;
           rdf:type [ schema:Thing ] ? ;
-          <input> @linkml:Integer * ;
-          <output> @linkml:Integer ? ;
+          <input> @<Sequence> * ;
+          <output> @<Sequence> ? ;
           <type> @linkml:String ?
        ) ;
        rdf:type [ <Source> ]

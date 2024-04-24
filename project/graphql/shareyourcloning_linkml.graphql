@@ -1,3 +1,21 @@
+type AssemblyJoin
+  {
+    leftFragment: Sequence!
+    rightFragment: Sequence!
+    leftLocation: SimpleSequenceLocation!
+    rightLocation: SimpleSequenceLocation!
+  }
+
+type AssemblySource
+  {
+    id: Integer!
+    input: [Sequence]
+    output: Sequence
+    type: String
+    circular: Boolean
+    assembly: [AssemblyJoin]!
+  }
+
 type CloningStrategy
   {
     sequences: [Sequence]!
@@ -6,38 +24,59 @@ type CloningStrategy
     description: String
   }
 
-type CutSource
-  {
-    id: Integer!
-    input: [Integer]
-    output: Integer
-    type: String
-    leftCut: SequenceCut
-    rightCut: SequenceCut
-  }
-
 type GenomeCoordinatesSource
   {
     id: Integer!
-    input: [Integer]
-    output: Integer
+    input: [Sequence]
+    output: Sequence
     type: String
     assemblyAccession: String
     sequenceAccession: String!
     locusTag: String
     geneId: Integer
     start: Integer!
-    stop: Integer!
+    end: Integer!
     strand: Integer!
+  }
+
+type GibsonAssemblySource
+  {
+    id: Integer!
+    input: [Sequence]
+    output: Sequence
+    type: String
+    circular: Boolean
+    assembly: [AssemblyJoin]!
+  }
+
+type HomologousRecombinationSource
+  {
+    id: Integer!
+    input: [Sequence]
+    output: Sequence
+    type: String
+    circular: Boolean
+    assembly: [AssemblyJoin]!
+  }
+
+type LigationSource
+  {
+    id: Integer!
+    input: [Sequence]
+    output: Sequence
+    type: String
+    circular: Boolean
+    assembly: [AssemblyJoin]!
   }
 
 type ManuallyTypedSource
   {
     id: Integer!
-    input: [Integer]
-    output: Integer
+    input: [Sequence]
+    output: Sequence
     type: String
     userInput: String!
+    circular: Boolean
   }
 
 type NamedThing
@@ -45,9 +84,41 @@ type NamedThing
     id: Integer!
   }
 
+type OligoHybridizationSource
+  {
+    id: Integer!
+    input: [Sequence]
+    output: Sequence
+    type: String
+    forwardOligo: Primer!
+    reverseOligo: Primer!
+    overhangCrick3prime: Integer
+  }
+
+type PCRSource
+  {
+    id: Integer!
+    input: [Sequence]
+    output: Sequence
+    type: String
+    circular: Boolean
+    assembly: [AssemblyJoin]!
+    forwardPrimer: Primer!
+    reversePrimer: Primer!
+  }
+
+type PolymeraseExtensionSource
+  {
+    id: Integer!
+    input: [Sequence]
+    output: Sequence
+    type: String
+  }
+
 type Primer
   {
     id: Integer!
+    type: String
     name: String
     sequence: String
   }
@@ -55,26 +126,36 @@ type Primer
 type RepositoryIdSource
   {
     id: Integer!
-    input: [Integer]
-    output: Integer
+    input: [Sequence]
+    output: Sequence
     type: String
     repositoryName: RepositoryName!
     repositoryId: String!
   }
 
-type RestrictionCutSource
+type RestrictionAndLigationSource
   {
     id: Integer!
-    input: [Integer]
-    output: Integer
+    input: [Sequence]
+    output: Sequence
     type: String
-    leftCut: RestrictionSequenceCut
-    rightCut: RestrictionSequenceCut
+    circular: Boolean
+    assembly: [AssemblyJoin]!
+    restrictionEnzymes: [String]!
+  }
+
+type RestrictionEnzymeDigestionSource
+  {
+    id: Integer!
+    input: [Sequence]
+    output: Sequence
+    type: String
+    leftEdge: RestrictionSequenceCut
+    rightEdge: RestrictionSequenceCut
   }
 
 type RestrictionSequenceCut
   {
-    id: Integer!
     cutWatson: Integer
     overhang: Integer
     restrictionEnzyme: String!
@@ -88,16 +169,32 @@ interface Sequence
 
 type SequenceCut
   {
-    id: Integer!
     cutWatson: Integer
     overhang: Integer
+  }
+
+type SequenceCutSource
+  {
+    id: Integer!
+    input: [Sequence]
+    output: Sequence
+    type: String
+    leftEdge: SequenceCut
+    rightEdge: SequenceCut
+  }
+
+type SimpleSequenceLocation
+  {
+    start: Integer!
+    end: Integer!
+    strand: Integer
   }
 
 interface Source
   {
     id: Integer!
-    input: [Integer]
-    output: Integer
+    input: [Sequence]
+    output: Sequence
     type: String
   }
 
@@ -114,8 +211,8 @@ type TextFileSequence
 type UploadedFileSource
   {
     id: Integer!
-    input: [Integer]
-    output: Integer
+    input: [Sequence]
+    output: Sequence
     type: String
     sequenceFileFormat: SequenceFileFormat!
     fileName: String

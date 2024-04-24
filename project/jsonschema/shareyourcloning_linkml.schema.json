@@ -1,5 +1,78 @@
 {
     "$defs": {
+        "AssemblyJoin": {
+            "additionalProperties": false,
+            "description": "Represents a joint between two fragments in an assembly",
+            "properties": {
+                "left_fragment": {
+                    "type": "integer"
+                },
+                "left_location": {
+                    "$ref": "#/$defs/SimpleSequenceLocation",
+                    "description": "Location of the overlap in the left fragment. Might be an empty location (start == end) to indicate blunt join."
+                },
+                "right_fragment": {
+                    "type": "integer"
+                },
+                "right_location": {
+                    "$ref": "#/$defs/SimpleSequenceLocation",
+                    "description": "Location of the overlap in the right fragment. Might be an empty location (start == end) to indicate blunt join."
+                }
+            },
+            "required": [
+                "left_fragment",
+                "right_fragment",
+                "left_location",
+                "right_location"
+            ],
+            "title": "AssemblyJoin",
+            "type": "object"
+        },
+        "AssemblySource": {
+            "additionalProperties": false,
+            "description": "Represents the source of a sequence that is an assembly of other sequences",
+            "properties": {
+                "assembly": {
+                    "description": "The joins between the fragments in the assembly",
+                    "items": {
+                        "$ref": "#/$defs/AssemblyJoin"
+                    },
+                    "type": "array"
+                },
+                "circular": {
+                    "description": "Whether the assembly is circular or not",
+                    "type": "boolean"
+                },
+                "id": {
+                    "description": "A unique identifier for a thing",
+                    "type": "integer"
+                },
+                "input": {
+                    "description": "The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.",
+                    "items": {
+                        "type": "integer"
+                    },
+                    "type": "array"
+                },
+                "output": {
+                    "description": "Identifier of the sequence that is the output of this source.",
+                    "type": "integer"
+                },
+                "type": {
+                    "description": "The type of the source",
+                    "enum": [
+                        "AssemblySource"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "assembly",
+                "id"
+            ],
+            "title": "AssemblySource",
+            "type": "object"
+        },
         "CloningStrategy": {
             "additionalProperties": false,
             "description": "Represents a cloning strategy",
@@ -18,14 +91,64 @@
                 "sequences": {
                     "description": "The sequences that are used in the cloning strategy",
                     "items": {
-                        "type": "integer"
+                        "anyOf": [
+                            {
+                                "$ref": "#/$defs/TextFileSequence"
+                            },
+                            {
+                                "$ref": "#/$defs/Primer"
+                            }
+                        ]
                     },
                     "type": "array"
                 },
                 "sources": {
                     "description": "The sources of the sequences that are used in the cloning strategy",
                     "items": {
-                        "type": "integer"
+                        "anyOf": [
+                            {
+                                "$ref": "#/$defs/ManuallyTypedSource"
+                            },
+                            {
+                                "$ref": "#/$defs/UploadedFileSource"
+                            },
+                            {
+                                "$ref": "#/$defs/RepositoryIdSource"
+                            },
+                            {
+                                "$ref": "#/$defs/GenomeCoordinatesSource"
+                            },
+                            {
+                                "$ref": "#/$defs/SequenceCutSource"
+                            },
+                            {
+                                "$ref": "#/$defs/AssemblySource"
+                            },
+                            {
+                                "$ref": "#/$defs/OligoHybridizationSource"
+                            },
+                            {
+                                "$ref": "#/$defs/PolymeraseExtensionSource"
+                            },
+                            {
+                                "$ref": "#/$defs/PCRSource"
+                            },
+                            {
+                                "$ref": "#/$defs/LigationSource"
+                            },
+                            {
+                                "$ref": "#/$defs/HomologousRecombinationSource"
+                            },
+                            {
+                                "$ref": "#/$defs/GibsonAssemblySource"
+                            },
+                            {
+                                "$ref": "#/$defs/RestrictionAndLigationSource"
+                            },
+                            {
+                                "$ref": "#/$defs/RestrictionEnzymeDigestionSource"
+                            }
+                        ]
                     },
                     "type": "array"
                 }
@@ -37,45 +160,6 @@
             "title": "CloningStrategy",
             "type": "object"
         },
-        "CutSource": {
-            "additionalProperties": false,
-            "description": "Represents the source of a sequence that is a subfragment of another sequence, generated by sequence cutting.",
-            "properties": {
-                "id": {
-                    "description": "A unique identifier for a thing",
-                    "type": "integer"
-                },
-                "input": {
-                    "description": "Identifiers of the sequences that are an input to this source. If the source represents external import of a sequence, it's empty.",
-                    "items": {
-                        "type": "integer"
-                    },
-                    "type": "array"
-                },
-                "left_cut": {
-                    "type": "integer"
-                },
-                "output": {
-                    "description": "Identifier of the sequence that is the output of this source.",
-                    "type": "integer"
-                },
-                "right_cut": {
-                    "type": "integer"
-                },
-                "type": {
-                    "description": "The type of the source",
-                    "enum": [
-                        "CutSource"
-                    ],
-                    "type": "string"
-                }
-            },
-            "required": [
-                "id"
-            ],
-            "title": "CutSource",
-            "type": "object"
-        },
         "GenomeCoordinatesSource": {
             "additionalProperties": false,
             "description": "Represents the source of a sequence that is identified by genome coordinates, requested from NCBI",
@@ -83,6 +167,10 @@
                 "assembly_accession": {
                     "description": "The accession of the assembly",
                     "type": "string"
+                },
+                "end": {
+                    "description": "The ending coordinate (1-based) of the sequence in the sequence accession",
+                    "type": "integer"
                 },
                 "gene_id": {
                     "description": "The gene id of the sequence",
@@ -93,7 +181,7 @@
                     "type": "integer"
                 },
                 "input": {
-                    "description": "Identifiers of the sequences that are an input to this source. If the source represents external import of a sequence, it's empty.",
+                    "description": "The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.",
                     "items": {
                         "type": "integer"
                     },
@@ -115,10 +203,6 @@
                     "description": "The starting coordinate (1-based) of the sequence in the sequence accession",
                     "type": "integer"
                 },
-                "stop": {
-                    "description": "The ending coordinate (1-based) of the sequence in the sequence accession",
-                    "type": "integer"
-                },
                 "strand": {
                     "description": "The strand of the sequence in the sequence accession, should be 1 or -1",
                     "type": "integer"
@@ -134,23 +218,162 @@
             "required": [
                 "sequence_accession",
                 "start",
-                "stop",
+                "end",
                 "strand",
                 "id"
             ],
             "title": "GenomeCoordinatesSource",
             "type": "object"
         },
-        "ManuallyTypedSource": {
+        "GibsonAssemblySource": {
             "additionalProperties": false,
-            "description": "Represents the source of a sequence that is manually typed by the user",
+            "description": "Represents the source of a sequence that is generated by Gibson assembly",
             "properties": {
+                "assembly": {
+                    "description": "The joins between the fragments in the assembly",
+                    "items": {
+                        "$ref": "#/$defs/AssemblyJoin"
+                    },
+                    "type": "array"
+                },
+                "circular": {
+                    "description": "Whether the assembly is circular or not",
+                    "type": "boolean"
+                },
                 "id": {
                     "description": "A unique identifier for a thing",
                     "type": "integer"
                 },
                 "input": {
-                    "description": "Identifiers of the sequences that are an input to this source. If the source represents external import of a sequence, it's empty.",
+                    "description": "The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.",
+                    "items": {
+                        "type": "integer"
+                    },
+                    "type": "array"
+                },
+                "output": {
+                    "description": "Identifier of the sequence that is the output of this source.",
+                    "type": "integer"
+                },
+                "type": {
+                    "description": "The type of the source",
+                    "enum": [
+                        "GibsonAssemblySource"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "assembly",
+                "id"
+            ],
+            "title": "GibsonAssemblySource",
+            "type": "object"
+        },
+        "HomologousRecombinationSource": {
+            "additionalProperties": false,
+            "description": "Represents the source of a sequence that is generated by homologous recombination",
+            "properties": {
+                "assembly": {
+                    "description": "The joins between the fragments in the assembly",
+                    "items": {
+                        "$ref": "#/$defs/AssemblyJoin"
+                    },
+                    "type": "array"
+                },
+                "circular": {
+                    "description": "Whether the assembly is circular or not",
+                    "type": "boolean"
+                },
+                "id": {
+                    "description": "A unique identifier for a thing",
+                    "type": "integer"
+                },
+                "input": {
+                    "description": "The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.",
+                    "items": {
+                        "type": "integer"
+                    },
+                    "type": "array"
+                },
+                "output": {
+                    "description": "Identifier of the sequence that is the output of this source.",
+                    "type": "integer"
+                },
+                "type": {
+                    "description": "The type of the source",
+                    "enum": [
+                        "HomologousRecombinationSource"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "assembly",
+                "id"
+            ],
+            "title": "HomologousRecombinationSource",
+            "type": "object"
+        },
+        "LigationSource": {
+            "additionalProperties": false,
+            "description": "Represents the source of a sequence that is generated by ligation with sticky or blunt ends.",
+            "properties": {
+                "assembly": {
+                    "description": "The joins between the fragments in the assembly",
+                    "items": {
+                        "$ref": "#/$defs/AssemblyJoin"
+                    },
+                    "type": "array"
+                },
+                "circular": {
+                    "description": "Whether the assembly is circular or not",
+                    "type": "boolean"
+                },
+                "id": {
+                    "description": "A unique identifier for a thing",
+                    "type": "integer"
+                },
+                "input": {
+                    "description": "The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.",
+                    "items": {
+                        "type": "integer"
+                    },
+                    "type": "array"
+                },
+                "output": {
+                    "description": "Identifier of the sequence that is the output of this source.",
+                    "type": "integer"
+                },
+                "type": {
+                    "description": "The type of the source",
+                    "enum": [
+                        "LigationSource"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "assembly",
+                "id"
+            ],
+            "title": "LigationSource",
+            "type": "object"
+        },
+        "ManuallyTypedSource": {
+            "additionalProperties": false,
+            "description": "Represents the source of a sequence that is manually typed by the user",
+            "properties": {
+                "circular": {
+                    "description": "Whether the sequence is circular or not",
+                    "type": "boolean"
+                },
+                "id": {
+                    "description": "A unique identifier for a thing",
+                    "type": "integer"
+                },
+                "input": {
+                    "description": "The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.",
                     "items": {
                         "type": "integer"
                     },
@@ -194,6 +417,141 @@
             "title": "NamedThing",
             "type": "object"
         },
+        "OligoHybridizationSource": {
+            "additionalProperties": false,
+            "description": "Represents the source of a sequence that is generated by oligo hybridization",
+            "properties": {
+                "forward_oligo": {
+                    "description": "The forward oligo used in the hybridization",
+                    "type": "integer"
+                },
+                "id": {
+                    "description": "A unique identifier for a thing",
+                    "type": "integer"
+                },
+                "input": {
+                    "description": "The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.",
+                    "items": {
+                        "type": "integer"
+                    },
+                    "type": "array"
+                },
+                "output": {
+                    "description": "Identifier of the sequence that is the output of this source.",
+                    "type": "integer"
+                },
+                "overhang_crick_3prime": {
+                    "description": "The length of the crick strand overhang in the 5' of the molecule, or 3' of the crick strand.",
+                    "type": "integer"
+                },
+                "reverse_oligo": {
+                    "description": "The reverse oligo used in the hybridization",
+                    "type": "integer"
+                },
+                "type": {
+                    "description": "The type of the source",
+                    "enum": [
+                        "OligoHybridizationSource"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "forward_oligo",
+                "reverse_oligo",
+                "id"
+            ],
+            "title": "OligoHybridizationSource",
+            "type": "object"
+        },
+        "PCRSource": {
+            "additionalProperties": false,
+            "description": "Represents the source of a sequence that is generated by PCR",
+            "properties": {
+                "assembly": {
+                    "description": "The joins between the fragments in the assembly",
+                    "items": {
+                        "$ref": "#/$defs/AssemblyJoin"
+                    },
+                    "type": "array"
+                },
+                "circular": {
+                    "description": "Whether the assembly is circular or not",
+                    "type": "boolean"
+                },
+                "forward_primer": {
+                    "description": "The forward primer used in the PCR",
+                    "type": "integer"
+                },
+                "id": {
+                    "description": "A unique identifier for a thing",
+                    "type": "integer"
+                },
+                "input": {
+                    "description": "The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.",
+                    "items": {
+                        "type": "integer"
+                    },
+                    "type": "array"
+                },
+                "output": {
+                    "description": "Identifier of the sequence that is the output of this source.",
+                    "type": "integer"
+                },
+                "reverse_primer": {
+                    "description": "The reverse primer used in the PCR",
+                    "type": "integer"
+                },
+                "type": {
+                    "description": "The type of the source",
+                    "enum": [
+                        "PCRSource"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "forward_primer",
+                "reverse_primer",
+                "assembly",
+                "id"
+            ],
+            "title": "PCRSource",
+            "type": "object"
+        },
+        "PolymeraseExtensionSource": {
+            "additionalProperties": false,
+            "description": "Represents the source of a sequence that is generated by polymerase extension",
+            "properties": {
+                "id": {
+                    "description": "A unique identifier for a thing",
+                    "type": "integer"
+                },
+                "input": {
+                    "description": "The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.",
+                    "items": {
+                        "type": "integer"
+                    },
+                    "type": "array"
+                },
+                "output": {
+                    "description": "Identifier of the sequence that is the output of this source.",
+                    "type": "integer"
+                },
+                "type": {
+                    "description": "The type of the source",
+                    "enum": [
+                        "PolymeraseExtensionSource"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "id"
+            ],
+            "title": "PolymeraseExtensionSource",
+            "type": "object"
+        },
         "Primer": {
             "additionalProperties": false,
             "description": "An oligonucleotide or primer",
@@ -208,6 +566,13 @@
                 },
                 "sequence": {
                     "pattern": "^[acgtACGT]+$",
+                    "type": "string"
+                },
+                "type": {
+                    "description": "The type of the source",
+                    "enum": [
+                        "Primer"
+                    ],
                     "type": "string"
                 }
             },
@@ -226,7 +591,7 @@
                     "type": "integer"
                 },
                 "input": {
-                    "description": "Identifiers of the sequences that are an input to this source. If the source represents external import of a sequence, it's empty.",
+                    "description": "The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.",
                     "items": {
                         "type": "integer"
                     },
@@ -268,7 +633,59 @@
             "title": "RepositoryName",
             "type": "string"
         },
-        "RestrictionCutSource": {
+        "RestrictionAndLigationSource": {
+            "additionalProperties": false,
+            "description": "Represents the source of a sequence that is generated by restriction and ligation",
+            "properties": {
+                "assembly": {
+                    "description": "The joins between the fragments in the assembly",
+                    "items": {
+                        "$ref": "#/$defs/AssemblyJoin"
+                    },
+                    "type": "array"
+                },
+                "circular": {
+                    "description": "Whether the assembly is circular or not",
+                    "type": "boolean"
+                },
+                "id": {
+                    "description": "A unique identifier for a thing",
+                    "type": "integer"
+                },
+                "input": {
+                    "description": "The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.",
+                    "items": {
+                        "type": "integer"
+                    },
+                    "type": "array"
+                },
+                "output": {
+                    "description": "Identifier of the sequence that is the output of this source.",
+                    "type": "integer"
+                },
+                "restriction_enzymes": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "type": {
+                    "description": "The type of the source",
+                    "enum": [
+                        "RestrictionAndLigationSource"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "restriction_enzymes",
+                "assembly",
+                "id"
+            ],
+            "title": "RestrictionAndLigationSource",
+            "type": "object"
+        },
+        "RestrictionEnzymeDigestionSource": {
             "additionalProperties": false,
             "description": "Represents the source of a sequence that is a subfragment of another sequence, generated by sequence cutting using restriction enzymes.",
             "properties": {
@@ -277,26 +694,26 @@
                     "type": "integer"
                 },
                 "input": {
-                    "description": "Identifiers of the sequences that are an input to this source. If the source represents external import of a sequence, it's empty.",
+                    "description": "The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.",
                     "items": {
                         "type": "integer"
                     },
                     "type": "array"
                 },
-                "left_cut": {
-                    "type": "integer"
+                "left_edge": {
+                    "$ref": "#/$defs/RestrictionSequenceCut"
                 },
                 "output": {
                     "description": "Identifier of the sequence that is the output of this source.",
                     "type": "integer"
                 },
-                "right_cut": {
-                    "type": "integer"
+                "right_edge": {
+                    "$ref": "#/$defs/RestrictionSequenceCut"
                 },
                 "type": {
                     "description": "The type of the source",
                     "enum": [
-                        "RestrictionCutSource"
+                        "RestrictionEnzymeDigestionSource"
                     ],
                     "type": "string"
                 }
@@ -304,7 +721,7 @@
             "required": [
                 "id"
             ],
-            "title": "RestrictionCutSource",
+            "title": "RestrictionEnzymeDigestionSource",
             "type": "object"
         },
         "RestrictionSequenceCut": {
@@ -313,10 +730,6 @@
             "properties": {
                 "cut_watson": {
                     "description": "The position of the cut in the watson strand. The cut is made before the base at this position (zero-based), so that cut position 1 cuts after the first base.",
-                    "type": "integer"
-                },
-                "id": {
-                    "description": "A unique identifier for a thing",
                     "type": "integer"
                 },
                 "overhang": {
@@ -328,8 +741,7 @@
                 }
             },
             "required": [
-                "restriction_enzyme",
-                "id"
+                "restriction_enzyme"
             ],
             "title": "RestrictionSequenceCut",
             "type": "object"
@@ -342,19 +754,51 @@
                     "description": "The position of the cut in the watson strand. The cut is made before the base at this position (zero-based), so that cut position 1 cuts after the first base.",
                     "type": "integer"
                 },
-                "id": {
-                    "description": "A unique identifier for a thing",
-                    "type": "integer"
-                },
                 "overhang": {
                     "description": "The length of the overhang that is left after the cut. It can be negative, same meaning as in pydna's `dseq::ovhg` and biopython's `Bio.Restriction.RestrictionType.ovhg`.",
                     "type": "integer"
                 }
             },
+            "title": "SequenceCut",
+            "type": "object"
+        },
+        "SequenceCutSource": {
+            "additionalProperties": false,
+            "description": "Represents the source of a sequence that is a subfragment of another sequence, generated by sequence cutting.",
+            "properties": {
+                "id": {
+                    "description": "A unique identifier for a thing",
+                    "type": "integer"
+                },
+                "input": {
+                    "description": "The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.",
+                    "items": {
+                        "type": "integer"
+                    },
+                    "type": "array"
+                },
+                "left_edge": {
+                    "$ref": "#/$defs/SequenceCut"
+                },
+                "output": {
+                    "description": "Identifier of the sequence that is the output of this source.",
+                    "type": "integer"
+                },
+                "right_edge": {
+                    "$ref": "#/$defs/SequenceCut"
+                },
+                "type": {
+                    "description": "The type of the source",
+                    "enum": [
+                        "SequenceCutSource"
+                    ],
+                    "type": "string"
+                }
+            },
             "required": [
                 "id"
             ],
-            "title": "SequenceCut",
+            "title": "SequenceCutSource",
             "type": "object"
         },
         "SequenceFileFormat": {
@@ -366,6 +810,30 @@
             ],
             "title": "SequenceFileFormat",
             "type": "string"
+        },
+        "SimpleSequenceLocation": {
+            "additionalProperties": false,
+            "description": "Represents a location within a sequence, for now support for ranges only",
+            "properties": {
+                "end": {
+                    "description": "The ending coordinate (1-based) of the location",
+                    "type": "integer"
+                },
+                "start": {
+                    "description": "The starting coordinate (1-based) of the location",
+                    "type": "integer"
+                },
+                "strand": {
+                    "description": "The strand of the location, should be 1 or -1 or null",
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "start",
+                "end"
+            ],
+            "title": "SimpleSequenceLocation",
+            "type": "object"
         },
         "TextFileSequence": {
             "additionalProperties": false,
@@ -422,7 +890,7 @@
                     "type": "integer"
                 },
                 "input": {
-                    "description": "Identifiers of the sequences that are an input to this source. If the source represents external import of a sequence, it's empty.",
+                    "description": "The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.",
                     "items": {
                         "type": "integer"
                     },
