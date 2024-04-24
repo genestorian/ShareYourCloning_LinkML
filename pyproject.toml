@@ -24,6 +24,7 @@ classifiers = [
 
 [tool.poetry.dependencies]
 python = "^3.9"
+pydantic = "^2.7.1"
 
 
 [tool.poetry-dynamic-versioning]
@@ -41,6 +42,7 @@ schemasheets = "^0.1.14"
 [build-system]
 build-backend = "poetry_dynamic_versioning.backend"
 requires = ["poetry-core>=1.0.0", "poetry-dynamic-versioning"]
+
 
 
 

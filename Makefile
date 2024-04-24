@@ -104,7 +104,10 @@ gen-examples:
 # generates all project files
 
 gen-project: $(PYMODEL)
-	$(RUN) gen-project ${GEN_PARGS} -d $(DEST) $(SOURCE_SCHEMA_PATH) && mv $(DEST)/*.py $(PYMODEL)
+	# For now, don't include the python classes, just pydantic models
+	$(RUN) gen-project ${GEN_PARGS} -d $(DEST) $(SOURCE_SCHEMA_PATH) && mv $(DEST)/*.py $(DEST)/python
+	# This line used to be there to move the python classes to the datamodel folder
+	# && mv $(DEST)/*.py $(PYMODEL)
 	$(RUN) gen-pydantic \
     	--pydantic-version 2\
     	$(SOURCE_SCHEMA_PATH) \
