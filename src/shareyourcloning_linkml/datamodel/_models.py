@@ -12,15 +12,15 @@ if int(PYDANTIC_VERSION[0]) >= 2:
 else:
     from pydantic import BaseModel, Field, validator
 
-metamodel_version = 'None'
-version = 'None'
+metamodel_version = "None"
+version = "None"
 
 
 class ConfiguredBaseModel(BaseModel):
     model_config = ConfigDict(
         validate_assignment=True,
         validate_default=True,
-        extra='forbid',
+        extra="forbid",
         arbitrary_types_allowed=True,
         use_enum_values=True,
         strict=False,
@@ -30,15 +30,15 @@ class ConfiguredBaseModel(BaseModel):
 
 class RepositoryName(str, Enum):
     # Addgene
-    addgene = 'addgene'
+    addgene = "addgene"
     # GenBank
-    genbank = 'genbank'
+    genbank = "genbank"
 
 
 class SequenceFileFormat(str, Enum):
-    fasta = 'fasta'
-    genbank = 'genbank'
-    snapgene = 'snapgene'
+    fasta = "fasta"
+    genbank = "genbank"
+    snapgene = "snapgene"
 
 
 class NamedThing(ConfiguredBaseModel):
@@ -51,7 +51,7 @@ class Sequence(NamedThing):
     """
 
     id: int = Field(..., description="""A unique identifier for a thing""")
-    type: Literal['Sequence'] = Field('Sequence', description="""The type of the source""")
+    type: Literal["Sequence"] = Field("Sequence", description="""The type of the source""")
 
 
 class TextFileSequence(Sequence):
@@ -70,7 +70,7 @@ class TextFileSequence(Sequence):
         description="""The equivalent of `overhang_crick_3prime` but for the watson strand""",
     )
     id: int = Field(..., description="""A unique identifier for a thing""")
-    type: Literal['TextFileSequence'] = Field('TextFileSequence', description="""The type of the source""")
+    type: Literal["TextFileSequence"] = Field("TextFileSequence", description="""The type of the source""")
 
 
 class Primer(Sequence):
@@ -81,11 +81,11 @@ class Primer(Sequence):
     name: Optional[str] = Field(None, description="""A human-readable name for a thing""")
     sequence: Optional[str] = Field(None)
     id: int = Field(..., description="""A unique identifier for a thing""")
-    type: Literal['Primer'] = Field('Primer', description="""The type of the source""")
+    type: Literal["Primer"] = Field("Primer", description="""The type of the source""")
 
-    @field_validator('sequence')
+    @field_validator("sequence")
     def pattern_sequence(cls, v):
-        pattern = re.compile(r'^[acgtACGT]+$')
+        pattern = re.compile(r"^[acgtACGT]+$")
         if isinstance(v, list):
             for element in v:
                 if not pattern.match(element):
@@ -140,7 +140,7 @@ class Source(NamedThing):
         None,
         description="""Identifier of the sequence that is the output of this source.""",
     )
-    type: Literal['Source'] = Field('Source', description="""The type of the source""")
+    type: Literal["Source"] = Field("Source", description="""The type of the source""")
     id: int = Field(..., description="""A unique identifier for a thing""")
 
 
@@ -159,12 +159,12 @@ class ManuallyTypedSource(Source):
         None,
         description="""Identifier of the sequence that is the output of this source.""",
     )
-    type: Literal['ManuallyTypedSource'] = Field('ManuallyTypedSource', description="""The type of the source""")
+    type: Literal["ManuallyTypedSource"] = Field("ManuallyTypedSource", description="""The type of the source""")
     id: int = Field(..., description="""A unique identifier for a thing""")
 
-    @field_validator('user_input')
+    @field_validator("user_input")
     def pattern_user_input(cls, v):
-        pattern = re.compile(r'^[acgtACGT]+$')
+        pattern = re.compile(r"^[acgtACGT]+$")
         if isinstance(v, list):
             for element in v:
                 if not pattern.match(element):
@@ -191,7 +191,7 @@ class UploadedFileSource(Source):
         None,
         description="""Identifier of the sequence that is the output of this source.""",
     )
-    type: Literal['UploadedFileSource'] = Field('UploadedFileSource', description="""The type of the source""")
+    type: Literal["UploadedFileSource"] = Field("UploadedFileSource", description="""The type of the source""")
     id: int = Field(..., description="""A unique identifier for a thing""")
 
 
@@ -210,7 +210,7 @@ class RepositoryIdSource(Source):
         None,
         description="""Identifier of the sequence that is the output of this source.""",
     )
-    type: Literal['RepositoryIdSource'] = Field('RepositoryIdSource', description="""The type of the source""")
+    type: Literal["RepositoryIdSource"] = Field("RepositoryIdSource", description="""The type of the source""")
     id: int = Field(..., description="""A unique identifier for a thing""")
 
 
@@ -243,8 +243,8 @@ class GenomeCoordinatesSource(Source):
         None,
         description="""Identifier of the sequence that is the output of this source.""",
     )
-    type: Literal['GenomeCoordinatesSource'] = Field(
-        'GenomeCoordinatesSource', description="""The type of the source"""
+    type: Literal["GenomeCoordinatesSource"] = Field(
+        "GenomeCoordinatesSource", description="""The type of the source"""
     )
     id: int = Field(..., description="""A unique identifier for a thing""")
 
@@ -264,7 +264,7 @@ class SequenceCutSource(Source):
         None,
         description="""Identifier of the sequence that is the output of this source.""",
     )
-    type: Literal['SequenceCutSource'] = Field('SequenceCutSource', description="""The type of the source""")
+    type: Literal["SequenceCutSource"] = Field("SequenceCutSource", description="""The type of the source""")
     id: int = Field(..., description="""A unique identifier for a thing""")
 
 
@@ -283,8 +283,8 @@ class RestrictionEnzymeDigestionSource(SequenceCutSource):
         None,
         description="""Identifier of the sequence that is the output of this source.""",
     )
-    type: Literal['RestrictionEnzymeDigestionSource'] = Field(
-        'RestrictionEnzymeDigestionSource', description="""The type of the source"""
+    type: Literal["RestrictionEnzymeDigestionSource"] = Field(
+        "RestrictionEnzymeDigestionSource", description="""The type of the source"""
     )
     id: int = Field(..., description="""A unique identifier for a thing""")
 
@@ -334,7 +334,7 @@ class AssemblySource(Source):
         None,
         description="""Identifier of the sequence that is the output of this source.""",
     )
-    type: Literal['AssemblySource'] = Field('AssemblySource', description="""The type of the source""")
+    type: Literal["AssemblySource"] = Field("AssemblySource", description="""The type of the source""")
     id: int = Field(..., description="""A unique identifier for a thing""")
 
 
@@ -358,7 +358,7 @@ class PCRSource(AssemblySource):
         None,
         description="""Identifier of the sequence that is the output of this source.""",
     )
-    type: Literal['PCRSource'] = Field('PCRSource', description="""The type of the source""")
+    type: Literal["PCRSource"] = Field("PCRSource", description="""The type of the source""")
     id: int = Field(..., description="""A unique identifier for a thing""")
 
 
@@ -380,7 +380,7 @@ class LigationSource(AssemblySource):
         None,
         description="""Identifier of the sequence that is the output of this source.""",
     )
-    type: Literal['LigationSource'] = Field('LigationSource', description="""The type of the source""")
+    type: Literal["LigationSource"] = Field("LigationSource", description="""The type of the source""")
     id: int = Field(..., description="""A unique identifier for a thing""")
 
 
@@ -402,8 +402,8 @@ class HomologousRecombinationSource(AssemblySource):
         None,
         description="""Identifier of the sequence that is the output of this source.""",
     )
-    type: Literal['HomologousRecombinationSource'] = Field(
-        'HomologousRecombinationSource', description="""The type of the source"""
+    type: Literal["HomologousRecombinationSource"] = Field(
+        "HomologousRecombinationSource", description="""The type of the source"""
     )
     id: int = Field(..., description="""A unique identifier for a thing""")
 
@@ -426,7 +426,7 @@ class GibsonAssemblySource(AssemblySource):
         None,
         description="""Identifier of the sequence that is the output of this source.""",
     )
-    type: Literal['GibsonAssemblySource'] = Field('GibsonAssemblySource', description="""The type of the source""")
+    type: Literal["GibsonAssemblySource"] = Field("GibsonAssemblySource", description="""The type of the source""")
     id: int = Field(..., description="""A unique identifier for a thing""")
 
 
@@ -449,8 +449,8 @@ class RestrictionAndLigationSource(AssemblySource):
         None,
         description="""Identifier of the sequence that is the output of this source.""",
     )
-    type: Literal['RestrictionAndLigationSource'] = Field(
-        'RestrictionAndLigationSource', description="""The type of the source"""
+    type: Literal["RestrictionAndLigationSource"] = Field(
+        "RestrictionAndLigationSource", description="""The type of the source"""
     )
     id: int = Field(..., description="""A unique identifier for a thing""")
 
@@ -474,8 +474,8 @@ class OligoHybridizationSource(Source):
         None,
         description="""Identifier of the sequence that is the output of this source.""",
     )
-    type: Literal['OligoHybridizationSource'] = Field(
-        'OligoHybridizationSource', description="""The type of the source"""
+    type: Literal["OligoHybridizationSource"] = Field(
+        "OligoHybridizationSource", description="""The type of the source"""
     )
     id: int = Field(..., description="""A unique identifier for a thing""")
 
@@ -493,8 +493,8 @@ class PolymeraseExtensionSource(Source):
         None,
         description="""Identifier of the sequence that is the output of this source.""",
     )
-    type: Literal['PolymeraseExtensionSource'] = Field(
-        'PolymeraseExtensionSource', description="""The type of the source"""
+    type: Literal["PolymeraseExtensionSource"] = Field(
+        "PolymeraseExtensionSource", description="""The type of the source"""
     )
     id: int = Field(..., description="""A unique identifier for a thing""")
 

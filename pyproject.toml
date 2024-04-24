@@ -50,5 +50,4 @@ build-backend = "poetry_dynamic_versioning.backend"
 requires = ["poetry-core>=1.0.0", "poetry-dynamic-versioning"]
 
 [tool.black]
-skip-string-normalization = true
 line-length = 119
