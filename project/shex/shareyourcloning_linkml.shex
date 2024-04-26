@@ -118,6 +118,8 @@ linkml:Sparqlpath xsd:string
 <ManuallyTypedSource> CLOSED {
     (  $<ManuallyTypedSource_tes> (  &<Source_tes> ;
           rdf:type [ <Source> ] ? ;
+          <overhang_crick_3prime> @linkml:Integer ? ;
+          <overhang_watson_3prime> @linkml:Integer ? ;
           <user_input> @linkml:String ;
           <circular> @linkml:Boolean ?
        ) ;
@@ -136,9 +138,9 @@ linkml:Sparqlpath xsd:string
 <OligoHybridizationSource> CLOSED {
     (  $<OligoHybridizationSource_tes> (  &<Source_tes> ;
           rdf:type [ <Source> ] ? ;
+          <overhang_crick_3prime> @linkml:Integer ? ;
           <forward_oligo> @<Primer> ;
-          <reverse_oligo> @<Primer> ;
-          <overhang_crick_3prime> @linkml:Integer ?
+          <reverse_oligo> @<Primer>
        ) ;
        rdf:type [ <OligoHybridizationSource> ]
     )
@@ -277,9 +279,9 @@ linkml:Sparqlpath xsd:string
           <sequence_file_format> [ <https://w3id.org/genestorian/ShareYourCloning_LinkML/SequenceFileFormat#fasta>
              <https://w3id.org/genestorian/ShareYourCloning_LinkML/SequenceFileFormat#genbank>
              <https://w3id.org/genestorian/ShareYourCloning_LinkML/SequenceFileFormat#snapgene> ] ;
-          <file_content> @linkml:String ? ;
           <overhang_crick_3prime> @linkml:Integer ? ;
-          <overhang_watson_3prime> @linkml:Integer ?
+          <overhang_watson_3prime> @linkml:Integer ? ;
+          <file_content> @linkml:String ?
        ) ;
        rdf:type [ <TextFileSequence> ]
     )
@@ -297,5 +299,3 @@ linkml:Sparqlpath xsd:string
        rdf:type [ <UploadedFileSource> ]
     )
 }
-
-

@@ -383,6 +383,14 @@
                     "description": "Identifier of the sequence that is the output of this source.",
                     "type": "integer"
                 },
+                "overhang_crick_3prime": {
+                    "description": "Taken from pydna's `dseq::ovhg`An integer describing the length of the crick strand overhang in the 5' of the molecule, or 3' of the crick strand",
+                    "type": "integer"
+                },
+                "overhang_watson_3prime": {
+                    "description": "The equivalent of `overhang_crick_3prime` but for the watson strand",
+                    "type": "integer"
+                },
                 "type": {
                     "description": "The type of the source",
                     "enum": [
@@ -441,7 +449,7 @@
                     "type": "integer"
                 },
                 "overhang_crick_3prime": {
-                    "description": "The length of the crick strand overhang in the 5' of the molecule, or 3' of the crick strand.",
+                    "description": "Taken from pydna's `dseq::ovhg`An integer describing the length of the crick strand overhang in the 5' of the molecule, or 3' of the crick strand",
                     "type": "integer"
                 },
                 "reverse_oligo": {

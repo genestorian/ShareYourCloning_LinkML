@@ -60,15 +60,14 @@ class TextFileSequence(Sequence):
     """
 
     sequence_file_format: SequenceFileFormat = Field(..., description="""The format of a sequence file""")
-    file_content: Optional[str] = Field(None)
     overhang_crick_3prime: Optional[int] = Field(
         None,
         description="""Taken from pydna's `dseq::ovhg`An integer describing the length of the crick strand overhang in the 5' of the molecule, or 3' of the crick strand""",
     )
     overhang_watson_3prime: Optional[int] = Field(
-        None,
-        description="""The equivalent of `overhang_crick_3prime` but for the watson strand""",
+        None, description="""The equivalent of `overhang_crick_3prime` but for the watson strand"""
     )
+    file_content: Optional[str] = Field(None)
     id: int = Field(..., description="""A unique identifier for a thing""")
     type: Literal["TextFileSequence"] = Field("TextFileSequence", description="""The type of the source""")
 
@@ -137,8 +136,7 @@ class Source(NamedThing):
         description="""The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.""",
     )
     output: Optional[int] = Field(
-        None,
-        description="""Identifier of the sequence that is the output of this source.""",
+        None, description="""Identifier of the sequence that is the output of this source."""
     )
     type: Literal["Source"] = Field("Source", description="""The type of the source""")
     id: int = Field(..., description="""A unique identifier for a thing""")
@@ -149,6 +147,13 @@ class ManuallyTypedSource(Source):
     Represents the source of a sequence that is manually typed by the user
     """
 
+    overhang_crick_3prime: Optional[int] = Field(
+        None,
+        description="""Taken from pydna's `dseq::ovhg`An integer describing the length of the crick strand overhang in the 5' of the molecule, or 3' of the crick strand""",
+    )
+    overhang_watson_3prime: Optional[int] = Field(
+        None, description="""The equivalent of `overhang_crick_3prime` but for the watson strand"""
+    )
     user_input: str = Field(...)
     circular: Optional[bool] = Field(None, description="""Whether the sequence is circular or not""")
     input: Optional[List[int]] = Field(
@@ -156,8 +161,7 @@ class ManuallyTypedSource(Source):
         description="""The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.""",
     )
     output: Optional[int] = Field(
-        None,
-        description="""Identifier of the sequence that is the output of this source.""",
+        None, description="""Identifier of the sequence that is the output of this source."""
     )
     type: Literal["ManuallyTypedSource"] = Field("ManuallyTypedSource", description="""The type of the source""")
     id: int = Field(..., description="""A unique identifier for a thing""")
@@ -188,8 +192,7 @@ class UploadedFileSource(Source):
         description="""The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.""",
     )
     output: Optional[int] = Field(
-        None,
-        description="""Identifier of the sequence that is the output of this source.""",
+        None, description="""Identifier of the sequence that is the output of this source."""
     )
     type: Literal["UploadedFileSource"] = Field("UploadedFileSource", description="""The type of the source""")
     id: int = Field(..., description="""A unique identifier for a thing""")
@@ -207,8 +210,7 @@ class RepositoryIdSource(Source):
         description="""The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.""",
     )
     output: Optional[int] = Field(
-        None,
-        description="""Identifier of the sequence that is the output of this source.""",
+        None, description="""Identifier of the sequence that is the output of this source."""
     )
     type: Literal["RepositoryIdSource"] = Field("RepositoryIdSource", description="""The type of the source""")
     id: int = Field(..., description="""A unique identifier for a thing""")
@@ -224,24 +226,16 @@ class GenomeCoordinatesSource(Source):
     locus_tag: Optional[str] = Field(None, description="""The locus tag of the sequence""")
     gene_id: Optional[int] = Field(None, description="""The gene id of the sequence""")
     start: int = Field(
-        ...,
-        description="""The starting coordinate (1-based) of the sequence in the sequence accession""",
+        ..., description="""The starting coordinate (1-based) of the sequence in the sequence accession"""
     )
-    end: int = Field(
-        ...,
-        description="""The ending coordinate (1-based) of the sequence in the sequence accession""",
-    )
-    strand: int = Field(
-        ...,
-        description="""The strand of the sequence in the sequence accession, should be 1 or -1""",
-    )
+    end: int = Field(..., description="""The ending coordinate (1-based) of the sequence in the sequence accession""")
+    strand: int = Field(..., description="""The strand of the sequence in the sequence accession, should be 1 or -1""")
     input: Optional[List[int]] = Field(
         default_factory=list,
         description="""The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.""",
     )
     output: Optional[int] = Field(
-        None,
-        description="""Identifier of the sequence that is the output of this source.""",
+        None, description="""Identifier of the sequence that is the output of this source."""
     )
     type: Literal["GenomeCoordinatesSource"] = Field(
         "GenomeCoordinatesSource", description="""The type of the source"""
@@ -261,8 +255,7 @@ class SequenceCutSource(Source):
         description="""The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.""",
     )
     output: Optional[int] = Field(
-        None,
-        description="""Identifier of the sequence that is the output of this source.""",
+        None, description="""Identifier of the sequence that is the output of this source."""
     )
     type: Literal["SequenceCutSource"] = Field("SequenceCutSource", description="""The type of the source""")
     id: int = Field(..., description="""A unique identifier for a thing""")
@@ -280,8 +273,7 @@ class RestrictionEnzymeDigestionSource(SequenceCutSource):
         description="""The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.""",
     )
     output: Optional[int] = Field(
-        None,
-        description="""Identifier of the sequence that is the output of this source.""",
+        None, description="""Identifier of the sequence that is the output of this source."""
     )
     type: Literal["RestrictionEnzymeDigestionSource"] = Field(
         "RestrictionEnzymeDigestionSource", description="""The type of the source"""
@@ -323,16 +315,14 @@ class AssemblySource(Source):
 
     circular: Optional[bool] = Field(None, description="""Whether the assembly is circular or not""")
     assembly: List[AssemblyJoin] = Field(
-        default_factory=list,
-        description="""The joins between the fragments in the assembly""",
+        default_factory=list, description="""The joins between the fragments in the assembly"""
     )
     input: Optional[List[int]] = Field(
         default_factory=list,
         description="""The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.""",
     )
     output: Optional[int] = Field(
-        None,
-        description="""Identifier of the sequence that is the output of this source.""",
+        None, description="""Identifier of the sequence that is the output of this source."""
     )
     type: Literal["AssemblySource"] = Field("AssemblySource", description="""The type of the source""")
     id: int = Field(..., description="""A unique identifier for a thing""")
@@ -347,16 +337,14 @@ class PCRSource(AssemblySource):
     reverse_primer: int = Field(..., description="""The reverse primer used in the PCR""")
     circular: Optional[bool] = Field(None, description="""Whether the assembly is circular or not""")
     assembly: List[AssemblyJoin] = Field(
-        default_factory=list,
-        description="""The joins between the fragments in the assembly""",
+        default_factory=list, description="""The joins between the fragments in the assembly"""
     )
     input: Optional[List[int]] = Field(
         default_factory=list,
         description="""The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.""",
     )
     output: Optional[int] = Field(
-        None,
-        description="""Identifier of the sequence that is the output of this source.""",
+        None, description="""Identifier of the sequence that is the output of this source."""
     )
     type: Literal["PCRSource"] = Field("PCRSource", description="""The type of the source""")
     id: int = Field(..., description="""A unique identifier for a thing""")
@@ -369,16 +357,14 @@ class LigationSource(AssemblySource):
 
     circular: Optional[bool] = Field(None, description="""Whether the assembly is circular or not""")
     assembly: List[AssemblyJoin] = Field(
-        default_factory=list,
-        description="""The joins between the fragments in the assembly""",
+        default_factory=list, description="""The joins between the fragments in the assembly"""
     )
     input: Optional[List[int]] = Field(
         default_factory=list,
         description="""The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.""",
     )
     output: Optional[int] = Field(
-        None,
-        description="""Identifier of the sequence that is the output of this source.""",
+        None, description="""Identifier of the sequence that is the output of this source."""
     )
     type: Literal["LigationSource"] = Field("LigationSource", description="""The type of the source""")
     id: int = Field(..., description="""A unique identifier for a thing""")
@@ -391,16 +377,14 @@ class HomologousRecombinationSource(AssemblySource):
 
     circular: Optional[bool] = Field(None, description="""Whether the assembly is circular or not""")
     assembly: List[AssemblyJoin] = Field(
-        default_factory=list,
-        description="""The joins between the fragments in the assembly""",
+        default_factory=list, description="""The joins between the fragments in the assembly"""
     )
     input: Optional[List[int]] = Field(
         default_factory=list,
         description="""The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.""",
     )
     output: Optional[int] = Field(
-        None,
-        description="""Identifier of the sequence that is the output of this source.""",
+        None, description="""Identifier of the sequence that is the output of this source."""
     )
     type: Literal["HomologousRecombinationSource"] = Field(
         "HomologousRecombinationSource", description="""The type of the source"""
@@ -415,16 +399,14 @@ class GibsonAssemblySource(AssemblySource):
 
     circular: Optional[bool] = Field(None, description="""Whether the assembly is circular or not""")
     assembly: List[AssemblyJoin] = Field(
-        default_factory=list,
-        description="""The joins between the fragments in the assembly""",
+        default_factory=list, description="""The joins between the fragments in the assembly"""
     )
     input: Optional[List[int]] = Field(
         default_factory=list,
         description="""The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.""",
     )
     output: Optional[int] = Field(
-        None,
-        description="""Identifier of the sequence that is the output of this source.""",
+        None, description="""Identifier of the sequence that is the output of this source."""
     )
     type: Literal["GibsonAssemblySource"] = Field("GibsonAssemblySource", description="""The type of the source""")
     id: int = Field(..., description="""A unique identifier for a thing""")
@@ -438,16 +420,14 @@ class RestrictionAndLigationSource(AssemblySource):
     restriction_enzymes: List[str] = Field(default_factory=list)
     circular: Optional[bool] = Field(None, description="""Whether the assembly is circular or not""")
     assembly: List[AssemblyJoin] = Field(
-        default_factory=list,
-        description="""The joins between the fragments in the assembly""",
+        default_factory=list, description="""The joins between the fragments in the assembly"""
     )
     input: Optional[List[int]] = Field(
         default_factory=list,
         description="""The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.""",
     )
     output: Optional[int] = Field(
-        None,
-        description="""Identifier of the sequence that is the output of this source.""",
+        None, description="""Identifier of the sequence that is the output of this source."""
     )
     type: Literal["RestrictionAndLigationSource"] = Field(
         "RestrictionAndLigationSource", description="""The type of the source"""
@@ -460,19 +440,18 @@ class OligoHybridizationSource(Source):
     Represents the source of a sequence that is generated by oligo hybridization
     """
 
-    forward_oligo: int = Field(..., description="""The forward oligo used in the hybridization""")
-    reverse_oligo: int = Field(..., description="""The reverse oligo used in the hybridization""")
     overhang_crick_3prime: Optional[int] = Field(
         None,
-        description="""The length of the crick strand overhang in the 5' of the molecule, or 3' of the crick strand.""",
+        description="""Taken from pydna's `dseq::ovhg`An integer describing the length of the crick strand overhang in the 5' of the molecule, or 3' of the crick strand""",
     )
+    forward_oligo: int = Field(..., description="""The forward oligo used in the hybridization""")
+    reverse_oligo: int = Field(..., description="""The reverse oligo used in the hybridization""")
     input: Optional[List[int]] = Field(
         default_factory=list,
         description="""The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.""",
     )
     output: Optional[int] = Field(
-        None,
-        description="""Identifier of the sequence that is the output of this source.""",
+        None, description="""Identifier of the sequence that is the output of this source."""
     )
     type: Literal["OligoHybridizationSource"] = Field(
         "OligoHybridizationSource", description="""The type of the source"""
@@ -490,8 +469,7 @@ class PolymeraseExtensionSource(Source):
         description="""The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.""",
     )
     output: Optional[int] = Field(
-        None,
-        description="""Identifier of the sequence that is the output of this source.""",
+        None, description="""Identifier of the sequence that is the output of this source."""
     )
     type: Literal["PolymeraseExtensionSource"] = Field(
         "PolymeraseExtensionSource", description="""The type of the source"""
@@ -505,8 +483,7 @@ class CloningStrategy(ConfiguredBaseModel):
     """
 
     sequences: List[Union[Sequence, TextFileSequence, Primer]] = Field(
-        default_factory=list,
-        description="""The sequences that are used in the cloning strategy""",
+        default_factory=list, description="""The sequences that are used in the cloning strategy"""
     )
     sources: List[
         Union[
@@ -527,12 +504,10 @@ class CloningStrategy(ConfiguredBaseModel):
             RestrictionEnzymeDigestionSource,
         ]
     ] = Field(
-        default_factory=list,
-        description="""The sources of the sequences that are used in the cloning strategy""",
+        default_factory=list, description="""The sources of the sequences that are used in the cloning strategy"""
     )
     primers: Optional[List[int]] = Field(
-        default_factory=list,
-        description="""The primers that are used in the cloning strategy""",
+        default_factory=list, description="""The primers that are used in the cloning strategy"""
     )
     description: Optional[str] = Field(None, description="""A description of the cloning strategy""")
 

@@ -1,5 +1,5 @@
 # Auto generated from shareyourcloning_linkml.yaml by pythongen.py version: 0.0.1
-# Generation date: 2024-04-24T17:03:58
+# Generation date: 2024-04-26T16:36:21
 # Schema: ShareYourCloning_LinkML
 #
 # id: https://w3id.org/genestorian/ShareYourCloning_LinkML
@@ -12,23 +12,12 @@ from jsonasobj2 import JsonObj, as_dict
 from typing import Optional, List, Union, Dict, ClassVar, Any
 from dataclasses import dataclass
 from datetime import date, datetime
-from linkml_runtime.linkml_model.meta import (
-    EnumDefinition,
-    PermissibleValue,
-    PvFormulaOptions,
-)
+from linkml_runtime.linkml_model.meta import EnumDefinition, PermissibleValue, PvFormulaOptions
 
 from linkml_runtime.utils.slot import Slot
 from linkml_runtime.utils.metamodelcore import empty_list, empty_dict, bnode
-from linkml_runtime.utils.yamlutils import (
-    YAMLRoot,
-    extended_str,
-    extended_float,
-    extended_int,
-)
-from linkml_runtime.utils.dataclass_extensions_376 import (
-    dataclasses_init_fn_with_kwargs,
-)
+from linkml_runtime.utils.yamlutils import YAMLRoot, extended_str, extended_float, extended_int
+from linkml_runtime.utils.dataclass_extensions_376 import dataclasses_init_fn_with_kwargs
 from linkml_runtime.utils.formatutils import camelcase, underscore, sfx
 from linkml_runtime.utils.enumerations import EnumDefinitionImpl
 from rdflib import Namespace, URIRef
@@ -213,9 +202,9 @@ class TextFileSequence(Sequence):
 
     id: Union[int, TextFileSequenceId] = None
     sequence_file_format: Union[str, "SequenceFileFormat"] = None
-    file_content: Optional[str] = None
     overhang_crick_3prime: Optional[int] = None
     overhang_watson_3prime: Optional[int] = None
+    file_content: Optional[str] = None
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
         if self._is_empty(self.id):
@@ -228,14 +217,14 @@ class TextFileSequence(Sequence):
         if not isinstance(self.sequence_file_format, SequenceFileFormat):
             self.sequence_file_format = SequenceFileFormat(self.sequence_file_format)
 
-        if self.file_content is not None and not isinstance(self.file_content, str):
-            self.file_content = str(self.file_content)
-
         if self.overhang_crick_3prime is not None and not isinstance(self.overhang_crick_3prime, int):
             self.overhang_crick_3prime = int(self.overhang_crick_3prime)
 
         if self.overhang_watson_3prime is not None and not isinstance(self.overhang_watson_3prime, int):
             self.overhang_watson_3prime = int(self.overhang_watson_3prime)
+
+        if self.file_content is not None and not isinstance(self.file_content, str):
+            self.file_content = str(self.file_content)
 
         super().__post_init__(**kwargs)
         self.type = str(self.class_name)
@@ -386,6 +375,8 @@ class ManuallyTypedSource(Source):
 
     id: Union[int, ManuallyTypedSourceId] = None
     user_input: str = None
+    overhang_crick_3prime: Optional[int] = None
+    overhang_watson_3prime: Optional[int] = None
     circular: Optional[Union[bool, Bool]] = None
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
@@ -398,6 +389,12 @@ class ManuallyTypedSource(Source):
             self.MissingRequiredField("user_input")
         if not isinstance(self.user_input, str):
             self.user_input = str(self.user_input)
+
+        if self.overhang_crick_3prime is not None and not isinstance(self.overhang_crick_3prime, int):
+            self.overhang_crick_3prime = int(self.overhang_crick_3prime)
+
+        if self.overhang_watson_3prime is not None and not isinstance(self.overhang_watson_3prime, int):
+            self.overhang_watson_3prime = int(self.overhang_watson_3prime)
 
         if self.circular is not None and not isinstance(self.circular, Bool):
             self.circular = Bool(self.circular)
@@ -1073,6 +1070,24 @@ slots.sequence_file_format = Slot(
     range=Optional[Union[str, "SequenceFileFormat"]],
 )
 
+slots.overhang_crick_3prime = Slot(
+    uri=SHAREYOURCLONING_LINKML.overhang_crick_3prime,
+    name="overhang_crick_3prime",
+    curie=SHAREYOURCLONING_LINKML.curie("overhang_crick_3prime"),
+    model_uri=SHAREYOURCLONING_LINKML.overhang_crick_3prime,
+    domain=None,
+    range=Optional[int],
+)
+
+slots.overhang_watson_3prime = Slot(
+    uri=SHAREYOURCLONING_LINKML.overhang_watson_3prime,
+    name="overhang_watson_3prime",
+    curie=SHAREYOURCLONING_LINKML.curie("overhang_watson_3prime"),
+    model_uri=SHAREYOURCLONING_LINKML.overhang_watson_3prime,
+    domain=None,
+    range=Optional[int],
+)
+
 slots.textFileSequence__file_content = Slot(
     uri=SHAREYOURCLONING_LINKML.file_content,
     name="textFileSequence__file_content",
@@ -1080,24 +1095,6 @@ slots.textFileSequence__file_content = Slot(
     model_uri=SHAREYOURCLONING_LINKML.textFileSequence__file_content,
     domain=None,
     range=Optional[str],
-)
-
-slots.textFileSequence__overhang_crick_3prime = Slot(
-    uri=SHAREYOURCLONING_LINKML.overhang_crick_3prime,
-    name="textFileSequence__overhang_crick_3prime",
-    curie=SHAREYOURCLONING_LINKML.curie("overhang_crick_3prime"),
-    model_uri=SHAREYOURCLONING_LINKML.textFileSequence__overhang_crick_3prime,
-    domain=None,
-    range=Optional[int],
-)
-
-slots.textFileSequence__overhang_watson_3prime = Slot(
-    uri=SHAREYOURCLONING_LINKML.overhang_watson_3prime,
-    name="textFileSequence__overhang_watson_3prime",
-    curie=SHAREYOURCLONING_LINKML.curie("overhang_watson_3prime"),
-    model_uri=SHAREYOURCLONING_LINKML.textFileSequence__overhang_watson_3prime,
-    domain=None,
-    range=Optional[int],
 )
 
 slots.primer__sequence = Slot(
@@ -1397,15 +1394,6 @@ slots.oligoHybridizationSource__reverse_oligo = Slot(
     model_uri=SHAREYOURCLONING_LINKML.oligoHybridizationSource__reverse_oligo,
     domain=None,
     range=Union[int, PrimerId],
-)
-
-slots.oligoHybridizationSource__overhang_crick_3prime = Slot(
-    uri=SHAREYOURCLONING_LINKML.overhang_crick_3prime,
-    name="oligoHybridizationSource__overhang_crick_3prime",
-    curie=SHAREYOURCLONING_LINKML.curie("overhang_crick_3prime"),
-    model_uri=SHAREYOURCLONING_LINKML.oligoHybridizationSource__overhang_crick_3prime,
-    domain=None,
-    range=Optional[int],
 )
 
 slots.cloningStrategy__sequences = Slot(

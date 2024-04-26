@@ -509,6 +509,35 @@
       "@type": "SlotDefinition"
     },
     {
+      "name": "overhang_crick_3prime",
+      "definition_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/overhang_crick_3prime",
+      "description": "Taken from pydna's `dseq::ovhg`An integer describing the length of the crick strand overhang in the 5' of the molecule, or 3' of the crick strand",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/overhang_crick_3prime",
+      "owner": "OligoHybridizationSource",
+      "domain_of": [
+        "TextFileSequence",
+        "ManuallyTypedSource",
+        "OligoHybridizationSource"
+      ],
+      "range": "integer",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "overhang_watson_3prime",
+      "definition_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/overhang_watson_3prime",
+      "description": "The equivalent of `overhang_crick_3prime` but for the watson strand",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/overhang_watson_3prime",
+      "owner": "ManuallyTypedSource",
+      "domain_of": [
+        "TextFileSequence",
+        "ManuallyTypedSource"
+      ],
+      "range": "integer",
+      "@type": "SlotDefinition"
+    },
+    {
       "name": "textFileSequence__file_content",
       "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
       "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/file_content",
@@ -518,32 +547,6 @@
         "TextFileSequence"
       ],
       "range": "string",
-      "@type": "SlotDefinition"
-    },
-    {
-      "name": "textFileSequence__overhang_crick_3prime",
-      "description": "Taken from pydna's `dseq::ovhg`An integer describing the length of the crick strand overhang in the 5' of the molecule, or 3' of the crick strand",
-      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
-      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/overhang_crick_3prime",
-      "alias": "overhang_crick_3prime",
-      "owner": "TextFileSequence",
-      "domain_of": [
-        "TextFileSequence"
-      ],
-      "range": "integer",
-      "@type": "SlotDefinition"
-    },
-    {
-      "name": "textFileSequence__overhang_watson_3prime",
-      "description": "The equivalent of `overhang_crick_3prime` but for the watson strand",
-      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
-      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/overhang_watson_3prime",
-      "alias": "overhang_watson_3prime",
-      "owner": "TextFileSequence",
-      "domain_of": [
-        "TextFileSequence"
-      ],
-      "range": "integer",
       "@type": "SlotDefinition"
     },
     {
@@ -996,19 +999,6 @@
       "@type": "SlotDefinition"
     },
     {
-      "name": "oligoHybridizationSource__overhang_crick_3prime",
-      "description": "The length of the crick strand overhang in the 5' of the molecule, or 3' of the crick strand.",
-      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
-      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/overhang_crick_3prime",
-      "alias": "overhang_crick_3prime",
-      "owner": "OligoHybridizationSource",
-      "domain_of": [
-        "OligoHybridizationSource"
-      ],
-      "range": "integer",
-      "@type": "SlotDefinition"
-    },
-    {
       "name": "cloningStrategy__sequences",
       "description": "The sequences that are used in the cloning strategy",
       "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
@@ -1191,27 +1181,15 @@
         "id",
         "type",
         "TextFileSequence_sequence_file_format",
-        "textFileSequence__file_content",
-        "textFileSequence__overhang_crick_3prime",
-        "textFileSequence__overhang_watson_3prime"
+        "overhang_crick_3prime",
+        "overhang_watson_3prime",
+        "textFileSequence__file_content"
       ],
       "slot_usage": {},
       "attributes": [
         {
           "name": "file_content",
           "range": "string",
-          "@type": "SlotDefinition"
-        },
-        {
-          "name": "overhang_crick_3prime",
-          "description": "Taken from pydna's `dseq::ovhg`An integer describing the length of the crick strand overhang in the 5' of the molecule, or 3' of the crick strand",
-          "range": "integer",
-          "@type": "SlotDefinition"
-        },
-        {
-          "name": "overhang_watson_3prime",
-          "description": "The equivalent of `overhang_crick_3prime` but for the watson strand",
-          "range": "integer",
           "@type": "SlotDefinition"
         }
       ],
@@ -1312,6 +1290,8 @@
         "input",
         "output",
         "type",
+        "overhang_crick_3prime",
+        "overhang_watson_3prime",
         "manuallyTypedSource__user_input",
         "manuallyTypedSource__circular"
       ],
@@ -1771,9 +1751,9 @@
         "input",
         "output",
         "type",
+        "overhang_crick_3prime",
         "oligoHybridizationSource__forward_oligo",
-        "oligoHybridizationSource__reverse_oligo",
-        "oligoHybridizationSource__overhang_crick_3prime"
+        "oligoHybridizationSource__reverse_oligo"
       ],
       "slot_usage": {},
       "attributes": [
@@ -1789,12 +1769,6 @@
           "description": "The reverse oligo used in the hybridization",
           "range": "Primer",
           "required": true,
-          "@type": "SlotDefinition"
-        },
-        {
-          "name": "overhang_crick_3prime",
-          "description": "The length of the crick strand overhang in the 5' of the molecule, or 3' of the crick strand.",
-          "range": "integer",
           "@type": "SlotDefinition"
         }
       ],
@@ -1868,9 +1842,9 @@
   ],
   "metamodel_version": "1.7.0",
   "source_file": "shareyourcloning_linkml.yaml",
-  "source_file_date": "2024-04-24T14:18:18",
-  "source_file_size": 13200,
-  "generation_date": "2024-04-24T17:03:58",
+  "source_file_date": "2024-04-26T16:36:12",
+  "source_file_size": 13110,
+  "generation_date": "2024-04-26T16:36:21",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/shareyourcloning_linkml.context.jsonld",

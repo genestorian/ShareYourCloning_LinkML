@@ -75,6 +75,8 @@ type ManuallyTypedSource
     input: [Sequence]
     output: Sequence
     type: String
+    overhangCrick3prime: Integer
+    overhangWatson3prime: Integer
     userInput: String!
     circular: Boolean
   }
@@ -90,9 +92,9 @@ type OligoHybridizationSource
     input: [Sequence]
     output: Sequence
     type: String
+    overhangCrick3prime: Integer
     forwardOligo: Primer!
     reverseOligo: Primer!
-    overhangCrick3prime: Integer
   }
 
 type PCRSource
@@ -203,9 +205,9 @@ type TextFileSequence
     id: Integer!
     type: String
     sequenceFileFormat: SequenceFileFormat!
-    fileContent: String
     overhangCrick3prime: Integer
     overhangWatson3prime: Integer
+    fileContent: String
   }
 
 type UploadedFileSource
@@ -218,4 +220,3 @@ type UploadedFileSource
     fileName: String
     indexInFile: Integer
   }
-
