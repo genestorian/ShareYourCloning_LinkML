@@ -90,7 +90,7 @@ linkml:Sparqlpath xsd:string
 <CRISPRSource> CLOSED {
     (  $<CRISPRSource_tes> (  &<HomologousRecombinationSource_tes> ;
           rdf:type [ <HomologousRecombinationSource> ] ? ;
-          <guides> @<Primer>
+          <guides> @<Primer> +
        ) ;
        rdf:type [ <CRISPRSource> ]
     )

@@ -148,8 +148,11 @@
                     "type": "boolean"
                 },
                 "guides": {
-                    "description": "The guide RNA used in the CRISPR",
-                    "type": "integer"
+                    "description": "The guide RNAs used in the CRISPR",
+                    "items": {
+                        "type": "integer"
+                    },
+                    "type": "array"
                 },
                 "id": {
                     "description": "A unique identifier for a thing",

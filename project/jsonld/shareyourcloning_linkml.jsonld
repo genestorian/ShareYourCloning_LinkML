@@ -1016,9 +1016,10 @@
     },
     {
       "name": "cRISPRSource__guides",
-      "description": "The guide RNA used in the CRISPR",
+      "description": "The guide RNAs used in the CRISPR",
       "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
       "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/guides",
+      "multivalued": true,
       "alias": "guides",
       "owner": "CRISPRSource",
       "domain_of": [
@@ -1884,7 +1885,8 @@
       "attributes": [
         {
           "name": "guides",
-          "description": "The guide RNA used in the CRISPR",
+          "description": "The guide RNAs used in the CRISPR",
+          "multivalued": true,
           "range": "Primer",
           "required": true,
           "@type": "SlotDefinition"
@@ -1995,9 +1997,9 @@
   ],
   "metamodel_version": "1.7.0",
   "source_file": "shareyourcloning_linkml.yaml",
-  "source_file_date": "2024-05-03T14:37:33",
-  "source_file_size": 14628,
-  "generation_date": "2024-05-03T14:38:00",
+  "source_file_date": "2024-05-03T15:45:29",
+  "source_file_size": 14656,
+  "generation_date": "2024-05-03T15:46:12",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/shareyourcloning_linkml.context.jsonld",

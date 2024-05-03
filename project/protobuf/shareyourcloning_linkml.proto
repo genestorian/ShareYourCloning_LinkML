@@ -45,7 +45,7 @@ message CRISPRSource
   string type = 0
   boolean circular = 0
  repeated  assemblyJoin assembly = 0
-  primer guides = 0
+ repeated  primer guides = 0
  }
 // Represents the source of a sequence that is identified by genome coordinates, requested from NCBI
 message GenomeCoordinatesSource

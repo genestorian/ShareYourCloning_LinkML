@@ -1,5 +1,5 @@
 # Auto generated from shareyourcloning_linkml.yaml by pythongen.py version: 0.0.1
-# Generation date: 2024-05-03T14:38:00
+# Generation date: 2024-05-03T15:46:13
 # Schema: ShareYourCloning_LinkML
 #
 # id: https://w3id.org/genestorian/ShareYourCloning_LinkML
@@ -932,7 +932,7 @@ class CRISPRSource(HomologousRecombinationSource):
 
     id: Union[int, CRISPRSourceId] = None
     assembly: Union[Union[dict, AssemblyJoin], List[Union[dict, AssemblyJoin]]] = None
-    guides: Union[int, PrimerId] = None
+    guides: Union[Union[int, PrimerId], List[Union[int, PrimerId]]] = None
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
         if self._is_empty(self.id):
@@ -942,8 +942,9 @@ class CRISPRSource(HomologousRecombinationSource):
 
         if self._is_empty(self.guides):
             self.MissingRequiredField("guides")
-        if not isinstance(self.guides, PrimerId):
-            self.guides = PrimerId(self.guides)
+        if not isinstance(self.guides, list):
+            self.guides = [self.guides] if self.guides is not None else []
+        self.guides = [v if isinstance(v, PrimerId) else PrimerId(v) for v in self.guides]
 
         super().__post_init__(**kwargs)
         self.type = str(self.class_name)
@@ -1508,7 +1509,7 @@ slots.cRISPRSource__guides = Slot(
     curie=SHAREYOURCLONING_LINKML.curie("guides"),
     model_uri=SHAREYOURCLONING_LINKML.cRISPRSource__guides,
     domain=None,
-    range=Union[int, PrimerId],
+    range=Union[Union[int, PrimerId], List[Union[int, PrimerId]]],
 )
 
 slots.oligoHybridizationSource__forward_oligo = Slot(
