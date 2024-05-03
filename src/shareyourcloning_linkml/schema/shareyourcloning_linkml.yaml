@@ -370,7 +370,8 @@ classes:
           range: Primer
           required: true
           description: >-
-            The guide RNA used in the CRISPR
+            The guide RNAs used in the CRISPR
+          multivalued: true
 
   OligoHybridizationSource:
     is_a: Source
