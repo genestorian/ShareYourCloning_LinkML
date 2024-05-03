@@ -155,7 +155,7 @@ class ManuallyTypedSource(Source):
     """
 
     overhang_crick_3prime: Optional[int] = Field(
-        None,
+        0,
         description="""Taken from pydna's `dseq::ovhg`An integer describing the length of the crick strand overhang in the 5' of the molecule, or 3' of the crick strand""",
     )
     overhang_watson_3prime: Optional[int] = Field(

@@ -1,5 +1,5 @@
 # Auto generated from shareyourcloning_linkml.yaml by pythongen.py version: 0.0.1
-# Generation date: 2024-05-03T15:46:13
+# Generation date: 2024-05-03T16:01:06
 # Schema: ShareYourCloning_LinkML
 #
 # id: https://w3id.org/genestorian/ShareYourCloning_LinkML
@@ -389,7 +389,7 @@ class ManuallyTypedSource(Source):
 
     id: Union[int, ManuallyTypedSourceId] = None
     user_input: str = None
-    overhang_crick_3prime: Optional[int] = None
+    overhang_crick_3prime: Optional[int] = 0
     overhang_watson_3prime: Optional[int] = 0
     circular: Optional[Union[bool, Bool]] = None
 
@@ -1600,6 +1600,24 @@ slots.RestrictionSequenceCut_restriction_enzyme = Slot(
     model_uri=SHAREYOURCLONING_LINKML.RestrictionSequenceCut_restriction_enzyme,
     domain=RestrictionSequenceCut,
     range=str,
+)
+
+slots.ManuallyTypedSource_overhang_crick_3prime = Slot(
+    uri=SHAREYOURCLONING_LINKML.overhang_crick_3prime,
+    name="ManuallyTypedSource_overhang_crick_3prime",
+    curie=SHAREYOURCLONING_LINKML.curie("overhang_crick_3prime"),
+    model_uri=SHAREYOURCLONING_LINKML.ManuallyTypedSource_overhang_crick_3prime,
+    domain=ManuallyTypedSource,
+    range=Optional[int],
+)
+
+slots.ManuallyTypedSource_overhang_watson_3prime = Slot(
+    uri=SHAREYOURCLONING_LINKML.overhang_watson_3prime,
+    name="ManuallyTypedSource_overhang_watson_3prime",
+    curie=SHAREYOURCLONING_LINKML.curie("overhang_watson_3prime"),
+    model_uri=SHAREYOURCLONING_LINKML.ManuallyTypedSource_overhang_watson_3prime,
+    domain=ManuallyTypedSource,
+    range=Optional[int],
 )
 
 slots.UploadedFileSource_sequence_file_format = Slot(

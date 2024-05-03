@@ -123,6 +123,11 @@ classes:
           range: boolean
           description: >-
             Whether the sequence is circular or not
+    slot_usage:
+      overhang_crick_3prime:
+        ifabsent: int(0)
+      overhang_watson_3prime:
+        ifabsent: int(0)
 
   UploadedFileSource:
     is_a: Source
