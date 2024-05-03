@@ -1,3 +1,15 @@
+type AddGeneIdSource
+  {
+    id: Integer!
+    input: [Sequence]
+    output: Sequence
+    type: String
+    repositoryName: RepositoryName!
+    repositoryId: String!
+    sequenceFileUrl: String
+    addgeneSequenceType: AddGeneSequenceType
+  }
+
 type AssemblyJoin
   {
     leftFragment: Sequence!
@@ -22,6 +34,17 @@ type CloningStrategy
     sources: [Source]!
     primers: [Primer]
     description: String
+  }
+
+type CRISPRSource
+  {
+    id: Integer!
+    input: [Sequence]
+    output: Sequence
+    type: String
+    circular: Boolean
+    assembly: [AssemblyJoin]!
+    guides: Primer!
   }
 
 type GenomeCoordinatesSource
@@ -158,8 +181,8 @@ type RestrictionEnzymeDigestionSource
 
 type RestrictionSequenceCut
   {
-    cutWatson: Integer
-    overhang: Integer
+    cutWatson: Integer!
+    overhang: Integer!
     restrictionEnzyme: String!
   }
 
@@ -171,8 +194,8 @@ interface Sequence
 
 type SequenceCut
   {
-    cutWatson: Integer
-    overhang: Integer
+    cutWatson: Integer!
+    overhang: Integer!
   }
 
 type SequenceCutSource

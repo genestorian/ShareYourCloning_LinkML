@@ -383,6 +383,21 @@
           "text": "snapgene"
         }
       ]
+    },
+    {
+      "name": "AddGeneSequenceType",
+      "definition_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/AddGeneSequenceType",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "permissible_values": [
+        {
+          "text": "depositor-full",
+          "description": "Full sequence of the plasmid submitted by the depositor"
+        },
+        {
+          "text": "addgene-full",
+          "description": "Full sequence of the plasmid performed by Addgene"
+        }
+      ]
     }
   ],
   "slots": [
@@ -529,12 +544,27 @@
       "description": "The equivalent of `overhang_crick_3prime` but for the watson strand",
       "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
       "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/overhang_watson_3prime",
+      "ifabsent": "int(0)",
       "owner": "ManuallyTypedSource",
       "domain_of": [
         "TextFileSequence",
         "ManuallyTypedSource"
       ],
       "range": "integer",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "sequence_file_url",
+      "definition_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/sequence_file_url",
+      "description": "The URL of a sequence file",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/sequence_file_url",
+      "owner": "AddGeneIdSource",
+      "domain_of": [
+        "AddGeneIdSource"
+      ],
+      "range": "string",
+      "pattern": "^https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)$",
       "@type": "SlotDefinition"
     },
     {
@@ -573,6 +603,7 @@
         "SequenceCut"
       ],
       "range": "integer",
+      "required": true,
       "@type": "SlotDefinition"
     },
     {
@@ -586,6 +617,7 @@
         "SequenceCut"
       ],
       "range": "integer",
+      "required": true,
       "@type": "SlotDefinition"
     },
     {
@@ -666,6 +698,18 @@
       ],
       "range": "string",
       "required": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "addGeneIdSource__addgene_sequence_type",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/addgene_sequence_type",
+      "alias": "addgene_sequence_type",
+      "owner": "AddGeneIdSource",
+      "domain_of": [
+        "AddGeneIdSource"
+      ],
+      "range": "AddGeneSequenceType",
       "@type": "SlotDefinition"
     },
     {
@@ -971,6 +1015,20 @@
       "@type": "SlotDefinition"
     },
     {
+      "name": "cRISPRSource__guides",
+      "description": "The guide RNA used in the CRISPR",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/guides",
+      "alias": "guides",
+      "owner": "CRISPRSource",
+      "domain_of": [
+        "CRISPRSource"
+      ],
+      "range": "Primer",
+      "required": true,
+      "@type": "SlotDefinition"
+    },
+    {
       "name": "oligoHybridizationSource__forward_oligo",
       "description": "The forward oligo used in the hybridization",
       "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
@@ -1079,6 +1137,44 @@
       "@type": "SlotDefinition"
     },
     {
+      "name": "TextFileSequence_overhang_crick_3prime",
+      "definition_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/overhang_crick_3prime",
+      "description": "Taken from pydna's `dseq::ovhg`An integer describing the length of the crick strand overhang in the 5' of the molecule, or 3' of the crick strand",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "is_a": "overhang_crick_3prime",
+      "domain": "TextFileSequence",
+      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/overhang_crick_3prime",
+      "ifabsent": "int(0)",
+      "alias": "overhang_crick_3prime",
+      "owner": "TextFileSequence",
+      "domain_of": [
+        "TextFileSequence"
+      ],
+      "is_usage_slot": true,
+      "usage_slot_name": "overhang_crick_3prime",
+      "range": "integer",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "TextFileSequence_overhang_watson_3prime",
+      "definition_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/overhang_watson_3prime",
+      "description": "The equivalent of `overhang_crick_3prime` but for the watson strand",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "is_a": "overhang_watson_3prime",
+      "domain": "TextFileSequence",
+      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/overhang_watson_3prime",
+      "ifabsent": "int(0)",
+      "alias": "overhang_watson_3prime",
+      "owner": "TextFileSequence",
+      "domain_of": [
+        "TextFileSequence"
+      ],
+      "is_usage_slot": true,
+      "usage_slot_name": "overhang_watson_3prime",
+      "range": "integer",
+      "@type": "SlotDefinition"
+    },
+    {
       "name": "RestrictionSequenceCut_restriction_enzyme",
       "definition_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/restriction_enzyme",
       "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
@@ -1181,8 +1277,8 @@
         "id",
         "type",
         "TextFileSequence_sequence_file_format",
-        "overhang_crick_3prime",
-        "overhang_watson_3prime",
+        "TextFileSequence_overhang_crick_3prime",
+        "TextFileSequence_overhang_watson_3prime",
         "textFileSequence__file_content"
       ],
       "slot_usage": {},
@@ -1235,12 +1331,14 @@
           "name": "cut_watson",
           "description": "The position of the cut in the watson strand. The cut is made before the base at this position (zero-based), so that cut position 1 cuts after the first base.",
           "range": "integer",
+          "required": true,
           "@type": "SlotDefinition"
         },
         {
           "name": "overhang",
           "description": "The length of the overhang that is left after the cut. It can be negative, same meaning as in pydna's `dseq::ovhg` and biopython's `Bio.Restriction.RestrictionType.ovhg`.",
           "range": "integer",
+          "required": true,
           "@type": "SlotDefinition"
         }
       ],
@@ -1378,6 +1476,33 @@
         }
       ],
       "class_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/RepositoryIdSource",
+      "@type": "ClassDefinition"
+    },
+    {
+      "name": "AddGeneIdSource",
+      "definition_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/AddGeneIdSource",
+      "description": "Represents the source of a sequence that is identified by an AddGene id",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "is_a": "RepositoryIdSource",
+      "slots": [
+        "id",
+        "input",
+        "output",
+        "type",
+        "repositoryIdSource__repository_name",
+        "repositoryIdSource__repository_id",
+        "sequence_file_url",
+        "addGeneIdSource__addgene_sequence_type"
+      ],
+      "slot_usage": {},
+      "attributes": [
+        {
+          "name": "addgene_sequence_type",
+          "range": "AddGeneSequenceType",
+          "@type": "SlotDefinition"
+        }
+      ],
+      "class_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/AddGeneIdSource",
       "@type": "ClassDefinition"
     },
     {
@@ -1741,6 +1866,34 @@
       "@type": "ClassDefinition"
     },
     {
+      "name": "CRISPRSource",
+      "definition_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/CRISPRSource",
+      "description": "Represents the source of a sequence that is generated by CRISPR",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "is_a": "HomologousRecombinationSource",
+      "slots": [
+        "id",
+        "input",
+        "output",
+        "type",
+        "assemblySource__circular",
+        "assemblySource__assembly",
+        "cRISPRSource__guides"
+      ],
+      "slot_usage": {},
+      "attributes": [
+        {
+          "name": "guides",
+          "description": "The guide RNA used in the CRISPR",
+          "range": "Primer",
+          "required": true,
+          "@type": "SlotDefinition"
+        }
+      ],
+      "class_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/CRISPRSource",
+      "@type": "ClassDefinition"
+    },
+    {
       "name": "OligoHybridizationSource",
       "definition_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/OligoHybridizationSource",
       "description": "Represents the source of a sequence that is generated by oligo hybridization",
@@ -1842,9 +1995,9 @@
   ],
   "metamodel_version": "1.7.0",
   "source_file": "shareyourcloning_linkml.yaml",
-  "source_file_date": "2024-04-26T16:36:12",
-  "source_file_size": 13110,
-  "generation_date": "2024-04-26T16:36:21",
+  "source_file_date": "2024-05-03T14:37:33",
+  "source_file_size": 14628,
+  "generation_date": "2024-05-03T14:38:00",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/shareyourcloning_linkml.context.jsonld",

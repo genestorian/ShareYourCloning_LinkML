@@ -43,6 +43,17 @@ linkml:Jsonpath xsd:string
 
 linkml:Sparqlpath xsd:string
 
+<AddGeneIdSource> CLOSED {
+    (  $<AddGeneIdSource_tes> (  &<RepositoryIdSource_tes> ;
+          rdf:type [ <RepositoryIdSource> ] ? ;
+          <sequence_file_url> @linkml:String ? ;
+          <addgene_sequence_type> [ <https://w3id.org/genestorian/ShareYourCloning_LinkML/AddGeneSequenceType#depositor-full>
+             <https://w3id.org/genestorian/ShareYourCloning_LinkML/AddGeneSequenceType#addgene-full> ] ?
+       ) ;
+       rdf:type [ <AddGeneIdSource> ]
+    )
+}
+
 <AssemblyJoin> CLOSED {
     (  $<AssemblyJoin_tes> (  <left_fragment> @<Sequence> ;
           <right_fragment> @<Sequence> ;
@@ -76,6 +87,15 @@ linkml:Sparqlpath xsd:string
     )
 }
 
+<CRISPRSource> CLOSED {
+    (  $<CRISPRSource_tes> (  &<HomologousRecombinationSource_tes> ;
+          rdf:type [ <HomologousRecombinationSource> ] ? ;
+          <guides> @<Primer>
+       ) ;
+       rdf:type [ <CRISPRSource> ]
+    )
+}
+
 <GenomeCoordinatesSource> CLOSED {
     (  $<GenomeCoordinatesSource_tes> (  &<Source_tes> ;
           rdf:type [ <Source> ] ? ;
@@ -99,13 +119,15 @@ linkml:Sparqlpath xsd:string
     )
 }
 
-<HomologousRecombinationSource> CLOSED {
-    (  $<HomologousRecombinationSource_tes> (  &<AssemblySource_tes> ;
-          rdf:type [ <AssemblySource> ] ?
-       ) ;
-       rdf:type [ <HomologousRecombinationSource> ]
-    )
-}
+<HomologousRecombinationSource>  (
+    CLOSED {
+       (  $<HomologousRecombinationSource_tes> (  &<AssemblySource_tes> ;
+             rdf:type [ <AssemblySource> ] ?
+          ) ;
+          rdf:type [ <HomologousRecombinationSource> ]
+       )
+    } OR @<CRISPRSource>
+)
 
 <LigationSource> CLOSED {
     (  $<LigationSource_tes> (  &<AssemblySource_tes> ;
@@ -174,16 +196,18 @@ linkml:Sparqlpath xsd:string
     )
 }
 
-<RepositoryIdSource> CLOSED {
-    (  $<RepositoryIdSource_tes> (  &<Source_tes> ;
-          rdf:type [ <Source> ] ? ;
-          <repository_name> [ <https://w3id.org/genestorian/ShareYourCloning_LinkML/RepositoryName#addgene>
-             <https://w3id.org/genestorian/ShareYourCloning_LinkML/RepositoryName#genbank> ] ;
-          <repository_id> @linkml:String
-       ) ;
-       rdf:type [ <RepositoryIdSource> ]
-    )
-}
+<RepositoryIdSource>  (
+    CLOSED {
+       (  $<RepositoryIdSource_tes> (  &<Source_tes> ;
+             rdf:type [ <Source> ] ? ;
+             <repository_name> [ <https://w3id.org/genestorian/ShareYourCloning_LinkML/RepositoryName#addgene>
+                <https://w3id.org/genestorian/ShareYourCloning_LinkML/RepositoryName#genbank> ] ;
+             <repository_id> @linkml:String
+          ) ;
+          rdf:type [ <RepositoryIdSource> ]
+       )
+    } OR @<AddGeneIdSource>
+)
 
 <RestrictionAndLigationSource> CLOSED {
     (  $<RestrictionAndLigationSource_tes> (  &<AssemblySource_tes> ;
@@ -228,8 +252,8 @@ linkml:Sparqlpath xsd:string
 
 <SequenceCut>  (
     CLOSED {
-       (  $<SequenceCut_tes> (  <cut_watson> @linkml:Integer ? ;
-             <overhang> @linkml:Integer ?
+       (  $<SequenceCut_tes> (  <cut_watson> @linkml:Integer ;
+             <overhang> @linkml:Integer
           ) ;
           rdf:type [ <SequenceCut> ] ?
        )
