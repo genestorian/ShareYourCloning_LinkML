@@ -16,6 +16,7 @@
 --     * Slot: sequence Description:
 --     * Slot: id Description: A unique identifier for a thing
 --     * Slot: type Description: The type of the source
+--     * Slot: CloningStrategy_id Description: Autocreated FK slot
 -- # Class: "SequenceCut" Description: "Represents a cut in a DNA sequence"
 --     * Slot: id Description:
 --     * Slot: cut_watson Description: The position of the cut in the watson strand. The cut is made before the base at this position (zero-based), so that cut position 1 cuts after the first base.
@@ -211,9 +212,6 @@
 -- # Class: "PolymeraseExtensionSource_input" Description: ""
 --     * Slot: PolymeraseExtensionSource_id Description: Autocreated FK slot
 --     * Slot: input_id Description: The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.
--- # Class: "CloningStrategy_primers" Description: ""
---     * Slot: CloningStrategy_id Description: Autocreated FK slot
---     * Slot: primers_id Description: The primers that are used in the cloning strategy
 
 CREATE TABLE "NamedThing" (
 	id INTEGER NOT NULL,
@@ -224,13 +222,6 @@ CREATE TABLE "TextFileSequence" (
 	overhang_crick_3prime INTEGER,
 	overhang_watson_3prime INTEGER,
 	file_content TEXT,
-	id INTEGER NOT NULL,
-	type TEXT,
-	PRIMARY KEY (id)
-);
-CREATE TABLE "Primer" (
-	name TEXT,
-	sequence TEXT,
 	id INTEGER NOT NULL,
 	type TEXT,
 	PRIMARY KEY (id)
@@ -267,12 +258,14 @@ CREATE TABLE "Sequence" (
 	PRIMARY KEY (id),
 	FOREIGN KEY("CloningStrategy_id") REFERENCES "CloningStrategy" (id)
 );
-CREATE TABLE "CloningStrategy_primers" (
+CREATE TABLE "Primer" (
+	name TEXT,
+	sequence TEXT,
+	id INTEGER NOT NULL,
+	type TEXT,
 	"CloningStrategy_id" INTEGER,
-	primers_id INTEGER,
-	PRIMARY KEY ("CloningStrategy_id", primers_id),
-	FOREIGN KEY("CloningStrategy_id") REFERENCES "CloningStrategy" (id),
-	FOREIGN KEY(primers_id) REFERENCES "Primer" (id)
+	PRIMARY KEY (id),
+	FOREIGN KEY("CloningStrategy_id") REFERENCES "CloningStrategy" (id)
 );
 CREATE TABLE "Source" (
 	output INTEGER,

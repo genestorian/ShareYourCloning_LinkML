@@ -1,5 +1,5 @@
 # Auto generated from shareyourcloning_linkml.yaml by pythongen.py version: 0.0.1
-# Generation date: 2024-05-08T12:30:31
+# Generation date: 2024-05-08T17:38:07
 # Schema: ShareYourCloning_LinkML
 #
 # id: https://w3id.org/genestorian/ShareYourCloning_LinkML
@@ -1090,7 +1090,7 @@ class CloningStrategy(YAMLRoot):
 
     sequences: Union[Dict[Union[int, SequenceId], Union[dict, Sequence]], List[Union[dict, Sequence]]] = empty_dict()
     sources: Union[Dict[Union[int, SourceId], Union[dict, Source]], List[Union[dict, Source]]] = empty_dict()
-    primers: Optional[Union[Union[int, PrimerId], List[Union[int, PrimerId]]]] = empty_list()
+    primers: Optional[Union[Dict[Union[int, PrimerId], Union[dict, Primer]], List[Union[dict, Primer]]]] = empty_dict()
     description: Optional[str] = None
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
@@ -1102,9 +1102,7 @@ class CloningStrategy(YAMLRoot):
             self.MissingRequiredField("sources")
         self._normalize_inlined_as_list(slot_name="sources", slot_type=Source, key_name="id", keyed=True)
 
-        if not isinstance(self.primers, list):
-            self.primers = [self.primers] if self.primers is not None else []
-        self.primers = [v if isinstance(v, PrimerId) else PrimerId(v) for v in self.primers]
+        self._normalize_inlined_as_list(slot_name="primers", slot_type=Primer, key_name="id", keyed=True)
 
         if self.description is not None and not isinstance(self.description, str):
             self.description = str(self.description)
@@ -1622,7 +1620,7 @@ slots.cloningStrategy__primers = Slot(
     curie=SHAREYOURCLONING_LINKML.curie("primers"),
     model_uri=SHAREYOURCLONING_LINKML.cloningStrategy__primers,
     domain=None,
-    range=Optional[Union[Union[int, PrimerId], List[Union[int, PrimerId]]]],
+    range=Optional[Union[Dict[Union[int, PrimerId], Union[dict, Primer]], List[Union[dict, Primer]]]],
 )
 
 slots.cloningStrategy__description = Slot(

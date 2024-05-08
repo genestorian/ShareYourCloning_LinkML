@@ -467,6 +467,7 @@ classes:
             The primers that are used in the cloning strategy
           required: false
           multivalued: true
+          inlined_as_list: true
       - description:
           range: string
           description: >-

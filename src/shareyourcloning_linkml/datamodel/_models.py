@@ -580,7 +580,7 @@ class CloningStrategy(ConfiguredBaseModel):
     ] = Field(
         default_factory=list, description="""The sources of the sequences that are used in the cloning strategy"""
     )
-    primers: Optional[List[int]] = Field(
+    primers: Optional[List[Primer]] = Field(
         default_factory=list, description="""The primers that are used in the cloning strategy"""
     )
     description: Optional[str] = Field(None, description="""A description of the cloning strategy""")
