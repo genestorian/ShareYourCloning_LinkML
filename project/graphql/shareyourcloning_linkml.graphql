@@ -39,11 +39,11 @@ type CloningStrategy
 type CRISPRSource
   {
     id: Integer!
-    input: [Sequence]
     output: Sequence
     type: String
     circular: Boolean
     assembly: [AssemblyJoin]!
+    input: [Sequence]
     guides: [Primer]!
   }
 
@@ -65,31 +65,31 @@ type GenomeCoordinatesSource
 type GibsonAssemblySource
   {
     id: Integer!
-    input: [Sequence]
     output: Sequence
     type: String
     circular: Boolean
     assembly: [AssemblyJoin]!
+    input: [Sequence]
   }
 
 type HomologousRecombinationSource
   {
     id: Integer!
-    input: [Sequence]
     output: Sequence
     type: String
     circular: Boolean
     assembly: [AssemblyJoin]!
+    input: [Sequence]
   }
 
 type LigationSource
   {
     id: Integer!
-    input: [Sequence]
     output: Sequence
     type: String
     circular: Boolean
     assembly: [AssemblyJoin]!
+    input: [Sequence]
   }
 
 type ManuallyTypedSource
@@ -123,21 +123,21 @@ type OligoHybridizationSource
 type PCRSource
   {
     id: Integer!
-    input: [Sequence]
     output: Sequence
     type: String
     circular: Boolean
     assembly: [AssemblyJoin]!
     forwardPrimer: Primer!
     reversePrimer: Primer!
+    input: [Sequence]
   }
 
 type PolymeraseExtensionSource
   {
     id: Integer!
-    input: [Sequence]
     output: Sequence
     type: String
+    input: [Sequence]
   }
 
 type Primer
@@ -161,20 +161,20 @@ type RepositoryIdSource
 type RestrictionAndLigationSource
   {
     id: Integer!
-    input: [Sequence]
     output: Sequence
     type: String
     circular: Boolean
     assembly: [AssemblyJoin]!
     restrictionEnzymes: [String]!
+    input: [Sequence]
   }
 
 type RestrictionEnzymeDigestionSource
   {
     id: Integer!
-    input: [Sequence]
     output: Sequence
     type: String
+    input: [Sequence]
     leftEdge: RestrictionSequenceCut
     rightEdge: RestrictionSequenceCut
   }
@@ -201,11 +201,11 @@ type SequenceCut
 type SequenceCutSource
   {
     id: Integer!
-    input: [Sequence]
     output: Sequence
     type: String
     leftEdge: SequenceCut
     rightEdge: SequenceCut
+    input: [Sequence]
   }
 
 type SimpleSequenceLocation
@@ -243,3 +243,4 @@ type UploadedFileSource
     fileName: String
     indexInFile: Integer
   }
+

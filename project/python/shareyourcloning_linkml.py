@@ -1,5 +1,5 @@
 # Auto generated from shareyourcloning_linkml.yaml by pythongen.py version: 0.0.1
-# Generation date: 2024-05-03T16:01:06
+# Generation date: 2024-05-08T10:06:28
 # Schema: ShareYourCloning_LinkML
 #
 # id: https://w3id.org/genestorian/ShareYourCloning_LinkML
@@ -605,6 +605,7 @@ class SequenceCutSource(Source):
     id: Union[int, SequenceCutSourceId] = None
     left_edge: Optional[Union[dict, SequenceCut]] = None
     right_edge: Optional[Union[dict, SequenceCut]] = None
+    input: Optional[Union[Union[int, SequenceId], List[Union[int, SequenceId]]]] = empty_list()
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
         if self._is_empty(self.id):
@@ -617,6 +618,10 @@ class SequenceCutSource(Source):
 
         if self.right_edge is not None and not isinstance(self.right_edge, SequenceCut):
             self.right_edge = SequenceCut(**as_dict(self.right_edge))
+
+        if not isinstance(self.input, list):
+            self.input = [self.input] if self.input is not None else []
+        self.input = [v if isinstance(v, SequenceId) else SequenceId(v) for v in self.input]
 
         super().__post_init__(**kwargs)
         self.type = str(self.class_name)
@@ -785,6 +790,7 @@ class PCRSource(AssemblySource):
     assembly: Union[Union[dict, AssemblyJoin], List[Union[dict, AssemblyJoin]]] = None
     forward_primer: Union[int, PrimerId] = None
     reverse_primer: Union[int, PrimerId] = None
+    input: Optional[Union[Union[int, SequenceId], List[Union[int, SequenceId]]]] = empty_list()
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
         if self._is_empty(self.id):
@@ -801,6 +807,10 @@ class PCRSource(AssemblySource):
             self.MissingRequiredField("reverse_primer")
         if not isinstance(self.reverse_primer, PrimerId):
             self.reverse_primer = PrimerId(self.reverse_primer)
+
+        if not isinstance(self.input, list):
+            self.input = [self.input] if self.input is not None else []
+        self.input = [v if isinstance(v, SequenceId) else SequenceId(v) for v in self.input]
 
         super().__post_init__(**kwargs)
         self.type = str(self.class_name)
@@ -821,12 +831,17 @@ class LigationSource(AssemblySource):
 
     id: Union[int, LigationSourceId] = None
     assembly: Union[Union[dict, AssemblyJoin], List[Union[dict, AssemblyJoin]]] = None
+    input: Optional[Union[Union[int, SequenceId], List[Union[int, SequenceId]]]] = empty_list()
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
         if self._is_empty(self.id):
             self.MissingRequiredField("id")
         if not isinstance(self.id, LigationSourceId):
             self.id = LigationSourceId(self.id)
+
+        if not isinstance(self.input, list):
+            self.input = [self.input] if self.input is not None else []
+        self.input = [v if isinstance(v, SequenceId) else SequenceId(v) for v in self.input]
 
         super().__post_init__(**kwargs)
         self.type = str(self.class_name)
@@ -847,12 +862,17 @@ class HomologousRecombinationSource(AssemblySource):
 
     id: Union[int, HomologousRecombinationSourceId] = None
     assembly: Union[Union[dict, AssemblyJoin], List[Union[dict, AssemblyJoin]]] = None
+    input: Optional[Union[Union[int, SequenceId], List[Union[int, SequenceId]]]] = empty_list()
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
         if self._is_empty(self.id):
             self.MissingRequiredField("id")
         if not isinstance(self.id, HomologousRecombinationSourceId):
             self.id = HomologousRecombinationSourceId(self.id)
+
+        if not isinstance(self.input, list):
+            self.input = [self.input] if self.input is not None else []
+        self.input = [v if isinstance(v, SequenceId) else SequenceId(v) for v in self.input]
 
         super().__post_init__(**kwargs)
         self.type = str(self.class_name)
@@ -873,12 +893,17 @@ class GibsonAssemblySource(AssemblySource):
 
     id: Union[int, GibsonAssemblySourceId] = None
     assembly: Union[Union[dict, AssemblyJoin], List[Union[dict, AssemblyJoin]]] = None
+    input: Optional[Union[Union[int, SequenceId], List[Union[int, SequenceId]]]] = empty_list()
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
         if self._is_empty(self.id):
             self.MissingRequiredField("id")
         if not isinstance(self.id, GibsonAssemblySourceId):
             self.id = GibsonAssemblySourceId(self.id)
+
+        if not isinstance(self.input, list):
+            self.input = [self.input] if self.input is not None else []
+        self.input = [v if isinstance(v, SequenceId) else SequenceId(v) for v in self.input]
 
         super().__post_init__(**kwargs)
         self.type = str(self.class_name)
@@ -900,6 +925,7 @@ class RestrictionAndLigationSource(AssemblySource):
     id: Union[int, RestrictionAndLigationSourceId] = None
     assembly: Union[Union[dict, AssemblyJoin], List[Union[dict, AssemblyJoin]]] = None
     restriction_enzymes: Union[str, List[str]] = None
+    input: Optional[Union[Union[int, SequenceId], List[Union[int, SequenceId]]]] = empty_list()
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
         if self._is_empty(self.id):
@@ -912,6 +938,10 @@ class RestrictionAndLigationSource(AssemblySource):
         if not isinstance(self.restriction_enzymes, list):
             self.restriction_enzymes = [self.restriction_enzymes] if self.restriction_enzymes is not None else []
         self.restriction_enzymes = [v if isinstance(v, str) else str(v) for v in self.restriction_enzymes]
+
+        if not isinstance(self.input, list):
+            self.input = [self.input] if self.input is not None else []
+        self.input = [v if isinstance(v, SequenceId) else SequenceId(v) for v in self.input]
 
         super().__post_init__(**kwargs)
         self.type = str(self.class_name)
@@ -1005,12 +1035,17 @@ class PolymeraseExtensionSource(Source):
     class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.PolymeraseExtensionSource
 
     id: Union[int, PolymeraseExtensionSourceId] = None
+    input: Optional[Union[Union[int, SequenceId], List[Union[int, SequenceId]]]] = empty_list()
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
         if self._is_empty(self.id):
             self.MissingRequiredField("id")
         if not isinstance(self.id, PolymeraseExtensionSourceId):
             self.id = PolymeraseExtensionSourceId(self.id)
+
+        if not isinstance(self.input, list):
+            self.input = [self.input] if self.input is not None else []
+        self.input = [v if isinstance(v, SequenceId) else SequenceId(v) for v in self.input]
 
         super().__post_init__(**kwargs)
         self.type = str(self.class_name)
@@ -1629,6 +1664,51 @@ slots.UploadedFileSource_sequence_file_format = Slot(
     range=Union[str, "SequenceFileFormat"],
 )
 
+slots.SequenceCutSource_input = Slot(
+    uri=SHAREYOURCLONING_LINKML.input,
+    name="SequenceCutSource_input",
+    curie=SHAREYOURCLONING_LINKML.curie("input"),
+    model_uri=SHAREYOURCLONING_LINKML.SequenceCutSource_input,
+    domain=SequenceCutSource,
+    range=Optional[Union[Union[int, SequenceId], List[Union[int, SequenceId]]]],
+)
+
+slots.PCRSource_input = Slot(
+    uri=SHAREYOURCLONING_LINKML.input,
+    name="PCRSource_input",
+    curie=SHAREYOURCLONING_LINKML.curie("input"),
+    model_uri=SHAREYOURCLONING_LINKML.PCRSource_input,
+    domain=PCRSource,
+    range=Optional[Union[Union[int, SequenceId], List[Union[int, SequenceId]]]],
+)
+
+slots.LigationSource_input = Slot(
+    uri=SHAREYOURCLONING_LINKML.input,
+    name="LigationSource_input",
+    curie=SHAREYOURCLONING_LINKML.curie("input"),
+    model_uri=SHAREYOURCLONING_LINKML.LigationSource_input,
+    domain=LigationSource,
+    range=Optional[Union[Union[int, SequenceId], List[Union[int, SequenceId]]]],
+)
+
+slots.HomologousRecombinationSource_input = Slot(
+    uri=SHAREYOURCLONING_LINKML.input,
+    name="HomologousRecombinationSource_input",
+    curie=SHAREYOURCLONING_LINKML.curie("input"),
+    model_uri=SHAREYOURCLONING_LINKML.HomologousRecombinationSource_input,
+    domain=HomologousRecombinationSource,
+    range=Optional[Union[Union[int, SequenceId], List[Union[int, SequenceId]]]],
+)
+
+slots.GibsonAssemblySource_input = Slot(
+    uri=SHAREYOURCLONING_LINKML.input,
+    name="GibsonAssemblySource_input",
+    curie=SHAREYOURCLONING_LINKML.curie("input"),
+    model_uri=SHAREYOURCLONING_LINKML.GibsonAssemblySource_input,
+    domain=GibsonAssemblySource,
+    range=Optional[Union[Union[int, SequenceId], List[Union[int, SequenceId]]]],
+)
+
 slots.RestrictionAndLigationSource_restriction_enzymes = Slot(
     uri=SHAREYOURCLONING_LINKML.restriction_enzymes,
     name="RestrictionAndLigationSource_restriction_enzymes",
@@ -1636,4 +1716,22 @@ slots.RestrictionAndLigationSource_restriction_enzymes = Slot(
     model_uri=SHAREYOURCLONING_LINKML.RestrictionAndLigationSource_restriction_enzymes,
     domain=RestrictionAndLigationSource,
     range=Union[str, List[str]],
+)
+
+slots.RestrictionAndLigationSource_input = Slot(
+    uri=SHAREYOURCLONING_LINKML.input,
+    name="RestrictionAndLigationSource_input",
+    curie=SHAREYOURCLONING_LINKML.curie("input"),
+    model_uri=SHAREYOURCLONING_LINKML.RestrictionAndLigationSource_input,
+    domain=RestrictionAndLigationSource,
+    range=Optional[Union[Union[int, SequenceId], List[Union[int, SequenceId]]]],
+)
+
+slots.PolymeraseExtensionSource_input = Slot(
+    uri=SHAREYOURCLONING_LINKML.input,
+    name="PolymeraseExtensionSource_input",
+    curie=SHAREYOURCLONING_LINKML.curie("input"),
+    model_uri=SHAREYOURCLONING_LINKML.PolymeraseExtensionSource_input,
+    domain=PolymeraseExtensionSource,
+    range=Optional[Union[Union[int, SequenceId], List[Union[int, SequenceId]]]],
 )

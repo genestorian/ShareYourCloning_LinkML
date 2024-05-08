@@ -113,7 +113,8 @@ linkml:Sparqlpath xsd:string
 
 <GibsonAssemblySource> CLOSED {
     (  $<GibsonAssemblySource_tes> (  &<AssemblySource_tes> ;
-          rdf:type [ <AssemblySource> ] ?
+          rdf:type [ <AssemblySource> ] ? ;
+          <input> @<Sequence> *
        ) ;
        rdf:type [ <GibsonAssemblySource> ]
     )
@@ -122,7 +123,8 @@ linkml:Sparqlpath xsd:string
 <HomologousRecombinationSource>  (
     CLOSED {
        (  $<HomologousRecombinationSource_tes> (  &<AssemblySource_tes> ;
-             rdf:type [ <AssemblySource> ] ?
+             rdf:type [ <AssemblySource> ] ? ;
+             <input> @<Sequence> *
           ) ;
           rdf:type [ <HomologousRecombinationSource> ]
        )
@@ -131,7 +133,8 @@ linkml:Sparqlpath xsd:string
 
 <LigationSource> CLOSED {
     (  $<LigationSource_tes> (  &<AssemblySource_tes> ;
-          rdf:type [ <AssemblySource> ] ?
+          rdf:type [ <AssemblySource> ] ? ;
+          <input> @<Sequence> *
        ) ;
        rdf:type [ <LigationSource> ]
     )
@@ -172,7 +175,8 @@ linkml:Sparqlpath xsd:string
     (  $<PCRSource_tes> (  &<AssemblySource_tes> ;
           rdf:type [ <AssemblySource> ] ? ;
           <forward_primer> @<Primer> ;
-          <reverse_primer> @<Primer>
+          <reverse_primer> @<Primer> ;
+          <input> @<Sequence> *
        ) ;
        rdf:type [ <PCRSource> ]
     )
@@ -180,7 +184,8 @@ linkml:Sparqlpath xsd:string
 
 <PolymeraseExtensionSource> CLOSED {
     (  $<PolymeraseExtensionSource_tes> (  &<Source_tes> ;
-          rdf:type [ <Source> ] ?
+          rdf:type [ <Source> ] ? ;
+          <input> @<Sequence> *
        ) ;
        rdf:type [ <PolymeraseExtensionSource> ]
     )
@@ -212,7 +217,8 @@ linkml:Sparqlpath xsd:string
 <RestrictionAndLigationSource> CLOSED {
     (  $<RestrictionAndLigationSource_tes> (  &<AssemblySource_tes> ;
           rdf:type [ <AssemblySource> ] ? ;
-          <restriction_enzymes> @linkml:String +
+          <restriction_enzymes> @linkml:String + ;
+          <input> @<Sequence> *
        ) ;
        rdf:type [ <RestrictionAndLigationSource> ]
     )
@@ -265,7 +271,8 @@ linkml:Sparqlpath xsd:string
        (  $<SequenceCutSource_tes> (  &<Source_tes> ;
              rdf:type [ <Source> ] ? ;
              <left_edge> @<SequenceCut> ? ;
-             <right_edge> @<SequenceCut> ?
+             <right_edge> @<SequenceCut> ? ;
+             <input> @<Sequence> *
           ) ;
           rdf:type [ <SequenceCutSource> ]
        )
@@ -323,3 +330,5 @@ linkml:Sparqlpath xsd:string
        rdf:type [ <UploadedFileSource> ]
     )
 }
+
+
