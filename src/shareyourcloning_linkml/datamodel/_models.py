@@ -6,11 +6,16 @@ import re
 import sys
 from typing import Any, List, Literal, Dict, Optional, Union
 from pydantic.version import VERSION as PYDANTIC_VERSION
+from pydantic import conlist
 
 if int(PYDANTIC_VERSION[0]) >= 2:
     from pydantic import BaseModel, ConfigDict, Field, field_validator
 else:
     from pydantic import BaseModel, Field, validator
+
+from pydantic import conlist
+from pydantic import conlist
+from pydantic import conlist
 
 metamodel_version = "None"
 version = "None"
@@ -41,6 +46,13 @@ class SequenceFileFormat(str, Enum):
     snapgene = "snapgene"
 
 
+class AddGeneSequenceType(str, Enum):
+    # Full sequence of the plasmid submitted by the depositor
+    depositor_full = "depositor-full"
+    # Full sequence of the plasmid performed by Addgene
+    addgene_full = "addgene-full"
+
+
 class NamedThing(ConfiguredBaseModel):
     id: int = Field(..., description="""A unique identifier for a thing""")
 
@@ -61,11 +73,11 @@ class TextFileSequence(Sequence):
 
     sequence_file_format: SequenceFileFormat = Field(..., description="""The format of a sequence file""")
     overhang_crick_3prime: Optional[int] = Field(
-        None,
+        0,
         description="""Taken from pydna's `dseq::ovhg`An integer describing the length of the crick strand overhang in the 5' of the molecule, or 3' of the crick strand""",
     )
     overhang_watson_3prime: Optional[int] = Field(
-        None, description="""The equivalent of `overhang_crick_3prime` but for the watson strand"""
+        0, description="""The equivalent of `overhang_crick_3prime` but for the watson strand"""
     )
     file_content: Optional[str] = Field(None)
     id: int = Field(..., description="""A unique identifier for a thing""")
@@ -100,12 +112,12 @@ class SequenceCut(ConfiguredBaseModel):
     Represents a cut in a DNA sequence
     """
 
-    cut_watson: Optional[int] = Field(
-        None,
+    cut_watson: int = Field(
+        ...,
         description="""The position of the cut in the watson strand. The cut is made before the base at this position (zero-based), so that cut position 1 cuts after the first base.""",
     )
-    overhang: Optional[int] = Field(
-        None,
+    overhang: int = Field(
+        ...,
         description="""The length of the overhang that is left after the cut. It can be negative, same meaning as in pydna's `dseq::ovhg` and biopython's `Bio.Restriction.RestrictionType.ovhg`.""",
     )
 
@@ -116,12 +128,12 @@ class RestrictionSequenceCut(SequenceCut):
     """
 
     restriction_enzyme: str = Field(...)
-    cut_watson: Optional[int] = Field(
-        None,
+    cut_watson: int = Field(
+        ...,
         description="""The position of the cut in the watson strand. The cut is made before the base at this position (zero-based), so that cut position 1 cuts after the first base.""",
     )
-    overhang: Optional[int] = Field(
-        None,
+    overhang: int = Field(
+        ...,
         description="""The length of the overhang that is left after the cut. It can be negative, same meaning as in pydna's `dseq::ovhg` and biopython's `Bio.Restriction.RestrictionType.ovhg`.""",
     )
 
@@ -148,11 +160,11 @@ class ManuallyTypedSource(Source):
     """
 
     overhang_crick_3prime: Optional[int] = Field(
-        None,
+        0,
         description="""Taken from pydna's `dseq::ovhg`An integer describing the length of the crick strand overhang in the 5' of the molecule, or 3' of the crick strand""",
     )
     overhang_watson_3prime: Optional[int] = Field(
-        None, description="""The equivalent of `overhang_crick_3prime` but for the watson strand"""
+        0, description="""The equivalent of `overhang_crick_3prime` but for the watson strand"""
     )
     user_input: str = Field(...)
     circular: Optional[bool] = Field(None, description="""Whether the sequence is circular or not""")
@@ -216,6 +228,40 @@ class RepositoryIdSource(Source):
     id: int = Field(..., description="""A unique identifier for a thing""")
 
 
+class AddGeneIdSource(RepositoryIdSource):
+    """
+    Represents the source of a sequence that is identified by an AddGene id
+    """
+
+    sequence_file_url: Optional[str] = Field(None, description="""The URL of a sequence file""")
+    addgene_sequence_type: Optional[AddGeneSequenceType] = Field(None)
+    repository_name: RepositoryName = Field(...)
+    repository_id: str = Field(..., description="""The id of the sequence in the repository""")
+    input: Optional[List[int]] = Field(
+        default_factory=list,
+        description="""The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.""",
+    )
+    output: Optional[int] = Field(
+        None, description="""Identifier of the sequence that is the output of this source."""
+    )
+    type: Literal["AddGeneIdSource"] = Field("AddGeneIdSource", description="""The type of the source""")
+    id: int = Field(..., description="""A unique identifier for a thing""")
+
+    @field_validator("sequence_file_url")
+    def pattern_sequence_file_url(cls, v):
+        pattern = re.compile(
+            r"^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)$"
+        )
+        if isinstance(v, list):
+            for element in v:
+                if not pattern.match(element):
+                    raise ValueError(f"Invalid sequence_file_url format: {element}")
+        elif isinstance(v, str):
+            if not pattern.match(v):
+                raise ValueError(f"Invalid sequence_file_url format: {v}")
+        return v
+
+
 class GenomeCoordinatesSource(Source):
     """
     Represents the source of a sequence that is identified by genome coordinates, requested from NCBI
@@ -250,7 +296,7 @@ class SequenceCutSource(Source):
 
     left_edge: Optional[SequenceCut] = Field(None)
     right_edge: Optional[SequenceCut] = Field(None)
-    input: Optional[List[int]] = Field(
+    input: Optional[conlist(min_length=1, max_length=1, item_type=int)] = Field(
         default_factory=list,
         description="""The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.""",
     )
@@ -268,7 +314,7 @@ class RestrictionEnzymeDigestionSource(SequenceCutSource):
 
     left_edge: Optional[RestrictionSequenceCut] = Field(None)
     right_edge: Optional[RestrictionSequenceCut] = Field(None)
-    input: Optional[List[int]] = Field(
+    input: Optional[conlist(min_length=1, max_length=1, item_type=int)] = Field(
         default_factory=list,
         description="""The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.""",
     )
@@ -339,7 +385,7 @@ class PCRSource(AssemblySource):
     assembly: List[AssemblyJoin] = Field(
         default_factory=list, description="""The joins between the fragments in the assembly"""
     )
-    input: Optional[List[int]] = Field(
+    input: Optional[conlist(min_length=1, max_length=1, item_type=int)] = Field(
         default_factory=list,
         description="""The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.""",
     )
@@ -359,7 +405,7 @@ class LigationSource(AssemblySource):
     assembly: List[AssemblyJoin] = Field(
         default_factory=list, description="""The joins between the fragments in the assembly"""
     )
-    input: Optional[List[int]] = Field(
+    input: Optional[conlist(min_length=1, item_type=int)] = Field(
         default_factory=list,
         description="""The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.""",
     )
@@ -379,7 +425,7 @@ class HomologousRecombinationSource(AssemblySource):
     assembly: List[AssemblyJoin] = Field(
         default_factory=list, description="""The joins between the fragments in the assembly"""
     )
-    input: Optional[List[int]] = Field(
+    input: Optional[conlist(min_length=2, max_length=2, item_type=int)] = Field(
         default_factory=list,
         description="""The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.""",
     )
@@ -401,7 +447,7 @@ class GibsonAssemblySource(AssemblySource):
     assembly: List[AssemblyJoin] = Field(
         default_factory=list, description="""The joins between the fragments in the assembly"""
     )
-    input: Optional[List[int]] = Field(
+    input: Optional[conlist(min_length=1, item_type=int)] = Field(
         default_factory=list,
         description="""The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.""",
     )
@@ -422,7 +468,7 @@ class RestrictionAndLigationSource(AssemblySource):
     assembly: List[AssemblyJoin] = Field(
         default_factory=list, description="""The joins between the fragments in the assembly"""
     )
-    input: Optional[List[int]] = Field(
+    input: Optional[conlist(min_length=1, item_type=int)] = Field(
         default_factory=list,
         description="""The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.""",
     )
@@ -432,6 +478,27 @@ class RestrictionAndLigationSource(AssemblySource):
     type: Literal["RestrictionAndLigationSource"] = Field(
         "RestrictionAndLigationSource", description="""The type of the source"""
     )
+    id: int = Field(..., description="""A unique identifier for a thing""")
+
+
+class CRISPRSource(HomologousRecombinationSource):
+    """
+    Represents the source of a sequence that is generated by CRISPR
+    """
+
+    guides: List[int] = Field(default_factory=list, description="""The guide RNAs used in the CRISPR""")
+    circular: Optional[bool] = Field(None, description="""Whether the assembly is circular or not""")
+    assembly: List[AssemblyJoin] = Field(
+        default_factory=list, description="""The joins between the fragments in the assembly"""
+    )
+    input: Optional[conlist(min_length=2, max_length=2, item_type=int)] = Field(
+        default_factory=list,
+        description="""The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.""",
+    )
+    output: Optional[int] = Field(
+        None, description="""Identifier of the sequence that is the output of this source."""
+    )
+    type: Literal["CRISPRSource"] = Field("CRISPRSource", description="""The type of the source""")
     id: int = Field(..., description="""A unique identifier for a thing""")
 
 
@@ -464,7 +531,7 @@ class PolymeraseExtensionSource(Source):
     Represents the source of a sequence that is generated by polymerase extension
     """
 
-    input: Optional[List[int]] = Field(
+    input: Optional[conlist(min_length=1, max_length=1, item_type=int)] = Field(
         default_factory=list,
         description="""The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.""",
     )
@@ -501,7 +568,9 @@ class CloningStrategy(ConfiguredBaseModel):
             HomologousRecombinationSource,
             GibsonAssemblySource,
             RestrictionAndLigationSource,
+            CRISPRSource,
             RestrictionEnzymeDigestionSource,
+            AddGeneIdSource,
         ]
     ] = Field(
         default_factory=list, description="""The sources of the sequences that are used in the cloning strategy"""
@@ -524,6 +593,7 @@ Source.model_rebuild()
 ManuallyTypedSource.model_rebuild()
 UploadedFileSource.model_rebuild()
 RepositoryIdSource.model_rebuild()
+AddGeneIdSource.model_rebuild()
 GenomeCoordinatesSource.model_rebuild()
 SequenceCutSource.model_rebuild()
 RestrictionEnzymeDigestionSource.model_rebuild()
@@ -535,6 +605,7 @@ LigationSource.model_rebuild()
 HomologousRecombinationSource.model_rebuild()
 GibsonAssemblySource.model_rebuild()
 RestrictionAndLigationSource.model_rebuild()
+CRISPRSource.model_rebuild()
 OligoHybridizationSource.model_rebuild()
 PolymeraseExtensionSource.model_rebuild()
 CloningStrategy.model_rebuild()
