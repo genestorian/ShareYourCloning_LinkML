@@ -1117,6 +1117,8 @@
         "CloningStrategy"
       ],
       "range": "Primer",
+      "inlined": true,
+      "inlined_as_list": true,
       "@type": "SlotDefinition"
     },
     {
@@ -2256,6 +2258,7 @@
           "description": "The primers that are used in the cloning strategy",
           "multivalued": true,
           "range": "Primer",
+          "inlined_as_list": true,
           "@type": "SlotDefinition"
         },
         {
@@ -2271,9 +2274,9 @@
   ],
   "metamodel_version": "1.7.0",
   "source_file": "shareyourcloning_linkml.yaml",
-  "source_file_date": "2024-05-08T12:30:24",
-  "source_file_size": 15604,
-  "generation_date": "2024-05-08T12:30:30",
+  "source_file_date": "2024-05-08T17:32:06",
+  "source_file_size": 15636,
+  "generation_date": "2024-05-08T17:38:06",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/shareyourcloning_linkml.context.jsonld",

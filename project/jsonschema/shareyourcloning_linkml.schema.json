@@ -210,7 +210,7 @@
                 "primers": {
                     "description": "The primers that are used in the cloning strategy",
                     "items": {
-                        "type": "integer"
+                        "$ref": "#/$defs/Primer"
                     },
                     "type": "array"
                 },
