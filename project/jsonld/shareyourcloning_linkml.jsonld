@@ -901,40 +901,27 @@
       "@type": "SlotDefinition"
     },
     {
-      "name": "assemblyJoin__left_fragment",
+      "name": "assemblyJoinComponent__sequence",
       "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
-      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/left_fragment",
-      "alias": "left_fragment",
-      "owner": "AssemblyJoin",
+      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/sequence",
+      "alias": "sequence",
+      "owner": "AssemblyJoinComponent",
       "domain_of": [
-        "AssemblyJoin"
+        "AssemblyJoinComponent"
       ],
       "range": "Sequence",
       "required": true,
       "@type": "SlotDefinition"
     },
     {
-      "name": "assemblyJoin__right_fragment",
+      "name": "assemblyJoinComponent__location",
+      "description": "Location of the overlap in the fragment. Might be an empty location (start == end) to indicate blunt join.",
       "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
-      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/right_fragment",
-      "alias": "right_fragment",
-      "owner": "AssemblyJoin",
+      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/location",
+      "alias": "location",
+      "owner": "AssemblyJoinComponent",
       "domain_of": [
-        "AssemblyJoin"
-      ],
-      "range": "Sequence",
-      "required": true,
-      "@type": "SlotDefinition"
-    },
-    {
-      "name": "assemblyJoin__left_location",
-      "description": "Location of the overlap in the left fragment. Might be an empty location (start == end) to indicate blunt join.",
-      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
-      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/left_location",
-      "alias": "left_location",
-      "owner": "AssemblyJoin",
-      "domain_of": [
-        "AssemblyJoin"
+        "AssemblyJoinComponent"
       ],
       "range": "SimpleSequenceLocation",
       "required": true,
@@ -942,16 +929,43 @@
       "@type": "SlotDefinition"
     },
     {
-      "name": "assemblyJoin__right_location",
-      "description": "Location of the overlap in the right fragment. Might be an empty location (start == end) to indicate blunt join.",
+      "name": "assemblyJoinComponent__reverse_complemented",
+      "description": "Whether the sequence is reverse complemented in the join",
       "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
-      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/right_location",
-      "alias": "right_location",
+      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/reverse_complemented",
+      "alias": "reverse_complemented",
+      "owner": "AssemblyJoinComponent",
+      "domain_of": [
+        "AssemblyJoinComponent"
+      ],
+      "range": "boolean",
+      "required": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "assemblyJoin__left",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/left",
+      "alias": "left",
       "owner": "AssemblyJoin",
       "domain_of": [
         "AssemblyJoin"
       ],
-      "range": "SimpleSequenceLocation",
+      "range": "AssemblyJoinComponent",
+      "required": true,
+      "inlined": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "assemblyJoin__right",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/right",
+      "alias": "right",
+      "owner": "AssemblyJoin",
+      "domain_of": [
+        "AssemblyJoin"
+      ],
+      "range": "AssemblyJoinComponent",
       "required": true,
       "inlined": true,
       "@type": "SlotDefinition"
@@ -1919,44 +1933,63 @@
       "@type": "ClassDefinition"
     },
     {
+      "name": "AssemblyJoinComponent",
+      "definition_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/AssemblyJoinComponent",
+      "description": "Represents a component of a join between two fragments in an assembly",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "slots": [
+        "assemblyJoinComponent__sequence",
+        "assemblyJoinComponent__location",
+        "assemblyJoinComponent__reverse_complemented"
+      ],
+      "slot_usage": {},
+      "attributes": [
+        {
+          "name": "sequence",
+          "range": "Sequence",
+          "required": true,
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "location",
+          "description": "Location of the overlap in the fragment. Might be an empty location (start == end) to indicate blunt join.",
+          "range": "SimpleSequenceLocation",
+          "required": true,
+          "inlined": true,
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "reverse_complemented",
+          "description": "Whether the sequence is reverse complemented in the join",
+          "range": "boolean",
+          "required": true,
+          "@type": "SlotDefinition"
+        }
+      ],
+      "class_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/AssemblyJoinComponent",
+      "@type": "ClassDefinition"
+    },
+    {
       "name": "AssemblyJoin",
       "definition_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/AssemblyJoin",
       "description": "Represents a joint between two fragments in an assembly",
       "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
       "slots": [
-        "assemblyJoin__left_fragment",
-        "assemblyJoin__right_fragment",
-        "assemblyJoin__left_location",
-        "assemblyJoin__right_location"
+        "assemblyJoin__left",
+        "assemblyJoin__right"
       ],
       "slot_usage": {},
       "attributes": [
         {
-          "name": "left_fragment",
-          "range": "Sequence",
+          "name": "left",
+          "range": "AssemblyJoinComponent",
           "required": true,
           "@type": "SlotDefinition"
         },
         {
-          "name": "right_fragment",
-          "range": "Sequence",
+          "name": "right",
+          "range": "AssemblyJoinComponent",
           "required": true,
-          "@type": "SlotDefinition"
-        },
-        {
-          "name": "left_location",
-          "description": "Location of the overlap in the left fragment. Might be an empty location (start == end) to indicate blunt join.",
-          "range": "SimpleSequenceLocation",
-          "required": true,
-          "inlined": true,
-          "@type": "SlotDefinition"
-        },
-        {
-          "name": "right_location",
-          "description": "Location of the overlap in the right fragment. Might be an empty location (start == end) to indicate blunt join.",
-          "range": "SimpleSequenceLocation",
-          "required": true,
-          "inlined": true,
           "@type": "SlotDefinition"
         }
       ],
@@ -2238,9 +2271,9 @@
   ],
   "metamodel_version": "1.7.0",
   "source_file": "shareyourcloning_linkml.yaml",
-  "source_file_date": "2024-05-08T09:28:36",
-  "source_file_size": 15500,
-  "generation_date": "2024-05-08T10:06:27",
+  "source_file_date": "2024-05-08T12:30:24",
+  "source_file_size": 15604,
+  "generation_date": "2024-05-08T12:30:30",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/shareyourcloning_linkml.context.jsonld",

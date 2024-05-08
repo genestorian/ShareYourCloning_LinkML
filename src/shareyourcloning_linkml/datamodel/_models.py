@@ -337,21 +337,26 @@ class SimpleSequenceLocation(ConfiguredBaseModel):
     strand: Optional[int] = Field(None, description="""The strand of the location, should be 1 or -1 or null""")
 
 
+class AssemblyJoinComponent(ConfiguredBaseModel):
+    """
+    Represents a component of a join between two fragments in an assembly
+    """
+
+    sequence: int = Field(...)
+    location: SimpleSequenceLocation = Field(
+        ...,
+        description="""Location of the overlap in the fragment. Might be an empty location (start == end) to indicate blunt join.""",
+    )
+    reverse_complemented: bool = Field(..., description="""Whether the sequence is reverse complemented in the join""")
+
+
 class AssemblyJoin(ConfiguredBaseModel):
     """
     Represents a joint between two fragments in an assembly
     """
 
-    left_fragment: int = Field(...)
-    right_fragment: int = Field(...)
-    left_location: SimpleSequenceLocation = Field(
-        ...,
-        description="""Location of the overlap in the left fragment. Might be an empty location (start == end) to indicate blunt join.""",
-    )
-    right_location: SimpleSequenceLocation = Field(
-        ...,
-        description="""Location of the overlap in the right fragment. Might be an empty location (start == end) to indicate blunt join.""",
-    )
+    left: AssemblyJoinComponent = Field(...)
+    right: AssemblyJoinComponent = Field(...)
 
 
 class AssemblySource(Source):
@@ -598,6 +603,7 @@ GenomeCoordinatesSource.model_rebuild()
 SequenceCutSource.model_rebuild()
 RestrictionEnzymeDigestionSource.model_rebuild()
 SimpleSequenceLocation.model_rebuild()
+AssemblyJoinComponent.model_rebuild()
 AssemblyJoin.model_rebuild()
 AssemblySource.model_rebuild()
 PCRSource.model_rebuild()

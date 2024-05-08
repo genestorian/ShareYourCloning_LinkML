@@ -275,30 +275,36 @@ classes:
             The strand of the location, should be 1 or -1 or null
           required: false
 
+  AssemblyJoinComponent:
+    description: >-
+      Represents a component of a join between two fragments in an assembly
+    attributes:
+      - sequence:
+          range: Sequence
+          required: true
+      - location:
+          range: SimpleSequenceLocation
+          description: >-
+            Location of the overlap in the fragment. Might be
+            an empty location (start == end) to indicate blunt join.
+          required: true
+          inlined: true
+      - reverse_complemented:
+          range: boolean
+          description: >-
+            Whether the sequence is reverse complemented in the join
+          required: true
+
   AssemblyJoin:
     description: >-
       Represents a joint between two fragments in an assembly
     attributes:
-      - left_fragment:
-          range: Sequence
+      - left:
+          range: AssemblyJoinComponent
           required: true
-      - right_fragment:
-          range: Sequence
+      - right:
+          range: AssemblyJoinComponent
           required: true
-      - left_location:
-          range: SimpleSequenceLocation
-          description: >-
-            Location of the overlap in the left fragment. Might be
-            an empty location (start == end) to indicate blunt join.
-          required: true
-          inlined: true
-      - right_location:
-          range: SimpleSequenceLocation
-          description: >-
-            Location of the overlap in the right fragment. Might be
-            an empty location (start == end) to indicate blunt join.
-          required: true
-          inlined: true
 
   AssemblySource:
     is_a: Source

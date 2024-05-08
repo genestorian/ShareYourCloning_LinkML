@@ -13,10 +13,15 @@ message AddGeneIdSource
 // Represents a joint between two fragments in an assembly
 message AssemblyJoin
  {
-  sequence leftFragment = 0
-  sequence rightFragment = 0
-  simpleSequenceLocation leftLocation = 0
-  simpleSequenceLocation rightLocation = 0
+  assemblyJoinComponent left = 0
+  assemblyJoinComponent right = 0
+ }
+// Represents a component of a join between two fragments in an assembly
+message AssemblyJoinComponent
+ {
+  sequence sequence = 0
+  simpleSequenceLocation location = 0
+  boolean reverseComplemented = 0
  }
 // Represents the source of a sequence that is an assembly of other sequences
 message AssemblySource

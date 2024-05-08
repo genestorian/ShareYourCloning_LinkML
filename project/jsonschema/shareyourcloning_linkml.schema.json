@@ -63,28 +63,42 @@
             "additionalProperties": false,
             "description": "Represents a joint between two fragments in an assembly",
             "properties": {
-                "left_fragment": {
-                    "type": "integer"
+                "left": {
+                    "$ref": "#/$defs/AssemblyJoinComponent"
                 },
-                "left_location": {
-                    "$ref": "#/$defs/SimpleSequenceLocation",
-                    "description": "Location of the overlap in the left fragment. Might be an empty location (start == end) to indicate blunt join."
-                },
-                "right_fragment": {
-                    "type": "integer"
-                },
-                "right_location": {
-                    "$ref": "#/$defs/SimpleSequenceLocation",
-                    "description": "Location of the overlap in the right fragment. Might be an empty location (start == end) to indicate blunt join."
+                "right": {
+                    "$ref": "#/$defs/AssemblyJoinComponent"
                 }
             },
             "required": [
-                "left_fragment",
-                "right_fragment",
-                "left_location",
-                "right_location"
+                "left",
+                "right"
             ],
             "title": "AssemblyJoin",
+            "type": "object"
+        },
+        "AssemblyJoinComponent": {
+            "additionalProperties": false,
+            "description": "Represents a component of a join between two fragments in an assembly",
+            "properties": {
+                "location": {
+                    "$ref": "#/$defs/SimpleSequenceLocation",
+                    "description": "Location of the overlap in the fragment. Might be an empty location (start == end) to indicate blunt join."
+                },
+                "reverse_complemented": {
+                    "description": "Whether the sequence is reverse complemented in the join",
+                    "type": "boolean"
+                },
+                "sequence": {
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "sequence",
+                "location",
+                "reverse_complemented"
+            ],
+            "title": "AssemblyJoinComponent",
             "type": "object"
         },
         "AssemblySource": {

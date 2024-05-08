@@ -12,10 +12,15 @@ type AddGeneIdSource
 
 type AssemblyJoin
   {
-    leftFragment: Sequence!
-    rightFragment: Sequence!
-    leftLocation: SimpleSequenceLocation!
-    rightLocation: SimpleSequenceLocation!
+    left: AssemblyJoinComponent!
+    right: AssemblyJoinComponent!
+  }
+
+type AssemblyJoinComponent
+  {
+    sequence: Sequence!
+    location: SimpleSequenceLocation!
+    reverseComplemented: Boolean!
   }
 
 type AssemblySource
@@ -243,4 +248,3 @@ type UploadedFileSource
     fileName: String
     indexInFile: Integer
   }
-

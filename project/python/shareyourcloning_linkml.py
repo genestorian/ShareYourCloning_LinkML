@@ -1,5 +1,5 @@
 # Auto generated from shareyourcloning_linkml.yaml by pythongen.py version: 0.0.1
-# Generation date: 2024-05-08T10:06:28
+# Generation date: 2024-05-08T12:30:31
 # Schema: ShareYourCloning_LinkML
 #
 # id: https://w3id.org/genestorian/ShareYourCloning_LinkML
@@ -696,6 +696,42 @@ class SimpleSequenceLocation(YAMLRoot):
 
 
 @dataclass
+class AssemblyJoinComponent(YAMLRoot):
+    """
+    Represents a component of a join between two fragments in an assembly
+    """
+
+    _inherited_slots: ClassVar[List[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML["AssemblyJoinComponent"]
+    class_class_curie: ClassVar[str] = "shareyourcloning_linkml:AssemblyJoinComponent"
+    class_name: ClassVar[str] = "AssemblyJoinComponent"
+    class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.AssemblyJoinComponent
+
+    sequence: Union[int, SequenceId] = None
+    location: Union[dict, SimpleSequenceLocation] = None
+    reverse_complemented: Union[bool, Bool] = None
+
+    def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
+        if self._is_empty(self.sequence):
+            self.MissingRequiredField("sequence")
+        if not isinstance(self.sequence, SequenceId):
+            self.sequence = SequenceId(self.sequence)
+
+        if self._is_empty(self.location):
+            self.MissingRequiredField("location")
+        if not isinstance(self.location, SimpleSequenceLocation):
+            self.location = SimpleSequenceLocation(**as_dict(self.location))
+
+        if self._is_empty(self.reverse_complemented):
+            self.MissingRequiredField("reverse_complemented")
+        if not isinstance(self.reverse_complemented, Bool):
+            self.reverse_complemented = Bool(self.reverse_complemented)
+
+        super().__post_init__(**kwargs)
+
+
+@dataclass
 class AssemblyJoin(YAMLRoot):
     """
     Represents a joint between two fragments in an assembly
@@ -708,31 +744,19 @@ class AssemblyJoin(YAMLRoot):
     class_name: ClassVar[str] = "AssemblyJoin"
     class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.AssemblyJoin
 
-    left_fragment: Union[int, SequenceId] = None
-    right_fragment: Union[int, SequenceId] = None
-    left_location: Union[dict, SimpleSequenceLocation] = None
-    right_location: Union[dict, SimpleSequenceLocation] = None
+    left: Union[dict, AssemblyJoinComponent] = None
+    right: Union[dict, AssemblyJoinComponent] = None
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
-        if self._is_empty(self.left_fragment):
-            self.MissingRequiredField("left_fragment")
-        if not isinstance(self.left_fragment, SequenceId):
-            self.left_fragment = SequenceId(self.left_fragment)
+        if self._is_empty(self.left):
+            self.MissingRequiredField("left")
+        if not isinstance(self.left, AssemblyJoinComponent):
+            self.left = AssemblyJoinComponent(**as_dict(self.left))
 
-        if self._is_empty(self.right_fragment):
-            self.MissingRequiredField("right_fragment")
-        if not isinstance(self.right_fragment, SequenceId):
-            self.right_fragment = SequenceId(self.right_fragment)
-
-        if self._is_empty(self.left_location):
-            self.MissingRequiredField("left_location")
-        if not isinstance(self.left_location, SimpleSequenceLocation):
-            self.left_location = SimpleSequenceLocation(**as_dict(self.left_location))
-
-        if self._is_empty(self.right_location):
-            self.MissingRequiredField("right_location")
-        if not isinstance(self.right_location, SimpleSequenceLocation):
-            self.right_location = SimpleSequenceLocation(**as_dict(self.right_location))
+        if self._is_empty(self.right):
+            self.MissingRequiredField("right")
+        if not isinstance(self.right, AssemblyJoinComponent):
+            self.right = AssemblyJoinComponent(**as_dict(self.right))
 
         super().__post_init__(**kwargs)
 
@@ -1466,40 +1490,49 @@ slots.simpleSequenceLocation__strand = Slot(
     range=Optional[int],
 )
 
-slots.assemblyJoin__left_fragment = Slot(
-    uri=SHAREYOURCLONING_LINKML.left_fragment,
-    name="assemblyJoin__left_fragment",
-    curie=SHAREYOURCLONING_LINKML.curie("left_fragment"),
-    model_uri=SHAREYOURCLONING_LINKML.assemblyJoin__left_fragment,
+slots.assemblyJoinComponent__sequence = Slot(
+    uri=SHAREYOURCLONING_LINKML.sequence,
+    name="assemblyJoinComponent__sequence",
+    curie=SHAREYOURCLONING_LINKML.curie("sequence"),
+    model_uri=SHAREYOURCLONING_LINKML.assemblyJoinComponent__sequence,
     domain=None,
     range=Union[int, SequenceId],
 )
 
-slots.assemblyJoin__right_fragment = Slot(
-    uri=SHAREYOURCLONING_LINKML.right_fragment,
-    name="assemblyJoin__right_fragment",
-    curie=SHAREYOURCLONING_LINKML.curie("right_fragment"),
-    model_uri=SHAREYOURCLONING_LINKML.assemblyJoin__right_fragment,
-    domain=None,
-    range=Union[int, SequenceId],
-)
-
-slots.assemblyJoin__left_location = Slot(
-    uri=SHAREYOURCLONING_LINKML.left_location,
-    name="assemblyJoin__left_location",
-    curie=SHAREYOURCLONING_LINKML.curie("left_location"),
-    model_uri=SHAREYOURCLONING_LINKML.assemblyJoin__left_location,
+slots.assemblyJoinComponent__location = Slot(
+    uri=SHAREYOURCLONING_LINKML.location,
+    name="assemblyJoinComponent__location",
+    curie=SHAREYOURCLONING_LINKML.curie("location"),
+    model_uri=SHAREYOURCLONING_LINKML.assemblyJoinComponent__location,
     domain=None,
     range=Union[dict, SimpleSequenceLocation],
 )
 
-slots.assemblyJoin__right_location = Slot(
-    uri=SHAREYOURCLONING_LINKML.right_location,
-    name="assemblyJoin__right_location",
-    curie=SHAREYOURCLONING_LINKML.curie("right_location"),
-    model_uri=SHAREYOURCLONING_LINKML.assemblyJoin__right_location,
+slots.assemblyJoinComponent__reverse_complemented = Slot(
+    uri=SHAREYOURCLONING_LINKML.reverse_complemented,
+    name="assemblyJoinComponent__reverse_complemented",
+    curie=SHAREYOURCLONING_LINKML.curie("reverse_complemented"),
+    model_uri=SHAREYOURCLONING_LINKML.assemblyJoinComponent__reverse_complemented,
     domain=None,
-    range=Union[dict, SimpleSequenceLocation],
+    range=Union[bool, Bool],
+)
+
+slots.assemblyJoin__left = Slot(
+    uri=SHAREYOURCLONING_LINKML.left,
+    name="assemblyJoin__left",
+    curie=SHAREYOURCLONING_LINKML.curie("left"),
+    model_uri=SHAREYOURCLONING_LINKML.assemblyJoin__left,
+    domain=None,
+    range=Union[dict, AssemblyJoinComponent],
+)
+
+slots.assemblyJoin__right = Slot(
+    uri=SHAREYOURCLONING_LINKML.right,
+    name="assemblyJoin__right",
+    curie=SHAREYOURCLONING_LINKML.curie("right"),
+    model_uri=SHAREYOURCLONING_LINKML.assemblyJoin__right,
+    domain=None,
+    range=Union[dict, AssemblyJoinComponent],
 )
 
 slots.assemblySource__circular = Slot(

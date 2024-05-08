@@ -55,12 +55,19 @@ linkml:Sparqlpath xsd:string
 }
 
 <AssemblyJoin> CLOSED {
-    (  $<AssemblyJoin_tes> (  <left_fragment> @<Sequence> ;
-          <right_fragment> @<Sequence> ;
-          <left_location> @<SimpleSequenceLocation> ;
-          <right_location> @<SimpleSequenceLocation>
+    (  $<AssemblyJoin_tes> (  <left> @<AssemblyJoinComponent> ;
+          <right> @<AssemblyJoinComponent>
        ) ;
        rdf:type [ <AssemblyJoin> ] ?
+    )
+}
+
+<AssemblyJoinComponent> CLOSED {
+    (  $<AssemblyJoinComponent_tes> (  <sequence> @<Sequence> ;
+          <location> @<SimpleSequenceLocation> ;
+          <reverse_complemented> @linkml:Boolean
+       ) ;
+       rdf:type [ <AssemblyJoinComponent> ] ?
     )
 }
 
@@ -330,5 +337,3 @@ linkml:Sparqlpath xsd:string
        rdf:type [ <UploadedFileSource> ]
     )
 }
-
-
