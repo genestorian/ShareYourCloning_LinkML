@@ -7,7 +7,7 @@ on:
 
 jobs:
   build-n-publish:
-    name: Build and publish Python 🐍 distributions 📦 to PyPI
+    name: Build and publish Python 🐍 distributions 📦 to PyPI + build documentation
     runs-on: ubuntu-latest
     environment:
       name: publish
@@ -33,4 +33,11 @@ jobs:
 
       - name: Publish distribution 📦 to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
-        
+
+      - name: Build documentation.
+        run: |
+          mkdir -p docs
+          touch docs/.nojekyll
+          make gendoc
+          ([ ! -f docs/about.md ] && cp src/docs/about.md docs/) || true
+          make mkd-gh-deploy
