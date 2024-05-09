@@ -14,6 +14,7 @@ jobs:
       url: https://pypi.org/p/shareyourcloning-linkml
     permissions:
       id-token: write
+      contents: write
 
     steps:
       - uses: actions/checkout@v3
@@ -35,7 +36,7 @@ jobs:
           touch docs/.nojekyll
           poetry run make gendoc
           ([ ! -f docs/about.md ] && cp src/docs/about.md docs/) || true
-          poetry run make mkd-gh-deploy
+          poetry run mkdocs gh-deploy --force
 
       - name: Build source and wheel archives
         run: poetry build
