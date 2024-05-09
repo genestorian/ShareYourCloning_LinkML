@@ -29,4 +29,4 @@ jobs:
           touch docs/.nojekyll
           poetry run make gendoc
           ([ ! -f docs/about.md ] && cp src/docs/about.md docs/) || true
-          poetry run mkdocs gh-deploy --force
+          poetry run make mkd-gh-deploy
