@@ -677,11 +677,11 @@
       "@type": "SlotDefinition"
     },
     {
-      "name": "uploadedFileSource__circularise",
-      "description": "Whether the sequence should be circularised (FASTA only)",
+      "name": "uploadedFileSource__circularize",
+      "description": "Whether the sequence should be circularized (FASTA only)",
       "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
-      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/circularise",
-      "alias": "circularise",
+      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/circularize",
+      "alias": "circularize",
       "owner": "UploadedFileSource",
       "domain_of": [
         "UploadedFileSource"
@@ -1700,7 +1700,7 @@
         "UploadedFileSource_sequence_file_format",
         "uploadedFileSource__file_name",
         "uploadedFileSource__index_in_file",
-        "uploadedFileSource__circularise"
+        "uploadedFileSource__circularize"
       ],
       "slot_usage": {},
       "attributes": [
@@ -1717,8 +1717,8 @@
           "@type": "SlotDefinition"
         },
         {
-          "name": "circularise",
-          "description": "Whether the sequence should be circularised (FASTA only)",
+          "name": "circularize",
+          "description": "Whether the sequence should be circularized (FASTA only)",
           "range": "boolean",
           "@type": "SlotDefinition"
         }
@@ -2297,9 +2297,9 @@
   ],
   "metamodel_version": "1.7.0",
   "source_file": "shareyourcloning_linkml.yaml",
-  "source_file_date": "2024-06-12T09:12:49",
+  "source_file_date": "2024-06-12T09:18:21",
   "source_file_size": 15852,
-  "generation_date": "2024-06-12T09:13:15",
+  "generation_date": "2024-06-12T09:30:35",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/shareyourcloning_linkml.context.jsonld",

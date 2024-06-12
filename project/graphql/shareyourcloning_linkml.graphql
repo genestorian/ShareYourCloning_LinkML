@@ -248,5 +248,5 @@ type UploadedFileSource
     sequenceFileFormat: SequenceFileFormat!
     fileName: String
     indexInFile: Integer
-    circularise: Boolean
+    circularize: Boolean
   }

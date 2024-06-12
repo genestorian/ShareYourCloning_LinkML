@@ -145,10 +145,10 @@ classes:
           description: >-
             The index of the sequence in the file
       # TODO: should raise an error if the format is not FASTA
-      - circularise:
+      - circularize:
           range: boolean
           description: >-
-            Whether the sequence should be circularised (FASTA only)
+            Whether the sequence should be circularized (FASTA only)
     slot_usage:
       sequence_file_format:
         required: true

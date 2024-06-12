@@ -43,7 +43,7 @@
 --     * Slot: sequence_file_format Description: The format of a sequence file
 --     * Slot: file_name Description: The name of the file
 --     * Slot: index_in_file Description: The index of the sequence in the file
---     * Slot: circularise Description: Whether the sequence should be circularised (FASTA only)
+--     * Slot: circularize Description: Whether the sequence should be circularized (FASTA only)
 --     * Slot: output Description: Identifier of the sequence that is the output of this source.
 --     * Slot: type Description: The type of the source
 --     * Slot: id Description: A unique identifier for a thing
@@ -292,7 +292,7 @@ CREATE TABLE "UploadedFileSource" (
 	sequence_file_format VARCHAR(8) NOT NULL,
 	file_name TEXT,
 	index_in_file INTEGER,
-	circularise BOOLEAN,
+	circularize BOOLEAN,
 	output INTEGER,
 	type TEXT,
 	id INTEGER NOT NULL,

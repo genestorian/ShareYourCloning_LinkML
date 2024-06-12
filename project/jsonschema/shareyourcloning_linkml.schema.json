@@ -1024,8 +1024,8 @@
             "additionalProperties": false,
             "description": "Represents the source of a sequence that is uploaded as a file",
             "properties": {
-                "circularise": {
-                    "description": "Whether the sequence should be circularised (FASTA only)",
+                "circularize": {
+                    "description": "Whether the sequence should be circularized (FASTA only)",
                     "type": "boolean"
                 },
                 "file_name": {
