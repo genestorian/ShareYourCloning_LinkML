@@ -1,3 +1,6 @@
+ syntax="proto3";
+ package
+// metamodel_version: 1.7.0
 // Represents the source of a sequence that is identified by an AddGene id
 message AddGeneIdSource
  {
@@ -233,4 +236,5 @@ message UploadedFileSource
   sequenceFileFormat sequenceFileFormat = 0
   string fileName = 0
   integer indexInFile = 0
+  boolean circularise = 0
  }

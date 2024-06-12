@@ -1,3 +1,4 @@
+# metamodel_version: 1.7.0
 BASE <https://w3id.org/genestorian/ShareYourCloning_LinkML/>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
@@ -316,7 +317,8 @@ linkml:Sparqlpath xsd:string
           rdf:type [ <Sequence> ] ? ;
           <sequence_file_format> [ <https://w3id.org/genestorian/ShareYourCloning_LinkML/SequenceFileFormat#fasta>
              <https://w3id.org/genestorian/ShareYourCloning_LinkML/SequenceFileFormat#genbank>
-             <https://w3id.org/genestorian/ShareYourCloning_LinkML/SequenceFileFormat#snapgene> ] ;
+             <https://w3id.org/genestorian/ShareYourCloning_LinkML/SequenceFileFormat#snapgene>
+             <https://w3id.org/genestorian/ShareYourCloning_LinkML/SequenceFileFormat#embl> ] ;
           <overhang_crick_3prime> @linkml:Integer ? ;
           <overhang_watson_3prime> @linkml:Integer ? ;
           <file_content> @linkml:String ?
@@ -330,9 +332,11 @@ linkml:Sparqlpath xsd:string
           rdf:type [ <Source> ] ? ;
           <sequence_file_format> [ <https://w3id.org/genestorian/ShareYourCloning_LinkML/SequenceFileFormat#fasta>
              <https://w3id.org/genestorian/ShareYourCloning_LinkML/SequenceFileFormat#genbank>
-             <https://w3id.org/genestorian/ShareYourCloning_LinkML/SequenceFileFormat#snapgene> ] ;
+             <https://w3id.org/genestorian/ShareYourCloning_LinkML/SequenceFileFormat#snapgene>
+             <https://w3id.org/genestorian/ShareYourCloning_LinkML/SequenceFileFormat#embl> ] ;
           <file_name> @linkml:String ? ;
-          <index_in_file> @linkml:Integer ?
+          <index_in_file> @linkml:Integer ? ;
+          <circularise> @linkml:Boolean ?
        ) ;
        rdf:type [ <UploadedFileSource> ]
     )

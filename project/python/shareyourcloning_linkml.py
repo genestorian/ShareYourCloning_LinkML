@@ -1,5 +1,5 @@
 # Auto generated from shareyourcloning_linkml.yaml by pythongen.py version: 0.0.1
-# Generation date: 2024-05-08T17:38:07
+# Generation date: 2024-06-12T09:13:16
 # Schema: ShareYourCloning_LinkML
 #
 # id: https://w3id.org/genestorian/ShareYourCloning_LinkML
@@ -434,6 +434,7 @@ class UploadedFileSource(Source):
     sequence_file_format: Union[str, "SequenceFileFormat"] = None
     file_name: Optional[str] = None
     index_in_file: Optional[int] = None
+    circularise: Optional[Union[bool, Bool]] = None
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
         if self._is_empty(self.id):
@@ -451,6 +452,9 @@ class UploadedFileSource(Source):
 
         if self.index_in_file is not None and not isinstance(self.index_in_file, int):
             self.index_in_file = int(self.index_in_file)
+
+        if self.circularise is not None and not isinstance(self.circularise, Bool):
+            self.circularise = Bool(self.circularise)
 
         super().__post_init__(**kwargs)
         self.type = str(self.class_name)
@@ -1126,6 +1130,7 @@ class SequenceFileFormat(EnumDefinitionImpl):
     fasta = PermissibleValue(text="fasta")
     genbank = PermissibleValue(text="genbank")
     snapgene = PermissibleValue(text="snapgene")
+    embl = PermissibleValue(text="embl")
 
     _defn = EnumDefinition(
         name="SequenceFileFormat",
@@ -1333,6 +1338,15 @@ slots.uploadedFileSource__index_in_file = Slot(
     model_uri=SHAREYOURCLONING_LINKML.uploadedFileSource__index_in_file,
     domain=None,
     range=Optional[int],
+)
+
+slots.uploadedFileSource__circularise = Slot(
+    uri=SHAREYOURCLONING_LINKML.circularise,
+    name="uploadedFileSource__circularise",
+    curie=SHAREYOURCLONING_LINKML.curie("circularise"),
+    model_uri=SHAREYOURCLONING_LINKML.uploadedFileSource__circularise,
+    domain=None,
+    range=Optional[Union[bool, Bool]],
 )
 
 slots.repositoryIdSource__repository_name = Slot(

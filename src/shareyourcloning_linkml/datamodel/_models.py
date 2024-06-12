@@ -44,6 +44,7 @@ class SequenceFileFormat(str, Enum):
     fasta = "fasta"
     genbank = "genbank"
     snapgene = "snapgene"
+    embl = "embl"
 
 
 class AddGeneSequenceType(str, Enum):
@@ -199,6 +200,9 @@ class UploadedFileSource(Source):
     sequence_file_format: SequenceFileFormat = Field(..., description="""The format of a sequence file""")
     file_name: Optional[str] = Field(None, description="""The name of the file""")
     index_in_file: Optional[int] = Field(None, description="""The index of the sequence in the file""")
+    circularise: Optional[bool] = Field(
+        None, description="""Whether the sequence should be circularised (FASTA only)"""
+    )
     input: Optional[List[int]] = Field(
         default_factory=list,
         description="""The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.""",
