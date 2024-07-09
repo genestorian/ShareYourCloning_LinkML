@@ -221,7 +221,6 @@ message TextFileSequence
  {
   integer id = 0
   string type = 0
-  string name = 0
   sequenceFileFormat sequenceFileFormat = 0
   integer overhangCrick3prime = 0
   integer overhangWatson3prime = 0

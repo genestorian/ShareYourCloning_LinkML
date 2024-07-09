@@ -196,7 +196,6 @@ interface Sequence
   {
     id: Integer!
     type: String
-    name: String
   }
 
 type SequenceCut
@@ -234,7 +233,6 @@ type TextFileSequence
   {
     id: Integer!
     type: String
-    name: String
     sequenceFileFormat: SequenceFileFormat!
     overhangCrick3prime: Integer
     overhangWatson3prime: Integer

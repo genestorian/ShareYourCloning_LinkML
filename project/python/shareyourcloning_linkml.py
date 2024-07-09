@@ -1,5 +1,5 @@
 # Auto generated from shareyourcloning_linkml.yaml by pythongen.py version: 0.0.1
-# Generation date: 2024-07-09T10:59:37
+# Generation date: 2024-07-09T11:42:58
 # Schema: ShareYourCloning_LinkML
 #
 # id: https://w3id.org/genestorian/ShareYourCloning_LinkML
@@ -167,7 +167,6 @@ class Sequence(NamedThing):
 
     id: Union[int, SequenceId] = None
     type: Optional[str] = None
-    name: Optional[str] = None
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
         if self._is_empty(self.id):
@@ -176,9 +175,6 @@ class Sequence(NamedThing):
             self.id = SequenceId(self.id)
 
         self.type = str(self.class_name)
-
-        if self.name is not None and not isinstance(self.name, str):
-            self.name = str(self.name)
 
         super().__post_init__(**kwargs)
 
@@ -256,6 +252,7 @@ class Primer(Sequence):
     class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.Primer
 
     id: Union[int, PrimerId] = None
+    name: Optional[str] = None
     sequence: Optional[str] = None
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
@@ -263,6 +260,9 @@ class Primer(Sequence):
             self.MissingRequiredField("id")
         if not isinstance(self.id, PrimerId):
             self.id = PrimerId(self.id)
+
+        if self.name is not None and not isinstance(self.name, str):
+            self.name = str(self.name)
 
         if self.sequence is not None and not isinstance(self.sequence, str):
             self.sequence = str(self.sequence)
@@ -1216,6 +1216,15 @@ slots.output = Slot(
     model_uri=SHAREYOURCLONING_LINKML.output,
     domain=None,
     range=Optional[Union[int, SequenceId]],
+)
+
+slots.output_name = Slot(
+    uri=SHAREYOURCLONING_LINKML.output_name,
+    name="output_name",
+    curie=SHAREYOURCLONING_LINKML.curie("output_name"),
+    model_uri=SHAREYOURCLONING_LINKML.output_name,
+    domain=None,
+    range=Optional[str],
 )
 
 slots.type = Slot(
