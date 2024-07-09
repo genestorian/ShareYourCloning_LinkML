@@ -8,6 +8,7 @@ message AddGeneIdSource
  repeated  sequence input = 0
   sequence output = 0
   string type = 0
+  string outputName = 0
   repositoryName repositoryName = 0
   string repositoryId = 0
   string sequenceFileUrl = 0
@@ -33,6 +34,7 @@ message AssemblySource
  repeated  sequence input = 0
   sequence output = 0
   string type = 0
+  string outputName = 0
   boolean circular = 0
  repeated  assemblyJoin assembly = 0
  }
@@ -50,6 +52,7 @@ message CRISPRSource
   integer id = 0
   sequence output = 0
   string type = 0
+  string outputName = 0
   boolean circular = 0
  repeated  assemblyJoin assembly = 0
  repeated  sequence input = 0
@@ -62,6 +65,7 @@ message GenomeCoordinatesSource
  repeated  sequence input = 0
   sequence output = 0
   string type = 0
+  string outputName = 0
   string assemblyAccession = 0
   string sequenceAccession = 0
   string locusTag = 0
@@ -76,6 +80,7 @@ message GibsonAssemblySource
   integer id = 0
   sequence output = 0
   string type = 0
+  string outputName = 0
   boolean circular = 0
  repeated  assemblyJoin assembly = 0
  repeated  sequence input = 0
@@ -86,6 +91,7 @@ message HomologousRecombinationSource
   integer id = 0
   sequence output = 0
   string type = 0
+  string outputName = 0
   boolean circular = 0
  repeated  assemblyJoin assembly = 0
  repeated  sequence input = 0
@@ -96,6 +102,7 @@ message LigationSource
   integer id = 0
   sequence output = 0
   string type = 0
+  string outputName = 0
   boolean circular = 0
  repeated  assemblyJoin assembly = 0
  repeated  sequence input = 0
@@ -107,6 +114,7 @@ message ManuallyTypedSource
  repeated  sequence input = 0
   sequence output = 0
   string type = 0
+  string outputName = 0
   integer overhangCrick3prime = 0
   integer overhangWatson3prime = 0
   string userInput = 0
@@ -123,6 +131,7 @@ message OligoHybridizationSource
  repeated  sequence input = 0
   sequence output = 0
   string type = 0
+  string outputName = 0
   integer overhangCrick3prime = 0
   primer forwardOligo = 0
   primer reverseOligo = 0
@@ -133,6 +142,7 @@ message PCRSource
   integer id = 0
   sequence output = 0
   string type = 0
+  string outputName = 0
   boolean circular = 0
  repeated  assemblyJoin assembly = 0
   primer forwardPrimer = 0
@@ -145,6 +155,7 @@ message PolymeraseExtensionSource
   integer id = 0
   sequence output = 0
   string type = 0
+  string outputName = 0
  repeated  sequence input = 0
  }
 // An oligonucleotide or primer
@@ -162,6 +173,7 @@ message RepositoryIdSource
  repeated  sequence input = 0
   sequence output = 0
   string type = 0
+  string outputName = 0
   repositoryName repositoryName = 0
   string repositoryId = 0
  }
@@ -171,6 +183,7 @@ message RestrictionAndLigationSource
   integer id = 0
   sequence output = 0
   string type = 0
+  string outputName = 0
   boolean circular = 0
  repeated  assemblyJoin assembly = 0
  repeated  string restrictionEnzymes = 0
@@ -182,6 +195,7 @@ message RestrictionEnzymeDigestionSource
   integer id = 0
   sequence output = 0
   string type = 0
+  string outputName = 0
  repeated  sequence input = 0
   restrictionSequenceCut leftEdge = 0
   restrictionSequenceCut rightEdge = 0
@@ -205,6 +219,7 @@ message SequenceCutSource
   integer id = 0
   sequence output = 0
   string type = 0
+  string outputName = 0
   sequenceCut leftEdge = 0
   sequenceCut rightEdge = 0
  repeated  sequence input = 0
@@ -233,6 +248,7 @@ message UploadedFileSource
  repeated  sequence input = 0
   sequence output = 0
   string type = 0
+  string outputName = 0
   sequenceFileFormat sequenceFileFormat = 0
   string fileName = 0
   integer indexInFile = 0

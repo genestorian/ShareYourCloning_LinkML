@@ -152,6 +152,7 @@ class Source(NamedThing):
         None, description="""Identifier of the sequence that is the output of this source."""
     )
     type: Literal["Source"] = Field("Source", description="""The type of the source""")
+    output_name: Optional[str] = Field(None, description="""Used to specify the name of the output sequence""")
     id: int = Field(..., description="""A unique identifier for a thing""")
 
 
@@ -177,6 +178,7 @@ class ManuallyTypedSource(Source):
         None, description="""Identifier of the sequence that is the output of this source."""
     )
     type: Literal["ManuallyTypedSource"] = Field("ManuallyTypedSource", description="""The type of the source""")
+    output_name: Optional[str] = Field(None, description="""Used to specify the name of the output sequence""")
     id: int = Field(..., description="""A unique identifier for a thing""")
 
     @field_validator("user_input")
@@ -211,6 +213,7 @@ class UploadedFileSource(Source):
         None, description="""Identifier of the sequence that is the output of this source."""
     )
     type: Literal["UploadedFileSource"] = Field("UploadedFileSource", description="""The type of the source""")
+    output_name: Optional[str] = Field(None, description="""Used to specify the name of the output sequence""")
     id: int = Field(..., description="""A unique identifier for a thing""")
 
 
@@ -229,6 +232,7 @@ class RepositoryIdSource(Source):
         None, description="""Identifier of the sequence that is the output of this source."""
     )
     type: Literal["RepositoryIdSource"] = Field("RepositoryIdSource", description="""The type of the source""")
+    output_name: Optional[str] = Field(None, description="""Used to specify the name of the output sequence""")
     id: int = Field(..., description="""A unique identifier for a thing""")
 
 
@@ -249,6 +253,7 @@ class AddGeneIdSource(RepositoryIdSource):
         None, description="""Identifier of the sequence that is the output of this source."""
     )
     type: Literal["AddGeneIdSource"] = Field("AddGeneIdSource", description="""The type of the source""")
+    output_name: Optional[str] = Field(None, description="""Used to specify the name of the output sequence""")
     id: int = Field(..., description="""A unique identifier for a thing""")
 
     @field_validator("sequence_file_url")
@@ -290,6 +295,7 @@ class GenomeCoordinatesSource(Source):
     type: Literal["GenomeCoordinatesSource"] = Field(
         "GenomeCoordinatesSource", description="""The type of the source"""
     )
+    output_name: Optional[str] = Field(None, description="""Used to specify the name of the output sequence""")
     id: int = Field(..., description="""A unique identifier for a thing""")
 
 
@@ -308,6 +314,7 @@ class SequenceCutSource(Source):
         None, description="""Identifier of the sequence that is the output of this source."""
     )
     type: Literal["SequenceCutSource"] = Field("SequenceCutSource", description="""The type of the source""")
+    output_name: Optional[str] = Field(None, description="""Used to specify the name of the output sequence""")
     id: int = Field(..., description="""A unique identifier for a thing""")
 
 
@@ -328,6 +335,7 @@ class RestrictionEnzymeDigestionSource(SequenceCutSource):
     type: Literal["RestrictionEnzymeDigestionSource"] = Field(
         "RestrictionEnzymeDigestionSource", description="""The type of the source"""
     )
+    output_name: Optional[str] = Field(None, description="""Used to specify the name of the output sequence""")
     id: int = Field(..., description="""A unique identifier for a thing""")
 
 
@@ -380,6 +388,7 @@ class AssemblySource(Source):
         None, description="""Identifier of the sequence that is the output of this source."""
     )
     type: Literal["AssemblySource"] = Field("AssemblySource", description="""The type of the source""")
+    output_name: Optional[str] = Field(None, description="""Used to specify the name of the output sequence""")
     id: int = Field(..., description="""A unique identifier for a thing""")
 
 
@@ -402,6 +411,7 @@ class PCRSource(AssemblySource):
         None, description="""Identifier of the sequence that is the output of this source."""
     )
     type: Literal["PCRSource"] = Field("PCRSource", description="""The type of the source""")
+    output_name: Optional[str] = Field(None, description="""Used to specify the name of the output sequence""")
     id: int = Field(..., description="""A unique identifier for a thing""")
 
 
@@ -422,6 +432,7 @@ class LigationSource(AssemblySource):
         None, description="""Identifier of the sequence that is the output of this source."""
     )
     type: Literal["LigationSource"] = Field("LigationSource", description="""The type of the source""")
+    output_name: Optional[str] = Field(None, description="""Used to specify the name of the output sequence""")
     id: int = Field(..., description="""A unique identifier for a thing""")
 
 
@@ -444,6 +455,7 @@ class HomologousRecombinationSource(AssemblySource):
     type: Literal["HomologousRecombinationSource"] = Field(
         "HomologousRecombinationSource", description="""The type of the source"""
     )
+    output_name: Optional[str] = Field(None, description="""Used to specify the name of the output sequence""")
     id: int = Field(..., description="""A unique identifier for a thing""")
 
 
@@ -464,6 +476,7 @@ class GibsonAssemblySource(AssemblySource):
         None, description="""Identifier of the sequence that is the output of this source."""
     )
     type: Literal["GibsonAssemblySource"] = Field("GibsonAssemblySource", description="""The type of the source""")
+    output_name: Optional[str] = Field(None, description="""Used to specify the name of the output sequence""")
     id: int = Field(..., description="""A unique identifier for a thing""")
 
 
@@ -487,6 +500,7 @@ class RestrictionAndLigationSource(AssemblySource):
     type: Literal["RestrictionAndLigationSource"] = Field(
         "RestrictionAndLigationSource", description="""The type of the source"""
     )
+    output_name: Optional[str] = Field(None, description="""Used to specify the name of the output sequence""")
     id: int = Field(..., description="""A unique identifier for a thing""")
 
 
@@ -508,6 +522,7 @@ class CRISPRSource(HomologousRecombinationSource):
         None, description="""Identifier of the sequence that is the output of this source."""
     )
     type: Literal["CRISPRSource"] = Field("CRISPRSource", description="""The type of the source""")
+    output_name: Optional[str] = Field(None, description="""Used to specify the name of the output sequence""")
     id: int = Field(..., description="""A unique identifier for a thing""")
 
 
@@ -532,6 +547,7 @@ class OligoHybridizationSource(Source):
     type: Literal["OligoHybridizationSource"] = Field(
         "OligoHybridizationSource", description="""The type of the source"""
     )
+    output_name: Optional[str] = Field(None, description="""Used to specify the name of the output sequence""")
     id: int = Field(..., description="""A unique identifier for a thing""")
 
 
@@ -550,6 +566,7 @@ class PolymeraseExtensionSource(Source):
     type: Literal["PolymeraseExtensionSource"] = Field(
         "PolymeraseExtensionSource", description="""The type of the source"""
     )
+    output_name: Optional[str] = Field(None, description="""Used to specify the name of the output sequence""")
     id: int = Field(..., description="""A unique identifier for a thing""")
 
 

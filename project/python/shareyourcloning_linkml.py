@@ -1,5 +1,5 @@
 # Auto generated from shareyourcloning_linkml.yaml by pythongen.py version: 0.0.1
-# Generation date: 2024-07-09T11:42:58
+# Generation date: 2024-07-09T11:52:59
 # Schema: ShareYourCloning_LinkML
 #
 # id: https://w3id.org/genestorian/ShareYourCloning_LinkML
@@ -344,6 +344,7 @@ class Source(NamedThing):
     input: Optional[Union[Union[int, SequenceId], List[Union[int, SequenceId]]]] = empty_list()
     output: Optional[Union[int, SequenceId]] = None
     type: Optional[str] = None
+    output_name: Optional[str] = None
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
         if not isinstance(self.input, list):
@@ -354,6 +355,9 @@ class Source(NamedThing):
             self.output = SequenceId(self.output)
 
         self.type = str(self.class_name)
+
+        if self.output_name is not None and not isinstance(self.output_name, str):
+            self.output_name = str(self.output_name)
 
         super().__post_init__(**kwargs)
 

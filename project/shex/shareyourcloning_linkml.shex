@@ -306,7 +306,8 @@ linkml:Sparqlpath xsd:string
           rdf:type [ schema1:Thing ] ? ;
           <input> @<Sequence> * ;
           <output> @<Sequence> ? ;
-          <type> @linkml:String ?
+          <type> @linkml:String ? ;
+          <output_name> @linkml:String ?
        ) ;
        rdf:type [ <Source> ]
     )
