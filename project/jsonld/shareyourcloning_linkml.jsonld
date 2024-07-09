@@ -432,9 +432,9 @@
         "http://schema.org/name"
       ],
       "slot_uri": "http://schema.org/name",
-      "owner": "Primer",
+      "owner": "Sequence",
       "domain_of": [
-        "Primer"
+        "Sequence"
       ],
       "range": "string",
       "@type": "SlotDefinition"
@@ -1535,7 +1535,8 @@
       "abstract": true,
       "slots": [
         "id",
-        "type"
+        "type",
+        "name"
       ],
       "slot_usage": {},
       "class_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/Sequence",
@@ -1550,6 +1551,7 @@
       "slots": [
         "id",
         "type",
+        "name",
         "TextFileSequence_sequence_file_format",
         "TextFileSequence_overhang_crick_3prime",
         "TextFileSequence_overhang_watson_3prime",
@@ -2297,9 +2299,9 @@
   ],
   "metamodel_version": "1.7.0",
   "source_file": "shareyourcloning_linkml.yaml",
-  "source_file_date": "2024-06-12T09:18:21",
-  "source_file_size": 15852,
-  "generation_date": "2024-06-12T09:30:35",
+  "source_file_date": "2024-07-09T10:59:32",
+  "source_file_size": 15841,
+  "generation_date": "2024-07-09T10:59:37",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/shareyourcloning_linkml.context.jsonld",

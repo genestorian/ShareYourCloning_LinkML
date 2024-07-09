@@ -202,7 +202,6 @@ linkml:Sparqlpath xsd:string
 <Primer> CLOSED {
     (  $<Primer_tes> (  &<Sequence_tes> ;
           rdf:type [ <Sequence> ] ? ;
-          schema1:name @linkml:String ? ;
           <sequence> @linkml:String ?
        ) ;
        rdf:type [ <Primer> ]
@@ -258,7 +257,8 @@ linkml:Sparqlpath xsd:string
 <Sequence_struct> {
     (  $<Sequence_tes> (  &<NamedThing_tes> ;
           rdf:type [ schema1:Thing ] ? ;
-          <type> @linkml:String ?
+          <type> @linkml:String ? ;
+          schema1:name @linkml:String ?
        ) ;
        rdf:type [ <Sequence> ]
     )
