@@ -3,6 +3,7 @@
 -- # Class: "Sequence" Description: "Represents a sequence"
 --     * Slot: id Description: A unique identifier for a thing
 --     * Slot: type Description: The type of the source
+--     * Slot: name Description: A human-readable name for a thing
 --     * Slot: CloningStrategy_id Description: Autocreated FK slot
 -- # Class: "TextFileSequence" Description: "A sequence (may have features) defined by the content of a text file"
 --     * Slot: sequence_file_format Description: The format of a sequence file
@@ -11,11 +12,12 @@
 --     * Slot: file_content Description:
 --     * Slot: id Description: A unique identifier for a thing
 --     * Slot: type Description: The type of the source
--- # Class: "Primer" Description: "An oligonucleotide or primer"
 --     * Slot: name Description: A human-readable name for a thing
+-- # Class: "Primer" Description: "An oligonucleotide or primer"
 --     * Slot: sequence Description:
 --     * Slot: id Description: A unique identifier for a thing
 --     * Slot: type Description: The type of the source
+--     * Slot: name Description: A human-readable name for a thing
 --     * Slot: CloningStrategy_id Description: Autocreated FK slot
 -- # Class: "SequenceCut" Description: "Represents a cut in a DNA sequence"
 --     * Slot: id Description:
@@ -225,6 +227,7 @@ CREATE TABLE "TextFileSequence" (
 	file_content TEXT,
 	id INTEGER NOT NULL,
 	type TEXT,
+	name TEXT,
 	PRIMARY KEY (id)
 );
 CREATE TABLE "SequenceCut" (
@@ -255,15 +258,16 @@ CREATE TABLE "CloningStrategy" (
 CREATE TABLE "Sequence" (
 	id INTEGER NOT NULL,
 	type TEXT,
+	name TEXT,
 	"CloningStrategy_id" INTEGER,
 	PRIMARY KEY (id),
 	FOREIGN KEY("CloningStrategy_id") REFERENCES "CloningStrategy" (id)
 );
 CREATE TABLE "Primer" (
-	name TEXT,
 	sequence TEXT,
 	id INTEGER NOT NULL,
 	type TEXT,
+	name TEXT,
 	"CloningStrategy_id" INTEGER,
 	PRIMARY KEY (id),
 	FOREIGN KEY("CloningStrategy_id") REFERENCES "CloningStrategy" (id)

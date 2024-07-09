@@ -36,6 +36,7 @@ classes:
     slots:
       - id
       - type
+      - name
 
   TextFileSequence:
     is_a: Sequence
@@ -59,8 +60,6 @@ classes:
     is_a: Sequence
     description: >-
       An oligonucleotide or primer
-    slots:
-      - name
     attributes:
       - sequence:
           range: string
