@@ -36,7 +36,6 @@ classes:
     slots:
       - id
       - type
-      - name
 
   TextFileSequence:
     is_a: Sequence
@@ -60,6 +59,8 @@ classes:
     is_a: Sequence
     description: >-
       An oligonucleotide or primer
+    slots:
+      - name
     attributes:
       - sequence:
           range: string
@@ -514,6 +515,11 @@ slots:
       Identifier of the sequence that is the output of this source.
     range: Sequence
     inlined: false
+  output_name:
+    required: false
+    description: >-
+      Used to specify the name of the output sequence
+    range: string
   type:
     description: >-
       The type of the source

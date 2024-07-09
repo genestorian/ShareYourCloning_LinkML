@@ -65,7 +65,6 @@ class Sequence(NamedThing):
 
     id: int = Field(..., description="""A unique identifier for a thing""")
     type: Literal["Sequence"] = Field("Sequence", description="""The type of the source""")
-    name: Optional[str] = Field(None, description="""A human-readable name for a thing""")
 
 
 class TextFileSequence(Sequence):
@@ -84,7 +83,6 @@ class TextFileSequence(Sequence):
     file_content: Optional[str] = Field(None)
     id: int = Field(..., description="""A unique identifier for a thing""")
     type: Literal["TextFileSequence"] = Field("TextFileSequence", description="""The type of the source""")
-    name: Optional[str] = Field(None, description="""A human-readable name for a thing""")
 
 
 class Primer(Sequence):
@@ -92,10 +90,10 @@ class Primer(Sequence):
     An oligonucleotide or primer
     """
 
+    name: Optional[str] = Field(None, description="""A human-readable name for a thing""")
     sequence: Optional[str] = Field(None)
     id: int = Field(..., description="""A unique identifier for a thing""")
     type: Literal["Primer"] = Field("Primer", description="""The type of the source""")
-    name: Optional[str] = Field(None, description="""A human-readable name for a thing""")
 
     @field_validator("sequence")
     def pattern_sequence(cls, v):

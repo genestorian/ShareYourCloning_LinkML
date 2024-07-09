@@ -993,10 +993,6 @@
                     "description": "A unique identifier for a thing",
                     "type": "integer"
                 },
-                "name": {
-                    "description": "A human-readable name for a thing",
-                    "type": "string"
-                },
                 "overhang_crick_3prime": {
                     "description": "Taken from pydna's `dseq::ovhg`An integer describing the length of the crick strand overhang in the 5' of the molecule, or 3' of the crick strand",
                     "type": "integer"
