@@ -5,6 +5,7 @@ type AddGeneIdSource
     input: [Sequence]
     output: Sequence
     type: String
+    outputName: String
     repositoryName: RepositoryName!
     repositoryId: String!
     sequenceFileUrl: String
@@ -30,6 +31,7 @@ type AssemblySource
     input: [Sequence]
     output: Sequence
     type: String
+    outputName: String
     circular: Boolean
     assembly: [AssemblyJoin]!
   }
@@ -47,6 +49,7 @@ type CRISPRSource
     id: Integer!
     output: Sequence
     type: String
+    outputName: String
     circular: Boolean
     assembly: [AssemblyJoin]!
     input: [Sequence]
@@ -59,6 +62,7 @@ type GenomeCoordinatesSource
     input: [Sequence]
     output: Sequence
     type: String
+    outputName: String
     assemblyAccession: String
     sequenceAccession: String!
     locusTag: String
@@ -73,6 +77,7 @@ type GibsonAssemblySource
     id: Integer!
     output: Sequence
     type: String
+    outputName: String
     circular: Boolean
     assembly: [AssemblyJoin]!
     input: [Sequence]
@@ -83,6 +88,7 @@ type HomologousRecombinationSource
     id: Integer!
     output: Sequence
     type: String
+    outputName: String
     circular: Boolean
     assembly: [AssemblyJoin]!
     input: [Sequence]
@@ -93,6 +99,7 @@ type LigationSource
     id: Integer!
     output: Sequence
     type: String
+    outputName: String
     circular: Boolean
     assembly: [AssemblyJoin]!
     input: [Sequence]
@@ -104,6 +111,7 @@ type ManuallyTypedSource
     input: [Sequence]
     output: Sequence
     type: String
+    outputName: String
     overhangCrick3prime: Integer
     overhangWatson3prime: Integer
     userInput: String!
@@ -121,6 +129,7 @@ type OligoHybridizationSource
     input: [Sequence]
     output: Sequence
     type: String
+    outputName: String
     overhangCrick3prime: Integer
     forwardOligo: Primer!
     reverseOligo: Primer!
@@ -131,6 +140,7 @@ type PCRSource
     id: Integer!
     output: Sequence
     type: String
+    outputName: String
     circular: Boolean
     assembly: [AssemblyJoin]!
     forwardPrimer: Primer!
@@ -143,6 +153,7 @@ type PolymeraseExtensionSource
     id: Integer!
     output: Sequence
     type: String
+    outputName: String
     input: [Sequence]
   }
 
@@ -160,6 +171,7 @@ type RepositoryIdSource
     input: [Sequence]
     output: Sequence
     type: String
+    outputName: String
     repositoryName: RepositoryName!
     repositoryId: String!
   }
@@ -169,6 +181,7 @@ type RestrictionAndLigationSource
     id: Integer!
     output: Sequence
     type: String
+    outputName: String
     circular: Boolean
     assembly: [AssemblyJoin]!
     restrictionEnzymes: [String]!
@@ -180,6 +193,7 @@ type RestrictionEnzymeDigestionSource
     id: Integer!
     output: Sequence
     type: String
+    outputName: String
     input: [Sequence]
     leftEdge: RestrictionSequenceCut
     rightEdge: RestrictionSequenceCut
@@ -209,6 +223,7 @@ type SequenceCutSource
     id: Integer!
     output: Sequence
     type: String
+    outputName: String
     leftEdge: SequenceCut
     rightEdge: SequenceCut
     input: [Sequence]
@@ -227,6 +242,7 @@ interface Source
     input: [Sequence]
     output: Sequence
     type: String
+    outputName: String
   }
 
 type TextFileSequence
@@ -245,6 +261,7 @@ type UploadedFileSource
     input: [Sequence]
     output: Sequence
     type: String
+    outputName: String
     sequenceFileFormat: SequenceFileFormat!
     fileName: String
     indexInFile: Integer

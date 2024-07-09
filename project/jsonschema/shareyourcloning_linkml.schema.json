@@ -22,6 +22,10 @@
                     "description": "Identifier of the sequence that is the output of this source.",
                     "type": "integer"
                 },
+                "output_name": {
+                    "description": "Used to specify the name of the output sequence",
+                    "type": "string"
+                },
                 "repository_id": {
                     "description": "The id of the sequence in the repository",
                     "type": "string"
@@ -131,6 +135,10 @@
                     "description": "Identifier of the sequence that is the output of this source.",
                     "type": "integer"
                 },
+                "output_name": {
+                    "description": "Used to specify the name of the output sequence",
+                    "type": "string"
+                },
                 "type": {
                     "description": "The type of the source",
                     "enum": [
@@ -182,6 +190,10 @@
                 "output": {
                     "description": "Identifier of the sequence that is the output of this source.",
                     "type": "integer"
+                },
+                "output_name": {
+                    "description": "Used to specify the name of the output sequence",
+                    "type": "string"
                 },
                 "type": {
                     "description": "The type of the source",
@@ -327,6 +339,10 @@
                     "description": "Identifier of the sequence that is the output of this source.",
                     "type": "integer"
                 },
+                "output_name": {
+                    "description": "Used to specify the name of the output sequence",
+                    "type": "string"
+                },
                 "sequence_accession": {
                     "description": "The accession of the sequence",
                     "type": "string"
@@ -387,6 +403,10 @@
                     "description": "Identifier of the sequence that is the output of this source.",
                     "type": "integer"
                 },
+                "output_name": {
+                    "description": "Used to specify the name of the output sequence",
+                    "type": "string"
+                },
                 "type": {
                     "description": "The type of the source",
                     "enum": [
@@ -431,6 +451,10 @@
                 "output": {
                     "description": "Identifier of the sequence that is the output of this source.",
                     "type": "integer"
+                },
+                "output_name": {
+                    "description": "Used to specify the name of the output sequence",
+                    "type": "string"
                 },
                 "type": {
                     "description": "The type of the source",
@@ -477,6 +501,10 @@
                     "description": "Identifier of the sequence that is the output of this source.",
                     "type": "integer"
                 },
+                "output_name": {
+                    "description": "Used to specify the name of the output sequence",
+                    "type": "string"
+                },
                 "type": {
                     "description": "The type of the source",
                     "enum": [
@@ -514,6 +542,10 @@
                 "output": {
                     "description": "Identifier of the sequence that is the output of this source.",
                     "type": "integer"
+                },
+                "output_name": {
+                    "description": "Used to specify the name of the output sequence",
+                    "type": "string"
                 },
                 "overhang_crick_3prime": {
                     "description": "Taken from pydna's `dseq::ovhg`An integer describing the length of the crick strand overhang in the 5' of the molecule, or 3' of the crick strand",
@@ -580,6 +612,10 @@
                     "description": "Identifier of the sequence that is the output of this source.",
                     "type": "integer"
                 },
+                "output_name": {
+                    "description": "Used to specify the name of the output sequence",
+                    "type": "string"
+                },
                 "overhang_crick_3prime": {
                     "description": "Taken from pydna's `dseq::ovhg`An integer describing the length of the crick strand overhang in the 5' of the molecule, or 3' of the crick strand",
                     "type": "integer"
@@ -638,6 +674,10 @@
                     "description": "Identifier of the sequence that is the output of this source.",
                     "type": "integer"
                 },
+                "output_name": {
+                    "description": "Used to specify the name of the output sequence",
+                    "type": "string"
+                },
                 "reverse_primer": {
                     "description": "The reverse primer used in the PCR",
                     "type": "integer"
@@ -677,6 +717,10 @@
                 "output": {
                     "description": "Identifier of the sequence that is the output of this source.",
                     "type": "integer"
+                },
+                "output_name": {
+                    "description": "Used to specify the name of the output sequence",
+                    "type": "string"
                 },
                 "type": {
                     "description": "The type of the source",
@@ -741,6 +785,10 @@
                     "description": "Identifier of the sequence that is the output of this source.",
                     "type": "integer"
                 },
+                "output_name": {
+                    "description": "Used to specify the name of the output sequence",
+                    "type": "string"
+                },
                 "repository_id": {
                     "description": "The id of the sequence in the repository",
                     "type": "string"
@@ -803,6 +851,10 @@
                     "description": "Identifier of the sequence that is the output of this source.",
                     "type": "integer"
                 },
+                "output_name": {
+                    "description": "Used to specify the name of the output sequence",
+                    "type": "string"
+                },
                 "restriction_enzymes": {
                     "items": {
                         "type": "string"
@@ -846,6 +898,10 @@
                 "output": {
                     "description": "Identifier of the sequence that is the output of this source.",
                     "type": "integer"
+                },
+                "output_name": {
+                    "description": "Used to specify the name of the output sequence",
+                    "type": "string"
                 },
                 "right_edge": {
                     "$ref": "#/$defs/RestrictionSequenceCut"
@@ -929,6 +985,10 @@
                 "output": {
                     "description": "Identifier of the sequence that is the output of this source.",
                     "type": "integer"
+                },
+                "output_name": {
+                    "description": "Used to specify the name of the output sequence",
+                    "type": "string"
                 },
                 "right_edge": {
                     "$ref": "#/$defs/SequenceCut"
@@ -1050,6 +1110,10 @@
                 "output": {
                     "description": "Identifier of the sequence that is the output of this source.",
                     "type": "integer"
+                },
+                "output_name": {
+                    "description": "Used to specify the name of the output sequence",
+                    "type": "string"
                 },
                 "sequence_file_format": {
                     "$ref": "#/$defs/SequenceFileFormat",

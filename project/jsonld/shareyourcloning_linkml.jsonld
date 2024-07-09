@@ -503,6 +503,10 @@
       "description": "Used to specify the name of the output sequence",
       "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
       "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/output_name",
+      "owner": "Source",
+      "domain_of": [
+        "Source"
+      ],
       "range": "string",
       "@type": "SlotDefinition"
     },
@@ -1654,7 +1658,8 @@
         "id",
         "input",
         "output",
-        "type"
+        "type",
+        "output_name"
       ],
       "slot_usage": {},
       "class_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/Source",
@@ -1671,6 +1676,7 @@
         "input",
         "output",
         "type",
+        "output_name",
         "ManuallyTypedSource_overhang_crick_3prime",
         "ManuallyTypedSource_overhang_watson_3prime",
         "manuallyTypedSource__user_input",
@@ -1706,6 +1712,7 @@
         "input",
         "output",
         "type",
+        "output_name",
         "UploadedFileSource_sequence_file_format",
         "uploadedFileSource__file_name",
         "uploadedFileSource__index_in_file",
@@ -1746,6 +1753,7 @@
         "input",
         "output",
         "type",
+        "output_name",
         "repositoryIdSource__repository_name",
         "repositoryIdSource__repository_id"
       ],
@@ -1779,6 +1787,7 @@
         "input",
         "output",
         "type",
+        "output_name",
         "repositoryIdSource__repository_name",
         "repositoryIdSource__repository_id",
         "sequence_file_url",
@@ -1806,6 +1815,7 @@
         "input",
         "output",
         "type",
+        "output_name",
         "genomeCoordinatesSource__assembly_accession",
         "genomeCoordinatesSource__sequence_accession",
         "genomeCoordinatesSource__locus_tag",
@@ -1876,6 +1886,7 @@
         "id",
         "output",
         "type",
+        "output_name",
         "sequenceCutSource__left_edge",
         "sequenceCutSource__right_edge",
         "SequenceCutSource_input"
@@ -1908,6 +1919,7 @@
         "id",
         "output",
         "type",
+        "output_name",
         "SequenceCutSource_input",
         "restrictionEnzymeDigestionSource__left_edge",
         "restrictionEnzymeDigestionSource__right_edge"
@@ -2041,6 +2053,7 @@
         "input",
         "output",
         "type",
+        "output_name",
         "assemblySource__circular",
         "assemblySource__assembly"
       ],
@@ -2075,6 +2088,7 @@
         "id",
         "output",
         "type",
+        "output_name",
         "assemblySource__circular",
         "assemblySource__assembly",
         "pCRSource__forward_primer",
@@ -2111,6 +2125,7 @@
         "id",
         "output",
         "type",
+        "output_name",
         "assemblySource__circular",
         "assemblySource__assembly",
         "LigationSource_input"
@@ -2129,6 +2144,7 @@
         "id",
         "output",
         "type",
+        "output_name",
         "assemblySource__circular",
         "assemblySource__assembly",
         "HomologousRecombinationSource_input"
@@ -2147,6 +2163,7 @@
         "id",
         "output",
         "type",
+        "output_name",
         "assemblySource__circular",
         "assemblySource__assembly",
         "GibsonAssemblySource_input"
@@ -2165,6 +2182,7 @@
         "id",
         "output",
         "type",
+        "output_name",
         "assemblySource__circular",
         "assemblySource__assembly",
         "RestrictionAndLigationSource_restriction_enzymes",
@@ -2184,6 +2202,7 @@
         "id",
         "output",
         "type",
+        "output_name",
         "assemblySource__circular",
         "assemblySource__assembly",
         "HomologousRecombinationSource_input",
@@ -2214,6 +2233,7 @@
         "input",
         "output",
         "type",
+        "output_name",
         "overhang_crick_3prime",
         "oligoHybridizationSource__forward_oligo",
         "oligoHybridizationSource__reverse_oligo"
@@ -2248,6 +2268,7 @@
         "id",
         "output",
         "type",
+        "output_name",
         "PolymeraseExtensionSource_input"
       ],
       "slot_usage": {},
@@ -2306,9 +2327,9 @@
   ],
   "metamodel_version": "1.7.0",
   "source_file": "shareyourcloning_linkml.yaml",
-  "source_file_date": "2024-07-09T11:42:07",
-  "source_file_size": 15979,
-  "generation_date": "2024-07-09T11:42:57",
+  "source_file_date": "2024-07-09T11:52:56",
+  "source_file_size": 15999,
+  "generation_date": "2024-07-09T11:52:59",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/shareyourcloning_linkml.context.jsonld",
