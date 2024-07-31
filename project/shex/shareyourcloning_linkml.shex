@@ -222,7 +222,8 @@ linkml:Sparqlpath xsd:string
        (  $<RepositoryIdSource_tes> (  &<Source_tes> ;
              rdf:type [ <Source> ] ? ;
              <repository_name> [ <https://w3id.org/genestorian/ShareYourCloning_LinkML/RepositoryName#addgene>
-                <https://w3id.org/genestorian/ShareYourCloning_LinkML/RepositoryName#genbank> ] ;
+                <https://w3id.org/genestorian/ShareYourCloning_LinkML/RepositoryName#genbank>
+                <https://w3id.org/genestorian/ShareYourCloning_LinkML/RepositoryName#benchling> ] ;
              <repository_id> @linkml:String
           ) ;
           rdf:type [ <RepositoryIdSource> ]

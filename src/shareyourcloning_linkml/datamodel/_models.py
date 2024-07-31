@@ -38,6 +38,8 @@ class RepositoryName(str, Enum):
     addgene = "addgene"
     # GenBank
     genbank = "genbank"
+    # Benchling
+    benchling = "benchling"
 
 
 class SequenceFileFormat(str, Enum):

@@ -365,6 +365,10 @@
         {
           "text": "genbank",
           "description": "GenBank"
+        },
+        {
+          "text": "benchling",
+          "description": "Benchling"
         }
       ]
     },
@@ -2365,9 +2369,9 @@
   ],
   "metamodel_version": "1.7.0",
   "source_file": "shareyourcloning_linkml.yaml",
-  "source_file_date": "2024-07-31T15:00:01",
-  "source_file_size": 16326,
-  "generation_date": "2024-07-31T15:00:09",
+  "source_file_date": "2024-07-31T15:14:52",
+  "source_file_size": 16387,
+  "generation_date": "2024-07-31T15:15:20",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/shareyourcloning_linkml.context.jsonld",

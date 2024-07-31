@@ -866,7 +866,8 @@
             "description": "",
             "enum": [
                 "addgene",
-                "genbank"
+                "genbank",
+                "benchling"
             ],
             "title": "RepositoryName",
             "type": "string"

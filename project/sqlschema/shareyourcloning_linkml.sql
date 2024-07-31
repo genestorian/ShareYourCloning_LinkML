@@ -330,7 +330,7 @@ CREATE TABLE "UploadedFileSource" (
 	FOREIGN KEY(output) REFERENCES "Sequence" (id)
 );
 CREATE TABLE "RepositoryIdSource" (
-	repository_name VARCHAR(7) NOT NULL,
+	repository_name VARCHAR(9) NOT NULL,
 	repository_id TEXT NOT NULL,
 	output INTEGER,
 	type TEXT,
@@ -342,7 +342,7 @@ CREATE TABLE "RepositoryIdSource" (
 CREATE TABLE "AddGeneIdSource" (
 	sequence_file_url TEXT,
 	addgene_sequence_type VARCHAR(14),
-	repository_name VARCHAR(7) NOT NULL,
+	repository_name VARCHAR(9) NOT NULL,
 	repository_id TEXT NOT NULL,
 	output INTEGER,
 	type TEXT,
@@ -352,7 +352,7 @@ CREATE TABLE "AddGeneIdSource" (
 	FOREIGN KEY(output) REFERENCES "Sequence" (id)
 );
 CREATE TABLE "BenchlingUrlSource" (
-	repository_name VARCHAR(7) NOT NULL,
+	repository_name VARCHAR(9) NOT NULL,
 	repository_id TEXT NOT NULL,
 	output INTEGER,
 	type TEXT,

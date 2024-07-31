@@ -1,5 +1,5 @@
 # Auto generated from shareyourcloning_linkml.yaml by pythongen.py version: 0.0.1
-# Generation date: 2024-07-31T15:00:10
+# Generation date: 2024-07-31T15:15:21
 # Schema: ShareYourCloning_LinkML
 #
 # id: https://w3id.org/genestorian/ShareYourCloning_LinkML
@@ -1159,6 +1159,7 @@ class RepositoryName(EnumDefinitionImpl):
 
     addgene = PermissibleValue(text="addgene", description="Addgene")
     genbank = PermissibleValue(text="genbank", description="GenBank")
+    benchling = PermissibleValue(text="benchling", description="Benchling")
 
     _defn = EnumDefinition(
         name="RepositoryName",

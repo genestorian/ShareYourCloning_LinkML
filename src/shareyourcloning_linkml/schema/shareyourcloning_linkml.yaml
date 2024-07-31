@@ -571,6 +571,9 @@ enums:
       genbank:
         description: >-
           GenBank
+      benchling:
+        description: >-
+          Benchling
 
   SequenceFileFormat:
     permissible_values:
