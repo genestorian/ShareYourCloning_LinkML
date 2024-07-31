@@ -1,6 +1,3 @@
- syntax="proto3";
- package
-// metamodel_version: 1.7.0
 // Represents the source of a sequence that is identified by an AddGene id
 message AddGeneIdSource
  {
@@ -37,6 +34,17 @@ message AssemblySource
   string outputName = 0
   boolean circular = 0
  repeated  assemblyJoin assembly = 0
+ }
+// Represents the source of a sequence that is identified by a Benchling URL
+message BenchlingUrlSource
+ {
+  integer id = 0
+ repeated  sequence input = 0
+  sequence output = 0
+  string type = 0
+  string outputName = 0
+  repositoryName repositoryName = 0
+  string repositoryId = 0
  }
 // Represents a cloning strategy
 message CloningStrategy

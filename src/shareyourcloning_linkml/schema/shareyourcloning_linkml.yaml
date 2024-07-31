@@ -179,6 +179,16 @@ classes:
     slots:
       - sequence_file_url
 
+  BenchlingUrlSource:
+    is_a: RepositoryIdSource
+    description: >-
+      Represents the source of a sequence that is identified by a Benchling URL
+    slot_usage:
+      repository_id:
+        description: >-
+          The url of the gb file associated with the sequence
+        pattern: ^https:\/\/benchling\.com\/.+\.gb$
+
   GenomeCoordinatesSource:
     is_a: Source
     description: >-

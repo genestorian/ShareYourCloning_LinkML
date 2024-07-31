@@ -66,6 +66,13 @@
 --     * Slot: type Description: The type of the source
 --     * Slot: output_name Description: Used to specify the name of the output sequence
 --     * Slot: id Description: A unique identifier for a thing
+-- # Class: "BenchlingUrlSource" Description: "Represents the source of a sequence that is identified by a Benchling URL"
+--     * Slot: repository_name Description:
+--     * Slot: repository_id Description: The url of the gb file associated with the sequence
+--     * Slot: output Description: Identifier of the sequence that is the output of this source.
+--     * Slot: type Description: The type of the source
+--     * Slot: output_name Description: Used to specify the name of the output sequence
+--     * Slot: id Description: A unique identifier for a thing
 -- # Class: "GenomeCoordinatesSource" Description: "Represents the source of a sequence that is identified by genome coordinates, requested from NCBI"
 --     * Slot: assembly_accession Description: The accession of the assembly
 --     * Slot: sequence_accession Description: The accession of the sequence
@@ -187,6 +194,9 @@
 --     * Slot: input_id Description: The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.
 -- # Class: "AddGeneIdSource_input" Description: ""
 --     * Slot: AddGeneIdSource_id Description: Autocreated FK slot
+--     * Slot: input_id Description: The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.
+-- # Class: "BenchlingUrlSource_input" Description: ""
+--     * Slot: BenchlingUrlSource_id Description: Autocreated FK slot
 --     * Slot: input_id Description: The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.
 -- # Class: "GenomeCoordinatesSource_input" Description: ""
 --     * Slot: GenomeCoordinatesSource_id Description: Autocreated FK slot
@@ -332,6 +342,16 @@ CREATE TABLE "RepositoryIdSource" (
 CREATE TABLE "AddGeneIdSource" (
 	sequence_file_url TEXT,
 	addgene_sequence_type VARCHAR(14),
+	repository_name VARCHAR(7) NOT NULL,
+	repository_id TEXT NOT NULL,
+	output INTEGER,
+	type TEXT,
+	output_name TEXT,
+	id INTEGER NOT NULL,
+	PRIMARY KEY (id),
+	FOREIGN KEY(output) REFERENCES "Sequence" (id)
+);
+CREATE TABLE "BenchlingUrlSource" (
 	repository_name VARCHAR(7) NOT NULL,
 	repository_id TEXT NOT NULL,
 	output INTEGER,
@@ -532,6 +552,13 @@ CREATE TABLE "AddGeneIdSource_input" (
 	input_id INTEGER,
 	PRIMARY KEY ("AddGeneIdSource_id", input_id),
 	FOREIGN KEY("AddGeneIdSource_id") REFERENCES "AddGeneIdSource" (id),
+	FOREIGN KEY(input_id) REFERENCES "Sequence" (id)
+);
+CREATE TABLE "BenchlingUrlSource_input" (
+	"BenchlingUrlSource_id" INTEGER,
+	input_id INTEGER,
+	PRIMARY KEY ("BenchlingUrlSource_id", input_id),
+	FOREIGN KEY("BenchlingUrlSource_id") REFERENCES "BenchlingUrlSource" (id),
 	FOREIGN KEY(input_id) REFERENCES "Sequence" (id)
 );
 CREATE TABLE "GenomeCoordinatesSource_input" (

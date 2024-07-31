@@ -1,4 +1,3 @@
-# metamodel_version: 1.7.0
 BASE <https://w3id.org/genestorian/ShareYourCloning_LinkML/>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
@@ -84,6 +83,15 @@ linkml:Sparqlpath xsd:string
     } OR @<GibsonAssemblySource> OR @<HomologousRecombinationSource> OR @<LigationSource> OR @<PCRSource> OR
     @<RestrictionAndLigationSource>
 )
+
+<BenchlingUrlSource> CLOSED {
+    (  $<BenchlingUrlSource_tes> (  &<RepositoryIdSource_tes> ;
+          rdf:type [ <RepositoryIdSource> ] ? ;
+          <repository_id> @linkml:String
+       ) ;
+       rdf:type [ <BenchlingUrlSource> ]
+    )
+}
 
 <CloningStrategy> CLOSED {
     (  $<CloningStrategy_tes> (  <sequences> @<Sequence> + ;
@@ -219,7 +227,7 @@ linkml:Sparqlpath xsd:string
           ) ;
           rdf:type [ <RepositoryIdSource> ]
        )
-    } OR @<AddGeneIdSource>
+    } OR @<AddGeneIdSource> OR @<BenchlingUrlSource>
 )
 
 <RestrictionAndLigationSource> CLOSED {

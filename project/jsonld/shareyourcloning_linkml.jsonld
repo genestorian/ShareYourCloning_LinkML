@@ -1299,6 +1299,25 @@
       "@type": "SlotDefinition"
     },
     {
+      "name": "BenchlingUrlSource_repository_id",
+      "description": "The url of the gb file associated with the sequence",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "is_a": "repositoryIdSource__repository_id",
+      "domain": "BenchlingUrlSource",
+      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/repository_id",
+      "alias": "repository_id",
+      "owner": "BenchlingUrlSource",
+      "domain_of": [
+        "BenchlingUrlSource"
+      ],
+      "is_usage_slot": true,
+      "usage_slot_name": "repository_id",
+      "range": "string",
+      "required": true,
+      "pattern": "^https:\\/\\/benchling\\.com\\/.+\\.gb$",
+      "@type": "SlotDefinition"
+    },
+    {
       "name": "SequenceCutSource_input",
       "definition_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/input",
       "description": "The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.",
@@ -1802,6 +1821,25 @@
         }
       ],
       "class_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/AddGeneIdSource",
+      "@type": "ClassDefinition"
+    },
+    {
+      "name": "BenchlingUrlSource",
+      "definition_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/BenchlingUrlSource",
+      "description": "Represents the source of a sequence that is identified by a Benchling URL",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "is_a": "RepositoryIdSource",
+      "slots": [
+        "id",
+        "input",
+        "output",
+        "type",
+        "output_name",
+        "repositoryIdSource__repository_name",
+        "BenchlingUrlSource_repository_id"
+      ],
+      "slot_usage": {},
+      "class_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/BenchlingUrlSource",
       "@type": "ClassDefinition"
     },
     {
@@ -2327,9 +2365,9 @@
   ],
   "metamodel_version": "1.7.0",
   "source_file": "shareyourcloning_linkml.yaml",
-  "source_file_date": "2024-07-09T11:52:56",
-  "source_file_size": 15999,
-  "generation_date": "2024-07-09T11:52:59",
+  "source_file_date": "2024-07-31T15:00:01",
+  "source_file_size": 16326,
+  "generation_date": "2024-07-31T15:00:09",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/shareyourcloning_linkml.context.jsonld",
