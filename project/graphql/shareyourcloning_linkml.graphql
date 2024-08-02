@@ -148,14 +148,12 @@ type OligoHybridizationSource
 type PCRSource
   {
     id: Integer!
+    input: [Sequence]
     output: Sequence
     type: String
     outputName: String
     circular: Boolean
     assembly: [AssemblyJoin]!
-    forwardPrimer: Primer!
-    reversePrimer: Primer!
-    input: [Sequence]
   }
 
 type PolymeraseExtensionSource

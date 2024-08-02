@@ -1,5 +1,5 @@
 # Auto generated from shareyourcloning_linkml.yaml by pythongen.py version: 0.0.1
-# Generation date: 2024-07-31T15:15:21
+# Generation date: 2024-08-02T13:25:33
 # Schema: ShareYourCloning_LinkML
 #
 # id: https://w3id.org/genestorian/ShareYourCloning_LinkML
@@ -856,29 +856,12 @@ class PCRSource(AssemblySource):
 
     id: Union[int, PCRSourceId] = None
     assembly: Union[Union[dict, AssemblyJoin], List[Union[dict, AssemblyJoin]]] = None
-    forward_primer: Union[int, PrimerId] = None
-    reverse_primer: Union[int, PrimerId] = None
-    input: Optional[Union[Union[int, SequenceId], List[Union[int, SequenceId]]]] = empty_list()
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
         if self._is_empty(self.id):
             self.MissingRequiredField("id")
         if not isinstance(self.id, PCRSourceId):
             self.id = PCRSourceId(self.id)
-
-        if self._is_empty(self.forward_primer):
-            self.MissingRequiredField("forward_primer")
-        if not isinstance(self.forward_primer, PrimerId):
-            self.forward_primer = PrimerId(self.forward_primer)
-
-        if self._is_empty(self.reverse_primer):
-            self.MissingRequiredField("reverse_primer")
-        if not isinstance(self.reverse_primer, PrimerId):
-            self.reverse_primer = PrimerId(self.reverse_primer)
-
-        if not isinstance(self.input, list):
-            self.input = [self.input] if self.input is not None else []
-        self.input = [v if isinstance(v, SequenceId) else SequenceId(v) for v in self.input]
 
         super().__post_init__(**kwargs)
         self.type = str(self.class_name)
@@ -1615,24 +1598,6 @@ slots.assemblySource__assembly = Slot(
     range=Union[Union[dict, AssemblyJoin], List[Union[dict, AssemblyJoin]]],
 )
 
-slots.pCRSource__forward_primer = Slot(
-    uri=SHAREYOURCLONING_LINKML.forward_primer,
-    name="pCRSource__forward_primer",
-    curie=SHAREYOURCLONING_LINKML.curie("forward_primer"),
-    model_uri=SHAREYOURCLONING_LINKML.pCRSource__forward_primer,
-    domain=None,
-    range=Union[int, PrimerId],
-)
-
-slots.pCRSource__reverse_primer = Slot(
-    uri=SHAREYOURCLONING_LINKML.reverse_primer,
-    name="pCRSource__reverse_primer",
-    curie=SHAREYOURCLONING_LINKML.curie("reverse_primer"),
-    model_uri=SHAREYOURCLONING_LINKML.pCRSource__reverse_primer,
-    domain=None,
-    range=Union[int, PrimerId],
-)
-
 slots.cRISPRSource__guides = Slot(
     uri=SHAREYOURCLONING_LINKML.guides,
     name="cRISPRSource__guides",
@@ -1775,15 +1740,6 @@ slots.SequenceCutSource_input = Slot(
     curie=SHAREYOURCLONING_LINKML.curie("input"),
     model_uri=SHAREYOURCLONING_LINKML.SequenceCutSource_input,
     domain=SequenceCutSource,
-    range=Optional[Union[Union[int, SequenceId], List[Union[int, SequenceId]]]],
-)
-
-slots.PCRSource_input = Slot(
-    uri=SHAREYOURCLONING_LINKML.input,
-    name="PCRSource_input",
-    curie=SHAREYOURCLONING_LINKML.curie("input"),
-    model_uri=SHAREYOURCLONING_LINKML.PCRSource_input,
-    domain=PCRSource,
     range=Optional[Union[Union[int, SequenceId], List[Union[int, SequenceId]]]],
 )
 
