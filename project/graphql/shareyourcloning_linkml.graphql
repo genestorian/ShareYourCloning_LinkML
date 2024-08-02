@@ -57,12 +57,12 @@ type CloningStrategy
 type CRISPRSource
   {
     id: Integer!
+    input: [Sequence]
     output: Sequence
     type: String
     outputName: String
     circular: Boolean
     assembly: [AssemblyJoin]!
-    input: [Sequence]
     guides: [Primer]!
   }
 
@@ -85,34 +85,34 @@ type GenomeCoordinatesSource
 type GibsonAssemblySource
   {
     id: Integer!
+    input: [Sequence]
     output: Sequence
     type: String
     outputName: String
     circular: Boolean
     assembly: [AssemblyJoin]!
-    input: [Sequence]
   }
 
 type HomologousRecombinationSource
   {
     id: Integer!
+    input: [Sequence]
     output: Sequence
     type: String
     outputName: String
     circular: Boolean
     assembly: [AssemblyJoin]!
-    input: [Sequence]
   }
 
 type LigationSource
   {
     id: Integer!
+    input: [Sequence]
     output: Sequence
     type: String
     outputName: String
     circular: Boolean
     assembly: [AssemblyJoin]!
-    input: [Sequence]
   }
 
 type ManuallyTypedSource
@@ -159,10 +159,10 @@ type PCRSource
 type PolymeraseExtensionSource
   {
     id: Integer!
+    input: [Sequence]
     output: Sequence
     type: String
     outputName: String
-    input: [Sequence]
   }
 
 type Primer
@@ -187,22 +187,22 @@ type RepositoryIdSource
 type RestrictionAndLigationSource
   {
     id: Integer!
+    input: [Sequence]
     output: Sequence
     type: String
     outputName: String
     circular: Boolean
     assembly: [AssemblyJoin]!
     restrictionEnzymes: [String]!
-    input: [Sequence]
   }
 
 type RestrictionEnzymeDigestionSource
   {
     id: Integer!
+    input: [Sequence]
     output: Sequence
     type: String
     outputName: String
-    input: [Sequence]
     leftEdge: RestrictionSequenceCut
     rightEdge: RestrictionSequenceCut
   }
@@ -229,12 +229,12 @@ type SequenceCut
 type SequenceCutSource
   {
     id: Integer!
+    input: [Sequence]
     output: Sequence
     type: String
     outputName: String
     leftEdge: SequenceCut
     rightEdge: SequenceCut
-    input: [Sequence]
   }
 
 type SimpleSequenceLocation

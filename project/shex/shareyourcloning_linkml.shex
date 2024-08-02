@@ -129,8 +129,7 @@ linkml:Sparqlpath xsd:string
 
 <GibsonAssemblySource> CLOSED {
     (  $<GibsonAssemblySource_tes> (  &<AssemblySource_tes> ;
-          rdf:type [ <AssemblySource> ] ? ;
-          <input> @<Sequence> *
+          rdf:type [ <AssemblySource> ] ?
        ) ;
        rdf:type [ <GibsonAssemblySource> ]
     )
@@ -139,8 +138,7 @@ linkml:Sparqlpath xsd:string
 <HomologousRecombinationSource>  (
     CLOSED {
        (  $<HomologousRecombinationSource_tes> (  &<AssemblySource_tes> ;
-             rdf:type [ <AssemblySource> ] ? ;
-             <input> @<Sequence> *
+             rdf:type [ <AssemblySource> ] ?
           ) ;
           rdf:type [ <HomologousRecombinationSource> ]
        )
@@ -149,8 +147,7 @@ linkml:Sparqlpath xsd:string
 
 <LigationSource> CLOSED {
     (  $<LigationSource_tes> (  &<AssemblySource_tes> ;
-          rdf:type [ <AssemblySource> ] ? ;
-          <input> @<Sequence> *
+          rdf:type [ <AssemblySource> ] ?
        ) ;
        rdf:type [ <LigationSource> ]
     )
@@ -197,8 +194,7 @@ linkml:Sparqlpath xsd:string
 
 <PolymeraseExtensionSource> CLOSED {
     (  $<PolymeraseExtensionSource_tes> (  &<Source_tes> ;
-          rdf:type [ <Source> ] ? ;
-          <input> @<Sequence> *
+          rdf:type [ <Source> ] ?
        ) ;
        rdf:type [ <PolymeraseExtensionSource> ]
     )
@@ -231,8 +227,7 @@ linkml:Sparqlpath xsd:string
 <RestrictionAndLigationSource> CLOSED {
     (  $<RestrictionAndLigationSource_tes> (  &<AssemblySource_tes> ;
           rdf:type [ <AssemblySource> ] ? ;
-          <restriction_enzymes> @linkml:String + ;
-          <input> @<Sequence> *
+          <restriction_enzymes> @linkml:String +
        ) ;
        rdf:type [ <RestrictionAndLigationSource> ]
     )
@@ -285,8 +280,7 @@ linkml:Sparqlpath xsd:string
        (  $<SequenceCutSource_tes> (  &<Source_tes> ;
              rdf:type [ <Source> ] ? ;
              <left_edge> @<SequenceCut> ? ;
-             <right_edge> @<SequenceCut> ? ;
-             <input> @<Sequence> *
+             <right_edge> @<SequenceCut> ?
           ) ;
           rdf:type [ <SequenceCutSource> ]
        )
