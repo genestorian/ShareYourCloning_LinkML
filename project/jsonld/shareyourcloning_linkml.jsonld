@@ -1034,34 +1034,6 @@
       "@type": "SlotDefinition"
     },
     {
-      "name": "pCRSource__forward_primer",
-      "description": "The forward primer used in the PCR",
-      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
-      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/forward_primer",
-      "alias": "forward_primer",
-      "owner": "PCRSource",
-      "domain_of": [
-        "PCRSource"
-      ],
-      "range": "Primer",
-      "required": true,
-      "@type": "SlotDefinition"
-    },
-    {
-      "name": "pCRSource__reverse_primer",
-      "description": "The reverse primer used in the PCR",
-      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
-      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/reverse_primer",
-      "alias": "reverse_primer",
-      "owner": "PCRSource",
-      "domain_of": [
-        "PCRSource"
-      ],
-      "range": "Primer",
-      "required": true,
-      "@type": "SlotDefinition"
-    },
-    {
       "name": "cRISPRSource__guides",
       "description": "The guide RNAs used in the CRISPR",
       "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
@@ -1322,151 +1294,6 @@
       "@type": "SlotDefinition"
     },
     {
-      "name": "SequenceCutSource_input",
-      "definition_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/input",
-      "description": "The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.",
-      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
-      "is_a": "input",
-      "domain": "SequenceCutSource",
-      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/input",
-      "multivalued": true,
-      "array": {
-        "dimensions": [
-          {
-            "alias": "exact_card",
-            "exact_cardinality": 1,
-            "@type": "DimensionExpression"
-          }
-        ],
-        "@type": "ArrayExpression"
-      },
-      "alias": "input",
-      "owner": "SequenceCutSource",
-      "domain_of": [
-        "SequenceCutSource"
-      ],
-      "is_usage_slot": true,
-      "usage_slot_name": "input",
-      "range": "Sequence",
-      "@type": "SlotDefinition"
-    },
-    {
-      "name": "PCRSource_input",
-      "definition_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/input",
-      "description": "The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.",
-      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
-      "is_a": "input",
-      "domain": "PCRSource",
-      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/input",
-      "multivalued": true,
-      "array": {
-        "dimensions": [
-          {
-            "alias": "exact_card",
-            "exact_cardinality": 1,
-            "@type": "DimensionExpression"
-          }
-        ],
-        "@type": "ArrayExpression"
-      },
-      "alias": "input",
-      "owner": "PCRSource",
-      "domain_of": [
-        "PCRSource"
-      ],
-      "is_usage_slot": true,
-      "usage_slot_name": "input",
-      "range": "Sequence",
-      "@type": "SlotDefinition"
-    },
-    {
-      "name": "LigationSource_input",
-      "definition_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/input",
-      "description": "The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.",
-      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
-      "is_a": "input",
-      "domain": "LigationSource",
-      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/input",
-      "multivalued": true,
-      "array": {
-        "dimensions": [
-          {
-            "alias": "min_card",
-            "minimum_cardinality": 1,
-            "@type": "DimensionExpression"
-          }
-        ],
-        "@type": "ArrayExpression"
-      },
-      "alias": "input",
-      "owner": "LigationSource",
-      "domain_of": [
-        "LigationSource"
-      ],
-      "is_usage_slot": true,
-      "usage_slot_name": "input",
-      "range": "Sequence",
-      "@type": "SlotDefinition"
-    },
-    {
-      "name": "HomologousRecombinationSource_input",
-      "definition_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/input",
-      "description": "The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.",
-      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
-      "is_a": "input",
-      "domain": "HomologousRecombinationSource",
-      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/input",
-      "multivalued": true,
-      "array": {
-        "dimensions": [
-          {
-            "alias": "exact_card",
-            "exact_cardinality": 2,
-            "@type": "DimensionExpression"
-          }
-        ],
-        "@type": "ArrayExpression"
-      },
-      "alias": "input",
-      "owner": "HomologousRecombinationSource",
-      "domain_of": [
-        "HomologousRecombinationSource"
-      ],
-      "is_usage_slot": true,
-      "usage_slot_name": "input",
-      "range": "Sequence",
-      "@type": "SlotDefinition"
-    },
-    {
-      "name": "GibsonAssemblySource_input",
-      "definition_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/input",
-      "description": "The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.",
-      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
-      "is_a": "input",
-      "domain": "GibsonAssemblySource",
-      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/input",
-      "multivalued": true,
-      "array": {
-        "dimensions": [
-          {
-            "alias": "min_card",
-            "minimum_cardinality": 1,
-            "@type": "DimensionExpression"
-          }
-        ],
-        "@type": "ArrayExpression"
-      },
-      "alias": "input",
-      "owner": "GibsonAssemblySource",
-      "domain_of": [
-        "GibsonAssemblySource"
-      ],
-      "is_usage_slot": true,
-      "usage_slot_name": "input",
-      "range": "Sequence",
-      "@type": "SlotDefinition"
-    },
-    {
       "name": "RestrictionAndLigationSource_restriction_enzymes",
       "definition_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/restriction_enzymes",
       "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
@@ -1486,64 +1313,6 @@
       "usage_slot_name": "restriction_enzymes",
       "range": "string",
       "required": true,
-      "@type": "SlotDefinition"
-    },
-    {
-      "name": "RestrictionAndLigationSource_input",
-      "definition_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/input",
-      "description": "The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.",
-      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
-      "is_a": "input",
-      "domain": "RestrictionAndLigationSource",
-      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/input",
-      "multivalued": true,
-      "array": {
-        "dimensions": [
-          {
-            "alias": "min_card",
-            "minimum_cardinality": 1,
-            "@type": "DimensionExpression"
-          }
-        ],
-        "@type": "ArrayExpression"
-      },
-      "alias": "input",
-      "owner": "RestrictionAndLigationSource",
-      "domain_of": [
-        "RestrictionAndLigationSource"
-      ],
-      "is_usage_slot": true,
-      "usage_slot_name": "input",
-      "range": "Sequence",
-      "@type": "SlotDefinition"
-    },
-    {
-      "name": "PolymeraseExtensionSource_input",
-      "definition_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/input",
-      "description": "The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.",
-      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
-      "is_a": "input",
-      "domain": "PolymeraseExtensionSource",
-      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/input",
-      "multivalued": true,
-      "array": {
-        "dimensions": [
-          {
-            "alias": "exact_card",
-            "exact_cardinality": 1,
-            "@type": "DimensionExpression"
-          }
-        ],
-        "@type": "ArrayExpression"
-      },
-      "alias": "input",
-      "owner": "PolymeraseExtensionSource",
-      "domain_of": [
-        "PolymeraseExtensionSource"
-      ],
-      "is_usage_slot": true,
-      "usage_slot_name": "input",
-      "range": "Sequence",
       "@type": "SlotDefinition"
     }
   ],
@@ -1926,12 +1695,12 @@
       "is_a": "Source",
       "slots": [
         "id",
+        "input",
         "output",
         "type",
         "output_name",
         "sequenceCutSource__left_edge",
-        "sequenceCutSource__right_edge",
-        "SequenceCutSource_input"
+        "sequenceCutSource__right_edge"
       ],
       "slot_usage": {},
       "attributes": [
@@ -1959,10 +1728,10 @@
       "is_a": "SequenceCutSource",
       "slots": [
         "id",
+        "input",
         "output",
         "type",
         "output_name",
-        "SequenceCutSource_input",
         "restrictionEnzymeDigestionSource__left_edge",
         "restrictionEnzymeDigestionSource__right_edge"
       ],
@@ -2128,32 +1897,14 @@
       "is_a": "AssemblySource",
       "slots": [
         "id",
+        "input",
         "output",
         "type",
         "output_name",
         "assemblySource__circular",
-        "assemblySource__assembly",
-        "pCRSource__forward_primer",
-        "pCRSource__reverse_primer",
-        "PCRSource_input"
+        "assemblySource__assembly"
       ],
       "slot_usage": {},
-      "attributes": [
-        {
-          "name": "forward_primer",
-          "description": "The forward primer used in the PCR",
-          "range": "Primer",
-          "required": true,
-          "@type": "SlotDefinition"
-        },
-        {
-          "name": "reverse_primer",
-          "description": "The reverse primer used in the PCR",
-          "range": "Primer",
-          "required": true,
-          "@type": "SlotDefinition"
-        }
-      ],
       "class_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/PCRSource",
       "@type": "ClassDefinition"
     },
@@ -2165,12 +1916,12 @@
       "is_a": "AssemblySource",
       "slots": [
         "id",
+        "input",
         "output",
         "type",
         "output_name",
         "assemblySource__circular",
-        "assemblySource__assembly",
-        "LigationSource_input"
+        "assemblySource__assembly"
       ],
       "slot_usage": {},
       "class_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/LigationSource",
@@ -2184,12 +1935,12 @@
       "is_a": "AssemblySource",
       "slots": [
         "id",
+        "input",
         "output",
         "type",
         "output_name",
         "assemblySource__circular",
-        "assemblySource__assembly",
-        "HomologousRecombinationSource_input"
+        "assemblySource__assembly"
       ],
       "slot_usage": {},
       "class_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/HomologousRecombinationSource",
@@ -2203,12 +1954,12 @@
       "is_a": "AssemblySource",
       "slots": [
         "id",
+        "input",
         "output",
         "type",
         "output_name",
         "assemblySource__circular",
-        "assemblySource__assembly",
-        "GibsonAssemblySource_input"
+        "assemblySource__assembly"
       ],
       "slot_usage": {},
       "class_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/GibsonAssemblySource",
@@ -2222,13 +1973,13 @@
       "is_a": "AssemblySource",
       "slots": [
         "id",
+        "input",
         "output",
         "type",
         "output_name",
         "assemblySource__circular",
         "assemblySource__assembly",
-        "RestrictionAndLigationSource_restriction_enzymes",
-        "RestrictionAndLigationSource_input"
+        "RestrictionAndLigationSource_restriction_enzymes"
       ],
       "slot_usage": {},
       "class_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/RestrictionAndLigationSource",
@@ -2242,12 +1993,12 @@
       "is_a": "HomologousRecombinationSource",
       "slots": [
         "id",
+        "input",
         "output",
         "type",
         "output_name",
         "assemblySource__circular",
         "assemblySource__assembly",
-        "HomologousRecombinationSource_input",
         "cRISPRSource__guides"
       ],
       "slot_usage": {},
@@ -2308,10 +2059,10 @@
       "is_a": "Source",
       "slots": [
         "id",
+        "input",
         "output",
         "type",
-        "output_name",
-        "PolymeraseExtensionSource_input"
+        "output_name"
       ],
       "slot_usage": {},
       "class_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/PolymeraseExtensionSource",
@@ -2369,9 +2120,9 @@
   ],
   "metamodel_version": "1.7.0",
   "source_file": "shareyourcloning_linkml.yaml",
-  "source_file_date": "2024-07-31T15:14:52",
-  "source_file_size": 16387,
-  "generation_date": "2024-07-31T15:15:20",
+  "source_file_date": "2024-08-02T18:07:11",
+  "source_file_size": 14972,
+  "generation_date": "2024-08-02T18:07:38",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/shareyourcloning_linkml.context.jsonld",

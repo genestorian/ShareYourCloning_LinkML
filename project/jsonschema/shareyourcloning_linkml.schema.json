@@ -705,10 +705,6 @@
                     "description": "Whether the assembly is circular or not",
                     "type": "boolean"
                 },
-                "forward_primer": {
-                    "description": "The forward primer used in the PCR",
-                    "type": "integer"
-                },
                 "id": {
                     "description": "A unique identifier for a thing",
                     "type": "integer"
@@ -728,10 +724,6 @@
                     "description": "Used to specify the name of the output sequence",
                     "type": "string"
                 },
-                "reverse_primer": {
-                    "description": "The reverse primer used in the PCR",
-                    "type": "integer"
-                },
                 "type": {
                     "description": "The type of the source",
                     "enum": [
@@ -741,8 +733,6 @@
                 }
             },
             "required": [
-                "forward_primer",
-                "reverse_primer",
                 "assembly",
                 "id"
             ],
