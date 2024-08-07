@@ -80,8 +80,8 @@ linkml:Sparqlpath xsd:string
           ) ;
           rdf:type [ <AssemblySource> ]
        )
-    } OR @<GibsonAssemblySource> OR @<HomologousRecombinationSource> OR @<LigationSource> OR @<OverlapExensionPCRLigationSource> OR
-    @<PCRSource> OR @<RestrictionAndLigationSource>
+    } OR @<GibsonAssemblySource> OR @<HomologousRecombinationSource> OR @<LigationSource> OR @<OverlapExtensionPCRLigationSource>
+    OR @<PCRSource> OR @<RestrictionAndLigationSource>
 )
 
 <BenchlingUrlSource> CLOSED {
@@ -184,11 +184,11 @@ linkml:Sparqlpath xsd:string
     )
 }
 
-<OverlapExensionPCRLigationSource> CLOSED {
-    (  $<OverlapExensionPCRLigationSource_tes> (  &<AssemblySource_tes> ;
+<OverlapExtensionPCRLigationSource> CLOSED {
+    (  $<OverlapExtensionPCRLigationSource_tes> (  &<AssemblySource_tes> ;
           rdf:type [ <AssemblySource> ] ?
        ) ;
-       rdf:type [ <OverlapExensionPCRLigationSource> ]
+       rdf:type [ <OverlapExtensionPCRLigationSource> ]
     )
 }
 

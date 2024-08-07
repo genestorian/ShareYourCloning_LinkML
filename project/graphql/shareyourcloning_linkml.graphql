@@ -145,7 +145,7 @@ type OligoHybridizationSource
     reverseOligo: Primer!
   }
 
-type OverlapExensionPCRLigationSource
+type OverlapExtensionPCRLigationSource
   {
     id: Integer!
     input: [Sequence]
