@@ -80,8 +80,8 @@ linkml:Sparqlpath xsd:string
           ) ;
           rdf:type [ <AssemblySource> ]
        )
-    } OR @<GibsonAssemblySource> OR @<HomologousRecombinationSource> OR @<LigationSource> OR @<PCRSource> OR
-    @<RestrictionAndLigationSource>
+    } OR @<GibsonAssemblySource> OR @<HomologousRecombinationSource> OR @<LigationSource> OR @<OverlapExensionPCRLigationSource> OR
+    @<PCRSource> OR @<RestrictionAndLigationSource>
 )
 
 <BenchlingUrlSource> CLOSED {
@@ -181,6 +181,14 @@ linkml:Sparqlpath xsd:string
           <reverse_oligo> @<Primer>
        ) ;
        rdf:type [ <OligoHybridizationSource> ]
+    )
+}
+
+<OverlapExensionPCRLigationSource> CLOSED {
+    (  $<OverlapExensionPCRLigationSource_tes> (  &<AssemblySource_tes> ;
+          rdf:type [ <AssemblySource> ] ?
+       ) ;
+       rdf:type [ <OverlapExensionPCRLigationSource> ]
     )
 }
 

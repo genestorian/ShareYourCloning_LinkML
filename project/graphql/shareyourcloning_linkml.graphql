@@ -145,6 +145,17 @@ type OligoHybridizationSource
     reverseOligo: Primer!
   }
 
+type OverlapExensionPCRLigationSource
+  {
+    id: Integer!
+    input: [Sequence]
+    output: Sequence
+    type: String
+    outputName: String
+    circular: Boolean
+    assembly: [AssemblyJoin]!
+  }
+
 type PCRSource
   {
     id: Integer!
