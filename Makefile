@@ -109,7 +109,6 @@ gen-project: $(PYMODEL)
 # This line used to be there to move the python classes to the datamodel folder
 # && mv $(DEST)/*.py $(PYMODEL)
 	$(RUN) gen-pydantic \
-    	--pydantic-version 2\
     	$(SOURCE_SCHEMA_PATH) \
     	> $(PYMODEL)/_models.py
 # Format with black
