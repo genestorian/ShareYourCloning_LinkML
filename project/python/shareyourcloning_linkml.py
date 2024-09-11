@@ -1,5 +1,5 @@
 # Auto generated from shareyourcloning_linkml.yaml by pythongen.py version: 0.0.1
-# Generation date: 2024-09-11T17:50:57
+# Generation date: 2024-09-11T18:23:06
 # Schema: ShareYourCloning_LinkML
 #
 # id: https://w3id.org/genestorian/ShareYourCloning_LinkML
@@ -752,9 +752,9 @@ class AssemblyFragment(YAMLRoot):
     class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.AssemblyFragment
 
     sequence: Union[int, SequenceId] = None
-    left_location: Union[dict, SimpleSequenceLocation] = None
-    right_location: Union[dict, SimpleSequenceLocation] = None
     reverse_complemented: Union[bool, Bool] = None
+    left_location: Optional[Union[dict, SimpleSequenceLocation]] = None
+    right_location: Optional[Union[dict, SimpleSequenceLocation]] = None
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
         if self._is_empty(self.sequence):
@@ -762,20 +762,16 @@ class AssemblyFragment(YAMLRoot):
         if not isinstance(self.sequence, SequenceId):
             self.sequence = SequenceId(self.sequence)
 
-        if self._is_empty(self.left_location):
-            self.MissingRequiredField("left_location")
-        if not isinstance(self.left_location, SimpleSequenceLocation):
-            self.left_location = SimpleSequenceLocation(**as_dict(self.left_location))
-
-        if self._is_empty(self.right_location):
-            self.MissingRequiredField("right_location")
-        if not isinstance(self.right_location, SimpleSequenceLocation):
-            self.right_location = SimpleSequenceLocation(**as_dict(self.right_location))
-
         if self._is_empty(self.reverse_complemented):
             self.MissingRequiredField("reverse_complemented")
         if not isinstance(self.reverse_complemented, Bool):
             self.reverse_complemented = Bool(self.reverse_complemented)
+
+        if self.left_location is not None and not isinstance(self.left_location, SimpleSequenceLocation):
+            self.left_location = SimpleSequenceLocation(**as_dict(self.left_location))
+
+        if self.right_location is not None and not isinstance(self.right_location, SimpleSequenceLocation):
+            self.right_location = SimpleSequenceLocation(**as_dict(self.right_location))
 
         super().__post_init__(**kwargs)
 
@@ -1529,7 +1525,7 @@ slots.assemblyFragment__left_location = Slot(
     curie=SHAREYOURCLONING_LINKML.curie("left_location"),
     model_uri=SHAREYOURCLONING_LINKML.assemblyFragment__left_location,
     domain=None,
-    range=Union[dict, SimpleSequenceLocation],
+    range=Optional[Union[dict, SimpleSequenceLocation]],
 )
 
 slots.assemblyFragment__right_location = Slot(
@@ -1538,7 +1534,7 @@ slots.assemblyFragment__right_location = Slot(
     curie=SHAREYOURCLONING_LINKML.curie("right_location"),
     model_uri=SHAREYOURCLONING_LINKML.assemblyFragment__right_location,
     domain=None,
-    range=Union[dict, SimpleSequenceLocation],
+    range=Optional[Union[dict, SimpleSequenceLocation]],
 )
 
 slots.assemblyFragment__reverse_complemented = Slot(

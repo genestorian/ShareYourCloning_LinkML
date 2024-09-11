@@ -13,32 +13,32 @@ shareyourcloning_linkml:CloningStrategy a owl:Class,
         linkml:ClassDefinition ;
     rdfs:label "CloningStrategy" ;
     rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty shareyourcloning_linkml:description ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty shareyourcloning_linkml:sources ],
+        [ a owl:Restriction ;
             owl:allValuesFrom shareyourcloning_linkml:Source ;
             owl:onProperty shareyourcloning_linkml:sources ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty shareyourcloning_linkml:sequences ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom shareyourcloning_linkml:Primer ;
-            owl:onProperty shareyourcloning_linkml:primers ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty shareyourcloning_linkml:sources ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty shareyourcloning_linkml:description ],
         [ a owl:Restriction ;
             owl:allValuesFrom linkml:String ;
             owl:onProperty shareyourcloning_linkml:description ],
         [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty shareyourcloning_linkml:description ],
-        [ a owl:Restriction ;
             owl:minCardinality 0 ;
             owl:onProperty shareyourcloning_linkml:primers ],
         [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty shareyourcloning_linkml:description ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty shareyourcloning_linkml:sequences ],
+        [ a owl:Restriction ;
             owl:allValuesFrom shareyourcloning_linkml:Sequence ;
-            owl:onProperty shareyourcloning_linkml:sequences ] ;
+            owl:onProperty shareyourcloning_linkml:sequences ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom shareyourcloning_linkml:Primer ;
+            owl:onProperty shareyourcloning_linkml:primers ] ;
     skos:definition "Represents a cloning strategy" ;
     skos:inScheme <https://w3id.org/genestorian/ShareYourCloning_LinkML> .
 
@@ -49,38 +49,38 @@ shareyourcloning_linkml:AssemblyFragment a owl:Class,
             owl:allValuesFrom shareyourcloning_linkml:Sequence ;
             owl:onProperty shareyourcloning_linkml:sequence ],
         [ a owl:Restriction ;
-            owl:allValuesFrom shareyourcloning_linkml:SimpleSequenceLocation ;
-            owl:onProperty shareyourcloning_linkml:left_location ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
+            owl:maxCardinality 1 ;
             owl:onProperty shareyourcloning_linkml:reverse_complemented ],
         [ a owl:Restriction ;
-            owl:minCardinality 1 ;
+            owl:maxCardinality 1 ;
             owl:onProperty shareyourcloning_linkml:left_location ],
         [ a owl:Restriction ;
             owl:allValuesFrom linkml:Boolean ;
             owl:onProperty shareyourcloning_linkml:reverse_complemented ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty shareyourcloning_linkml:left_location ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty shareyourcloning_linkml:reverse_complemented ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
             owl:onProperty shareyourcloning_linkml:right_location ],
         [ a owl:Restriction ;
             owl:minCardinality 1 ;
             owl:onProperty shareyourcloning_linkml:sequence ],
         [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty shareyourcloning_linkml:left_location ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty shareyourcloning_linkml:right_location ],
+        [ a owl:Restriction ;
             owl:allValuesFrom shareyourcloning_linkml:SimpleSequenceLocation ;
-            owl:onProperty shareyourcloning_linkml:right_location ],
+            owl:onProperty shareyourcloning_linkml:left_location ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty shareyourcloning_linkml:right_location ],
+            owl:onProperty shareyourcloning_linkml:sequence ],
         [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty shareyourcloning_linkml:sequence ] ;
+            owl:minCardinality 1 ;
+            owl:onProperty shareyourcloning_linkml:reverse_complemented ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom shareyourcloning_linkml:SimpleSequenceLocation ;
+            owl:onProperty shareyourcloning_linkml:right_location ] ;
     skos:definition "Represents a fragment in an assembly" ;
     skos:inScheme <https://w3id.org/genestorian/ShareYourCloning_LinkML> .
 
@@ -91,22 +91,22 @@ shareyourcloning_linkml:AddGeneIdSource a owl:Class,
             owl:maxCardinality 1 ;
             owl:onProperty shareyourcloning_linkml:addgene_sequence_type ],
         [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty shareyourcloning_linkml:addgene_sequence_type ],
-        [ a owl:Restriction ;
             owl:allValuesFrom [ a rdfs:Datatype ;
                     owl:intersectionOf ( linkml:String [ a rdfs:Datatype ;
                                 owl:onDatatype xsd:string ;
                                 owl:withRestrictions ( [ xsd:pattern "^https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)$" ] ) ] ) ] ;
             owl:onProperty shareyourcloning_linkml:sequence_file_url ],
         [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
+            owl:minCardinality 0 ;
+            owl:onProperty shareyourcloning_linkml:addgene_sequence_type ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
             owl:onProperty shareyourcloning_linkml:sequence_file_url ],
         [ a owl:Restriction ;
             owl:allValuesFrom shareyourcloning_linkml:AddGeneSequenceType ;
             owl:onProperty shareyourcloning_linkml:addgene_sequence_type ],
         [ a owl:Restriction ;
-            owl:minCardinality 0 ;
+            owl:maxCardinality 1 ;
             owl:onProperty shareyourcloning_linkml:sequence_file_url ],
         shareyourcloning_linkml:RepositoryIdSource ;
     skos:definition "Represents the source of a sequence that is identified by an AddGene id" ;
@@ -126,12 +126,12 @@ shareyourcloning_linkml:BenchlingUrlSource a owl:Class,
         linkml:ClassDefinition ;
     rdfs:label "BenchlingUrlSource" ;
     rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty shareyourcloning_linkml:repository_id ],
+        [ a owl:Restriction ;
             owl:allValuesFrom [ a rdfs:Datatype ;
                     owl:onDatatype xsd:string ;
                     owl:withRestrictions ( [ xsd:pattern "^https:\\/\\/benchling\\.com\\/.+\\.gb$" ] ) ] ;
-            owl:onProperty shareyourcloning_linkml:repository_id ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
             owl:onProperty shareyourcloning_linkml:repository_id ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
@@ -144,10 +144,10 @@ shareyourcloning_linkml:CRISPRSource a owl:Class,
         linkml:ClassDefinition ;
     rdfs:label "CRISPRSource" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:allValuesFrom shareyourcloning_linkml:Primer ;
+            owl:minCardinality 1 ;
             owl:onProperty shareyourcloning_linkml:guides ],
         [ a owl:Restriction ;
-            owl:minCardinality 1 ;
+            owl:allValuesFrom shareyourcloning_linkml:Primer ;
             owl:onProperty shareyourcloning_linkml:guides ],
         shareyourcloning_linkml:HomologousRecombinationSource ;
     skos:definition "Represents the source of a sequence that is generated by CRISPR" ;
@@ -157,6 +157,18 @@ shareyourcloning_linkml:GenomeCoordinatesSource a owl:Class,
         linkml:ClassDefinition ;
     rdfs:label "GenomeCoordinatesSource" ;
     rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty shareyourcloning_linkml:sequence_accession ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom linkml:String ;
+            owl:onProperty shareyourcloning_linkml:locus_tag ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty shareyourcloning_linkml:end ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty shareyourcloning_linkml:end ],
+        [ a owl:Restriction ;
             owl:allValuesFrom linkml:String ;
             owl:onProperty shareyourcloning_linkml:sequence_accession ],
         [ a owl:Restriction ;
@@ -164,61 +176,49 @@ shareyourcloning_linkml:GenomeCoordinatesSource a owl:Class,
             owl:onProperty shareyourcloning_linkml:strand ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty shareyourcloning_linkml:start ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty shareyourcloning_linkml:assembly_accession ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty shareyourcloning_linkml:end ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty shareyourcloning_linkml:assembly_accession ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty shareyourcloning_linkml:gene_id ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty shareyourcloning_linkml:gene_id ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom linkml:Integer ;
-            owl:onProperty shareyourcloning_linkml:gene_id ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty shareyourcloning_linkml:sequence_accession ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom linkml:Integer ;
-            owl:onProperty shareyourcloning_linkml:start ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty shareyourcloning_linkml:strand ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom linkml:Integer ;
-            owl:onProperty shareyourcloning_linkml:end ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom linkml:String ;
-            owl:onProperty shareyourcloning_linkml:locus_tag ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty shareyourcloning_linkml:locus_tag ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty shareyourcloning_linkml:end ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom linkml:String ;
             owl:onProperty shareyourcloning_linkml:assembly_accession ],
         [ a owl:Restriction ;
             owl:allValuesFrom linkml:Integer ;
             owl:onProperty shareyourcloning_linkml:strand ],
         [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty shareyourcloning_linkml:start ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom linkml:String ;
+            owl:onProperty shareyourcloning_linkml:assembly_accession ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty shareyourcloning_linkml:sequence_accession ],
+        [ a owl:Restriction ;
             owl:minCardinality 0 ;
-            owl:onProperty shareyourcloning_linkml:locus_tag ],
+            owl:onProperty shareyourcloning_linkml:assembly_accession ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom linkml:Integer ;
+            owl:onProperty shareyourcloning_linkml:start ],
         [ a owl:Restriction ;
             owl:minCardinality 1 ;
             owl:onProperty shareyourcloning_linkml:start ],
         [ a owl:Restriction ;
+            owl:allValuesFrom linkml:Integer ;
+            owl:onProperty shareyourcloning_linkml:end ],
+        [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty shareyourcloning_linkml:sequence_accession ],
+            owl:onProperty shareyourcloning_linkml:gene_id ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty shareyourcloning_linkml:locus_tag ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty shareyourcloning_linkml:gene_id ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom linkml:Integer ;
+            owl:onProperty shareyourcloning_linkml:gene_id ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty shareyourcloning_linkml:locus_tag ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty shareyourcloning_linkml:strand ],
         shareyourcloning_linkml:Source ;
     skos:definition "Represents the source of a sequence that is identified by genome coordinates, requested from NCBI" ;
     skos:inScheme <https://w3id.org/genestorian/ShareYourCloning_LinkML> .
@@ -241,6 +241,15 @@ shareyourcloning_linkml:ManuallyTypedSource a owl:Class,
         linkml:ClassDefinition ;
     rdfs:label "ManuallyTypedSource" ;
     rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty shareyourcloning_linkml:circular ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty shareyourcloning_linkml:overhang_crick_3prime ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty shareyourcloning_linkml:user_input ],
+        [ a owl:Restriction ;
             owl:allValuesFrom [ a rdfs:Datatype ;
                     owl:intersectionOf ( linkml:String [ a rdfs:Datatype ;
                                 owl:onDatatype xsd:string ;
@@ -253,6 +262,9 @@ shareyourcloning_linkml:ManuallyTypedSource a owl:Class,
             owl:maxCardinality 1 ;
             owl:onProperty shareyourcloning_linkml:overhang_watson_3prime ],
         [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty shareyourcloning_linkml:overhang_crick_3prime ],
+        [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty shareyourcloning_linkml:circular ],
         [ a owl:Restriction ;
@@ -260,25 +272,13 @@ shareyourcloning_linkml:ManuallyTypedSource a owl:Class,
             owl:onProperty shareyourcloning_linkml:user_input ],
         [ a owl:Restriction ;
             owl:allValuesFrom linkml:Integer ;
-            owl:onProperty shareyourcloning_linkml:overhang_crick_3prime ],
+            owl:onProperty shareyourcloning_linkml:overhang_watson_3prime ],
         [ a owl:Restriction ;
             owl:allValuesFrom linkml:Integer ;
-            owl:onProperty shareyourcloning_linkml:overhang_watson_3prime ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty shareyourcloning_linkml:circular ],
+            owl:onProperty shareyourcloning_linkml:overhang_crick_3prime ],
         [ a owl:Restriction ;
             owl:minCardinality 0 ;
             owl:onProperty shareyourcloning_linkml:overhang_watson_3prime ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty shareyourcloning_linkml:user_input ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty shareyourcloning_linkml:overhang_crick_3prime ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty shareyourcloning_linkml:overhang_crick_3prime ],
         shareyourcloning_linkml:Source ;
     skos:definition "Represents the source of a sequence that is manually typed by the user" ;
     skos:inScheme <https://w3id.org/genestorian/ShareYourCloning_LinkML> .
@@ -287,13 +287,13 @@ shareyourcloning_linkml:NamedThing a owl:Class,
         linkml:ClassDefinition ;
     rdfs:label "NamedThing" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:allValuesFrom linkml:Integer ;
+            owl:maxCardinality 1 ;
             owl:onProperty shareyourcloning_linkml:id ],
         [ a owl:Restriction ;
             owl:minCardinality 1 ;
             owl:onProperty shareyourcloning_linkml:id ],
         [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
+            owl:allValuesFrom linkml:Integer ;
             owl:onProperty shareyourcloning_linkml:id ] ;
     skos:exactMatch schema1:Thing ;
     skos:inScheme <https://w3id.org/genestorian/ShareYourCloning_LinkML> .
@@ -302,29 +302,29 @@ shareyourcloning_linkml:OligoHybridizationSource a owl:Class,
         linkml:ClassDefinition ;
     rdfs:label "OligoHybridizationSource" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:minCardinality 0 ;
+            owl:maxCardinality 1 ;
             owl:onProperty shareyourcloning_linkml:overhang_crick_3prime ],
         [ a owl:Restriction ;
             owl:allValuesFrom linkml:Integer ;
             owl:onProperty shareyourcloning_linkml:overhang_crick_3prime ],
         [ a owl:Restriction ;
-            owl:minCardinality 1 ;
+            owl:allValuesFrom shareyourcloning_linkml:Primer ;
             owl:onProperty shareyourcloning_linkml:forward_oligo ],
         [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
+            owl:minCardinality 0 ;
             owl:onProperty shareyourcloning_linkml:overhang_crick_3prime ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty shareyourcloning_linkml:forward_oligo ],
         [ a owl:Restriction ;
             owl:minCardinality 1 ;
-            owl:onProperty shareyourcloning_linkml:reverse_oligo ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom shareyourcloning_linkml:Primer ;
-            owl:onProperty shareyourcloning_linkml:reverse_oligo ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom shareyourcloning_linkml:Primer ;
             owl:onProperty shareyourcloning_linkml:forward_oligo ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty shareyourcloning_linkml:reverse_oligo ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom shareyourcloning_linkml:Primer ;
+            owl:onProperty shareyourcloning_linkml:reverse_oligo ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty shareyourcloning_linkml:reverse_oligo ],
@@ -372,10 +372,10 @@ shareyourcloning_linkml:RestrictionAndLigationSource a owl:Class,
         linkml:ClassDefinition ;
     rdfs:label "RestrictionAndLigationSource" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:allValuesFrom linkml:String ;
+            owl:minCardinality 1 ;
             owl:onProperty shareyourcloning_linkml:restriction_enzymes ],
         [ a owl:Restriction ;
-            owl:minCardinality 1 ;
+            owl:allValuesFrom linkml:String ;
             owl:onProperty shareyourcloning_linkml:restriction_enzymes ],
         shareyourcloning_linkml:AssemblySource ;
     skos:definition "Represents the source of a sequence that is generated by restriction and ligation" ;
@@ -385,22 +385,22 @@ shareyourcloning_linkml:RestrictionEnzymeDigestionSource a owl:Class,
         linkml:ClassDefinition ;
     rdfs:label "RestrictionEnzymeDigestionSource" ;
     rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom shareyourcloning_linkml:RestrictionSequenceCut ;
+            owl:onProperty shareyourcloning_linkml:left_edge ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty shareyourcloning_linkml:right_edge ],
+        [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty shareyourcloning_linkml:right_edge ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty shareyourcloning_linkml:right_edge ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom shareyourcloning_linkml:RestrictionSequenceCut ;
-            owl:onProperty shareyourcloning_linkml:right_edge ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty shareyourcloning_linkml:left_edge ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty shareyourcloning_linkml:left_edge ],
         [ a owl:Restriction ;
             owl:allValuesFrom shareyourcloning_linkml:RestrictionSequenceCut ;
+            owl:onProperty shareyourcloning_linkml:right_edge ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
             owl:onProperty shareyourcloning_linkml:left_edge ],
         shareyourcloning_linkml:SequenceCutSource ;
     skos:definition "Represents the source of a sequence that is a subfragment of another sequence, generated by sequence cutting using restriction enzymes." ;
@@ -410,13 +410,13 @@ shareyourcloning_linkml:RestrictionSequenceCut a owl:Class,
         linkml:ClassDefinition ;
     rdfs:label "RestrictionSequenceCut" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty shareyourcloning_linkml:restriction_enzyme ],
-        [ a owl:Restriction ;
             owl:allValuesFrom linkml:String ;
             owl:onProperty shareyourcloning_linkml:restriction_enzyme ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
+            owl:onProperty shareyourcloning_linkml:restriction_enzyme ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
             owl:onProperty shareyourcloning_linkml:restriction_enzyme ],
         shareyourcloning_linkml:SequenceCut ;
     skos:definition "Represents a cut in a DNA sequence that is made by a restriction enzyme" ;
@@ -447,30 +447,30 @@ shareyourcloning_linkml:SimpleSequenceLocation a owl:Class,
     rdfs:label "SimpleSequenceLocation" ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:allValuesFrom linkml:Integer ;
-            owl:onProperty shareyourcloning_linkml:end ],
+            owl:onProperty shareyourcloning_linkml:strand ],
         [ a owl:Restriction ;
             owl:allValuesFrom linkml:Integer ;
-            owl:onProperty shareyourcloning_linkml:strand ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty shareyourcloning_linkml:end ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty shareyourcloning_linkml:end ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
             owl:onProperty shareyourcloning_linkml:start ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty shareyourcloning_linkml:strand ],
         [ a owl:Restriction ;
             owl:minCardinality 0 ;
             owl:onProperty shareyourcloning_linkml:strand ],
         [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
+            owl:minCardinality 1 ;
             owl:onProperty shareyourcloning_linkml:start ],
         [ a owl:Restriction ;
             owl:allValuesFrom linkml:Integer ;
+            owl:onProperty shareyourcloning_linkml:end ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty shareyourcloning_linkml:end ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty shareyourcloning_linkml:strand ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty shareyourcloning_linkml:end ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
             owl:onProperty shareyourcloning_linkml:start ] ;
     skos:definition "Represents a location within a sequence, for now support for ranges only" ;
     skos:inScheme <https://w3id.org/genestorian/ShareYourCloning_LinkML> .
@@ -479,41 +479,41 @@ shareyourcloning_linkml:TextFileSequence a owl:Class,
         linkml:ClassDefinition ;
     rdfs:label "TextFileSequence" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
+            owl:allValuesFrom linkml:Integer ;
             owl:onProperty shareyourcloning_linkml:overhang_watson_3prime ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty shareyourcloning_linkml:overhang_crick_3prime ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty shareyourcloning_linkml:file_content ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty shareyourcloning_linkml:overhang_crick_3prime ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom linkml:String ;
+            owl:onProperty shareyourcloning_linkml:file_content ],
         [ a owl:Restriction ;
             owl:minCardinality 0 ;
             owl:onProperty shareyourcloning_linkml:overhang_watson_3prime ],
         [ a owl:Restriction ;
-            owl:allValuesFrom linkml:Integer ;
-            owl:onProperty shareyourcloning_linkml:overhang_crick_3prime ],
+            owl:minCardinality 1 ;
+            owl:onProperty shareyourcloning_linkml:sequence_file_format ],
         [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
+            owl:allValuesFrom linkml:Integer ;
             owl:onProperty shareyourcloning_linkml:overhang_crick_3prime ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty shareyourcloning_linkml:sequence_file_format ],
         [ a owl:Restriction ;
-            owl:allValuesFrom linkml:Integer ;
-            owl:onProperty shareyourcloning_linkml:overhang_watson_3prime ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom linkml:String ;
-            owl:onProperty shareyourcloning_linkml:file_content ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
+            owl:minCardinality 0 ;
             owl:onProperty shareyourcloning_linkml:file_content ],
         [ a owl:Restriction ;
             owl:allValuesFrom shareyourcloning_linkml:SequenceFileFormat ;
             owl:onProperty shareyourcloning_linkml:sequence_file_format ],
         [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty shareyourcloning_linkml:file_content ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty shareyourcloning_linkml:sequence_file_format ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty shareyourcloning_linkml:overhang_crick_3prime ],
+            owl:maxCardinality 1 ;
+            owl:onProperty shareyourcloning_linkml:overhang_watson_3prime ],
         shareyourcloning_linkml:Sequence ;
     skos:definition "A sequence (may have features) defined by the content of a text file" ;
     skos:inScheme <https://w3id.org/genestorian/ShareYourCloning_LinkML> .
@@ -522,38 +522,38 @@ shareyourcloning_linkml:UploadedFileSource a owl:Class,
         linkml:ClassDefinition ;
     rdfs:label "UploadedFileSource" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty shareyourcloning_linkml:index_in_file ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty shareyourcloning_linkml:sequence_file_format ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty shareyourcloning_linkml:index_in_file ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty shareyourcloning_linkml:circularize ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom linkml:Boolean ;
-            owl:onProperty shareyourcloning_linkml:circularize ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty shareyourcloning_linkml:file_name ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty shareyourcloning_linkml:circularize ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom linkml:Integer ;
-            owl:onProperty shareyourcloning_linkml:index_in_file ],
-        [ a owl:Restriction ;
             owl:allValuesFrom linkml:String ;
             owl:onProperty shareyourcloning_linkml:file_name ],
         [ a owl:Restriction ;
             owl:allValuesFrom shareyourcloning_linkml:SequenceFileFormat ;
             owl:onProperty shareyourcloning_linkml:sequence_file_format ],
         [ a owl:Restriction ;
+            owl:allValuesFrom linkml:Boolean ;
+            owl:onProperty shareyourcloning_linkml:circularize ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty shareyourcloning_linkml:circularize ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty shareyourcloning_linkml:sequence_file_format ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom linkml:Integer ;
+            owl:onProperty shareyourcloning_linkml:index_in_file ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty shareyourcloning_linkml:circularize ],
+        [ a owl:Restriction ;
             owl:minCardinality 0 ;
             owl:onProperty shareyourcloning_linkml:file_name ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty shareyourcloning_linkml:index_in_file ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty shareyourcloning_linkml:file_name ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty shareyourcloning_linkml:index_in_file ],
         [ a owl:Restriction ;
             owl:minCardinality 1 ;
             owl:onProperty shareyourcloning_linkml:sequence_file_format ],
@@ -616,9 +616,6 @@ shareyourcloning_linkml:SequenceCut a owl:Class,
         linkml:ClassDefinition ;
     rdfs:label "SequenceCut" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty shareyourcloning_linkml:overhang ],
-        [ a owl:Restriction ;
             owl:allValuesFrom linkml:Integer ;
             owl:onProperty shareyourcloning_linkml:overhang ],
         [ a owl:Restriction ;
@@ -626,13 +623,16 @@ shareyourcloning_linkml:SequenceCut a owl:Class,
             owl:onProperty shareyourcloning_linkml:cut_watson ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
+            owl:onProperty shareyourcloning_linkml:overhang ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty shareyourcloning_linkml:overhang ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
             owl:onProperty shareyourcloning_linkml:cut_watson ],
         [ a owl:Restriction ;
             owl:allValuesFrom linkml:Integer ;
-            owl:onProperty shareyourcloning_linkml:cut_watson ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty shareyourcloning_linkml:overhang ] ;
+            owl:onProperty shareyourcloning_linkml:cut_watson ] ;
     skos:definition "Represents a cut in a DNA sequence" ;
     skos:inScheme <https://w3id.org/genestorian/ShareYourCloning_LinkML> .
 
@@ -640,20 +640,20 @@ shareyourcloning_linkml:SequenceCutSource a owl:Class,
         linkml:ClassDefinition ;
     rdfs:label "SequenceCutSource" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:minCardinality 0 ;
+            owl:allValuesFrom shareyourcloning_linkml:SequenceCut ;
             owl:onProperty shareyourcloning_linkml:right_edge ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty shareyourcloning_linkml:left_edge ],
         [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty shareyourcloning_linkml:right_edge ],
+        [ a owl:Restriction ;
             owl:allValuesFrom shareyourcloning_linkml:SequenceCut ;
             owl:onProperty shareyourcloning_linkml:left_edge ],
         [ a owl:Restriction ;
             owl:minCardinality 0 ;
             owl:onProperty shareyourcloning_linkml:left_edge ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom shareyourcloning_linkml:SequenceCut ;
-            owl:onProperty shareyourcloning_linkml:right_edge ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty shareyourcloning_linkml:right_edge ],
@@ -811,23 +811,23 @@ shareyourcloning_linkml:RepositoryIdSource a owl:Class,
         linkml:ClassDefinition ;
     rdfs:label "RepositoryIdSource" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:allValuesFrom linkml:String ;
-            owl:onProperty shareyourcloning_linkml:repository_id ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty shareyourcloning_linkml:repository_id ],
-        [ a owl:Restriction ;
             owl:minCardinality 1 ;
             owl:onProperty shareyourcloning_linkml:repository_id ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty shareyourcloning_linkml:repository_name ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty shareyourcloning_linkml:repository_name ],
         [ a owl:Restriction ;
             owl:allValuesFrom shareyourcloning_linkml:RepositoryName ;
             owl:onProperty shareyourcloning_linkml:repository_name ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty shareyourcloning_linkml:repository_name ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty shareyourcloning_linkml:repository_name ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty shareyourcloning_linkml:repository_id ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom linkml:String ;
+            owl:onProperty shareyourcloning_linkml:repository_id ],
         shareyourcloning_linkml:Source ;
     skos:definition "Represents the source of a sequence that is identified by a repository id" ;
     skos:inScheme <https://w3id.org/genestorian/ShareYourCloning_LinkML> .
@@ -842,6 +842,15 @@ shareyourcloning_linkml:Primer a owl:Class,
         linkml:ClassDefinition ;
     rdfs:label "Primer" ;
     rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom linkml:String ;
+            owl:onProperty shareyourcloning_linkml:name ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty shareyourcloning_linkml:sequence ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty shareyourcloning_linkml:sequence ],
+        [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty shareyourcloning_linkml:name ],
         [ a owl:Restriction ;
@@ -852,15 +861,6 @@ shareyourcloning_linkml:Primer a owl:Class,
             owl:onProperty shareyourcloning_linkml:sequence ],
         [ a owl:Restriction ;
             owl:minCardinality 0 ;
-            owl:onProperty shareyourcloning_linkml:name ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty shareyourcloning_linkml:sequence ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty shareyourcloning_linkml:sequence ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom linkml:String ;
             owl:onProperty shareyourcloning_linkml:name ],
         shareyourcloning_linkml:Sequence ;
     skos:definition "An oligonucleotide or primer" ;
@@ -926,19 +926,19 @@ shareyourcloning_linkml:AssemblySource a owl:Class,
         linkml:ClassDefinition ;
     rdfs:label "AssemblySource" ;
     rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty shareyourcloning_linkml:assembly ],
+        [ a owl:Restriction ;
             owl:allValuesFrom shareyourcloning_linkml:AssemblyFragment ;
             owl:onProperty shareyourcloning_linkml:assembly ],
         [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty shareyourcloning_linkml:assembly ],
+            owl:minCardinality 0 ;
+            owl:onProperty shareyourcloning_linkml:circular ],
         [ a owl:Restriction ;
             owl:allValuesFrom linkml:Boolean ;
             owl:onProperty shareyourcloning_linkml:circular ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty shareyourcloning_linkml:circular ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
             owl:onProperty shareyourcloning_linkml:circular ],
         shareyourcloning_linkml:Source ;
     skos:definition "Represents the source of a sequence that is an assembly of other sequences" ;
@@ -955,6 +955,9 @@ shareyourcloning_linkml:Sequence a owl:Class,
         linkml:ClassDefinition ;
     rdfs:label "Sequence" ;
     rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom linkml:String ;
+            owl:onProperty shareyourcloning_linkml:type ],
+        [ a owl:Restriction ;
             owl:minCardinality 1 ;
             owl:onProperty shareyourcloning_linkml:id ],
         [ a owl:Restriction ;
@@ -964,13 +967,10 @@ shareyourcloning_linkml:Sequence a owl:Class,
             owl:maxCardinality 1 ;
             owl:onProperty shareyourcloning_linkml:id ],
         [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty shareyourcloning_linkml:type ],
-        [ a owl:Restriction ;
             owl:allValuesFrom linkml:Integer ;
             owl:onProperty shareyourcloning_linkml:id ],
         [ a owl:Restriction ;
-            owl:allValuesFrom linkml:String ;
+            owl:maxCardinality 1 ;
             owl:onProperty shareyourcloning_linkml:type ],
         shareyourcloning_linkml:NamedThing ;
     skos:definition "Represents a sequence" ;
@@ -988,29 +988,14 @@ shareyourcloning_linkml:Source a owl:Class,
         linkml:ClassDefinition ;
     rdfs:label "Source" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:allValuesFrom shareyourcloning_linkml:Sequence ;
-            owl:onProperty shareyourcloning_linkml:input ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty shareyourcloning_linkml:type ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty shareyourcloning_linkml:output_name ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty shareyourcloning_linkml:type ],
-        [ a owl:Restriction ;
             owl:minCardinality 0 ;
             owl:onProperty shareyourcloning_linkml:output ],
         [ a owl:Restriction ;
-            owl:allValuesFrom linkml:String ;
-            owl:onProperty shareyourcloning_linkml:output_name ],
+            owl:minCardinality 0 ;
+            owl:onProperty shareyourcloning_linkml:type ],
         [ a owl:Restriction ;
             owl:minCardinality 0 ;
             owl:onProperty shareyourcloning_linkml:output_name ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty shareyourcloning_linkml:input ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty shareyourcloning_linkml:output ],
@@ -1019,7 +1004,22 @@ shareyourcloning_linkml:Source a owl:Class,
             owl:onProperty shareyourcloning_linkml:output ],
         [ a owl:Restriction ;
             owl:allValuesFrom linkml:String ;
+            owl:onProperty shareyourcloning_linkml:output_name ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
             owl:onProperty shareyourcloning_linkml:type ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty shareyourcloning_linkml:input ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom linkml:String ;
+            owl:onProperty shareyourcloning_linkml:type ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty shareyourcloning_linkml:output_name ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom shareyourcloning_linkml:Sequence ;
+            owl:onProperty shareyourcloning_linkml:input ],
         shareyourcloning_linkml:NamedThing ;
     skos:definition "Represents the source of a sequence" ;
     skos:inScheme <https://w3id.org/genestorian/ShareYourCloning_LinkML> .
@@ -1039,34 +1039,9 @@ shareyourcloning_linkml:type a owl:ObjectProperty,
     skos:definition "A LinkML data model for ShareYourCloning" .
 
 [] a owl:Restriction ;
-    rdfs:subClassOf shareyourcloning_linkml:RepositoryIdSource ;
+    rdfs:subClassOf shareyourcloning_linkml:RestrictionAndLigationSource ;
     owl:onProperty shareyourcloning_linkml:type ;
-    owl:someValuesFrom shareyourcloning_linkml:RepositoryIdSource .
-
-[] a owl:Restriction ;
-    rdfs:subClassOf shareyourcloning_linkml:Sequence ;
-    owl:onProperty shareyourcloning_linkml:type ;
-    owl:someValuesFrom shareyourcloning_linkml:Sequence .
-
-[] a owl:Restriction ;
-    rdfs:subClassOf shareyourcloning_linkml:BenchlingUrlSource ;
-    owl:onProperty shareyourcloning_linkml:type ;
-    owl:someValuesFrom shareyourcloning_linkml:BenchlingUrlSource .
-
-[] a owl:Restriction ;
-    rdfs:subClassOf shareyourcloning_linkml:UploadedFileSource ;
-    owl:onProperty shareyourcloning_linkml:type ;
-    owl:someValuesFrom shareyourcloning_linkml:UploadedFileSource .
-
-[] a owl:Restriction ;
-    rdfs:subClassOf shareyourcloning_linkml:AssemblySource ;
-    owl:onProperty shareyourcloning_linkml:type ;
-    owl:someValuesFrom shareyourcloning_linkml:AssemblySource .
-
-[] a owl:Restriction ;
-    rdfs:subClassOf shareyourcloning_linkml:AddGeneIdSource ;
-    owl:onProperty shareyourcloning_linkml:type ;
-    owl:someValuesFrom shareyourcloning_linkml:AddGeneIdSource .
+    owl:someValuesFrom shareyourcloning_linkml:RestrictionAndLigationSource .
 
 [] a owl:Restriction ;
     rdfs:subClassOf shareyourcloning_linkml:GibsonAssemblySource ;
@@ -1074,9 +1049,44 @@ shareyourcloning_linkml:type a owl:ObjectProperty,
     owl:someValuesFrom shareyourcloning_linkml:GibsonAssemblySource .
 
 [] a owl:Restriction ;
-    rdfs:subClassOf shareyourcloning_linkml:CRISPRSource ;
+    rdfs:subClassOf shareyourcloning_linkml:HomologousRecombinationSource ;
     owl:onProperty shareyourcloning_linkml:type ;
-    owl:someValuesFrom shareyourcloning_linkml:CRISPRSource .
+    owl:someValuesFrom shareyourcloning_linkml:HomologousRecombinationSource .
+
+[] a owl:Restriction ;
+    rdfs:subClassOf shareyourcloning_linkml:PCRSource ;
+    owl:onProperty shareyourcloning_linkml:type ;
+    owl:someValuesFrom shareyourcloning_linkml:PCRSource .
+
+[] a owl:Restriction ;
+    rdfs:subClassOf shareyourcloning_linkml:Source ;
+    owl:onProperty shareyourcloning_linkml:type ;
+    owl:someValuesFrom shareyourcloning_linkml:Source .
+
+[] a owl:Restriction ;
+    rdfs:subClassOf shareyourcloning_linkml:BenchlingUrlSource ;
+    owl:onProperty shareyourcloning_linkml:type ;
+    owl:someValuesFrom shareyourcloning_linkml:BenchlingUrlSource .
+
+[] a owl:Restriction ;
+    rdfs:subClassOf shareyourcloning_linkml:Sequence ;
+    owl:onProperty shareyourcloning_linkml:type ;
+    owl:someValuesFrom shareyourcloning_linkml:Sequence .
+
+[] a owl:Restriction ;
+    rdfs:subClassOf shareyourcloning_linkml:OverlapExtensionPCRLigationSource ;
+    owl:onProperty shareyourcloning_linkml:type ;
+    owl:someValuesFrom shareyourcloning_linkml:OverlapExtensionPCRLigationSource .
+
+[] a owl:Restriction ;
+    rdfs:subClassOf shareyourcloning_linkml:RepositoryIdSource ;
+    owl:onProperty shareyourcloning_linkml:type ;
+    owl:someValuesFrom shareyourcloning_linkml:RepositoryIdSource .
+
+[] a owl:Restriction ;
+    rdfs:subClassOf shareyourcloning_linkml:OligoHybridizationSource ;
+    owl:onProperty shareyourcloning_linkml:type ;
+    owl:someValuesFrom shareyourcloning_linkml:OligoHybridizationSource .
 
 [] a owl:Restriction ;
     rdfs:subClassOf shareyourcloning_linkml:GenomeCoordinatesSource ;
@@ -1094,29 +1104,24 @@ shareyourcloning_linkml:type a owl:ObjectProperty,
     owl:someValuesFrom shareyourcloning_linkml:RestrictionEnzymeDigestionSource .
 
 [] a owl:Restriction ;
-    rdfs:subClassOf shareyourcloning_linkml:LigationSource ;
+    rdfs:subClassOf shareyourcloning_linkml:AddGeneIdSource ;
     owl:onProperty shareyourcloning_linkml:type ;
-    owl:someValuesFrom shareyourcloning_linkml:LigationSource .
+    owl:someValuesFrom shareyourcloning_linkml:AddGeneIdSource .
 
 [] a owl:Restriction ;
-    rdfs:subClassOf shareyourcloning_linkml:HomologousRecombinationSource ;
+    rdfs:subClassOf shareyourcloning_linkml:UploadedFileSource ;
     owl:onProperty shareyourcloning_linkml:type ;
-    owl:someValuesFrom shareyourcloning_linkml:HomologousRecombinationSource .
+    owl:someValuesFrom shareyourcloning_linkml:UploadedFileSource .
 
 [] a owl:Restriction ;
-    rdfs:subClassOf shareyourcloning_linkml:RestrictionAndLigationSource ;
+    rdfs:subClassOf shareyourcloning_linkml:TextFileSequence ;
     owl:onProperty shareyourcloning_linkml:type ;
-    owl:someValuesFrom shareyourcloning_linkml:RestrictionAndLigationSource .
+    owl:someValuesFrom shareyourcloning_linkml:TextFileSequence .
 
 [] a owl:Restriction ;
-    rdfs:subClassOf shareyourcloning_linkml:OverlapExtensionPCRLigationSource ;
+    rdfs:subClassOf shareyourcloning_linkml:CRISPRSource ;
     owl:onProperty shareyourcloning_linkml:type ;
-    owl:someValuesFrom shareyourcloning_linkml:OverlapExtensionPCRLigationSource .
-
-[] a owl:Restriction ;
-    rdfs:subClassOf shareyourcloning_linkml:PCRSource ;
-    owl:onProperty shareyourcloning_linkml:type ;
-    owl:someValuesFrom shareyourcloning_linkml:PCRSource .
+    owl:someValuesFrom shareyourcloning_linkml:CRISPRSource .
 
 [] a owl:Restriction ;
     rdfs:subClassOf shareyourcloning_linkml:PolymeraseExtensionSource ;
@@ -1124,19 +1129,9 @@ shareyourcloning_linkml:type a owl:ObjectProperty,
     owl:someValuesFrom shareyourcloning_linkml:PolymeraseExtensionSource .
 
 [] a owl:Restriction ;
-    rdfs:subClassOf shareyourcloning_linkml:OligoHybridizationSource ;
+    rdfs:subClassOf shareyourcloning_linkml:AssemblySource ;
     owl:onProperty shareyourcloning_linkml:type ;
-    owl:someValuesFrom shareyourcloning_linkml:OligoHybridizationSource .
-
-[] a owl:Restriction ;
-    rdfs:subClassOf shareyourcloning_linkml:SequenceCutSource ;
-    owl:onProperty shareyourcloning_linkml:type ;
-    owl:someValuesFrom shareyourcloning_linkml:SequenceCutSource .
-
-[] a owl:Restriction ;
-    rdfs:subClassOf shareyourcloning_linkml:Source ;
-    owl:onProperty shareyourcloning_linkml:type ;
-    owl:someValuesFrom shareyourcloning_linkml:Source .
+    owl:someValuesFrom shareyourcloning_linkml:AssemblySource .
 
 [] a owl:Restriction ;
     rdfs:subClassOf shareyourcloning_linkml:ManuallyTypedSource ;
@@ -1144,6 +1139,11 @@ shareyourcloning_linkml:type a owl:ObjectProperty,
     owl:someValuesFrom shareyourcloning_linkml:ManuallyTypedSource .
 
 [] a owl:Restriction ;
-    rdfs:subClassOf shareyourcloning_linkml:TextFileSequence ;
+    rdfs:subClassOf shareyourcloning_linkml:LigationSource ;
     owl:onProperty shareyourcloning_linkml:type ;
-    owl:someValuesFrom shareyourcloning_linkml:TextFileSequence .
+    owl:someValuesFrom shareyourcloning_linkml:LigationSource .
+
+[] a owl:Restriction ;
+    rdfs:subClassOf shareyourcloning_linkml:SequenceCutSource ;
+    owl:onProperty shareyourcloning_linkml:type ;
+    owl:someValuesFrom shareyourcloning_linkml:SequenceCutSource .

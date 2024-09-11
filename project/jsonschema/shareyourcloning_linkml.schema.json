@@ -83,14 +83,28 @@
             "description": "Represents a fragment in an assembly",
             "properties": {
                 "left_location": {
-                    "$ref": "#/$defs/SimpleSequenceLocation"
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/SimpleSequenceLocation"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
                 },
                 "reverse_complemented": {
                     "description": "Whether the sequence is reverse complemented in the assembly",
                     "type": "boolean"
                 },
                 "right_location": {
-                    "$ref": "#/$defs/SimpleSequenceLocation"
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/SimpleSequenceLocation"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
                 },
                 "sequence": {
                     "type": "integer"
@@ -98,8 +112,6 @@
             },
             "required": [
                 "sequence",
-                "left_location",
-                "right_location",
                 "reverse_complemented"
             ],
             "title": "AssemblyFragment",

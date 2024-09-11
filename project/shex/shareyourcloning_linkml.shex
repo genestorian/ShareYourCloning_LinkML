@@ -57,8 +57,8 @@ linkml:Sparqlpath xsd:string
 
 <AssemblyFragment> CLOSED {
     (  $<AssemblyFragment_tes> (  <sequence> @<Sequence> ;
-          <left_location> @<SimpleSequenceLocation> ;
-          <right_location> @<SimpleSequenceLocation> ;
+          <left_location> @<SimpleSequenceLocation> ? ;
+          <right_location> @<SimpleSequenceLocation> ? ;
           <reverse_complemented> @linkml:Boolean
        ) ;
        rdf:type [ <AssemblyFragment> ] ?
