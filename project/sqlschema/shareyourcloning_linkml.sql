@@ -51,8 +51,8 @@
 --     * Slot: output_name Description: Used to specify the name of the output sequence
 --     * Slot: id Description: A unique identifier for a thing
 -- # Class: "RepositoryIdSource" Description: "Represents the source of a sequence that is identified by a repository id"
---     * Slot: repository_name Description:
 --     * Slot: repository_id Description: The id of the sequence in the repository
+--     * Slot: repository_name Description:
 --     * Slot: output Description: Identifier of the sequence that is the output of this source.
 --     * Slot: type Description: The type of the source
 --     * Slot: output_name Description: Used to specify the name of the output sequence
@@ -60,15 +60,15 @@
 -- # Class: "AddGeneIdSource" Description: "Represents the source of a sequence that is identified by an AddGene id"
 --     * Slot: sequence_file_url Description: The URL of a sequence file
 --     * Slot: addgene_sequence_type Description:
---     * Slot: repository_name Description:
 --     * Slot: repository_id Description: The id of the sequence in the repository
+--     * Slot: repository_name Description:
 --     * Slot: output Description: Identifier of the sequence that is the output of this source.
 --     * Slot: type Description: The type of the source
 --     * Slot: output_name Description: Used to specify the name of the output sequence
 --     * Slot: id Description: A unique identifier for a thing
 -- # Class: "BenchlingUrlSource" Description: "Represents the source of a sequence that is identified by a Benchling URL"
---     * Slot: repository_name Description:
 --     * Slot: repository_id Description: The url of the gb file associated with the sequence
+--     * Slot: repository_name Description:
 --     * Slot: output Description: Identifier of the sequence that is the output of this source.
 --     * Slot: type Description: The type of the source
 --     * Slot: output_name Description: Used to specify the name of the output sequence
@@ -104,13 +104,10 @@
 --     * Slot: start Description: The starting coordinate (1-based) of the location
 --     * Slot: end Description: The ending coordinate (1-based) of the location
 --     * Slot: strand Description: The strand of the location, should be 1 or -1 or null
--- # Class: "AssemblyJoinComponent" Description: "Represents a component of a join between two fragments in an assembly"
+-- # Class: "AssemblyFragment" Description: "Represents a fragment in an assembly"
 --     * Slot: id Description:
 --     * Slot: sequence Description:
---     * Slot: reverse_complemented Description: Whether the sequence is reverse complemented in the join
---     * Slot: location_id Description: Location of the overlap in the fragment. Might be an empty location (start == end) to indicate blunt join.
--- # Class: "AssemblyJoin" Description: "Represents a joint between two fragments in an assembly"
---     * Slot: id Description:
+--     * Slot: reverse_complemented Description: Whether the sequence is reverse complemented in the assembly
 --     * Slot: AssemblySource_id Description: Autocreated FK slot
 --     * Slot: PCRSource_id Description: Autocreated FK slot
 --     * Slot: LigationSource_id Description: Autocreated FK slot
@@ -119,8 +116,8 @@
 --     * Slot: OverlapExtensionPCRLigationSource_id Description: Autocreated FK slot
 --     * Slot: RestrictionAndLigationSource_id Description: Autocreated FK slot
 --     * Slot: CRISPRSource_id Description: Autocreated FK slot
---     * Slot: left_id Description:
---     * Slot: right_id Description:
+--     * Slot: left_location_id Description:
+--     * Slot: right_location_id Description:
 -- # Class: "AssemblySource" Description: "Represents the source of a sequence that is an assembly of other sequences"
 --     * Slot: circular Description: Whether the assembly is circular or not
 --     * Slot: output Description: Identifier of the sequence that is the output of this source.
@@ -338,8 +335,8 @@ CREATE TABLE "UploadedFileSource" (
 	FOREIGN KEY(output) REFERENCES "Sequence" (id)
 );
 CREATE TABLE "RepositoryIdSource" (
-	repository_name VARCHAR(9) NOT NULL,
 	repository_id TEXT NOT NULL,
+	repository_name VARCHAR(9) NOT NULL,
 	output INTEGER,
 	type TEXT,
 	output_name TEXT,
@@ -350,8 +347,8 @@ CREATE TABLE "RepositoryIdSource" (
 CREATE TABLE "AddGeneIdSource" (
 	sequence_file_url TEXT,
 	addgene_sequence_type VARCHAR(14),
-	repository_name VARCHAR(9) NOT NULL,
 	repository_id TEXT NOT NULL,
+	repository_name VARCHAR(9) NOT NULL,
 	output INTEGER,
 	type TEXT,
 	output_name TEXT,
@@ -360,8 +357,8 @@ CREATE TABLE "AddGeneIdSource" (
 	FOREIGN KEY(output) REFERENCES "Sequence" (id)
 );
 CREATE TABLE "BenchlingUrlSource" (
-	repository_name VARCHAR(9) NOT NULL,
 	repository_id TEXT NOT NULL,
+	repository_name VARCHAR(9) NOT NULL,
 	output INTEGER,
 	type TEXT,
 	output_name TEXT,
@@ -407,15 +404,6 @@ CREATE TABLE "RestrictionEnzymeDigestionSource" (
 	FOREIGN KEY(output) REFERENCES "Sequence" (id),
 	FOREIGN KEY(left_edge_id) REFERENCES "RestrictionSequenceCut" (id),
 	FOREIGN KEY(right_edge_id) REFERENCES "RestrictionSequenceCut" (id)
-);
-CREATE TABLE "AssemblyJoinComponent" (
-	id INTEGER NOT NULL,
-	sequence INTEGER NOT NULL,
-	reverse_complemented BOOLEAN NOT NULL,
-	location_id INTEGER NOT NULL,
-	PRIMARY KEY (id),
-	FOREIGN KEY(sequence) REFERENCES "Sequence" (id),
-	FOREIGN KEY(location_id) REFERENCES "SimpleSequenceLocation" (id)
 );
 CREATE TABLE "AssemblySource" (
 	circular BOOLEAN,
@@ -510,8 +498,10 @@ CREATE TABLE "PolymeraseExtensionSource" (
 	PRIMARY KEY (id),
 	FOREIGN KEY(output) REFERENCES "Sequence" (id)
 );
-CREATE TABLE "AssemblyJoin" (
+CREATE TABLE "AssemblyFragment" (
 	id INTEGER NOT NULL,
+	sequence INTEGER NOT NULL,
+	reverse_complemented BOOLEAN NOT NULL,
 	"AssemblySource_id" INTEGER,
 	"PCRSource_id" INTEGER,
 	"LigationSource_id" INTEGER,
@@ -520,9 +510,10 @@ CREATE TABLE "AssemblyJoin" (
 	"OverlapExtensionPCRLigationSource_id" INTEGER,
 	"RestrictionAndLigationSource_id" INTEGER,
 	"CRISPRSource_id" INTEGER,
-	left_id INTEGER NOT NULL,
-	right_id INTEGER NOT NULL,
+	left_location_id INTEGER NOT NULL,
+	right_location_id INTEGER NOT NULL,
 	PRIMARY KEY (id),
+	FOREIGN KEY(sequence) REFERENCES "Sequence" (id),
 	FOREIGN KEY("AssemblySource_id") REFERENCES "AssemblySource" (id),
 	FOREIGN KEY("PCRSource_id") REFERENCES "PCRSource" (id),
 	FOREIGN KEY("LigationSource_id") REFERENCES "LigationSource" (id),
@@ -531,8 +522,8 @@ CREATE TABLE "AssemblyJoin" (
 	FOREIGN KEY("OverlapExtensionPCRLigationSource_id") REFERENCES "OverlapExtensionPCRLigationSource" (id),
 	FOREIGN KEY("RestrictionAndLigationSource_id") REFERENCES "RestrictionAndLigationSource" (id),
 	FOREIGN KEY("CRISPRSource_id") REFERENCES "CRISPRSource" (id),
-	FOREIGN KEY(left_id) REFERENCES "AssemblyJoinComponent" (id),
-	FOREIGN KEY(right_id) REFERENCES "AssemblyJoinComponent" (id)
+	FOREIGN KEY(left_location_id) REFERENCES "SimpleSequenceLocation" (id),
+	FOREIGN KEY(right_location_id) REFERENCES "SimpleSequenceLocation" (id)
 );
 CREATE TABLE "Source_input" (
 	"Source_id" INTEGER,
