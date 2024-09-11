@@ -55,20 +55,13 @@ linkml:Sparqlpath xsd:string
     )
 }
 
-<AssemblyJoin> CLOSED {
-    (  $<AssemblyJoin_tes> (  <left> @<AssemblyJoinComponent> ;
-          <right> @<AssemblyJoinComponent>
-       ) ;
-       rdf:type [ <AssemblyJoin> ] ?
-    )
-}
-
-<AssemblyJoinComponent> CLOSED {
-    (  $<AssemblyJoinComponent_tes> (  <sequence> @<Sequence> ;
-          <location> @<SimpleSequenceLocation> ;
+<AssemblyFragment> CLOSED {
+    (  $<AssemblyFragment_tes> (  <sequence> @<Sequence> ;
+          <left_location> @<SimpleSequenceLocation> ;
+          <right_location> @<SimpleSequenceLocation> ;
           <reverse_complemented> @linkml:Boolean
        ) ;
-       rdf:type [ <AssemblyJoinComponent> ] ?
+       rdf:type [ <AssemblyFragment> ] ?
     )
 }
 
@@ -77,7 +70,7 @@ linkml:Sparqlpath xsd:string
        (  $<AssemblySource_tes> (  &<Source_tes> ;
              rdf:type [ <Source> ] ? ;
              <circular> @linkml:Boolean ? ;
-             <assembly> @<AssemblyJoin> +
+             <assembly> @<AssemblyFragment> +
           ) ;
           rdf:type [ <AssemblySource> ]
        )
@@ -223,10 +216,10 @@ linkml:Sparqlpath xsd:string
     CLOSED {
        (  $<RepositoryIdSource_tes> (  &<Source_tes> ;
              rdf:type [ <Source> ] ? ;
+             <repository_id> @linkml:String ;
              <repository_name> [ <https://w3id.org/genestorian/ShareYourCloning_LinkML/RepositoryName#addgene>
                 <https://w3id.org/genestorian/ShareYourCloning_LinkML/RepositoryName#genbank>
-                <https://w3id.org/genestorian/ShareYourCloning_LinkML/RepositoryName#benchling> ] ;
-             <repository_id> @linkml:String
+                <https://w3id.org/genestorian/ShareYourCloning_LinkML/RepositoryName#benchling> ]
           ) ;
           rdf:type [ <RepositoryIdSource> ]
        )

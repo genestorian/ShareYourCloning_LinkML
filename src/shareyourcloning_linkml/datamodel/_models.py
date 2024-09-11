@@ -209,8 +209,7 @@ class Primer(Sequence):
         json_schema_extra={"linkml_meta": {"alias": "name", "domain_of": ["Primer"], "slot_uri": "schema:name"}},
     )
     sequence: Optional[str] = Field(
-        None,
-        json_schema_extra={"linkml_meta": {"alias": "sequence", "domain_of": ["Primer", "AssemblyJoinComponent"]}},
+        None, json_schema_extra={"linkml_meta": {"alias": "sequence", "domain_of": ["Primer", "AssemblyFragment"]}}
     )
     id: int = Field(
         ...,
@@ -499,13 +498,13 @@ class RepositoryIdSource(Source):
         {"from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML"}
     )
 
-    repository_name: RepositoryName = Field(
-        ..., json_schema_extra={"linkml_meta": {"alias": "repository_name", "domain_of": ["RepositoryIdSource"]}}
-    )
     repository_id: str = Field(
         ...,
         description="""The id of the sequence in the repository""",
         json_schema_extra={"linkml_meta": {"alias": "repository_id", "domain_of": ["RepositoryIdSource"]}},
+    )
+    repository_name: RepositoryName = Field(
+        ..., json_schema_extra={"linkml_meta": {"alias": "repository_name", "domain_of": ["RepositoryIdSource"]}}
     )
     input: Optional[List[int]] = Field(
         None,
@@ -555,13 +554,13 @@ class AddGeneIdSource(RepositoryIdSource):
     addgene_sequence_type: Optional[AddGeneSequenceType] = Field(
         None, json_schema_extra={"linkml_meta": {"alias": "addgene_sequence_type", "domain_of": ["AddGeneIdSource"]}}
     )
-    repository_name: RepositoryName = Field(
-        ..., json_schema_extra={"linkml_meta": {"alias": "repository_name", "domain_of": ["RepositoryIdSource"]}}
-    )
     repository_id: str = Field(
         ...,
         description="""The id of the sequence in the repository""",
         json_schema_extra={"linkml_meta": {"alias": "repository_id", "domain_of": ["RepositoryIdSource"]}},
+    )
+    repository_name: RepositoryName = Field(
+        ..., json_schema_extra={"linkml_meta": {"alias": "repository_name", "domain_of": ["RepositoryIdSource"]}}
     )
     input: Optional[List[int]] = Field(
         None,
@@ -626,13 +625,13 @@ class BenchlingUrlSource(RepositoryIdSource):
         }
     )
 
-    repository_name: RepositoryName = Field(
-        ..., json_schema_extra={"linkml_meta": {"alias": "repository_name", "domain_of": ["RepositoryIdSource"]}}
-    )
     repository_id: str = Field(
         ...,
         description="""The url of the gb file associated with the sequence""",
         json_schema_extra={"linkml_meta": {"alias": "repository_id", "domain_of": ["RepositoryIdSource"]}},
+    )
+    repository_name: RepositoryName = Field(
+        ..., json_schema_extra={"linkml_meta": {"alias": "repository_name", "domain_of": ["RepositoryIdSource"]}}
     )
     input: Optional[List[int]] = Field(
         None,
@@ -906,9 +905,9 @@ class SimpleSequenceLocation(ConfiguredBaseModel):
     )
 
 
-class AssemblyJoinComponent(ConfiguredBaseModel):
+class AssemblyFragment(ConfiguredBaseModel):
     """
-    Represents a component of a join between two fragments in an assembly
+    Represents a fragment in an assembly
     """
 
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta(
@@ -916,34 +915,18 @@ class AssemblyJoinComponent(ConfiguredBaseModel):
     )
 
     sequence: int = Field(
-        ..., json_schema_extra={"linkml_meta": {"alias": "sequence", "domain_of": ["Primer", "AssemblyJoinComponent"]}}
+        ..., json_schema_extra={"linkml_meta": {"alias": "sequence", "domain_of": ["Primer", "AssemblyFragment"]}}
     )
-    location: SimpleSequenceLocation = Field(
-        ...,
-        description="""Location of the overlap in the fragment. Might be an empty location (start == end) to indicate blunt join.""",
-        json_schema_extra={"linkml_meta": {"alias": "location", "domain_of": ["AssemblyJoinComponent"]}},
+    left_location: SimpleSequenceLocation = Field(
+        ..., json_schema_extra={"linkml_meta": {"alias": "left_location", "domain_of": ["AssemblyFragment"]}}
+    )
+    right_location: SimpleSequenceLocation = Field(
+        ..., json_schema_extra={"linkml_meta": {"alias": "right_location", "domain_of": ["AssemblyFragment"]}}
     )
     reverse_complemented: bool = Field(
         ...,
-        description="""Whether the sequence is reverse complemented in the join""",
-        json_schema_extra={"linkml_meta": {"alias": "reverse_complemented", "domain_of": ["AssemblyJoinComponent"]}},
-    )
-
-
-class AssemblyJoin(ConfiguredBaseModel):
-    """
-    Represents a joint between two fragments in an assembly
-    """
-
-    linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta(
-        {"from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML"}
-    )
-
-    left: AssemblyJoinComponent = Field(
-        ..., json_schema_extra={"linkml_meta": {"alias": "left", "domain_of": ["AssemblyJoin"]}}
-    )
-    right: AssemblyJoinComponent = Field(
-        ..., json_schema_extra={"linkml_meta": {"alias": "right", "domain_of": ["AssemblyJoin"]}}
+        description="""Whether the sequence is reverse complemented in the assembly""",
+        json_schema_extra={"linkml_meta": {"alias": "reverse_complemented", "domain_of": ["AssemblyFragment"]}},
     )
 
 
@@ -963,9 +946,9 @@ class AssemblySource(Source):
             "linkml_meta": {"alias": "circular", "domain_of": ["ManuallyTypedSource", "AssemblySource"]}
         },
     )
-    assembly: List[AssemblyJoin] = Field(
+    assembly: List[AssemblyFragment] = Field(
         ...,
-        description="""The joins between the fragments in the assembly""",
+        description="""A list of the fragments that are assembled, in order""",
         json_schema_extra={"linkml_meta": {"alias": "assembly", "domain_of": ["AssemblySource"]}},
     )
     input: Optional[List[int]] = Field(
@@ -1015,9 +998,9 @@ class PCRSource(AssemblySource):
             "linkml_meta": {"alias": "circular", "domain_of": ["ManuallyTypedSource", "AssemblySource"]}
         },
     )
-    assembly: List[AssemblyJoin] = Field(
+    assembly: List[AssemblyFragment] = Field(
         ...,
-        description="""The joins between the fragments in the assembly""",
+        description="""A list of the fragments that are assembled, in order""",
         json_schema_extra={"linkml_meta": {"alias": "assembly", "domain_of": ["AssemblySource"]}},
     )
     input: Optional[List[int]] = Field(
@@ -1067,9 +1050,9 @@ class LigationSource(AssemblySource):
             "linkml_meta": {"alias": "circular", "domain_of": ["ManuallyTypedSource", "AssemblySource"]}
         },
     )
-    assembly: List[AssemblyJoin] = Field(
+    assembly: List[AssemblyFragment] = Field(
         ...,
-        description="""The joins between the fragments in the assembly""",
+        description="""A list of the fragments that are assembled, in order""",
         json_schema_extra={"linkml_meta": {"alias": "assembly", "domain_of": ["AssemblySource"]}},
     )
     input: Optional[List[int]] = Field(
@@ -1119,9 +1102,9 @@ class HomologousRecombinationSource(AssemblySource):
             "linkml_meta": {"alias": "circular", "domain_of": ["ManuallyTypedSource", "AssemblySource"]}
         },
     )
-    assembly: List[AssemblyJoin] = Field(
+    assembly: List[AssemblyFragment] = Field(
         ...,
-        description="""The joins between the fragments in the assembly""",
+        description="""A list of the fragments that are assembled, in order""",
         json_schema_extra={"linkml_meta": {"alias": "assembly", "domain_of": ["AssemblySource"]}},
     )
     input: Optional[List[int]] = Field(
@@ -1171,9 +1154,9 @@ class GibsonAssemblySource(AssemblySource):
             "linkml_meta": {"alias": "circular", "domain_of": ["ManuallyTypedSource", "AssemblySource"]}
         },
     )
-    assembly: List[AssemblyJoin] = Field(
+    assembly: List[AssemblyFragment] = Field(
         ...,
-        description="""The joins between the fragments in the assembly""",
+        description="""A list of the fragments that are assembled, in order""",
         json_schema_extra={"linkml_meta": {"alias": "assembly", "domain_of": ["AssemblySource"]}},
     )
     input: Optional[List[int]] = Field(
@@ -1223,9 +1206,9 @@ class OverlapExtensionPCRLigationSource(AssemblySource):
             "linkml_meta": {"alias": "circular", "domain_of": ["ManuallyTypedSource", "AssemblySource"]}
         },
     )
-    assembly: List[AssemblyJoin] = Field(
+    assembly: List[AssemblyFragment] = Field(
         ...,
-        description="""The joins between the fragments in the assembly""",
+        description="""A list of the fragments that are assembled, in order""",
         json_schema_extra={"linkml_meta": {"alias": "assembly", "domain_of": ["AssemblySource"]}},
     )
     input: Optional[List[int]] = Field(
@@ -1288,9 +1271,9 @@ class RestrictionAndLigationSource(AssemblySource):
             "linkml_meta": {"alias": "circular", "domain_of": ["ManuallyTypedSource", "AssemblySource"]}
         },
     )
-    assembly: List[AssemblyJoin] = Field(
+    assembly: List[AssemblyFragment] = Field(
         ...,
-        description="""The joins between the fragments in the assembly""",
+        description="""A list of the fragments that are assembled, in order""",
         json_schema_extra={"linkml_meta": {"alias": "assembly", "domain_of": ["AssemblySource"]}},
     )
     input: Optional[List[int]] = Field(
@@ -1345,9 +1328,9 @@ class CRISPRSource(HomologousRecombinationSource):
             "linkml_meta": {"alias": "circular", "domain_of": ["ManuallyTypedSource", "AssemblySource"]}
         },
     )
-    assembly: List[AssemblyJoin] = Field(
+    assembly: List[AssemblyFragment] = Field(
         ...,
-        description="""The joins between the fragments in the assembly""",
+        description="""A list of the fragments that are assembled, in order""",
         json_schema_extra={"linkml_meta": {"alias": "assembly", "domain_of": ["AssemblySource"]}},
     )
     input: Optional[List[int]] = Field(
@@ -1552,8 +1535,7 @@ GenomeCoordinatesSource.model_rebuild()
 SequenceCutSource.model_rebuild()
 RestrictionEnzymeDigestionSource.model_rebuild()
 SimpleSequenceLocation.model_rebuild()
-AssemblyJoinComponent.model_rebuild()
-AssemblyJoin.model_rebuild()
+AssemblyFragment.model_rebuild()
 AssemblySource.model_rebuild()
 PCRSource.model_rebuild()
 LigationSource.model_rebuild()
