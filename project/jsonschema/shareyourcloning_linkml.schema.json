@@ -16,15 +16,24 @@
                     "items": {
                         "type": "integer"
                     },
-                    "type": "array"
+                    "type": [
+                        "array",
+                        "null"
+                    ]
                 },
                 "output": {
                     "description": "Identifier of the sequence that is the output of this source.",
-                    "type": "integer"
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
                 },
                 "output_name": {
                     "description": "Used to specify the name of the output sequence",
-                    "type": "string"
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 },
                 "repository_id": {
                     "description": "The id of the sequence in the repository",
@@ -36,14 +45,20 @@
                 "sequence_file_url": {
                     "description": "The URL of a sequence file",
                     "pattern": "^https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)$",
-                    "type": "string"
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 },
                 "type": {
                     "description": "The type of the source",
                     "enum": [
                         "AddGeneIdSource"
                     ],
-                    "type": "string"
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 }
             },
             "required": [
@@ -118,7 +133,10 @@
                 },
                 "circular": {
                     "description": "Whether the assembly is circular or not",
-                    "type": "boolean"
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
                 },
                 "id": {
                     "description": "A unique identifier for a thing",
@@ -129,22 +147,34 @@
                     "items": {
                         "type": "integer"
                     },
-                    "type": "array"
+                    "type": [
+                        "array",
+                        "null"
+                    ]
                 },
                 "output": {
                     "description": "Identifier of the sequence that is the output of this source.",
-                    "type": "integer"
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
                 },
                 "output_name": {
                     "description": "Used to specify the name of the output sequence",
-                    "type": "string"
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 },
                 "type": {
                     "description": "The type of the source",
                     "enum": [
                         "AssemblySource"
                     ],
-                    "type": "string"
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 }
             },
             "required": [
@@ -167,15 +197,24 @@
                     "items": {
                         "type": "integer"
                     },
-                    "type": "array"
+                    "type": [
+                        "array",
+                        "null"
+                    ]
                 },
                 "output": {
                     "description": "Identifier of the sequence that is the output of this source.",
-                    "type": "integer"
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
                 },
                 "output_name": {
                     "description": "Used to specify the name of the output sequence",
-                    "type": "string"
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 },
                 "repository_id": {
                     "description": "The url of the gb file associated with the sequence",
@@ -190,7 +229,10 @@
                     "enum": [
                         "BenchlingUrlSource"
                     ],
-                    "type": "string"
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 }
             },
             "required": [
@@ -214,7 +256,10 @@
                 },
                 "circular": {
                     "description": "Whether the assembly is circular or not",
-                    "type": "boolean"
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
                 },
                 "guides": {
                     "description": "The guide RNAs used in the CRISPR",
@@ -232,22 +277,34 @@
                     "items": {
                         "type": "integer"
                     },
-                    "type": "array"
+                    "type": [
+                        "array",
+                        "null"
+                    ]
                 },
                 "output": {
                     "description": "Identifier of the sequence that is the output of this source.",
-                    "type": "integer"
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
                 },
                 "output_name": {
                     "description": "Used to specify the name of the output sequence",
-                    "type": "string"
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 },
                 "type": {
                     "description": "The type of the source",
                     "enum": [
                         "CRISPRSource"
                     ],
-                    "type": "string"
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 }
             },
             "required": [
@@ -264,14 +321,20 @@
             "properties": {
                 "description": {
                     "description": "A description of the cloning strategy",
-                    "type": "string"
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 },
                 "primers": {
                     "description": "The primers that are used in the cloning strategy",
                     "items": {
                         "$ref": "#/$defs/Primer"
                     },
-                    "type": "array"
+                    "type": [
+                        "array",
+                        "null"
+                    ]
                 },
                 "sequences": {
                     "description": "The sequences that are used in the cloning strategy",
@@ -363,7 +426,10 @@
             "properties": {
                 "assembly_accession": {
                     "description": "The accession of the assembly",
-                    "type": "string"
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 },
                 "end": {
                     "description": "The ending coordinate (1-based) of the sequence in the sequence accession",
@@ -371,7 +437,10 @@
                 },
                 "gene_id": {
                     "description": "The gene id of the sequence",
-                    "type": "integer"
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
                 },
                 "id": {
                     "description": "A unique identifier for a thing",
@@ -382,19 +451,31 @@
                     "items": {
                         "type": "integer"
                     },
-                    "type": "array"
+                    "type": [
+                        "array",
+                        "null"
+                    ]
                 },
                 "locus_tag": {
                     "description": "The locus tag of the sequence",
-                    "type": "string"
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 },
                 "output": {
                     "description": "Identifier of the sequence that is the output of this source.",
-                    "type": "integer"
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
                 },
                 "output_name": {
                     "description": "Used to specify the name of the output sequence",
-                    "type": "string"
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 },
                 "sequence_accession": {
                     "description": "The accession of the sequence",
@@ -413,7 +494,10 @@
                     "enum": [
                         "GenomeCoordinatesSource"
                     ],
-                    "type": "string"
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 }
             },
             "required": [
@@ -439,7 +523,10 @@
                 },
                 "circular": {
                     "description": "Whether the assembly is circular or not",
-                    "type": "boolean"
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
                 },
                 "id": {
                     "description": "A unique identifier for a thing",
@@ -450,22 +537,34 @@
                     "items": {
                         "type": "integer"
                     },
-                    "type": "array"
+                    "type": [
+                        "array",
+                        "null"
+                    ]
                 },
                 "output": {
                     "description": "Identifier of the sequence that is the output of this source.",
-                    "type": "integer"
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
                 },
                 "output_name": {
                     "description": "Used to specify the name of the output sequence",
-                    "type": "string"
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 },
                 "type": {
                     "description": "The type of the source",
                     "enum": [
                         "GibsonAssemblySource"
                     ],
-                    "type": "string"
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 }
             },
             "required": [
@@ -488,7 +587,10 @@
                 },
                 "circular": {
                     "description": "Whether the assembly is circular or not",
-                    "type": "boolean"
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
                 },
                 "id": {
                     "description": "A unique identifier for a thing",
@@ -499,22 +601,34 @@
                     "items": {
                         "type": "integer"
                     },
-                    "type": "array"
+                    "type": [
+                        "array",
+                        "null"
+                    ]
                 },
                 "output": {
                     "description": "Identifier of the sequence that is the output of this source.",
-                    "type": "integer"
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
                 },
                 "output_name": {
                     "description": "Used to specify the name of the output sequence",
-                    "type": "string"
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 },
                 "type": {
                     "description": "The type of the source",
                     "enum": [
                         "HomologousRecombinationSource"
                     ],
-                    "type": "string"
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 }
             },
             "required": [
@@ -537,7 +651,10 @@
                 },
                 "circular": {
                     "description": "Whether the assembly is circular or not",
-                    "type": "boolean"
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
                 },
                 "id": {
                     "description": "A unique identifier for a thing",
@@ -548,22 +665,34 @@
                     "items": {
                         "type": "integer"
                     },
-                    "type": "array"
+                    "type": [
+                        "array",
+                        "null"
+                    ]
                 },
                 "output": {
                     "description": "Identifier of the sequence that is the output of this source.",
-                    "type": "integer"
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
                 },
                 "output_name": {
                     "description": "Used to specify the name of the output sequence",
-                    "type": "string"
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 },
                 "type": {
                     "description": "The type of the source",
                     "enum": [
                         "LigationSource"
                     ],
-                    "type": "string"
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 }
             },
             "required": [
@@ -579,7 +708,10 @@
             "properties": {
                 "circular": {
                     "description": "Whether the sequence is circular or not",
-                    "type": "boolean"
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
                 },
                 "id": {
                     "description": "A unique identifier for a thing",
@@ -590,30 +722,48 @@
                     "items": {
                         "type": "integer"
                     },
-                    "type": "array"
+                    "type": [
+                        "array",
+                        "null"
+                    ]
                 },
                 "output": {
                     "description": "Identifier of the sequence that is the output of this source.",
-                    "type": "integer"
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
                 },
                 "output_name": {
                     "description": "Used to specify the name of the output sequence",
-                    "type": "string"
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 },
                 "overhang_crick_3prime": {
                     "description": "Taken from pydna's `dseq::ovhg`An integer describing the length of the crick strand overhang in the 5' of the molecule, or 3' of the crick strand",
-                    "type": "integer"
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
                 },
                 "overhang_watson_3prime": {
                     "description": "The equivalent of `overhang_crick_3prime` but for the watson strand",
-                    "type": "integer"
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
                 },
                 "type": {
                     "description": "The type of the source",
                     "enum": [
                         "ManuallyTypedSource"
                     ],
-                    "type": "string"
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 },
                 "user_input": {
                     "pattern": "^[acgtACGT]+$",
@@ -633,7 +783,10 @@
             "properties": {
                 "id": {
                     "description": "A unique identifier for a thing",
-                    "type": "integer"
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
                 }
             },
             "required": [
@@ -659,19 +812,31 @@
                     "items": {
                         "type": "integer"
                     },
-                    "type": "array"
+                    "type": [
+                        "array",
+                        "null"
+                    ]
                 },
                 "output": {
                     "description": "Identifier of the sequence that is the output of this source.",
-                    "type": "integer"
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
                 },
                 "output_name": {
                     "description": "Used to specify the name of the output sequence",
-                    "type": "string"
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 },
                 "overhang_crick_3prime": {
                     "description": "Taken from pydna's `dseq::ovhg`An integer describing the length of the crick strand overhang in the 5' of the molecule, or 3' of the crick strand",
-                    "type": "integer"
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
                 },
                 "reverse_oligo": {
                     "description": "The reverse oligo used in the hybridization",
@@ -682,7 +847,10 @@
                     "enum": [
                         "OligoHybridizationSource"
                     ],
-                    "type": "string"
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 }
             },
             "required": [
@@ -706,7 +874,10 @@
                 },
                 "circular": {
                     "description": "Whether the assembly is circular or not",
-                    "type": "boolean"
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
                 },
                 "id": {
                     "description": "A unique identifier for a thing",
@@ -717,22 +888,34 @@
                     "items": {
                         "type": "integer"
                     },
-                    "type": "array"
+                    "type": [
+                        "array",
+                        "null"
+                    ]
                 },
                 "output": {
                     "description": "Identifier of the sequence that is the output of this source.",
-                    "type": "integer"
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
                 },
                 "output_name": {
                     "description": "Used to specify the name of the output sequence",
-                    "type": "string"
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 },
                 "type": {
                     "description": "The type of the source",
                     "enum": [
                         "OverlapExtensionPCRLigationSource"
                     ],
-                    "type": "string"
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 }
             },
             "required": [
@@ -755,7 +938,10 @@
                 },
                 "circular": {
                     "description": "Whether the assembly is circular or not",
-                    "type": "boolean"
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
                 },
                 "id": {
                     "description": "A unique identifier for a thing",
@@ -766,22 +952,34 @@
                     "items": {
                         "type": "integer"
                     },
-                    "type": "array"
+                    "type": [
+                        "array",
+                        "null"
+                    ]
                 },
                 "output": {
                     "description": "Identifier of the sequence that is the output of this source.",
-                    "type": "integer"
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
                 },
                 "output_name": {
                     "description": "Used to specify the name of the output sequence",
-                    "type": "string"
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 },
                 "type": {
                     "description": "The type of the source",
                     "enum": [
                         "PCRSource"
                     ],
-                    "type": "string"
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 }
             },
             "required": [
@@ -804,22 +1002,34 @@
                     "items": {
                         "type": "integer"
                     },
-                    "type": "array"
+                    "type": [
+                        "array",
+                        "null"
+                    ]
                 },
                 "output": {
                     "description": "Identifier of the sequence that is the output of this source.",
-                    "type": "integer"
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
                 },
                 "output_name": {
                     "description": "Used to specify the name of the output sequence",
-                    "type": "string"
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 },
                 "type": {
                     "description": "The type of the source",
                     "enum": [
                         "PolymeraseExtensionSource"
                     ],
-                    "type": "string"
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 }
             },
             "required": [
@@ -838,18 +1048,27 @@
                 },
                 "name": {
                     "description": "A human-readable name for a thing",
-                    "type": "string"
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 },
                 "sequence": {
                     "pattern": "^[acgtACGT]+$",
-                    "type": "string"
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 },
                 "type": {
                     "description": "The type of the source",
                     "enum": [
                         "Primer"
                     ],
-                    "type": "string"
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 }
             },
             "required": [
@@ -871,15 +1090,24 @@
                     "items": {
                         "type": "integer"
                     },
-                    "type": "array"
+                    "type": [
+                        "array",
+                        "null"
+                    ]
                 },
                 "output": {
                     "description": "Identifier of the sequence that is the output of this source.",
-                    "type": "integer"
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
                 },
                 "output_name": {
                     "description": "Used to specify the name of the output sequence",
-                    "type": "string"
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 },
                 "repository_id": {
                     "description": "The id of the sequence in the repository",
@@ -893,7 +1121,10 @@
                     "enum": [
                         "RepositoryIdSource"
                     ],
-                    "type": "string"
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 }
             },
             "required": [
@@ -927,7 +1158,10 @@
                 },
                 "circular": {
                     "description": "Whether the assembly is circular or not",
-                    "type": "boolean"
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
                 },
                 "id": {
                     "description": "A unique identifier for a thing",
@@ -938,15 +1172,24 @@
                     "items": {
                         "type": "integer"
                     },
-                    "type": "array"
+                    "type": [
+                        "array",
+                        "null"
+                    ]
                 },
                 "output": {
                     "description": "Identifier of the sequence that is the output of this source.",
-                    "type": "integer"
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
                 },
                 "output_name": {
                     "description": "Used to specify the name of the output sequence",
-                    "type": "string"
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 },
                 "restriction_enzymes": {
                     "items": {
@@ -959,7 +1202,10 @@
                     "enum": [
                         "RestrictionAndLigationSource"
                     ],
-                    "type": "string"
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 }
             },
             "required": [
@@ -983,28 +1229,54 @@
                     "items": {
                         "type": "integer"
                     },
-                    "type": "array"
+                    "type": [
+                        "array",
+                        "null"
+                    ]
                 },
                 "left_edge": {
-                    "$ref": "#/$defs/RestrictionSequenceCut"
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/RestrictionSequenceCut"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
                 },
                 "output": {
                     "description": "Identifier of the sequence that is the output of this source.",
-                    "type": "integer"
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
                 },
                 "output_name": {
                     "description": "Used to specify the name of the output sequence",
-                    "type": "string"
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 },
                 "right_edge": {
-                    "$ref": "#/$defs/RestrictionSequenceCut"
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/RestrictionSequenceCut"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
                 },
                 "type": {
                     "description": "The type of the source",
                     "enum": [
                         "RestrictionEnzymeDigestionSource"
                     ],
-                    "type": "string"
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 }
             },
             "required": [
@@ -1070,28 +1342,54 @@
                     "items": {
                         "type": "integer"
                     },
-                    "type": "array"
+                    "type": [
+                        "array",
+                        "null"
+                    ]
                 },
                 "left_edge": {
-                    "$ref": "#/$defs/SequenceCut"
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/SequenceCut"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
                 },
                 "output": {
                     "description": "Identifier of the sequence that is the output of this source.",
-                    "type": "integer"
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
                 },
                 "output_name": {
                     "description": "Used to specify the name of the output sequence",
-                    "type": "string"
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 },
                 "right_edge": {
-                    "$ref": "#/$defs/SequenceCut"
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/SequenceCut"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
                 },
                 "type": {
                     "description": "The type of the source",
                     "enum": [
                         "SequenceCutSource"
                     ],
-                    "type": "string"
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 }
             },
             "required": [
@@ -1125,7 +1423,10 @@
                 },
                 "strand": {
                     "description": "The strand of the location, should be 1 or -1 or null",
-                    "type": "integer"
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
                 }
             },
             "required": [
@@ -1140,7 +1441,10 @@
             "description": "A sequence (may have features) defined by the content of a text file",
             "properties": {
                 "file_content": {
-                    "type": "string"
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 },
                 "id": {
                     "description": "A unique identifier for a thing",
@@ -1148,11 +1452,17 @@
                 },
                 "overhang_crick_3prime": {
                     "description": "Taken from pydna's `dseq::ovhg`An integer describing the length of the crick strand overhang in the 5' of the molecule, or 3' of the crick strand",
-                    "type": "integer"
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
                 },
                 "overhang_watson_3prime": {
                     "description": "The equivalent of `overhang_crick_3prime` but for the watson strand",
-                    "type": "integer"
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
                 },
                 "sequence_file_format": {
                     "$ref": "#/$defs/SequenceFileFormat",
@@ -1163,7 +1473,10 @@
                     "enum": [
                         "TextFileSequence"
                     ],
-                    "type": "string"
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 }
             },
             "required": [
@@ -1179,11 +1492,17 @@
             "properties": {
                 "circularize": {
                     "description": "Whether the sequence should be circularized (FASTA only)",
-                    "type": "boolean"
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
                 },
                 "file_name": {
                     "description": "The name of the file",
-                    "type": "string"
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 },
                 "id": {
                     "description": "A unique identifier for a thing",
@@ -1191,22 +1510,34 @@
                 },
                 "index_in_file": {
                     "description": "The index of the sequence in the file",
-                    "type": "integer"
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
                 },
                 "input": {
                     "description": "The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.",
                     "items": {
                         "type": "integer"
                     },
-                    "type": "array"
+                    "type": [
+                        "array",
+                        "null"
+                    ]
                 },
                 "output": {
                     "description": "Identifier of the sequence that is the output of this source.",
-                    "type": "integer"
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
                 },
                 "output_name": {
                     "description": "Used to specify the name of the output sequence",
-                    "type": "string"
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 },
                 "sequence_file_format": {
                     "$ref": "#/$defs/SequenceFileFormat",
@@ -1217,7 +1548,10 @@
                     "enum": [
                         "UploadedFileSource"
                     ],
-                    "type": "string"
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 }
             },
             "required": [

@@ -1035,13 +1035,13 @@ referencing = ">=0.31.0"
 
 [[package]]
 name = "linkml"
-version = "1.7.8"
+version = "1.8.3"
 description = "Linked Open Data Modeling Language"
 optional = false
 python-versions = "<4.0.0,>=3.8.1"
 files = [
-    {file = "linkml-1.7.8-py3-none-any.whl", hash = "sha256:4b8ebe33b422517b08ca01802dc2899ac133c502a71d811c58fa6f4263130709"},
-    {file = "linkml-1.7.8.tar.gz", hash = "sha256:af48ee1ad6751c8d20de2832dbeefe225da9be5f39a7f8ea7821a691cf7c0148"},
+    {file = "linkml-1.8.3-py3-none-any.whl", hash = "sha256:ced1af3055312d15335cfe8846847c0491519c9af28cce5ebd8e4e26e4361754"},
+    {file = "linkml-1.8.3.tar.gz", hash = "sha256:6bf65f3d6c4ce9e88af0fda71b954ae4c6f5e885f8b4d74c1090380d565e76ba"},
 ]
 
 [package.dependencies]
@@ -1054,7 +1054,7 @@ jinja2 = ">=3.1.0"
 jsonasobj2 = ">=1.0.3,<2.0.0"
 jsonschema = {version = ">=4.0.0", extras = ["format"]}
 linkml-dataops = "*"
-linkml-runtime = ">=1.7.4"
+linkml-runtime = ">=1.8.1,<2.0.0"
 openpyxl = "*"
 parse = "*"
 prefixcommons = ">=0.1.7"
@@ -1095,13 +1095,13 @@ linkml-runtime = ">=1.1.6"
 
 [[package]]
 name = "linkml-runtime"
-version = "1.7.5"
+version = "1.8.2"
 description = "Runtime environment for LinkML, the Linked open data modeling language"
 optional = false
 python-versions = "<4.0,>=3.8"
 files = [
-    {file = "linkml_runtime-1.7.5-py3-none-any.whl", hash = "sha256:c58000c7c68fa97b7d76c50421a85a64e25f07eec5bcac464bc00c4cd79007a6"},
-    {file = "linkml_runtime-1.7.5.tar.gz", hash = "sha256:b31197a5398359441ae1ed43470c54377a1d08db961366dda670300dddcd71d7"},
+    {file = "linkml_runtime-1.8.2-py3-none-any.whl", hash = "sha256:a66d7b5b82cb57b2d6c603c75ca22db4bae0409e0fb2b9e7835f921a23716096"},
+    {file = "linkml_runtime-1.8.2.tar.gz", hash = "sha256:f5067aeeb96c8d3ca1761b55b82d927af88d810459d533fb1f7876a90224b130"},
 ]
 
 [package.dependencies]

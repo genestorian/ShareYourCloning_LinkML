@@ -466,12 +466,12 @@
         "http://purl.obolibrary.org/obo/OBI_0000732"
       ],
       "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/restriction_enzymes",
-      "multivalued": true,
       "owner": "RestrictionAndLigationSource",
       "domain_of": [
         "RestrictionAndLigationSource"
       ],
       "range": "string",
+      "multivalued": true,
       "@type": "SlotDefinition"
     },
     {
@@ -480,12 +480,12 @@
       "description": "The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.",
       "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
       "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/input",
-      "multivalued": true,
       "owner": "Source",
       "domain_of": [
         "Source"
       ],
       "range": "Sequence",
+      "multivalued": true,
       "@type": "SlotDefinition"
     },
     {
@@ -1021,7 +1021,6 @@
       "description": "The joins between the fragments in the assembly",
       "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
       "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/assembly",
-      "multivalued": true,
       "alias": "assembly",
       "owner": "AssemblySource",
       "domain_of": [
@@ -1029,6 +1028,7 @@
       ],
       "range": "AssemblyJoin",
       "required": true,
+      "multivalued": true,
       "inlined": true,
       "inlined_as_list": true,
       "@type": "SlotDefinition"
@@ -1038,7 +1038,6 @@
       "description": "The guide RNAs used in the CRISPR",
       "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
       "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/guides",
-      "multivalued": true,
       "alias": "guides",
       "owner": "CRISPRSource",
       "domain_of": [
@@ -1046,6 +1045,7 @@
       ],
       "range": "Primer",
       "required": true,
+      "multivalued": true,
       "@type": "SlotDefinition"
     },
     {
@@ -1081,7 +1081,6 @@
       "description": "The sequences that are used in the cloning strategy",
       "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
       "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/sequences",
-      "multivalued": true,
       "alias": "sequences",
       "owner": "CloningStrategy",
       "domain_of": [
@@ -1089,6 +1088,7 @@
       ],
       "range": "Sequence",
       "required": true,
+      "multivalued": true,
       "inlined": true,
       "inlined_as_list": true,
       "@type": "SlotDefinition"
@@ -1098,7 +1098,6 @@
       "description": "The sources of the sequences that are used in the cloning strategy",
       "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
       "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/sources",
-      "multivalued": true,
       "alias": "sources",
       "owner": "CloningStrategy",
       "domain_of": [
@@ -1106,6 +1105,7 @@
       ],
       "range": "Source",
       "required": true,
+      "multivalued": true,
       "inlined": true,
       "inlined_as_list": true,
       "@type": "SlotDefinition"
@@ -1115,13 +1115,13 @@
       "description": "The primers that are used in the cloning strategy",
       "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
       "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/primers",
-      "multivalued": true,
       "alias": "primers",
       "owner": "CloningStrategy",
       "domain_of": [
         "CloningStrategy"
       ],
       "range": "Primer",
+      "multivalued": true,
       "inlined": true,
       "inlined_as_list": true,
       "@type": "SlotDefinition"
@@ -1303,7 +1303,6 @@
       "is_a": "restriction_enzymes",
       "domain": "RestrictionAndLigationSource",
       "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/restriction_enzymes",
-      "multivalued": true,
       "alias": "restriction_enzymes",
       "owner": "RestrictionAndLigationSource",
       "domain_of": [
@@ -1313,6 +1312,7 @@
       "usage_slot_name": "restriction_enzymes",
       "range": "string",
       "required": true,
+      "multivalued": true,
       "@type": "SlotDefinition"
     }
   ],
@@ -1879,9 +1879,9 @@
         {
           "name": "assembly",
           "description": "The joins between the fragments in the assembly",
-          "multivalued": true,
           "range": "AssemblyJoin",
           "required": true,
+          "multivalued": true,
           "inlined_as_list": true,
           "@type": "SlotDefinition"
         }
@@ -2025,9 +2025,9 @@
         {
           "name": "guides",
           "description": "The guide RNAs used in the CRISPR",
-          "multivalued": true,
           "range": "Primer",
           "required": true,
+          "multivalued": true,
           "@type": "SlotDefinition"
         }
       ],
@@ -2103,26 +2103,26 @@
         {
           "name": "sequences",
           "description": "The sequences that are used in the cloning strategy",
-          "multivalued": true,
           "range": "Sequence",
           "required": true,
+          "multivalued": true,
           "inlined_as_list": true,
           "@type": "SlotDefinition"
         },
         {
           "name": "sources",
           "description": "The sources of the sequences that are used in the cloning strategy",
-          "multivalued": true,
           "range": "Source",
           "required": true,
+          "multivalued": true,
           "inlined_as_list": true,
           "@type": "SlotDefinition"
         },
         {
           "name": "primers",
           "description": "The primers that are used in the cloning strategy",
-          "multivalued": true,
           "range": "Primer",
+          "multivalued": true,
           "inlined_as_list": true,
           "@type": "SlotDefinition"
         },
@@ -2139,9 +2139,9 @@
   ],
   "metamodel_version": "1.7.0",
   "source_file": "shareyourcloning_linkml.yaml",
-  "source_file_date": "2024-08-07T16:34:45",
+  "source_file_date": "2024-09-04T13:14:09",
   "source_file_size": 15230,
-  "generation_date": "2024-08-07T16:34:49",
+  "generation_date": "2024-09-11T16:51:02",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/shareyourcloning_linkml.context.jsonld",
