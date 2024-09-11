@@ -15,8 +15,8 @@ type AddGeneIdSource
 type AssemblyFragment
   {
     sequence: Sequence!
-    leftLocation: SimpleSequenceLocation!
-    rightLocation: SimpleSequenceLocation!
+    leftLocation: SimpleSequenceLocation
+    rightLocation: SimpleSequenceLocation
     reverseComplemented: Boolean!
   }
 

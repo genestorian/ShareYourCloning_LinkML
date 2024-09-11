@@ -290,11 +290,9 @@ classes:
           required: true
       - left_location:
           range: SimpleSequenceLocation
-          required: true
           inlined: true
       - right_location:
           range: SimpleSequenceLocation
-          required: true
           inlined: true
       - reverse_complemented:
           range: boolean

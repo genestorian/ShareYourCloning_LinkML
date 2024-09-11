@@ -917,11 +917,11 @@ class AssemblyFragment(ConfiguredBaseModel):
     sequence: int = Field(
         ..., json_schema_extra={"linkml_meta": {"alias": "sequence", "domain_of": ["Primer", "AssemblyFragment"]}}
     )
-    left_location: SimpleSequenceLocation = Field(
-        ..., json_schema_extra={"linkml_meta": {"alias": "left_location", "domain_of": ["AssemblyFragment"]}}
+    left_location: Optional[SimpleSequenceLocation] = Field(
+        None, json_schema_extra={"linkml_meta": {"alias": "left_location", "domain_of": ["AssemblyFragment"]}}
     )
-    right_location: SimpleSequenceLocation = Field(
-        ..., json_schema_extra={"linkml_meta": {"alias": "right_location", "domain_of": ["AssemblyFragment"]}}
+    right_location: Optional[SimpleSequenceLocation] = Field(
+        None, json_schema_extra={"linkml_meta": {"alias": "right_location", "domain_of": ["AssemblyFragment"]}}
     )
     reverse_complemented: bool = Field(
         ...,

@@ -956,7 +956,6 @@
         "AssemblyFragment"
       ],
       "range": "SimpleSequenceLocation",
-      "required": true,
       "inlined": true,
       "@type": "SlotDefinition"
     },
@@ -970,7 +969,6 @@
         "AssemblyFragment"
       ],
       "range": "SimpleSequenceLocation",
-      "required": true,
       "inlined": true,
       "@type": "SlotDefinition"
     },
@@ -1790,14 +1788,12 @@
         {
           "name": "left_location",
           "range": "SimpleSequenceLocation",
-          "required": true,
           "inlined": true,
           "@type": "SlotDefinition"
         },
         {
           "name": "right_location",
           "range": "SimpleSequenceLocation",
-          "required": true,
           "inlined": true,
           "@type": "SlotDefinition"
         },
@@ -2098,9 +2094,9 @@
   ],
   "metamodel_version": "1.7.0",
   "source_file": "shareyourcloning_linkml.yaml",
-  "source_file_date": "2024-09-11T17:49:03",
-  "source_file_size": 14898,
-  "generation_date": "2024-09-11T17:50:57",
+  "source_file_date": "2024-09-11T18:23:02",
+  "source_file_size": 14848,
+  "generation_date": "2024-09-11T18:23:06",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/shareyourcloning_linkml.context.jsonld",
