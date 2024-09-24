@@ -25,7 +25,6 @@ classifiers = [
 [tool.poetry.dependencies]
 python = "^3.9"
 pydantic = "^2.7.1"
-linkml = "^1.8.3"
 
 [tool.poetry-dynamic-versioning]
 enable = true

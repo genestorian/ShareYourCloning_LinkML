@@ -80,8 +80,8 @@ linkml:Sparqlpath xsd:string
           ) ;
           rdf:type [ <AssemblySource> ]
        )
-    } OR @<GibsonAssemblySource> OR @<HomologousRecombinationSource> OR @<LigationSource> OR @<OverlapExtensionPCRLigationSource>
-    OR @<PCRSource> OR @<RestrictionAndLigationSource>
+    } OR @<GenomeEditingSource> OR @<GibsonAssemblySource> OR @<HomologousRecombinationSource> OR @<LigationSource> OR
+    @<OverlapExtensionPCRLigationSource> OR @<PCRSource> OR @<RestrictionAndLigationSource>
 )
 
 <BenchlingUrlSource> CLOSED {
@@ -124,6 +124,15 @@ linkml:Sparqlpath xsd:string
           <strand> @linkml:Integer
        ) ;
        rdf:type [ <GenomeCoordinatesSource> ]
+    )
+}
+
+<GenomeEditingSource> CLOSED {
+    (  $<GenomeEditingSource_tes> (  &<AssemblySource_tes> ;
+          rdf:type [ <AssemblySource> ] ? ;
+          <guides> @<Primer> +
+       ) ;
+       rdf:type [ <GenomeEditingSource> ]
     )
 }
 

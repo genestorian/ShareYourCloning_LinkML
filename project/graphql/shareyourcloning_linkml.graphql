@@ -82,6 +82,18 @@ type GenomeCoordinatesSource
     strand: Integer!
   }
 
+type GenomeEditingSource
+  {
+    id: Integer!
+    input: [Sequence]
+    output: Sequence
+    type: String
+    outputName: String
+    circular: Boolean
+    assembly: [AssemblyJoin]!
+    guides: [Primer]!
+  }
+
 type GibsonAssemblySource
   {
     id: Integer!
