@@ -527,6 +527,9 @@ enums:
       benchling:
         description: >-
           Benchling
+      snapgene:
+        description: >-
+          SnapGene plasmid library
 
   SequenceFileFormat:
     permissible_values:
