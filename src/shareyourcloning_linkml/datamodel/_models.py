@@ -299,6 +299,40 @@ class BenchlingUrlSource(RepositoryIdSource):
         return v
 
 
+class SnapGenePlasmidSource(RepositoryIdSource):
+    """
+    Represents the source of a sequence from the SnapGene plasmid library identified by a SnapGene subpath of https://www.snapgene.com/plasmids/
+    """
+
+    repository_name: RepositoryName = Field(...)
+    repository_id: str = Field(
+        ...,
+        description="""The subpath of the plasmid in the SnapGene plasmid library. Requesting the plasmid is possible with https://www.snapgene.com/local/fetch.php?set={category_path}&plasmid={plasmid['subpath']} where category_path is the left part of the subpath before the first / and plasmid is the subpath after the /.""",
+    )
+    input: Optional[List[int]] = Field(
+        default_factory=list,
+        description="""The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.""",
+    )
+    output: Optional[int] = Field(
+        None, description="""Identifier of the sequence that is the output of this source."""
+    )
+    type: Literal["SnapGenePlasmidSource"] = Field("SnapGenePlasmidSource", description="""The type of the source""")
+    output_name: Optional[str] = Field(None, description="""Used to specify the name of the output sequence""")
+    id: int = Field(..., description="""A unique identifier for a thing""")
+
+    @field_validator("repository_id")
+    def pattern_repository_id(cls, v):
+        pattern = re.compile(r"^.+\/.+$")
+        if isinstance(v, list):
+            for element in v:
+                if not pattern.match(element):
+                    raise ValueError(f"Invalid repository_id format: {element}")
+        elif isinstance(v, str):
+            if not pattern.match(v):
+                raise ValueError(f"Invalid repository_id format: {v}")
+        return v
+
+
 class GenomeCoordinatesSource(Source):
     """
     Represents the source of a sequence that is identified by genome coordinates, requested from NCBI
@@ -648,6 +682,7 @@ class CloningStrategy(ConfiguredBaseModel):
             RestrictionEnzymeDigestionSource,
             AddGeneIdSource,
             BenchlingUrlSource,
+            SnapGenePlasmidSource,
         ]
     ] = Field(
         default_factory=list, description="""The sources of the sequences that are used in the cloning strategy"""
@@ -672,6 +707,7 @@ UploadedFileSource.model_rebuild()
 RepositoryIdSource.model_rebuild()
 AddGeneIdSource.model_rebuild()
 BenchlingUrlSource.model_rebuild()
+SnapGenePlasmidSource.model_rebuild()
 GenomeCoordinatesSource.model_rebuild()
 SequenceCutSource.model_rebuild()
 RestrictionEnzymeDigestionSource.model_rebuild()
