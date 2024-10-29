@@ -248,17 +248,6 @@ message SimpleSequenceLocation
   integer end = 0
   integer strand = 0
  }
-// Represents the source of a sequence from the SnapGene plasmid library identified by a SnapGene subpath of https://www.snapgene.com/plasmids/
-message SnapGenePlasmidSource
- {
-  integer id = 0
- repeated  sequence input = 0
-  sequence output = 0
-  string type = 0
-  string outputName = 0
-  repositoryName repositoryName = 0
-  string repositoryId = 0
- }
 // A sequence (may have features) defined by the content of a text file
 message TextFileSequence
  {

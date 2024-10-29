@@ -229,7 +229,7 @@ linkml:Sparqlpath xsd:string
           ) ;
           rdf:type [ <RepositoryIdSource> ]
        )
-    } OR @<AddGeneIdSource> OR @<BenchlingUrlSource> OR @<SnapGenePlasmidSource>
+    } OR @<AddGeneIdSource> OR @<BenchlingUrlSource>
 )
 
 <RestrictionAndLigationSource> CLOSED {
@@ -301,15 +301,6 @@ linkml:Sparqlpath xsd:string
           <strand> @linkml:Integer ?
        ) ;
        rdf:type [ <SimpleSequenceLocation> ] ?
-    )
-}
-
-<SnapGenePlasmidSource> CLOSED {
-    (  $<SnapGenePlasmidSource_tes> (  &<RepositoryIdSource_tes> ;
-          rdf:type [ <RepositoryIdSource> ] ? ;
-          <repository_id> @linkml:String
-       ) ;
-       rdf:type [ <SnapGenePlasmidSource> ]
     )
 }
 

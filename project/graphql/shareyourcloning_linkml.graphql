@@ -255,17 +255,6 @@ type SimpleSequenceLocation
     strand: Integer
   }
 
-type SnapGenePlasmidSource
-  {
-    id: Integer!
-    input: [Sequence]
-    output: Sequence
-    type: String
-    outputName: String
-    repositoryName: RepositoryName!
-    repositoryId: String!
-  }
-
 interface Source
   {
     id: Integer!

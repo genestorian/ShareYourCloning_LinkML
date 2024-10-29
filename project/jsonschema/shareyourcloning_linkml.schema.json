@@ -344,9 +344,6 @@
                             },
                             {
                                 "$ref": "#/$defs/BenchlingUrlSource"
-                            },
-                            {
-                                "$ref": "#/$defs/SnapGenePlasmidSource"
                             }
                         ]
                     },
@@ -1136,53 +1133,6 @@
                 "end"
             ],
             "title": "SimpleSequenceLocation",
-            "type": "object"
-        },
-        "SnapGenePlasmidSource": {
-            "additionalProperties": false,
-            "description": "Represents the source of a sequence from the SnapGene plasmid library identified by a SnapGene subpath of https://www.snapgene.com/plasmids/",
-            "properties": {
-                "id": {
-                    "description": "A unique identifier for a thing",
-                    "type": "integer"
-                },
-                "input": {
-                    "description": "The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.",
-                    "items": {
-                        "type": "integer"
-                    },
-                    "type": "array"
-                },
-                "output": {
-                    "description": "Identifier of the sequence that is the output of this source.",
-                    "type": "integer"
-                },
-                "output_name": {
-                    "description": "Used to specify the name of the output sequence",
-                    "type": "string"
-                },
-                "repository_id": {
-                    "description": "The subpath of the plasmid in the SnapGene plasmid library. Requesting the plasmid is possible with https://www.snapgene.com/local/fetch.php?set={category_path}&plasmid={plasmid['subpath']} where category_path is the left part of the subpath before the first / and plasmid is the subpath after the /.",
-                    "pattern": "^.+\\/.+$",
-                    "type": "string"
-                },
-                "repository_name": {
-                    "$ref": "#/$defs/RepositoryName"
-                },
-                "type": {
-                    "description": "The type of the source",
-                    "enum": [
-                        "SnapGenePlasmidSource"
-                    ],
-                    "type": "string"
-                }
-            },
-            "required": [
-                "repository_name",
-                "repository_id",
-                "id"
-            ],
-            "title": "SnapGenePlasmidSource",
             "type": "object"
         },
         "TextFileSequence": {

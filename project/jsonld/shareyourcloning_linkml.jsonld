@@ -1294,25 +1294,6 @@
       "@type": "SlotDefinition"
     },
     {
-      "name": "SnapGenePlasmidSource_repository_id",
-      "description": "The subpath of the plasmid in the SnapGene plasmid library. Requesting the plasmid is possible with https://www.snapgene.com/local/fetch.php?set={category_path}&plasmid={plasmid['subpath']} where category_path is the left part of the subpath before the first / and plasmid is the subpath after the /.",
-      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
-      "is_a": "repositoryIdSource__repository_id",
-      "domain": "SnapGenePlasmidSource",
-      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/repository_id",
-      "alias": "repository_id",
-      "owner": "SnapGenePlasmidSource",
-      "domain_of": [
-        "SnapGenePlasmidSource"
-      ],
-      "is_usage_slot": true,
-      "usage_slot_name": "repository_id",
-      "range": "string",
-      "required": true,
-      "pattern": "^.+\\/.+$",
-      "@type": "SlotDefinition"
-    },
-    {
       "name": "RestrictionAndLigationSource_restriction_enzymes",
       "definition_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/restriction_enzymes",
       "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
@@ -1632,25 +1613,6 @@
       ],
       "slot_usage": {},
       "class_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/BenchlingUrlSource",
-      "@type": "ClassDefinition"
-    },
-    {
-      "name": "SnapGenePlasmidSource",
-      "definition_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/SnapGenePlasmidSource",
-      "description": "Represents the source of a sequence from the SnapGene plasmid library identified by a SnapGene subpath of https://www.snapgene.com/plasmids/",
-      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
-      "is_a": "RepositoryIdSource",
-      "slots": [
-        "id",
-        "input",
-        "output",
-        "type",
-        "output_name",
-        "repositoryIdSource__repository_name",
-        "SnapGenePlasmidSource_repository_id"
-      ],
-      "slot_usage": {},
-      "class_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/SnapGenePlasmidSource",
       "@type": "ClassDefinition"
     },
     {
@@ -2177,9 +2139,9 @@
   ],
   "metamodel_version": "1.7.0",
   "source_file": "shareyourcloning_linkml.yaml",
-  "source_file_date": "2024-10-29T08:37:03",
-  "source_file_size": 15876,
-  "generation_date": "2024-10-29T08:39:13",
+  "source_file_date": "2024-08-07T16:34:45",
+  "source_file_size": 15230,
+  "generation_date": "2024-08-07T16:34:49",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/shareyourcloning_linkml.context.jsonld",
