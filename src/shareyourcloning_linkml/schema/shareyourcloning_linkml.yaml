@@ -162,11 +162,8 @@ classes:
       - repository_name:
           range: RepositoryName
           required: true
-      - repository_id:
-          range: string
-          description: >-
-            The id of the sequence in the repository
-          required: true
+    slots:
+      - repository_id
 
   AddGeneIdSource:
     is_a: RepositoryIdSource
@@ -284,35 +281,23 @@ classes:
             The strand of the location, should be 1 or -1 or null
           required: false
 
-  AssemblyJoinComponent:
+  AssemblyFragment:
     description: >-
-      Represents a component of a join between two fragments in an assembly
+      Represents a fragment in an assembly
     attributes:
       - sequence:
           range: Sequence
           required: true
-      - location:
+      - left_location:
           range: SimpleSequenceLocation
-          description: >-
-            Location of the overlap in the fragment. Might be
-            an empty location (start == end) to indicate blunt join.
-          required: true
+          inlined: true
+      - right_location:
+          range: SimpleSequenceLocation
           inlined: true
       - reverse_complemented:
           range: boolean
           description: >-
-            Whether the sequence is reverse complemented in the join
-          required: true
-
-  AssemblyJoin:
-    description: >-
-      Represents a joint between two fragments in an assembly
-    attributes:
-      - left:
-          range: AssemblyJoinComponent
-          required: true
-      - right:
-          range: AssemblyJoinComponent
+            Whether the sequence is reverse complemented in the assembly
           required: true
 
   AssemblySource:
@@ -325,12 +310,12 @@ classes:
           description: >-
             Whether the assembly is circular or not
       - assembly:
-          range: AssemblyJoin
+          range: AssemblyFragment
           required: true
           multivalued: true
           inlined_as_list: true
           description: >-
-            The joins between the fragments in the assembly
+            A list of the fragments that are assembled, in order
 
   PCRSource:
     is_a: AssemblySource
@@ -510,6 +495,12 @@ slots:
     description: >-
       The URL of a sequence file
     pattern: ^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)$
+
+  repository_id:
+    range: string
+    description: >-
+      The id of the sequence in the repository
+    required: true
 
 enums:
   RepositoryName:

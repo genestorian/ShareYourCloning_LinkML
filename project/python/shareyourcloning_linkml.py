@@ -1,5 +1,5 @@
 # Auto generated from shareyourcloning_linkml.yaml by pythongen.py version: 0.0.1
-# Generation date: 2024-08-07T16:34:50
+# Generation date: 2024-09-11T18:23:06
 # Schema: ShareYourCloning_LinkML
 #
 # id: https://w3id.org/genestorian/ShareYourCloning_LinkML
@@ -11,7 +11,7 @@ import re
 from jsonasobj2 import JsonObj, as_dict
 from typing import Optional, List, Union, Dict, ClassVar, Any
 from dataclasses import dataclass
-from datetime import date, datetime
+from datetime import date, datetime, time
 from linkml_runtime.linkml_model.meta import EnumDefinition, PermissibleValue, PvFormulaOptions
 
 from linkml_runtime.utils.slot import Slot
@@ -140,7 +140,7 @@ class PolymeraseExtensionSourceId(SourceId):
     pass
 
 
-@dataclass
+@dataclass(repr=False)
 class NamedThing(YAMLRoot):
     _inherited_slots: ClassVar[List[str]] = []
 
@@ -160,7 +160,7 @@ class NamedThing(YAMLRoot):
         super().__post_init__(**kwargs)
 
 
-@dataclass
+@dataclass(repr=False)
 class Sequence(NamedThing):
     """
     Represents a sequence
@@ -203,7 +203,7 @@ class Sequence(NamedThing):
             return super().__new__(target_cls, *args, **kwargs)
 
 
-@dataclass
+@dataclass(repr=False)
 class TextFileSequence(Sequence):
     """
     A sequence (may have features) defined by the content of a text file
@@ -246,7 +246,7 @@ class TextFileSequence(Sequence):
         self.type = str(self.class_name)
 
 
-@dataclass
+@dataclass(repr=False)
 class Primer(Sequence):
     """
     An oligonucleotide or primer
@@ -279,7 +279,7 @@ class Primer(Sequence):
         self.type = str(self.class_name)
 
 
-@dataclass
+@dataclass(repr=False)
 class SequenceCut(YAMLRoot):
     """
     Represents a cut in a DNA sequence
@@ -309,7 +309,7 @@ class SequenceCut(YAMLRoot):
         super().__post_init__(**kwargs)
 
 
-@dataclass
+@dataclass(repr=False)
 class RestrictionSequenceCut(SequenceCut):
     """
     Represents a cut in a DNA sequence that is made by a restriction enzyme
@@ -335,7 +335,7 @@ class RestrictionSequenceCut(SequenceCut):
         super().__post_init__(**kwargs)
 
 
-@dataclass
+@dataclass(repr=False)
 class Source(NamedThing):
     """
     Represents the source of a sequence
@@ -386,7 +386,7 @@ class Source(NamedThing):
             return super().__new__(target_cls, *args, **kwargs)
 
 
-@dataclass
+@dataclass(repr=False)
 class ManuallyTypedSource(Source):
     """
     Represents the source of a sequence that is manually typed by the user
@@ -429,7 +429,7 @@ class ManuallyTypedSource(Source):
         self.type = str(self.class_name)
 
 
-@dataclass
+@dataclass(repr=False)
 class UploadedFileSource(Source):
     """
     Represents the source of a sequence that is uploaded as a file
@@ -472,7 +472,7 @@ class UploadedFileSource(Source):
         self.type = str(self.class_name)
 
 
-@dataclass
+@dataclass(repr=False)
 class RepositoryIdSource(Source):
     """
     Represents the source of a sequence that is identified by a repository id
@@ -486,8 +486,8 @@ class RepositoryIdSource(Source):
     class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.RepositoryIdSource
 
     id: Union[int, RepositoryIdSourceId] = None
-    repository_name: Union[str, "RepositoryName"] = None
     repository_id: str = None
+    repository_name: Union[str, "RepositoryName"] = None
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
         if self._is_empty(self.id):
@@ -495,21 +495,21 @@ class RepositoryIdSource(Source):
         if not isinstance(self.id, RepositoryIdSourceId):
             self.id = RepositoryIdSourceId(self.id)
 
-        if self._is_empty(self.repository_name):
-            self.MissingRequiredField("repository_name")
-        if not isinstance(self.repository_name, RepositoryName):
-            self.repository_name = RepositoryName(self.repository_name)
-
         if self._is_empty(self.repository_id):
             self.MissingRequiredField("repository_id")
         if not isinstance(self.repository_id, str):
             self.repository_id = str(self.repository_id)
 
+        if self._is_empty(self.repository_name):
+            self.MissingRequiredField("repository_name")
+        if not isinstance(self.repository_name, RepositoryName):
+            self.repository_name = RepositoryName(self.repository_name)
+
         super().__post_init__(**kwargs)
         self.type = str(self.class_name)
 
 
-@dataclass
+@dataclass(repr=False)
 class AddGeneIdSource(RepositoryIdSource):
     """
     Represents the source of a sequence that is identified by an AddGene id
@@ -523,8 +523,8 @@ class AddGeneIdSource(RepositoryIdSource):
     class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.AddGeneIdSource
 
     id: Union[int, AddGeneIdSourceId] = None
-    repository_name: Union[str, "RepositoryName"] = None
     repository_id: str = None
+    repository_name: Union[str, "RepositoryName"] = None
     sequence_file_url: Optional[str] = None
     addgene_sequence_type: Optional[Union[str, "AddGeneSequenceType"]] = None
 
@@ -544,7 +544,7 @@ class AddGeneIdSource(RepositoryIdSource):
         self.type = str(self.class_name)
 
 
-@dataclass
+@dataclass(repr=False)
 class BenchlingUrlSource(RepositoryIdSource):
     """
     Represents the source of a sequence that is identified by a Benchling URL
@@ -576,7 +576,7 @@ class BenchlingUrlSource(RepositoryIdSource):
         self.type = str(self.class_name)
 
 
-@dataclass
+@dataclass(repr=False)
 class GenomeCoordinatesSource(Source):
     """
     Represents the source of a sequence that is identified by genome coordinates, requested from NCBI
@@ -637,7 +637,7 @@ class GenomeCoordinatesSource(Source):
         self.type = str(self.class_name)
 
 
-@dataclass
+@dataclass(repr=False)
 class SequenceCutSource(Source):
     """
     Represents the source of a sequence that is a subfragment of another sequence, generated by sequence cutting.
@@ -670,7 +670,7 @@ class SequenceCutSource(Source):
         self.type = str(self.class_name)
 
 
-@dataclass
+@dataclass(repr=False)
 class RestrictionEnzymeDigestionSource(SequenceCutSource):
     """
     Represents the source of a sequence that is a subfragment of another sequence, generated by sequence cutting using
@@ -704,7 +704,7 @@ class RestrictionEnzymeDigestionSource(SequenceCutSource):
         self.type = str(self.class_name)
 
 
-@dataclass
+@dataclass(repr=False)
 class SimpleSequenceLocation(YAMLRoot):
     """
     Represents a location within a sequence, for now support for ranges only
@@ -738,22 +738,23 @@ class SimpleSequenceLocation(YAMLRoot):
         super().__post_init__(**kwargs)
 
 
-@dataclass
-class AssemblyJoinComponent(YAMLRoot):
+@dataclass(repr=False)
+class AssemblyFragment(YAMLRoot):
     """
-    Represents a component of a join between two fragments in an assembly
+    Represents a fragment in an assembly
     """
 
     _inherited_slots: ClassVar[List[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML["AssemblyJoinComponent"]
-    class_class_curie: ClassVar[str] = "shareyourcloning_linkml:AssemblyJoinComponent"
-    class_name: ClassVar[str] = "AssemblyJoinComponent"
-    class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.AssemblyJoinComponent
+    class_class_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML["AssemblyFragment"]
+    class_class_curie: ClassVar[str] = "shareyourcloning_linkml:AssemblyFragment"
+    class_name: ClassVar[str] = "AssemblyFragment"
+    class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.AssemblyFragment
 
     sequence: Union[int, SequenceId] = None
-    location: Union[dict, SimpleSequenceLocation] = None
     reverse_complemented: Union[bool, Bool] = None
+    left_location: Optional[Union[dict, SimpleSequenceLocation]] = None
+    right_location: Optional[Union[dict, SimpleSequenceLocation]] = None
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
         if self._is_empty(self.sequence):
@@ -761,50 +762,21 @@ class AssemblyJoinComponent(YAMLRoot):
         if not isinstance(self.sequence, SequenceId):
             self.sequence = SequenceId(self.sequence)
 
-        if self._is_empty(self.location):
-            self.MissingRequiredField("location")
-        if not isinstance(self.location, SimpleSequenceLocation):
-            self.location = SimpleSequenceLocation(**as_dict(self.location))
-
         if self._is_empty(self.reverse_complemented):
             self.MissingRequiredField("reverse_complemented")
         if not isinstance(self.reverse_complemented, Bool):
             self.reverse_complemented = Bool(self.reverse_complemented)
 
-        super().__post_init__(**kwargs)
+        if self.left_location is not None and not isinstance(self.left_location, SimpleSequenceLocation):
+            self.left_location = SimpleSequenceLocation(**as_dict(self.left_location))
 
-
-@dataclass
-class AssemblyJoin(YAMLRoot):
-    """
-    Represents a joint between two fragments in an assembly
-    """
-
-    _inherited_slots: ClassVar[List[str]] = []
-
-    class_class_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML["AssemblyJoin"]
-    class_class_curie: ClassVar[str] = "shareyourcloning_linkml:AssemblyJoin"
-    class_name: ClassVar[str] = "AssemblyJoin"
-    class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.AssemblyJoin
-
-    left: Union[dict, AssemblyJoinComponent] = None
-    right: Union[dict, AssemblyJoinComponent] = None
-
-    def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
-        if self._is_empty(self.left):
-            self.MissingRequiredField("left")
-        if not isinstance(self.left, AssemblyJoinComponent):
-            self.left = AssemblyJoinComponent(**as_dict(self.left))
-
-        if self._is_empty(self.right):
-            self.MissingRequiredField("right")
-        if not isinstance(self.right, AssemblyJoinComponent):
-            self.right = AssemblyJoinComponent(**as_dict(self.right))
+        if self.right_location is not None and not isinstance(self.right_location, SimpleSequenceLocation):
+            self.right_location = SimpleSequenceLocation(**as_dict(self.right_location))
 
         super().__post_init__(**kwargs)
 
 
-@dataclass
+@dataclass(repr=False)
 class AssemblySource(Source):
     """
     Represents the source of a sequence that is an assembly of other sequences
@@ -818,7 +790,7 @@ class AssemblySource(Source):
     class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.AssemblySource
 
     id: Union[int, AssemblySourceId] = None
-    assembly: Union[Union[dict, AssemblyJoin], List[Union[dict, AssemblyJoin]]] = None
+    assembly: Union[Union[dict, AssemblyFragment], List[Union[dict, AssemblyFragment]]] = None
     circular: Optional[Union[bool, Bool]] = None
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
@@ -831,7 +803,9 @@ class AssemblySource(Source):
             self.MissingRequiredField("assembly")
         if not isinstance(self.assembly, list):
             self.assembly = [self.assembly] if self.assembly is not None else []
-        self.assembly = [v if isinstance(v, AssemblyJoin) else AssemblyJoin(**as_dict(v)) for v in self.assembly]
+        self.assembly = [
+            v if isinstance(v, AssemblyFragment) else AssemblyFragment(**as_dict(v)) for v in self.assembly
+        ]
 
         if self.circular is not None and not isinstance(self.circular, Bool):
             self.circular = Bool(self.circular)
@@ -840,7 +814,7 @@ class AssemblySource(Source):
         self.type = str(self.class_name)
 
 
-@dataclass
+@dataclass(repr=False)
 class PCRSource(AssemblySource):
     """
     Represents the source of a sequence that is generated by PCR
@@ -854,7 +828,7 @@ class PCRSource(AssemblySource):
     class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.PCRSource
 
     id: Union[int, PCRSourceId] = None
-    assembly: Union[Union[dict, AssemblyJoin], List[Union[dict, AssemblyJoin]]] = None
+    assembly: Union[Union[dict, AssemblyFragment], List[Union[dict, AssemblyFragment]]] = None
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
         if self._is_empty(self.id):
@@ -866,7 +840,7 @@ class PCRSource(AssemblySource):
         self.type = str(self.class_name)
 
 
-@dataclass
+@dataclass(repr=False)
 class LigationSource(AssemblySource):
     """
     Represents the source of a sequence that is generated by ligation with sticky or blunt ends.
@@ -880,7 +854,7 @@ class LigationSource(AssemblySource):
     class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.LigationSource
 
     id: Union[int, LigationSourceId] = None
-    assembly: Union[Union[dict, AssemblyJoin], List[Union[dict, AssemblyJoin]]] = None
+    assembly: Union[Union[dict, AssemblyFragment], List[Union[dict, AssemblyFragment]]] = None
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
         if self._is_empty(self.id):
@@ -892,7 +866,7 @@ class LigationSource(AssemblySource):
         self.type = str(self.class_name)
 
 
-@dataclass
+@dataclass(repr=False)
 class HomologousRecombinationSource(AssemblySource):
     """
     Represents the source of a sequence that is generated by homologous recombination
@@ -906,7 +880,7 @@ class HomologousRecombinationSource(AssemblySource):
     class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.HomologousRecombinationSource
 
     id: Union[int, HomologousRecombinationSourceId] = None
-    assembly: Union[Union[dict, AssemblyJoin], List[Union[dict, AssemblyJoin]]] = None
+    assembly: Union[Union[dict, AssemblyFragment], List[Union[dict, AssemblyFragment]]] = None
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
         if self._is_empty(self.id):
@@ -918,7 +892,7 @@ class HomologousRecombinationSource(AssemblySource):
         self.type = str(self.class_name)
 
 
-@dataclass
+@dataclass(repr=False)
 class GibsonAssemblySource(AssemblySource):
     """
     Represents the source of a sequence that is generated by Gibson assembly
@@ -932,7 +906,7 @@ class GibsonAssemblySource(AssemblySource):
     class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.GibsonAssemblySource
 
     id: Union[int, GibsonAssemblySourceId] = None
-    assembly: Union[Union[dict, AssemblyJoin], List[Union[dict, AssemblyJoin]]] = None
+    assembly: Union[Union[dict, AssemblyFragment], List[Union[dict, AssemblyFragment]]] = None
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
         if self._is_empty(self.id):
@@ -944,7 +918,7 @@ class GibsonAssemblySource(AssemblySource):
         self.type = str(self.class_name)
 
 
-@dataclass
+@dataclass(repr=False)
 class OverlapExtensionPCRLigationSource(AssemblySource):
     """
     Represents the source of a sequence that is generated by ligation of PCR products as part of overlap extension
@@ -959,7 +933,7 @@ class OverlapExtensionPCRLigationSource(AssemblySource):
     class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.OverlapExtensionPCRLigationSource
 
     id: Union[int, OverlapExtensionPCRLigationSourceId] = None
-    assembly: Union[Union[dict, AssemblyJoin], List[Union[dict, AssemblyJoin]]] = None
+    assembly: Union[Union[dict, AssemblyFragment], List[Union[dict, AssemblyFragment]]] = None
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
         if self._is_empty(self.id):
@@ -971,7 +945,7 @@ class OverlapExtensionPCRLigationSource(AssemblySource):
         self.type = str(self.class_name)
 
 
-@dataclass
+@dataclass(repr=False)
 class RestrictionAndLigationSource(AssemblySource):
     """
     Represents the source of a sequence that is generated by restriction and ligation
@@ -985,7 +959,7 @@ class RestrictionAndLigationSource(AssemblySource):
     class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.RestrictionAndLigationSource
 
     id: Union[int, RestrictionAndLigationSourceId] = None
-    assembly: Union[Union[dict, AssemblyJoin], List[Union[dict, AssemblyJoin]]] = None
+    assembly: Union[Union[dict, AssemblyFragment], List[Union[dict, AssemblyFragment]]] = None
     restriction_enzymes: Union[str, List[str]] = None
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
@@ -1004,7 +978,7 @@ class RestrictionAndLigationSource(AssemblySource):
         self.type = str(self.class_name)
 
 
-@dataclass
+@dataclass(repr=False)
 class CRISPRSource(HomologousRecombinationSource):
     """
     Represents the source of a sequence that is generated by CRISPR
@@ -1018,7 +992,7 @@ class CRISPRSource(HomologousRecombinationSource):
     class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.CRISPRSource
 
     id: Union[int, CRISPRSourceId] = None
-    assembly: Union[Union[dict, AssemblyJoin], List[Union[dict, AssemblyJoin]]] = None
+    assembly: Union[Union[dict, AssemblyFragment], List[Union[dict, AssemblyFragment]]] = None
     guides: Union[Union[int, PrimerId], List[Union[int, PrimerId]]] = None
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
@@ -1037,7 +1011,7 @@ class CRISPRSource(HomologousRecombinationSource):
         self.type = str(self.class_name)
 
 
-@dataclass
+@dataclass(repr=False)
 class OligoHybridizationSource(Source):
     """
     Represents the source of a sequence that is generated by oligo hybridization
@@ -1078,7 +1052,7 @@ class OligoHybridizationSource(Source):
         self.type = str(self.class_name)
 
 
-@dataclass
+@dataclass(repr=False)
 class PolymeraseExtensionSource(Source):
     """
     Represents the source of a sequence that is generated by polymerase extension
@@ -1103,7 +1077,7 @@ class PolymeraseExtensionSource(Source):
         self.type = str(self.class_name)
 
 
-@dataclass
+@dataclass(repr=False)
 class CloningStrategy(YAMLRoot):
     """
     Represents a cloning strategy
@@ -1300,6 +1274,15 @@ slots.sequence_file_url = Slot(
     ),
 )
 
+slots.repository_id = Slot(
+    uri=SHAREYOURCLONING_LINKML.repository_id,
+    name="repository_id",
+    curie=SHAREYOURCLONING_LINKML.curie("repository_id"),
+    model_uri=SHAREYOURCLONING_LINKML.repository_id,
+    domain=None,
+    range=str,
+)
+
 slots.textFileSequence__file_content = Slot(
     uri=SHAREYOURCLONING_LINKML.file_content,
     name="textFileSequence__file_content",
@@ -1390,15 +1373,6 @@ slots.repositoryIdSource__repository_name = Slot(
     model_uri=SHAREYOURCLONING_LINKML.repositoryIdSource__repository_name,
     domain=None,
     range=Union[str, "RepositoryName"],
-)
-
-slots.repositoryIdSource__repository_id = Slot(
-    uri=SHAREYOURCLONING_LINKML.repository_id,
-    name="repositoryIdSource__repository_id",
-    curie=SHAREYOURCLONING_LINKML.curie("repository_id"),
-    model_uri=SHAREYOURCLONING_LINKML.repositoryIdSource__repository_id,
-    domain=None,
-    range=str,
 )
 
 slots.addGeneIdSource__addgene_sequence_type = Slot(
@@ -1536,49 +1510,40 @@ slots.simpleSequenceLocation__strand = Slot(
     range=Optional[int],
 )
 
-slots.assemblyJoinComponent__sequence = Slot(
+slots.assemblyFragment__sequence = Slot(
     uri=SHAREYOURCLONING_LINKML.sequence,
-    name="assemblyJoinComponent__sequence",
+    name="assemblyFragment__sequence",
     curie=SHAREYOURCLONING_LINKML.curie("sequence"),
-    model_uri=SHAREYOURCLONING_LINKML.assemblyJoinComponent__sequence,
+    model_uri=SHAREYOURCLONING_LINKML.assemblyFragment__sequence,
     domain=None,
     range=Union[int, SequenceId],
 )
 
-slots.assemblyJoinComponent__location = Slot(
-    uri=SHAREYOURCLONING_LINKML.location,
-    name="assemblyJoinComponent__location",
-    curie=SHAREYOURCLONING_LINKML.curie("location"),
-    model_uri=SHAREYOURCLONING_LINKML.assemblyJoinComponent__location,
+slots.assemblyFragment__left_location = Slot(
+    uri=SHAREYOURCLONING_LINKML.left_location,
+    name="assemblyFragment__left_location",
+    curie=SHAREYOURCLONING_LINKML.curie("left_location"),
+    model_uri=SHAREYOURCLONING_LINKML.assemblyFragment__left_location,
     domain=None,
-    range=Union[dict, SimpleSequenceLocation],
+    range=Optional[Union[dict, SimpleSequenceLocation]],
 )
 
-slots.assemblyJoinComponent__reverse_complemented = Slot(
+slots.assemblyFragment__right_location = Slot(
+    uri=SHAREYOURCLONING_LINKML.right_location,
+    name="assemblyFragment__right_location",
+    curie=SHAREYOURCLONING_LINKML.curie("right_location"),
+    model_uri=SHAREYOURCLONING_LINKML.assemblyFragment__right_location,
+    domain=None,
+    range=Optional[Union[dict, SimpleSequenceLocation]],
+)
+
+slots.assemblyFragment__reverse_complemented = Slot(
     uri=SHAREYOURCLONING_LINKML.reverse_complemented,
-    name="assemblyJoinComponent__reverse_complemented",
+    name="assemblyFragment__reverse_complemented",
     curie=SHAREYOURCLONING_LINKML.curie("reverse_complemented"),
-    model_uri=SHAREYOURCLONING_LINKML.assemblyJoinComponent__reverse_complemented,
+    model_uri=SHAREYOURCLONING_LINKML.assemblyFragment__reverse_complemented,
     domain=None,
     range=Union[bool, Bool],
-)
-
-slots.assemblyJoin__left = Slot(
-    uri=SHAREYOURCLONING_LINKML.left,
-    name="assemblyJoin__left",
-    curie=SHAREYOURCLONING_LINKML.curie("left"),
-    model_uri=SHAREYOURCLONING_LINKML.assemblyJoin__left,
-    domain=None,
-    range=Union[dict, AssemblyJoinComponent],
-)
-
-slots.assemblyJoin__right = Slot(
-    uri=SHAREYOURCLONING_LINKML.right,
-    name="assemblyJoin__right",
-    curie=SHAREYOURCLONING_LINKML.curie("right"),
-    model_uri=SHAREYOURCLONING_LINKML.assemblyJoin__right,
-    domain=None,
-    range=Union[dict, AssemblyJoinComponent],
 )
 
 slots.assemblySource__circular = Slot(
@@ -1596,7 +1561,7 @@ slots.assemblySource__assembly = Slot(
     curie=SHAREYOURCLONING_LINKML.curie("assembly"),
     model_uri=SHAREYOURCLONING_LINKML.assemblySource__assembly,
     domain=None,
-    range=Union[Union[dict, AssemblyJoin], List[Union[dict, AssemblyJoin]]],
+    range=Union[Union[dict, AssemblyFragment], List[Union[dict, AssemblyFragment]]],
 )
 
 slots.cRISPRSource__guides = Slot(

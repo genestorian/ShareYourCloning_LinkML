@@ -1,3 +1,4 @@
+# metamodel_version: 1.7.0
 BASE <https://w3id.org/genestorian/ShareYourCloning_LinkML/>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
@@ -54,20 +55,13 @@ linkml:Sparqlpath xsd:string
     )
 }
 
-<AssemblyJoin> CLOSED {
-    (  $<AssemblyJoin_tes> (  <left> @<AssemblyJoinComponent> ;
-          <right> @<AssemblyJoinComponent>
-       ) ;
-       rdf:type [ <AssemblyJoin> ] ?
-    )
-}
-
-<AssemblyJoinComponent> CLOSED {
-    (  $<AssemblyJoinComponent_tes> (  <sequence> @<Sequence> ;
-          <location> @<SimpleSequenceLocation> ;
+<AssemblyFragment> CLOSED {
+    (  $<AssemblyFragment_tes> (  <sequence> @<Sequence> ;
+          <left_location> @<SimpleSequenceLocation> ? ;
+          <right_location> @<SimpleSequenceLocation> ? ;
           <reverse_complemented> @linkml:Boolean
        ) ;
-       rdf:type [ <AssemblyJoinComponent> ] ?
+       rdf:type [ <AssemblyFragment> ] ?
     )
 }
 
@@ -76,7 +70,7 @@ linkml:Sparqlpath xsd:string
        (  $<AssemblySource_tes> (  &<Source_tes> ;
              rdf:type [ <Source> ] ? ;
              <circular> @linkml:Boolean ? ;
-             <assembly> @<AssemblyJoin> +
+             <assembly> @<AssemblyFragment> +
           ) ;
           rdf:type [ <AssemblySource> ]
        )
@@ -222,10 +216,10 @@ linkml:Sparqlpath xsd:string
     CLOSED {
        (  $<RepositoryIdSource_tes> (  &<Source_tes> ;
              rdf:type [ <Source> ] ? ;
+             <repository_id> @linkml:String ;
              <repository_name> [ <https://w3id.org/genestorian/ShareYourCloning_LinkML/RepositoryName#addgene>
                 <https://w3id.org/genestorian/ShareYourCloning_LinkML/RepositoryName#genbank>
-                <https://w3id.org/genestorian/ShareYourCloning_LinkML/RepositoryName#benchling> ] ;
-             <repository_id> @linkml:String
+                <https://w3id.org/genestorian/ShareYourCloning_LinkML/RepositoryName#benchling> ]
           ) ;
           rdf:type [ <RepositoryIdSource> ]
        )

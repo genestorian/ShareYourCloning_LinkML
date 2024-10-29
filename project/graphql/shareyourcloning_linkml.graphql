@@ -1,3 +1,4 @@
+# metamodel_version: 1.7.0
 type AddGeneIdSource
   {
     id: Integer!
@@ -5,22 +6,17 @@ type AddGeneIdSource
     output: Sequence
     type: String
     outputName: String
-    repositoryName: RepositoryName!
     repositoryId: String!
+    repositoryName: RepositoryName!
     sequenceFileUrl: String
     addgeneSequenceType: AddGeneSequenceType
   }
 
-type AssemblyJoin
-  {
-    left: AssemblyJoinComponent!
-    right: AssemblyJoinComponent!
-  }
-
-type AssemblyJoinComponent
+type AssemblyFragment
   {
     sequence: Sequence!
-    location: SimpleSequenceLocation!
+    leftLocation: SimpleSequenceLocation
+    rightLocation: SimpleSequenceLocation
     reverseComplemented: Boolean!
   }
 
@@ -32,7 +28,7 @@ type AssemblySource
     type: String
     outputName: String
     circular: Boolean
-    assembly: [AssemblyJoin]!
+    assembly: [AssemblyFragment]!
   }
 
 type BenchlingUrlSource
@@ -62,7 +58,7 @@ type CRISPRSource
     type: String
     outputName: String
     circular: Boolean
-    assembly: [AssemblyJoin]!
+    assembly: [AssemblyFragment]!
     guides: [Primer]!
   }
 
@@ -90,7 +86,7 @@ type GibsonAssemblySource
     type: String
     outputName: String
     circular: Boolean
-    assembly: [AssemblyJoin]!
+    assembly: [AssemblyFragment]!
   }
 
 type HomologousRecombinationSource
@@ -101,7 +97,7 @@ type HomologousRecombinationSource
     type: String
     outputName: String
     circular: Boolean
-    assembly: [AssemblyJoin]!
+    assembly: [AssemblyFragment]!
   }
 
 type LigationSource
@@ -112,7 +108,7 @@ type LigationSource
     type: String
     outputName: String
     circular: Boolean
-    assembly: [AssemblyJoin]!
+    assembly: [AssemblyFragment]!
   }
 
 type ManuallyTypedSource
@@ -153,7 +149,7 @@ type OverlapExtensionPCRLigationSource
     type: String
     outputName: String
     circular: Boolean
-    assembly: [AssemblyJoin]!
+    assembly: [AssemblyFragment]!
   }
 
 type PCRSource
@@ -164,7 +160,7 @@ type PCRSource
     type: String
     outputName: String
     circular: Boolean
-    assembly: [AssemblyJoin]!
+    assembly: [AssemblyFragment]!
   }
 
 type PolymeraseExtensionSource
@@ -191,8 +187,8 @@ type RepositoryIdSource
     output: Sequence
     type: String
     outputName: String
-    repositoryName: RepositoryName!
     repositoryId: String!
+    repositoryName: RepositoryName!
   }
 
 type RestrictionAndLigationSource
@@ -203,7 +199,7 @@ type RestrictionAndLigationSource
     type: String
     outputName: String
     circular: Boolean
-    assembly: [AssemblyJoin]!
+    assembly: [AssemblyFragment]!
     restrictionEnzymes: [String]!
   }
 
