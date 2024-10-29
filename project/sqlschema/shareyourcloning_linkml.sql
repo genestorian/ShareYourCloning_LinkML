@@ -73,6 +73,13 @@
 --     * Slot: type Description: The type of the source
 --     * Slot: output_name Description: Used to specify the name of the output sequence
 --     * Slot: id Description: A unique identifier for a thing
+-- # Class: "SnapGenePlasmidSource" Description: "Represents the source of a sequence from the SnapGene plasmid library identified by a SnapGene subpath of https://www.snapgene.com/plasmids/"
+--     * Slot: repository_id Description: The subpath of the plasmid in the SnapGene plasmid library. Requesting the plasmid is possible with https://www.snapgene.com/local/fetch.php?set={category_path}&plasmid={plasmid['subpath']} where category_path is the left part of the subpath before the first / and plasmid is the subpath after the /.
+--     * Slot: repository_name Description:
+--     * Slot: output Description: Identifier of the sequence that is the output of this source.
+--     * Slot: type Description: The type of the source
+--     * Slot: output_name Description: Used to specify the name of the output sequence
+--     * Slot: id Description: A unique identifier for a thing
 -- # Class: "GenomeCoordinatesSource" Description: "Represents the source of a sequence that is identified by genome coordinates, requested from NCBI"
 --     * Slot: assembly_accession Description: The accession of the assembly
 --     * Slot: sequence_accession Description: The accession of the sequence
@@ -199,6 +206,9 @@
 --     * Slot: input_id Description: The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.
 -- # Class: "BenchlingUrlSource_input" Description: ""
 --     * Slot: BenchlingUrlSource_id Description: Autocreated FK slot
+--     * Slot: input_id Description: The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.
+-- # Class: "SnapGenePlasmidSource_input" Description: ""
+--     * Slot: SnapGenePlasmidSource_id Description: Autocreated FK slot
 --     * Slot: input_id Description: The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.
 -- # Class: "GenomeCoordinatesSource_input" Description: ""
 --     * Slot: GenomeCoordinatesSource_id Description: Autocreated FK slot
@@ -357,6 +367,16 @@ CREATE TABLE "AddGeneIdSource" (
 	FOREIGN KEY(output) REFERENCES "Sequence" (id)
 );
 CREATE TABLE "BenchlingUrlSource" (
+	repository_id TEXT NOT NULL,
+	repository_name VARCHAR(9) NOT NULL,
+	output INTEGER,
+	type TEXT,
+	output_name TEXT,
+	id INTEGER NOT NULL,
+	PRIMARY KEY (id),
+	FOREIGN KEY(output) REFERENCES "Sequence" (id)
+);
+CREATE TABLE "SnapGenePlasmidSource" (
 	repository_id TEXT NOT NULL,
 	repository_name VARCHAR(9) NOT NULL,
 	output INTEGER,
@@ -565,6 +585,13 @@ CREATE TABLE "BenchlingUrlSource_input" (
 	input_id INTEGER,
 	PRIMARY KEY ("BenchlingUrlSource_id", input_id),
 	FOREIGN KEY("BenchlingUrlSource_id") REFERENCES "BenchlingUrlSource" (id),
+	FOREIGN KEY(input_id) REFERENCES "Sequence" (id)
+);
+CREATE TABLE "SnapGenePlasmidSource_input" (
+	"SnapGenePlasmidSource_id" INTEGER,
+	input_id INTEGER,
+	PRIMARY KEY ("SnapGenePlasmidSource_id", input_id),
+	FOREIGN KEY("SnapGenePlasmidSource_id") REFERENCES "SnapGenePlasmidSource" (id),
 	FOREIGN KEY(input_id) REFERENCES "Sequence" (id)
 );
 CREATE TABLE "GenomeCoordinatesSource_input" (

@@ -676,6 +676,84 @@ class BenchlingUrlSource(RepositoryIdSource):
         return v
 
 
+class SnapGenePlasmidSource(RepositoryIdSource):
+    """
+    Represents the source of a sequence from the SnapGene plasmid library identified by a SnapGene subpath of https://www.snapgene.com/plasmids/
+    """
+
+    linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta(
+        {
+            "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+            "slot_usage": {
+                "repository_id": {
+                    "description": "The subpath of the plasmid "
+                    "in the SnapGene plasmid "
+                    "library. Requesting the "
+                    "plasmid is possible with "
+                    "https://www.snapgene.com/local/fetch.php?set={category_path}&plasmid={plasmid['subpath']} "
+                    "where category_path is the "
+                    "left part of the subpath "
+                    "before the first / and "
+                    "plasmid is the subpath after "
+                    "the /.",
+                    "name": "repository_id",
+                    "pattern": "^.+\\/.+$",
+                }
+            },
+        }
+    )
+
+    repository_id: str = Field(
+        ...,
+        description="""The subpath of the plasmid in the SnapGene plasmid library. Requesting the plasmid is possible with https://www.snapgene.com/local/fetch.php?set={category_path}&plasmid={plasmid['subpath']} where category_path is the left part of the subpath before the first / and plasmid is the subpath after the /.""",
+        json_schema_extra={"linkml_meta": {"alias": "repository_id", "domain_of": ["RepositoryIdSource"]}},
+    )
+    repository_name: RepositoryName = Field(
+        ..., json_schema_extra={"linkml_meta": {"alias": "repository_name", "domain_of": ["RepositoryIdSource"]}}
+    )
+    input: Optional[List[int]] = Field(
+        None,
+        description="""The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.""",
+        json_schema_extra={"linkml_meta": {"alias": "input", "domain_of": ["Source"]}},
+    )
+    output: Optional[int] = Field(
+        None,
+        description="""Identifier of the sequence that is the output of this source.""",
+        json_schema_extra={"linkml_meta": {"alias": "output", "domain_of": ["Source"]}},
+    )
+    type: Literal["SnapGenePlasmidSource"] = Field(
+        "SnapGenePlasmidSource",
+        description="""The type of the source""",
+        json_schema_extra={
+            "linkml_meta": {"alias": "type", "designates_type": True, "domain_of": ["Sequence", "Source"]}
+        },
+    )
+    output_name: Optional[str] = Field(
+        None,
+        description="""Used to specify the name of the output sequence""",
+        json_schema_extra={"linkml_meta": {"alias": "output_name", "domain_of": ["Source"]}},
+    )
+    id: int = Field(
+        ...,
+        description="""A unique identifier for a thing""",
+        json_schema_extra={
+            "linkml_meta": {"alias": "id", "domain_of": ["NamedThing", "Sequence"], "slot_uri": "schema:identifier"}
+        },
+    )
+
+    @field_validator("repository_id")
+    def pattern_repository_id(cls, v):
+        pattern = re.compile(r"^.+\/.+$")
+        if isinstance(v, list):
+            for element in v:
+                if not pattern.match(element):
+                    raise ValueError(f"Invalid repository_id format: {element}")
+        elif isinstance(v, str):
+            if not pattern.match(v):
+                raise ValueError(f"Invalid repository_id format: {v}")
+        return v
+
+
 class GenomeCoordinatesSource(Source):
     """
     Represents the source of a sequence that is identified by genome coordinates, requested from NCBI
@@ -1499,6 +1577,7 @@ class CloningStrategy(ConfiguredBaseModel):
             RestrictionEnzymeDigestionSource,
             AddGeneIdSource,
             BenchlingUrlSource,
+            SnapGenePlasmidSource,
         ]
     ] = Field(
         ...,
@@ -1531,6 +1610,7 @@ UploadedFileSource.model_rebuild()
 RepositoryIdSource.model_rebuild()
 AddGeneIdSource.model_rebuild()
 BenchlingUrlSource.model_rebuild()
+SnapGenePlasmidSource.model_rebuild()
 GenomeCoordinatesSource.model_rebuild()
 SequenceCutSource.model_rebuild()
 RestrictionEnzymeDigestionSource.model_rebuild()
