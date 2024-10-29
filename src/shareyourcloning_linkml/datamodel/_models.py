@@ -75,6 +75,8 @@ class RepositoryName(str, Enum):
     genbank = "genbank"
     # Benchling
     benchling = "benchling"
+    # SnapGene plasmid library
+    snapgene = "snapgene"
 
 
 class SequenceFileFormat(str, Enum):

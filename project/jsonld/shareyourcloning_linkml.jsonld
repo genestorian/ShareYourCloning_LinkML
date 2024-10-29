@@ -369,6 +369,10 @@
         {
           "text": "benchling",
           "description": "Benchling"
+        },
+        {
+          "text": "snapgene",
+          "description": "SnapGene plasmid library"
         }
       ]
     },
@@ -2133,9 +2137,9 @@
   ],
   "metamodel_version": "1.7.0",
   "source_file": "shareyourcloning_linkml.yaml",
-  "source_file_date": "2024-10-29T13:12:08",
-  "source_file_size": 15494,
-  "generation_date": "2024-10-29T13:12:15",
+  "source_file_date": "2024-10-29T13:18:25",
+  "source_file_size": 15569,
+  "generation_date": "2024-10-29T13:18:47",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/shareyourcloning_linkml.context.jsonld",
