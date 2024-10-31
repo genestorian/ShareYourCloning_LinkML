@@ -62,6 +62,17 @@ type CRISPRSource
     guides: [Primer]!
   }
 
+type EuroscarfSource
+  {
+    id: Integer!
+    input: [Sequence]
+    output: Sequence
+    type: String
+    outputName: String
+    repositoryName: RepositoryName!
+    repositoryId: String!
+  }
+
 type GenomeCoordinatesSource
   {
     id: Integer!

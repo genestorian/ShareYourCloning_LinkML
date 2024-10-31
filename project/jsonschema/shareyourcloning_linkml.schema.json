@@ -407,6 +407,9 @@
                             },
                             {
                                 "$ref": "#/$defs/SnapGenePlasmidSource"
+                            },
+                            {
+                                "$ref": "#/$defs/EuroscarfSource"
                             }
                         ]
                     },
@@ -418,6 +421,65 @@
                 "sources"
             ],
             "title": "CloningStrategy",
+            "type": "object"
+        },
+        "EuroscarfSource": {
+            "additionalProperties": false,
+            "description": "Represents the source of a sequence from the Euroscarf plasmid library",
+            "properties": {
+                "id": {
+                    "description": "A unique identifier for a thing",
+                    "type": "integer"
+                },
+                "input": {
+                    "description": "The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.",
+                    "items": {
+                        "type": "integer"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "output": {
+                    "description": "Identifier of the sequence that is the output of this source.",
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "output_name": {
+                    "description": "Used to specify the name of the output sequence",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "repository_id": {
+                    "description": "The id of the plasmid in the Euroscarf plasmid library",
+                    "pattern": "^P\\d+$",
+                    "type": "string"
+                },
+                "repository_name": {
+                    "$ref": "#/$defs/RepositoryName"
+                },
+                "type": {
+                    "description": "The type of the source",
+                    "enum": [
+                        "EuroscarfSource"
+                    ],
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "repository_id",
+                "repository_name",
+                "id"
+            ],
+            "title": "EuroscarfSource",
             "type": "object"
         },
         "GenomeCoordinatesSource": {
@@ -1141,7 +1203,8 @@
                 "addgene",
                 "genbank",
                 "benchling",
-                "snapgene"
+                "snapgene",
+                "euroscarf"
             ],
             "title": "RepositoryName",
             "type": "string"

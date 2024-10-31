@@ -373,6 +373,10 @@
         {
           "text": "snapgene",
           "description": "SnapGene plasmid library"
+        },
+        {
+          "text": "euroscarf",
+          "description": "Euroscarf (plasmids only)"
         }
       ]
     },
@@ -1302,6 +1306,26 @@
       "@type": "SlotDefinition"
     },
     {
+      "name": "EuroscarfSource_repository_id",
+      "definition_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/repository_id",
+      "description": "The id of the plasmid in the Euroscarf plasmid library",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "is_a": "repository_id",
+      "domain": "EuroscarfSource",
+      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/repository_id",
+      "alias": "repository_id",
+      "owner": "EuroscarfSource",
+      "domain_of": [
+        "EuroscarfSource"
+      ],
+      "is_usage_slot": true,
+      "usage_slot_name": "repository_id",
+      "range": "string",
+      "required": true,
+      "pattern": "^P\\d+$",
+      "@type": "SlotDefinition"
+    },
+    {
       "name": "RestrictionAndLigationSource_restriction_enzymes",
       "definition_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/restriction_enzymes",
       "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
@@ -1633,6 +1657,25 @@
       ],
       "slot_usage": {},
       "class_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/SnapGenePlasmidSource",
+      "@type": "ClassDefinition"
+    },
+    {
+      "name": "EuroscarfSource",
+      "definition_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/EuroscarfSource",
+      "description": "Represents the source of a sequence from the Euroscarf plasmid library",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "is_a": "RepositoryIdSource",
+      "slots": [
+        "id",
+        "input",
+        "output",
+        "type",
+        "output_name",
+        "repositoryIdSource__repository_name",
+        "EuroscarfSource_repository_id"
+      ],
+      "slot_usage": {},
+      "class_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/EuroscarfSource",
       "@type": "ClassDefinition"
     },
     {
@@ -2137,9 +2180,9 @@
   ],
   "metamodel_version": "1.7.0",
   "source_file": "shareyourcloning_linkml.yaml",
-  "source_file_date": "2024-10-29T13:18:25",
-  "source_file_size": 15569,
-  "generation_date": "2024-10-29T13:18:47",
+  "source_file_date": "2024-10-31T11:30:58",
+  "source_file_size": 15942,
+  "generation_date": "2024-10-31T11:31:28",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/shareyourcloning_linkml.context.jsonld",

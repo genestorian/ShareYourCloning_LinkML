@@ -199,6 +199,16 @@ classes:
           where category_path is the left part of the subpath before the first / and plasmid is the subpath after the /.
         pattern: ^.+\/.+$
 
+  EuroscarfSource:
+    is_a: RepositoryIdSource
+    description: >-
+      Represents the source of a sequence from the Euroscarf plasmid library
+    slot_usage:
+      repository_id:
+        description: >-
+          The id of the plasmid in the Euroscarf plasmid library
+        pattern: ^P\d+$
+
   GenomeCoordinatesSource:
     is_a: Source
     description: >-
@@ -530,6 +540,9 @@ enums:
       snapgene:
         description: >-
           SnapGene plasmid library
+      euroscarf:
+        description: >-
+          Euroscarf (plasmids only)
 
   SequenceFileFormat:
     permissible_values:

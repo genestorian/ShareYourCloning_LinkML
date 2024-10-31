@@ -1,5 +1,5 @@
 # Auto generated from shareyourcloning_linkml.yaml by pythongen.py version: 0.0.1
-# Generation date: 2024-10-29T13:18:48
+# Generation date: 2024-10-31T11:31:29
 # Schema: ShareYourCloning_LinkML
 #
 # id: https://w3id.org/genestorian/ShareYourCloning_LinkML
@@ -89,6 +89,10 @@ class BenchlingUrlSourceId(RepositoryIdSourceId):
 
 
 class SnapGenePlasmidSourceId(RepositoryIdSourceId):
+    pass
+
+
+class EuroscarfSourceId(RepositoryIdSourceId):
     pass
 
 
@@ -603,6 +607,38 @@ class SnapGenePlasmidSource(RepositoryIdSource):
             self.MissingRequiredField("id")
         if not isinstance(self.id, SnapGenePlasmidSourceId):
             self.id = SnapGenePlasmidSourceId(self.id)
+
+        if self._is_empty(self.repository_id):
+            self.MissingRequiredField("repository_id")
+        if not isinstance(self.repository_id, str):
+            self.repository_id = str(self.repository_id)
+
+        super().__post_init__(**kwargs)
+        self.type = str(self.class_name)
+
+
+@dataclass(repr=False)
+class EuroscarfSource(RepositoryIdSource):
+    """
+    Represents the source of a sequence from the Euroscarf plasmid library
+    """
+
+    _inherited_slots: ClassVar[List[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML["EuroscarfSource"]
+    class_class_curie: ClassVar[str] = "shareyourcloning_linkml:EuroscarfSource"
+    class_name: ClassVar[str] = "EuroscarfSource"
+    class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.EuroscarfSource
+
+    id: Union[int, EuroscarfSourceId] = None
+    repository_name: Union[str, "RepositoryName"] = None
+    repository_id: str = None
+
+    def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
+        if self._is_empty(self.id):
+            self.MissingRequiredField("id")
+        if not isinstance(self.id, EuroscarfSourceId):
+            self.id = EuroscarfSourceId(self.id)
 
         if self._is_empty(self.repository_id):
             self.MissingRequiredField("repository_id")
@@ -1156,6 +1192,7 @@ class RepositoryName(EnumDefinitionImpl):
     genbank = PermissibleValue(text="genbank", description="GenBank")
     benchling = PermissibleValue(text="benchling", description="Benchling")
     snapgene = PermissibleValue(text="snapgene", description="SnapGene plasmid library")
+    euroscarf = PermissibleValue(text="euroscarf", description="Euroscarf (plasmids only)")
 
     _defn = EnumDefinition(
         name="RepositoryName",
@@ -1746,6 +1783,16 @@ slots.SnapGenePlasmidSource_repository_id = Slot(
     domain=SnapGenePlasmidSource,
     range=str,
     pattern=re.compile(r"^.+\/.+$"),
+)
+
+slots.EuroscarfSource_repository_id = Slot(
+    uri=SHAREYOURCLONING_LINKML.repository_id,
+    name="EuroscarfSource_repository_id",
+    curie=SHAREYOURCLONING_LINKML.curie("repository_id"),
+    model_uri=SHAREYOURCLONING_LINKML.EuroscarfSource_repository_id,
+    domain=EuroscarfSource,
+    range=str,
+    pattern=re.compile(r"^P\d+$"),
 )
 
 slots.RestrictionAndLigationSource_restriction_enzymes = Slot(
