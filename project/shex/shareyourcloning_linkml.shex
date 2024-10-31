@@ -106,6 +106,15 @@ linkml:Sparqlpath xsd:string
     )
 }
 
+<EuroscarfSource> CLOSED {
+    (  $<EuroscarfSource_tes> (  &<RepositoryIdSource_tes> ;
+          rdf:type [ <RepositoryIdSource> ] ? ;
+          <repository_id> @linkml:String
+       ) ;
+       rdf:type [ <EuroscarfSource> ]
+    )
+}
+
 <GenomeCoordinatesSource> CLOSED {
     (  $<GenomeCoordinatesSource_tes> (  &<Source_tes> ;
           rdf:type [ <Source> ] ? ;
@@ -220,11 +229,12 @@ linkml:Sparqlpath xsd:string
              <repository_name> [ <https://w3id.org/genestorian/ShareYourCloning_LinkML/RepositoryName#addgene>
                 <https://w3id.org/genestorian/ShareYourCloning_LinkML/RepositoryName#genbank>
                 <https://w3id.org/genestorian/ShareYourCloning_LinkML/RepositoryName#benchling>
-                <https://w3id.org/genestorian/ShareYourCloning_LinkML/RepositoryName#snapgene> ]
+                <https://w3id.org/genestorian/ShareYourCloning_LinkML/RepositoryName#snapgene>
+                <https://w3id.org/genestorian/ShareYourCloning_LinkML/RepositoryName#euroscarf> ]
           ) ;
           rdf:type [ <RepositoryIdSource> ]
        )
-    } OR @<AddGeneIdSource> OR @<BenchlingUrlSource> OR @<SnapGenePlasmidSource>
+    } OR @<AddGeneIdSource> OR @<BenchlingUrlSource> OR @<EuroscarfSource> OR @<SnapGenePlasmidSource>
 )
 
 <RestrictionAndLigationSource> CLOSED {

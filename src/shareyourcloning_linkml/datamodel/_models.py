@@ -77,6 +77,8 @@ class RepositoryName(str, Enum):
     benchling = "benchling"
     # SnapGene plasmid library
     snapgene = "snapgene"
+    # Euroscarf (plasmids only)
+    euroscarf = "euroscarf"
 
 
 class SequenceFileFormat(str, Enum):
@@ -746,6 +748,75 @@ class SnapGenePlasmidSource(RepositoryIdSource):
     @field_validator("repository_id")
     def pattern_repository_id(cls, v):
         pattern = re.compile(r"^.+\/.+$")
+        if isinstance(v, list):
+            for element in v:
+                if not pattern.match(element):
+                    raise ValueError(f"Invalid repository_id format: {element}")
+        elif isinstance(v, str):
+            if not pattern.match(v):
+                raise ValueError(f"Invalid repository_id format: {v}")
+        return v
+
+
+class EuroscarfSource(RepositoryIdSource):
+    """
+    Represents the source of a sequence from the Euroscarf plasmid library
+    """
+
+    linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta(
+        {
+            "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+            "slot_usage": {
+                "repository_id": {
+                    "description": "The id of the plasmid in the " "Euroscarf plasmid library",
+                    "name": "repository_id",
+                    "pattern": "^P\\d+$",
+                }
+            },
+        }
+    )
+
+    repository_id: str = Field(
+        ...,
+        description="""The id of the plasmid in the Euroscarf plasmid library""",
+        json_schema_extra={"linkml_meta": {"alias": "repository_id", "domain_of": ["RepositoryIdSource"]}},
+    )
+    repository_name: RepositoryName = Field(
+        ..., json_schema_extra={"linkml_meta": {"alias": "repository_name", "domain_of": ["RepositoryIdSource"]}}
+    )
+    input: Optional[List[int]] = Field(
+        None,
+        description="""The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.""",
+        json_schema_extra={"linkml_meta": {"alias": "input", "domain_of": ["Source"]}},
+    )
+    output: Optional[int] = Field(
+        None,
+        description="""Identifier of the sequence that is the output of this source.""",
+        json_schema_extra={"linkml_meta": {"alias": "output", "domain_of": ["Source"]}},
+    )
+    type: Literal["EuroscarfSource"] = Field(
+        "EuroscarfSource",
+        description="""The type of the source""",
+        json_schema_extra={
+            "linkml_meta": {"alias": "type", "designates_type": True, "domain_of": ["Sequence", "Source"]}
+        },
+    )
+    output_name: Optional[str] = Field(
+        None,
+        description="""Used to specify the name of the output sequence""",
+        json_schema_extra={"linkml_meta": {"alias": "output_name", "domain_of": ["Source"]}},
+    )
+    id: int = Field(
+        ...,
+        description="""A unique identifier for a thing""",
+        json_schema_extra={
+            "linkml_meta": {"alias": "id", "domain_of": ["NamedThing", "Sequence"], "slot_uri": "schema:identifier"}
+        },
+    )
+
+    @field_validator("repository_id")
+    def pattern_repository_id(cls, v):
+        pattern = re.compile(r"^P\d+$")
         if isinstance(v, list):
             for element in v:
                 if not pattern.match(element):
@@ -1580,6 +1651,7 @@ class CloningStrategy(ConfiguredBaseModel):
             AddGeneIdSource,
             BenchlingUrlSource,
             SnapGenePlasmidSource,
+            EuroscarfSource,
         ]
     ] = Field(
         ...,
@@ -1613,6 +1685,7 @@ RepositoryIdSource.model_rebuild()
 AddGeneIdSource.model_rebuild()
 BenchlingUrlSource.model_rebuild()
 SnapGenePlasmidSource.model_rebuild()
+EuroscarfSource.model_rebuild()
 GenomeCoordinatesSource.model_rebuild()
 SequenceCutSource.model_rebuild()
 RestrictionEnzymeDigestionSource.model_rebuild()
