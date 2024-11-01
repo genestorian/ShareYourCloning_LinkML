@@ -73,6 +73,18 @@ type EuroscarfSource
     repositoryId: String!
   }
 
+type GatewaySource
+  {
+    id: Integer!
+    input: [Sequence]
+    output: Sequence
+    type: String
+    outputName: String
+    circular: Boolean
+    assembly: [AssemblyFragment]!
+    reactionType: GatewayReactionType!
+  }
+
 type GenomeCoordinatesSource
   {
     id: Integer!
