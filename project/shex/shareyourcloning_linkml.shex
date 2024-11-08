@@ -74,8 +74,8 @@ linkml:Sparqlpath xsd:string
           ) ;
           rdf:type [ <AssemblySource> ]
        )
-    } OR @<GibsonAssemblySource> OR @<HomologousRecombinationSource> OR @<LigationSource> OR @<OverlapExtensionPCRLigationSource>
-    OR @<PCRSource> OR @<RestrictionAndLigationSource>
+    } OR @<GatewaySource> OR @<GibsonAssemblySource> OR @<HomologousRecombinationSource> OR @<LigationSource> OR
+    @<OverlapExtensionPCRLigationSource> OR @<PCRSource> OR @<RestrictionAndLigationSource>
 )
 
 <BenchlingUrlSource> CLOSED {
@@ -112,6 +112,17 @@ linkml:Sparqlpath xsd:string
           <repository_id> @linkml:String
        ) ;
        rdf:type [ <EuroscarfSource> ]
+    )
+}
+
+<GatewaySource> CLOSED {
+    (  $<GatewaySource_tes> (  &<AssemblySource_tes> ;
+          rdf:type [ <AssemblySource> ] ? ;
+          <reaction_type> [ <https://w3id.org/genestorian/ShareYourCloning_LinkML/GatewayReactionType#LR>
+             <https://w3id.org/genestorian/ShareYourCloning_LinkML/GatewayReactionType#BP> ] ;
+          <greedy> @linkml:Boolean ?
+       ) ;
+       rdf:type [ <GatewaySource> ]
     )
 }
 
