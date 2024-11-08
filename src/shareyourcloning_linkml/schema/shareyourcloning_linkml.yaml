@@ -389,7 +389,7 @@ classes:
           range: boolean
           description: >-
             Whether to use a greedy consensus sequence for att sites (see https://github.com/manulera/GateWayMine)
-          required: true
+          ifabsent: boolean(false)
 
   CRISPRSource:
     is_a: HomologousRecombinationSource

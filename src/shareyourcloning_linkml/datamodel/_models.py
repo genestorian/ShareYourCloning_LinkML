@@ -1477,10 +1477,12 @@ class GatewaySource(AssemblySource):
     reaction_type: GatewayReactionType = Field(
         ..., json_schema_extra={"linkml_meta": {"alias": "reaction_type", "domain_of": ["GatewaySource"]}}
     )
-    greedy: bool = Field(
-        ...,
+    greedy: Optional[bool] = Field(
+        False,
         description="""Whether to use a greedy consensus sequence for att sites (see https://github.com/manulera/GateWayMine)""",
-        json_schema_extra={"linkml_meta": {"alias": "greedy", "domain_of": ["GatewaySource"]}},
+        json_schema_extra={
+            "linkml_meta": {"alias": "greedy", "domain_of": ["GatewaySource"], "ifabsent": "boolean(false)"}
+        },
     )
     circular: Optional[bool] = Field(
         None,

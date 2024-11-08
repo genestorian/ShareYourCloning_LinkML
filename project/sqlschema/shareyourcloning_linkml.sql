@@ -522,7 +522,7 @@ CREATE TABLE "RestrictionAndLigationSource" (
 );
 CREATE TABLE "GatewaySource" (
 	reaction_type VARCHAR(2) NOT NULL,
-	greedy BOOLEAN NOT NULL,
+	greedy BOOLEAN,
 	circular BOOLEAN,
 	output INTEGER,
 	type TEXT,

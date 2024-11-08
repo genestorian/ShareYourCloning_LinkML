@@ -83,7 +83,7 @@ type GatewaySource
     circular: Boolean
     assembly: [AssemblyFragment]!
     reactionType: GatewayReactionType!
-    greedy: Boolean!
+    greedy: Boolean
   }
 
 type GenomeCoordinatesSource

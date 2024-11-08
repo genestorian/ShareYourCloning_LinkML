@@ -120,7 +120,7 @@ linkml:Sparqlpath xsd:string
           rdf:type [ <AssemblySource> ] ? ;
           <reaction_type> [ <https://w3id.org/genestorian/ShareYourCloning_LinkML/GatewayReactionType#LR>
              <https://w3id.org/genestorian/ShareYourCloning_LinkML/GatewayReactionType#BP> ] ;
-          <greedy> @linkml:Boolean
+          <greedy> @linkml:Boolean ?
        ) ;
        rdf:type [ <GatewaySource> ]
     )

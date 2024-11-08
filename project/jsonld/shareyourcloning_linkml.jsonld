@@ -1057,13 +1057,13 @@
       "description": "Whether to use a greedy consensus sequence for att sites (see https://github.com/manulera/GateWayMine)",
       "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
       "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/greedy",
+      "ifabsent": "boolean(false)",
       "alias": "greedy",
       "owner": "GatewaySource",
       "domain_of": [
         "GatewaySource"
       ],
       "range": "boolean",
-      "required": true,
       "@type": "SlotDefinition"
     },
     {
@@ -2115,8 +2115,8 @@
         {
           "name": "greedy",
           "description": "Whether to use a greedy consensus sequence for att sites (see https://github.com/manulera/GateWayMine)",
+          "ifabsent": "boolean(false)",
           "range": "boolean",
-          "required": true,
           "@type": "SlotDefinition"
         }
       ],
@@ -2258,9 +2258,9 @@
   ],
   "metamodel_version": "1.7.0",
   "source_file": "shareyourcloning_linkml.yaml",
-  "source_file_date": "2024-11-08T12:52:07",
-  "source_file_size": 16552,
-  "generation_date": "2024-11-08T12:52:26",
+  "source_file_date": "2024-11-08T12:55:34",
+  "source_file_size": 16562,
+  "generation_date": "2024-11-08T12:55:42",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/shareyourcloning_linkml.context.jsonld",
