@@ -1,5 +1,5 @@
 # Auto generated from shareyourcloning_linkml.yaml by pythongen.py version: 0.0.1
-# Generation date: 2024-11-01T14:22:09
+# Generation date: 2024-11-08T10:44:08
 # Schema: ShareYourCloning_LinkML
 #
 # id: https://w3id.org/genestorian/ShareYourCloning_LinkML
@@ -1272,7 +1272,7 @@ class AddGeneSequenceType(EnumDefinitionImpl):
 class GatewayReactionType(EnumDefinitionImpl):
 
     LR = PermissibleValue(text="LR", description="LR reaction")
-    BR = PermissibleValue(text="BR", description="BR reaction")
+    BP = PermissibleValue(text="BP", description="BP reaction")
 
     _defn = EnumDefinition(
         name="GatewayReactionType",

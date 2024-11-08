@@ -577,6 +577,6 @@ enums:
       LR:
         description: >-
           LR reaction
-      BR:
+      BP:
         description: >-
-          BR reaction
+          BP reaction

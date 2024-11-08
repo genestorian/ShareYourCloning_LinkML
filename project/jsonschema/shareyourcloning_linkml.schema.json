@@ -489,7 +489,7 @@
             "description": "",
             "enum": [
                 "LR",
-                "BR"
+                "BP"
             ],
             "title": "GatewayReactionType",
             "type": "string"

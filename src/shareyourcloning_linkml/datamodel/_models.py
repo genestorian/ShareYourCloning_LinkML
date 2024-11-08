@@ -98,8 +98,8 @@ class AddGeneSequenceType(str, Enum):
 class GatewayReactionType(str, Enum):
     # LR reaction
     LR = "LR"
-    # BR reaction
-    BR = "BR"
+    # BP reaction
+    BP = "BP"
 
 
 class NamedThing(ConfiguredBaseModel):

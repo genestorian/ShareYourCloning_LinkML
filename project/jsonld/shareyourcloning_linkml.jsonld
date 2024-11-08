@@ -424,8 +424,8 @@
           "description": "LR reaction"
         },
         {
-          "text": "BR",
-          "description": "BR reaction"
+          "text": "BP",
+          "description": "BP reaction"
         }
       ]
     }
@@ -2236,9 +2236,9 @@
   ],
   "metamodel_version": "1.7.0",
   "source_file": "shareyourcloning_linkml.yaml",
-  "source_file_date": "2024-11-01T14:21:37",
+  "source_file_date": "2024-11-08T10:43:52",
   "source_file_size": 16345,
-  "generation_date": "2024-11-01T14:22:08",
+  "generation_date": "2024-11-08T10:44:07",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/shareyourcloning_linkml.context.jsonld",
