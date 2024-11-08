@@ -512,6 +512,10 @@
                         "null"
                     ]
                 },
+                "greedy": {
+                    "description": "Whether to use a greedy consensus sequence for att sites (see https://github.com/manulera/GateWayMine)",
+                    "type": "boolean"
+                },
                 "id": {
                     "description": "A unique identifier for a thing",
                     "type": "integer"
@@ -556,6 +560,7 @@
             },
             "required": [
                 "reaction_type",
+                "greedy",
                 "assembly",
                 "id"
             ],

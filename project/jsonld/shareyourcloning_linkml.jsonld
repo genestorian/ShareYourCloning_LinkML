@@ -1053,6 +1053,20 @@
       "@type": "SlotDefinition"
     },
     {
+      "name": "gatewaySource__greedy",
+      "description": "Whether to use a greedy consensus sequence for att sites (see https://github.com/manulera/GateWayMine)",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/greedy",
+      "alias": "greedy",
+      "owner": "GatewaySource",
+      "domain_of": [
+        "GatewaySource"
+      ],
+      "range": "boolean",
+      "required": true,
+      "@type": "SlotDefinition"
+    },
+    {
       "name": "cRISPRSource__guides",
       "description": "The guide RNAs used in the CRISPR",
       "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
@@ -2087,13 +2101,21 @@
         "output_name",
         "assemblySource__circular",
         "assemblySource__assembly",
-        "gatewaySource__reaction_type"
+        "gatewaySource__reaction_type",
+        "gatewaySource__greedy"
       ],
       "slot_usage": {},
       "attributes": [
         {
           "name": "reaction_type",
           "range": "GatewayReactionType",
+          "required": true,
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "greedy",
+          "description": "Whether to use a greedy consensus sequence for att sites (see https://github.com/manulera/GateWayMine)",
+          "range": "boolean",
           "required": true,
           "@type": "SlotDefinition"
         }
@@ -2236,9 +2258,9 @@
   ],
   "metamodel_version": "1.7.0",
   "source_file": "shareyourcloning_linkml.yaml",
-  "source_file_date": "2024-11-08T10:43:52",
-  "source_file_size": 16345,
-  "generation_date": "2024-11-08T10:44:07",
+  "source_file_date": "2024-11-08T12:52:07",
+  "source_file_size": 16552,
+  "generation_date": "2024-11-08T12:52:26",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/shareyourcloning_linkml.context.jsonld",

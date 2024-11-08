@@ -385,6 +385,11 @@ classes:
       - reaction_type:
           range: GatewayReactionType
           required: true
+      - greedy:
+          range: boolean
+          description: >-
+            Whether to use a greedy consensus sequence for att sites (see https://github.com/manulera/GateWayMine)
+          required: true
 
   CRISPRSource:
     is_a: HomologousRecombinationSource

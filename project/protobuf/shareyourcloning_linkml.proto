@@ -86,6 +86,7 @@ message GatewaySource
   boolean circular = 0
  repeated  assemblyFragment assembly = 0
   gatewayReactionType reactionType = 0
+  boolean greedy = 0
  }
 // Represents the source of a sequence that is identified by genome coordinates, requested from NCBI
 message GenomeCoordinatesSource

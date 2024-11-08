@@ -1,5 +1,5 @@
 # Auto generated from shareyourcloning_linkml.yaml by pythongen.py version: 0.0.1
-# Generation date: 2024-11-08T10:44:08
+# Generation date: 2024-11-08T12:52:27
 # Schema: ShareYourCloning_LinkML
 #
 # id: https://w3id.org/genestorian/ShareYourCloning_LinkML
@@ -1071,6 +1071,7 @@ class GatewaySource(AssemblySource):
     id: Union[int, GatewaySourceId] = None
     assembly: Union[Union[dict, AssemblyFragment], List[Union[dict, AssemblyFragment]]] = None
     reaction_type: Union[str, "GatewayReactionType"] = None
+    greedy: Union[bool, Bool] = None
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
         if self._is_empty(self.id):
@@ -1082,6 +1083,11 @@ class GatewaySource(AssemblySource):
             self.MissingRequiredField("reaction_type")
         if not isinstance(self.reaction_type, GatewayReactionType):
             self.reaction_type = GatewayReactionType(self.reaction_type)
+
+        if self._is_empty(self.greedy):
+            self.MissingRequiredField("greedy")
+        if not isinstance(self.greedy, Bool):
+            self.greedy = Bool(self.greedy)
 
         super().__post_init__(**kwargs)
         self.type = str(self.class_name)
@@ -1692,6 +1698,15 @@ slots.gatewaySource__reaction_type = Slot(
     model_uri=SHAREYOURCLONING_LINKML.gatewaySource__reaction_type,
     domain=None,
     range=Union[str, "GatewayReactionType"],
+)
+
+slots.gatewaySource__greedy = Slot(
+    uri=SHAREYOURCLONING_LINKML.greedy,
+    name="gatewaySource__greedy",
+    curie=SHAREYOURCLONING_LINKML.curie("greedy"),
+    model_uri=SHAREYOURCLONING_LINKML.gatewaySource__greedy,
+    domain=None,
+    range=Union[bool, Bool],
 )
 
 slots.cRISPRSource__guides = Slot(
