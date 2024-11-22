@@ -124,6 +124,17 @@ type HomologousRecombinationSource
     assembly: [AssemblyFragment]!
   }
 
+type InFusionSource
+  {
+    id: Integer!
+    input: [Sequence]
+    output: Sequence
+    type: String
+    outputName: String
+    circular: Boolean
+    assembly: [AssemblyFragment]!
+  }
+
 type LigationSource
   {
     id: Integer!
