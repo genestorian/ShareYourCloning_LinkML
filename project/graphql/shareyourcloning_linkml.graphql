@@ -185,6 +185,7 @@ type PCRSource
     outputName: String
     circular: Boolean
     assembly: [AssemblyFragment]!
+    addPrimerFeatures: Boolean
   }
 
 type PolymeraseExtensionSource

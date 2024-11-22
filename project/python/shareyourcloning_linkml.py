@@ -1,5 +1,5 @@
 # Auto generated from shareyourcloning_linkml.yaml by pythongen.py version: 0.0.1
-# Generation date: 2024-11-08T12:55:43
+# Generation date: 2024-11-22T15:29:08
 # Schema: ShareYourCloning_LinkML
 #
 # id: https://w3id.org/genestorian/ShareYourCloning_LinkML
@@ -906,12 +906,16 @@ class PCRSource(AssemblySource):
 
     id: Union[int, PCRSourceId] = None
     assembly: Union[Union[dict, AssemblyFragment], List[Union[dict, AssemblyFragment]]] = None
+    add_primer_features: Optional[Union[bool, Bool]] = False
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
         if self._is_empty(self.id):
             self.MissingRequiredField("id")
         if not isinstance(self.id, PCRSourceId):
             self.id = PCRSourceId(self.id)
+
+        if self.add_primer_features is not None and not isinstance(self.add_primer_features, Bool):
+            self.add_primer_features = Bool(self.add_primer_features)
 
         super().__post_init__(**kwargs)
         self.type = str(self.class_name)
@@ -1687,6 +1691,15 @@ slots.assemblySource__assembly = Slot(
     model_uri=SHAREYOURCLONING_LINKML.assemblySource__assembly,
     domain=None,
     range=Union[Union[dict, AssemblyFragment], List[Union[dict, AssemblyFragment]]],
+)
+
+slots.pCRSource__add_primer_features = Slot(
+    uri=SHAREYOURCLONING_LINKML.add_primer_features,
+    name="pCRSource__add_primer_features",
+    curie=SHAREYOURCLONING_LINKML.curie("add_primer_features"),
+    model_uri=SHAREYOURCLONING_LINKML.pCRSource__add_primer_features,
+    domain=None,
+    range=Optional[Union[bool, Bool]],
 )
 
 slots.gatewaySource__reaction_type = Slot(
