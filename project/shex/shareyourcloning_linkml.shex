@@ -208,7 +208,8 @@ linkml:Sparqlpath xsd:string
 
 <PCRSource> CLOSED {
     (  $<PCRSource_tes> (  &<AssemblySource_tes> ;
-          rdf:type [ <AssemblySource> ] ?
+          rdf:type [ <AssemblySource> ] ? ;
+          <add_primer_features> @linkml:Boolean ?
        ) ;
        rdf:type [ <PCRSource> ]
     )

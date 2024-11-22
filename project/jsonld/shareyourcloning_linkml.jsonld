@@ -1040,6 +1040,20 @@
       "@type": "SlotDefinition"
     },
     {
+      "name": "pCRSource__add_primer_features",
+      "description": "Whether to add primer features to the PCR product",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/add_primer_features",
+      "ifabsent": "boolean(false)",
+      "alias": "add_primer_features",
+      "owner": "PCRSource",
+      "domain_of": [
+        "PCRSource"
+      ],
+      "range": "boolean",
+      "@type": "SlotDefinition"
+    },
+    {
       "name": "gatewaySource__reaction_type",
       "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
       "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/reaction_type",
@@ -1985,9 +1999,19 @@
         "type",
         "output_name",
         "assemblySource__circular",
-        "assemblySource__assembly"
+        "assemblySource__assembly",
+        "pCRSource__add_primer_features"
       ],
       "slot_usage": {},
+      "attributes": [
+        {
+          "name": "add_primer_features",
+          "description": "Whether to add primer features to the PCR product",
+          "ifabsent": "boolean(false)",
+          "range": "boolean",
+          "@type": "SlotDefinition"
+        }
+      ],
       "class_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/PCRSource",
       "@type": "ClassDefinition"
     },
@@ -2258,9 +2282,9 @@
   ],
   "metamodel_version": "1.7.0",
   "source_file": "shareyourcloning_linkml.yaml",
-  "source_file_date": "2024-11-08T12:55:34",
-  "source_file_size": 16562,
-  "generation_date": "2024-11-08T12:55:42",
+  "source_file_date": "2024-11-22T15:28:57",
+  "source_file_size": 16755,
+  "generation_date": "2024-11-22T15:29:07",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/shareyourcloning_linkml.context.jsonld",

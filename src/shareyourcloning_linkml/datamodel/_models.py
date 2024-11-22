@@ -1149,6 +1149,13 @@ class PCRSource(AssemblySource):
         {"from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML"}
     )
 
+    add_primer_features: Optional[bool] = Field(
+        False,
+        description="""Whether to add primer features to the PCR product""",
+        json_schema_extra={
+            "linkml_meta": {"alias": "add_primer_features", "domain_of": ["PCRSource"], "ifabsent": "boolean(false)"}
+        },
+    )
     circular: Optional[bool] = Field(
         None,
         description="""Whether the assembly is circular or not""",
