@@ -1,5 +1,5 @@
 # Auto generated from shareyourcloning_linkml.yaml by pythongen.py version: 0.0.1
-# Generation date: 2024-11-26T16:47:36
+# Generation date: 2024-11-26T16:51:09
 # Schema: ShareYourCloning_LinkML
 #
 # id: https://w3id.org/genestorian/ShareYourCloning_LinkML
@@ -1391,7 +1391,9 @@ class AnnotationSource(Source):
     id: Union[int, AnnotationSourceId] = None
     annotation_tool: Union[str, "AnnotationTool"] = None
     annotation_tool_version: Optional[str] = None
-    annotation_report: Optional[Union[dict, AnnotationReport]] = None
+    annotation_report: Optional[Union[Union[dict, AnnotationReport], List[Union[dict, AnnotationReport]]]] = (
+        empty_list()
+    )
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
         if self._is_empty(self.id):
@@ -1407,8 +1409,11 @@ class AnnotationSource(Source):
         if self.annotation_tool_version is not None and not isinstance(self.annotation_tool_version, str):
             self.annotation_tool_version = str(self.annotation_tool_version)
 
-        if self.annotation_report is not None and not isinstance(self.annotation_report, AnnotationReport):
-            self.annotation_report = AnnotationReport(**as_dict(self.annotation_report))
+        if not isinstance(self.annotation_report, list):
+            self.annotation_report = [self.annotation_report] if self.annotation_report is not None else []
+        self.annotation_report = [
+            v if isinstance(v, AnnotationReport) else AnnotationReport(**as_dict(v)) for v in self.annotation_report
+        ]
 
         super().__post_init__(**kwargs)
         self.type = str(self.class_name)
@@ -2127,7 +2132,7 @@ slots.annotationSource__annotation_report = Slot(
     curie=SHAREYOURCLONING_LINKML.curie("annotation_report"),
     model_uri=SHAREYOURCLONING_LINKML.annotationSource__annotation_report,
     domain=None,
-    range=Optional[Union[dict, AnnotationReport]],
+    range=Optional[Union[Union[dict, AnnotationReport], List[Union[dict, AnnotationReport]]]],
 )
 
 slots.TextFileSequence_sequence_file_format = Slot(

@@ -2053,7 +2053,7 @@ class AnnotationSource(Source):
         description="""The version of the annotation tool""",
         json_schema_extra={"linkml_meta": {"alias": "annotation_tool_version", "domain_of": ["AnnotationSource"]}},
     )
-    annotation_report: Optional[Union[AnnotationReport, PlannotateAnnotationReport]] = Field(
+    annotation_report: Optional[List[Union[AnnotationReport, PlannotateAnnotationReport]]] = Field(
         None, json_schema_extra={"linkml_meta": {"alias": "annotation_report", "domain_of": ["AnnotationSource"]}}
     )
     input: Optional[List[int]] = Field(

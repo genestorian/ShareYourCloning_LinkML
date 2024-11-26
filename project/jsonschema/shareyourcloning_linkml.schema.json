@@ -101,16 +101,19 @@
             "description": "Represents a computational step in which sequence features are annotated in a sequence",
             "properties": {
                 "annotation_report": {
-                    "anyOf": [
-                        {
-                            "$ref": "#/$defs/AnnotationReport"
-                        },
-                        {
-                            "$ref": "#/$defs/PlannotateAnnotationReport"
-                        },
-                        {
-                            "type": "null"
-                        }
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/$defs/AnnotationReport"
+                            },
+                            {
+                                "$ref": "#/$defs/PlannotateAnnotationReport"
+                            }
+                        ]
+                    },
+                    "type": [
+                        "array",
+                        "null"
                     ]
                 },
                 "annotation_tool": {

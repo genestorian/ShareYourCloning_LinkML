@@ -26,7 +26,7 @@ type AnnotationSource
     outputName: String
     annotationTool: AnnotationTool!
     annotationToolVersion: String
-    annotationReport: AnnotationReport
+    annotationReport: [AnnotationReport]
   }
 
 type AssemblyFragment

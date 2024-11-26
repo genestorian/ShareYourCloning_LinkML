@@ -525,7 +525,8 @@ classes:
             The version of the annotation tool
       - annotation_report:
           range: AnnotationReport
-          inlined: true
+          inlined_as_list: true
+          multivalued: true
 
 slots:
   id:

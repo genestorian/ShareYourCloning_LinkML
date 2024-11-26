@@ -68,7 +68,7 @@ linkml:Sparqlpath xsd:string
           rdf:type [ <Source> ] ? ;
           <annotation_tool> [ <https://w3id.org/genestorian/ShareYourCloning_LinkML/AnnotationTool#plannotate> ] ;
           <annotation_tool_version> @linkml:String ? ;
-          <annotation_report> @<AnnotationReport> ?
+          <annotation_report> @<AnnotationReport> *
        ) ;
        rdf:type [ <AnnotationSource> ]
     )

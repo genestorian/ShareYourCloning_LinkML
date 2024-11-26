@@ -216,6 +216,7 @@
 -- # Class: "AnnotationReport" Description: "Represents a report of an annotation step"
 --     * Slot: id Description:
 --     * Slot: type Description: Designates the class
+--     * Slot: AnnotationSource_id Description: Autocreated FK slot
 -- # Class: "PlannotateAnnotationReport" Description: "Represents a report of an annotation step using Plannotate"
 --     * Slot: id Description:
 --     * Slot: sseqid Description:
@@ -240,7 +241,6 @@
 --     * Slot: type Description: Designates the class
 --     * Slot: output_name Description: Used to specify the name of the output sequence
 --     * Slot: id Description: A unique identifier for a thing
---     * Slot: annotation_report_id Description:
 -- # Class: "Source_input" Description: ""
 --     * Slot: Source_id Description: Autocreated FK slot
 --     * Slot: input_id Description: The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.
@@ -356,11 +356,6 @@ CREATE TABLE "SimpleSequenceLocation" (
 CREATE TABLE "CloningStrategy" (
 	id INTEGER NOT NULL,
 	description TEXT,
-	PRIMARY KEY (id)
-);
-CREATE TABLE "AnnotationReport" (
-	id INTEGER NOT NULL,
-	type TEXT,
 	PRIMARY KEY (id)
 );
 CREATE TABLE "PlannotateAnnotationReport" (
@@ -644,10 +639,8 @@ CREATE TABLE "AnnotationSource" (
 	type TEXT,
 	output_name TEXT,
 	id INTEGER NOT NULL,
-	annotation_report_id INTEGER,
 	PRIMARY KEY (id),
-	FOREIGN KEY(output) REFERENCES "Sequence" (id),
-	FOREIGN KEY(annotation_report_id) REFERENCES "AnnotationReport" (id)
+	FOREIGN KEY(output) REFERENCES "Sequence" (id)
 );
 CREATE TABLE "AssemblyFragment" (
 	id INTEGER NOT NULL,
@@ -679,6 +672,13 @@ CREATE TABLE "AssemblyFragment" (
 	FOREIGN KEY("CRISPRSource_id") REFERENCES "CRISPRSource" (id),
 	FOREIGN KEY(left_location_id) REFERENCES "SimpleSequenceLocation" (id),
 	FOREIGN KEY(right_location_id) REFERENCES "SimpleSequenceLocation" (id)
+);
+CREATE TABLE "AnnotationReport" (
+	id INTEGER NOT NULL,
+	type TEXT,
+	"AnnotationSource_id" INTEGER,
+	PRIMARY KEY (id),
+	FOREIGN KEY("AnnotationSource_id") REFERENCES "AnnotationSource" (id)
 );
 CREATE TABLE "Source_input" (
 	"Source_id" INTEGER,

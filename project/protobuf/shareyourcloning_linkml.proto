@@ -29,7 +29,7 @@ message AnnotationSource
   string outputName = 0
   annotationTool annotationTool = 0
   string annotationToolVersion = 0
-  annotationReport annotationReport = 0
+ repeated  annotationReport annotationReport = 0
  }
 // Represents a fragment in an assembly
 message AssemblyFragment

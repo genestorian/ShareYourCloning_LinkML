@@ -1401,7 +1401,9 @@
         "AnnotationSource"
       ],
       "range": "AnnotationReport",
+      "multivalued": true,
       "inlined": true,
+      "inlined_as_list": true,
       "@type": "SlotDefinition"
     },
     {
@@ -2660,7 +2662,8 @@
         {
           "name": "annotation_report",
           "range": "AnnotationReport",
-          "inlined": true,
+          "multivalued": true,
+          "inlined_as_list": true,
           "@type": "SlotDefinition"
         }
       ],
@@ -2670,9 +2673,9 @@
   ],
   "metamodel_version": "1.7.0",
   "source_file": "shareyourcloning_linkml.yaml",
-  "source_file_date": "2024-11-26T16:45:45",
-  "source_file_size": 18304,
-  "generation_date": "2024-11-26T16:47:35",
+  "source_file_date": "2024-11-26T16:51:02",
+  "source_file_size": 18340,
+  "generation_date": "2024-11-26T16:51:08",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/shareyourcloning_linkml.context.jsonld",
