@@ -2,7 +2,7 @@
 --     * Slot: id Description: A unique identifier for a thing
 -- # Class: "Sequence" Description: "Represents a sequence"
 --     * Slot: id Description: A unique identifier for a thing
---     * Slot: type Description: The type of the source
+--     * Slot: type Description: Designates the class
 --     * Slot: CloningStrategy_id Description: Autocreated FK slot
 -- # Class: "TextFileSequence" Description: "A sequence (may have features) defined by the content of a text file"
 --     * Slot: sequence_file_format Description: The format of a sequence file
@@ -10,12 +10,12 @@
 --     * Slot: overhang_watson_3prime Description: The equivalent of `overhang_crick_3prime` but for the watson strand
 --     * Slot: file_content Description:
 --     * Slot: id Description: A unique identifier for a thing
---     * Slot: type Description: The type of the source
+--     * Slot: type Description: Designates the class
 -- # Class: "Primer" Description: "An oligonucleotide or primer"
 --     * Slot: name Description: A human-readable name for a thing
 --     * Slot: sequence Description:
 --     * Slot: id Description: A unique identifier for a thing
---     * Slot: type Description: The type of the source
+--     * Slot: type Description: Designates the class
 --     * Slot: CloningStrategy_id Description: Autocreated FK slot
 -- # Class: "SequenceCut" Description: "Represents a cut in a DNA sequence"
 --     * Slot: id Description:
@@ -28,7 +28,7 @@
 --     * Slot: overhang Description: The length of the overhang that is left after the cut. It can be negative, same meaning as in pydna's `dseq::ovhg` and biopython's `Bio.Restriction.RestrictionType.ovhg`.
 -- # Class: "Source" Description: "Represents the source of a sequence"
 --     * Slot: output Description: Identifier of the sequence that is the output of this source.
---     * Slot: type Description: The type of the source
+--     * Slot: type Description: Designates the class
 --     * Slot: output_name Description: Used to specify the name of the output sequence
 --     * Slot: id Description: A unique identifier for a thing
 --     * Slot: CloningStrategy_id Description: Autocreated FK slot
@@ -38,7 +38,7 @@
 --     * Slot: user_input Description:
 --     * Slot: circular Description: Whether the sequence is circular or not
 --     * Slot: output Description: Identifier of the sequence that is the output of this source.
---     * Slot: type Description: The type of the source
+--     * Slot: type Description: Designates the class
 --     * Slot: output_name Description: Used to specify the name of the output sequence
 --     * Slot: id Description: A unique identifier for a thing
 -- # Class: "UploadedFileSource" Description: "Represents the source of a sequence that is uploaded as a file"
@@ -47,14 +47,14 @@
 --     * Slot: index_in_file Description: The index of the sequence in the file
 --     * Slot: circularize Description: Whether the sequence should be circularized (FASTA only)
 --     * Slot: output Description: Identifier of the sequence that is the output of this source.
---     * Slot: type Description: The type of the source
+--     * Slot: type Description: Designates the class
 --     * Slot: output_name Description: Used to specify the name of the output sequence
 --     * Slot: id Description: A unique identifier for a thing
 -- # Class: "RepositoryIdSource" Description: "Represents the source of a sequence that is identified by a repository id"
 --     * Slot: repository_id Description: The id of the sequence in the repository
 --     * Slot: repository_name Description:
 --     * Slot: output Description: Identifier of the sequence that is the output of this source.
---     * Slot: type Description: The type of the source
+--     * Slot: type Description: Designates the class
 --     * Slot: output_name Description: Used to specify the name of the output sequence
 --     * Slot: id Description: A unique identifier for a thing
 -- # Class: "AddGeneIdSource" Description: "Represents the source of a sequence that is identified by an AddGene id"
@@ -63,28 +63,28 @@
 --     * Slot: repository_id Description: The id of the sequence in the repository
 --     * Slot: repository_name Description:
 --     * Slot: output Description: Identifier of the sequence that is the output of this source.
---     * Slot: type Description: The type of the source
+--     * Slot: type Description: Designates the class
 --     * Slot: output_name Description: Used to specify the name of the output sequence
 --     * Slot: id Description: A unique identifier for a thing
 -- # Class: "BenchlingUrlSource" Description: "Represents the source of a sequence that is identified by a Benchling URL"
 --     * Slot: repository_id Description: The url of the gb file associated with the sequence
 --     * Slot: repository_name Description:
 --     * Slot: output Description: Identifier of the sequence that is the output of this source.
---     * Slot: type Description: The type of the source
+--     * Slot: type Description: Designates the class
 --     * Slot: output_name Description: Used to specify the name of the output sequence
 --     * Slot: id Description: A unique identifier for a thing
 -- # Class: "SnapGenePlasmidSource" Description: "Represents the source of a sequence from the SnapGene plasmid library identified by a SnapGene subpath of https://www.snapgene.com/plasmids/"
 --     * Slot: repository_id Description: The subpath of the plasmid in the SnapGene plasmid library. Requesting the plasmid is possible with https://www.snapgene.com/local/fetch.php?set={category_path}&plasmid={plasmid['subpath']} where category_path is the left part of the subpath before the first / and plasmid is the subpath after the /.
 --     * Slot: repository_name Description:
 --     * Slot: output Description: Identifier of the sequence that is the output of this source.
---     * Slot: type Description: The type of the source
+--     * Slot: type Description: Designates the class
 --     * Slot: output_name Description: Used to specify the name of the output sequence
 --     * Slot: id Description: A unique identifier for a thing
 -- # Class: "EuroscarfSource" Description: "Represents the source of a sequence from the Euroscarf plasmid library"
 --     * Slot: repository_id Description: The id of the plasmid in the Euroscarf plasmid library
 --     * Slot: repository_name Description:
 --     * Slot: output Description: Identifier of the sequence that is the output of this source.
---     * Slot: type Description: The type of the source
+--     * Slot: type Description: Designates the class
 --     * Slot: output_name Description: Used to specify the name of the output sequence
 --     * Slot: id Description: A unique identifier for a thing
 -- # Class: "GenomeCoordinatesSource" Description: "Represents the source of a sequence that is identified by genome coordinates, requested from NCBI"
@@ -96,19 +96,19 @@
 --     * Slot: end Description: The ending coordinate (1-based) of the sequence in the sequence accession
 --     * Slot: strand Description: The strand of the sequence in the sequence accession, should be 1 or -1
 --     * Slot: output Description: Identifier of the sequence that is the output of this source.
---     * Slot: type Description: The type of the source
+--     * Slot: type Description: Designates the class
 --     * Slot: output_name Description: Used to specify the name of the output sequence
 --     * Slot: id Description: A unique identifier for a thing
 -- # Class: "SequenceCutSource" Description: "Represents the source of a sequence that is a subfragment of another sequence, generated by sequence cutting."
 --     * Slot: output Description: Identifier of the sequence that is the output of this source.
---     * Slot: type Description: The type of the source
+--     * Slot: type Description: Designates the class
 --     * Slot: output_name Description: Used to specify the name of the output sequence
 --     * Slot: id Description: A unique identifier for a thing
 --     * Slot: left_edge_id Description:
 --     * Slot: right_edge_id Description:
 -- # Class: "RestrictionEnzymeDigestionSource" Description: "Represents the source of a sequence that is a subfragment of another sequence, generated by sequence cutting using restriction enzymes."
 --     * Slot: output Description: Identifier of the sequence that is the output of this source.
---     * Slot: type Description: The type of the source
+--     * Slot: type Description: Designates the class
 --     * Slot: output_name Description: Used to specify the name of the output sequence
 --     * Slot: id Description: A unique identifier for a thing
 --     * Slot: left_edge_id Description:
@@ -137,50 +137,50 @@
 -- # Class: "AssemblySource" Description: "Represents the source of a sequence that is an assembly of other sequences"
 --     * Slot: circular Description: Whether the assembly is circular or not
 --     * Slot: output Description: Identifier of the sequence that is the output of this source.
---     * Slot: type Description: The type of the source
+--     * Slot: type Description: Designates the class
 --     * Slot: output_name Description: Used to specify the name of the output sequence
 --     * Slot: id Description: A unique identifier for a thing
 -- # Class: "PCRSource" Description: "Represents the source of a sequence that is generated by PCR"
 --     * Slot: add_primer_features Description: Whether to add primer features to the PCR product
 --     * Slot: circular Description: Whether the assembly is circular or not
 --     * Slot: output Description: Identifier of the sequence that is the output of this source.
---     * Slot: type Description: The type of the source
+--     * Slot: type Description: Designates the class
 --     * Slot: output_name Description: Used to specify the name of the output sequence
 --     * Slot: id Description: A unique identifier for a thing
 -- # Class: "LigationSource" Description: "Represents the source of a sequence that is generated by ligation with sticky or blunt ends."
 --     * Slot: circular Description: Whether the assembly is circular or not
 --     * Slot: output Description: Identifier of the sequence that is the output of this source.
---     * Slot: type Description: The type of the source
+--     * Slot: type Description: Designates the class
 --     * Slot: output_name Description: Used to specify the name of the output sequence
 --     * Slot: id Description: A unique identifier for a thing
 -- # Class: "HomologousRecombinationSource" Description: "Represents the source of a sequence that is generated by homologous recombination"
 --     * Slot: circular Description: Whether the assembly is circular or not
 --     * Slot: output Description: Identifier of the sequence that is the output of this source.
---     * Slot: type Description: The type of the source
+--     * Slot: type Description: Designates the class
 --     * Slot: output_name Description: Used to specify the name of the output sequence
 --     * Slot: id Description: A unique identifier for a thing
 -- # Class: "GibsonAssemblySource" Description: "Represents the source of a sequence that is generated by Gibson assembly"
 --     * Slot: circular Description: Whether the assembly is circular or not
 --     * Slot: output Description: Identifier of the sequence that is the output of this source.
---     * Slot: type Description: The type of the source
+--     * Slot: type Description: Designates the class
 --     * Slot: output_name Description: Used to specify the name of the output sequence
 --     * Slot: id Description: A unique identifier for a thing
 -- # Class: "InFusionSource" Description: "Represents the source of a sequence that is generated by In-Fusion cloning by Takara Bio"
 --     * Slot: circular Description: Whether the assembly is circular or not
 --     * Slot: output Description: Identifier of the sequence that is the output of this source.
---     * Slot: type Description: The type of the source
+--     * Slot: type Description: Designates the class
 --     * Slot: output_name Description: Used to specify the name of the output sequence
 --     * Slot: id Description: A unique identifier for a thing
 -- # Class: "OverlapExtensionPCRLigationSource" Description: "Represents the source of a sequence that is generated by ligation of PCR products as part of overlap extension PCR. Algorithmically equivalent to Gibson assembly."
 --     * Slot: circular Description: Whether the assembly is circular or not
 --     * Slot: output Description: Identifier of the sequence that is the output of this source.
---     * Slot: type Description: The type of the source
+--     * Slot: type Description: Designates the class
 --     * Slot: output_name Description: Used to specify the name of the output sequence
 --     * Slot: id Description: A unique identifier for a thing
 -- # Class: "RestrictionAndLigationSource" Description: "Represents the source of a sequence that is generated by restriction and ligation"
 --     * Slot: circular Description: Whether the assembly is circular or not
 --     * Slot: output Description: Identifier of the sequence that is the output of this source.
---     * Slot: type Description: The type of the source
+--     * Slot: type Description: Designates the class
 --     * Slot: output_name Description: Used to specify the name of the output sequence
 --     * Slot: id Description: A unique identifier for a thing
 -- # Class: "GatewaySource" Description: "Represents the source of a sequence that is generated by Gateway cloning"
@@ -188,13 +188,13 @@
 --     * Slot: greedy Description: Whether to use a greedy consensus sequence for att sites (see https://github.com/manulera/GateWayMine)
 --     * Slot: circular Description: Whether the assembly is circular or not
 --     * Slot: output Description: Identifier of the sequence that is the output of this source.
---     * Slot: type Description: The type of the source
+--     * Slot: type Description: Designates the class
 --     * Slot: output_name Description: Used to specify the name of the output sequence
 --     * Slot: id Description: A unique identifier for a thing
 -- # Class: "CRISPRSource" Description: "Represents the source of a sequence that is generated by CRISPR"
 --     * Slot: circular Description: Whether the assembly is circular or not
 --     * Slot: output Description: Identifier of the sequence that is the output of this source.
---     * Slot: type Description: The type of the source
+--     * Slot: type Description: Designates the class
 --     * Slot: output_name Description: Used to specify the name of the output sequence
 --     * Slot: id Description: A unique identifier for a thing
 -- # Class: "OligoHybridizationSource" Description: "Represents the source of a sequence that is generated by oligo hybridization"
@@ -202,12 +202,12 @@
 --     * Slot: forward_oligo Description: The forward oligo used in the hybridization
 --     * Slot: reverse_oligo Description: The reverse oligo used in the hybridization
 --     * Slot: output Description: Identifier of the sequence that is the output of this source.
---     * Slot: type Description: The type of the source
+--     * Slot: type Description: Designates the class
 --     * Slot: output_name Description: Used to specify the name of the output sequence
 --     * Slot: id Description: A unique identifier for a thing
 -- # Class: "PolymeraseExtensionSource" Description: "Represents the source of a sequence that is generated by polymerase extension"
 --     * Slot: output Description: Identifier of the sequence that is the output of this source.
---     * Slot: type Description: The type of the source
+--     * Slot: type Description: Designates the class
 --     * Slot: output_name Description: Used to specify the name of the output sequence
 --     * Slot: id Description: A unique identifier for a thing
 -- # Class: "CloningStrategy" Description: "Represents a cloning strategy"
@@ -215,6 +215,7 @@
 --     * Slot: description Description: A description of the cloning strategy
 -- # Class: "AnnotationReport" Description: "Represents a report of an annotation step"
 --     * Slot: id Description:
+--     * Slot: type Description: Designates the class
 -- # Class: "PlannotateAnnotationReport" Description: "Represents a report of an annotation step using Plannotate"
 --     * Slot: id Description:
 --     * Slot: sseqid Description:
@@ -231,11 +232,12 @@
 --     * Slot: Type Description:
 --     * Slot: Description Description:
 --     * Slot: sequence Description:
+--     * Slot: type Description: Designates the class
 -- # Class: "AnnotationSource" Description: "Represents a computational step in which sequence features are annotated in a sequence"
 --     * Slot: annotation_tool Description:
 --     * Slot: annotation_tool_version Description: The version of the annotation tool
 --     * Slot: output Description: Identifier of the sequence that is the output of this source.
---     * Slot: type Description: The type of the source
+--     * Slot: type Description: Designates the class
 --     * Slot: output_name Description: Used to specify the name of the output sequence
 --     * Slot: id Description: A unique identifier for a thing
 --     * Slot: annotation_report_id Description:
@@ -358,6 +360,7 @@ CREATE TABLE "CloningStrategy" (
 );
 CREATE TABLE "AnnotationReport" (
 	id INTEGER NOT NULL,
+	type TEXT,
 	PRIMARY KEY (id)
 );
 CREATE TABLE "PlannotateAnnotationReport" (
@@ -376,6 +379,7 @@ CREATE TABLE "PlannotateAnnotationReport" (
 	"Type" TEXT,
 	"Description" TEXT,
 	sequence TEXT,
+	type TEXT,
 	PRIMARY KEY (id)
 );
 CREATE TABLE "Sequence" (

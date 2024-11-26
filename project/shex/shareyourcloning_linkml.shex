@@ -57,7 +57,7 @@ linkml:Sparqlpath xsd:string
 
 <AnnotationReport>  (
     CLOSED {
-       (  $<AnnotationReport_tes> rdf:type . * ;
+       (  $<AnnotationReport_tes> <type> @linkml:String ? ;
           rdf:type [ <AnnotationReport> ] ?
        )
     } OR @<PlannotateAnnotationReport>

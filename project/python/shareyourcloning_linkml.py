@@ -1,5 +1,5 @@
 # Auto generated from shareyourcloning_linkml.yaml by pythongen.py version: 0.0.1
-# Generation date: 2024-11-26T15:30:04
+# Generation date: 2024-11-26T16:47:36
 # Schema: ShareYourCloning_LinkML
 #
 # id: https://w3id.org/genestorian/ShareYourCloning_LinkML
@@ -1263,6 +1263,7 @@ class CloningStrategy(YAMLRoot):
         super().__post_init__(**kwargs)
 
 
+@dataclass(repr=False)
 class AnnotationReport(YAMLRoot):
     """
     Represents a report of an annotation step
@@ -1274,6 +1275,29 @@ class AnnotationReport(YAMLRoot):
     class_class_curie: ClassVar[str] = "shareyourcloning_linkml:AnnotationReport"
     class_name: ClassVar[str] = "AnnotationReport"
     class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.AnnotationReport
+
+    type: Optional[str] = None
+
+    def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
+        self.type = str(self.class_name)
+
+        super().__post_init__(**kwargs)
+
+    def __new__(cls, *args, **kwargs):
+
+        type_designator = "type"
+        if not type_designator in kwargs:
+            return super().__new__(cls, *args, **kwargs)
+        else:
+            type_designator_value = kwargs[type_designator]
+            target_cls = cls._class_for("class_name", type_designator_value)
+
+            if target_cls is None:
+                raise ValueError(
+                    f"Wrong type designator value: class {cls.__name__} "
+                    f"has no subclass with ['class_name']='{kwargs[type_designator]}'"
+                )
+            return super().__new__(target_cls, *args, **kwargs)
 
 
 @dataclass(repr=False)
@@ -1348,6 +1372,7 @@ class PlannotateAnnotationReport(AnnotationReport):
             self.sequence = str(self.sequence)
 
         super().__post_init__(**kwargs)
+        self.type = str(self.class_name)
 
 
 @dataclass(repr=False)
@@ -1383,7 +1408,7 @@ class AnnotationSource(Source):
             self.annotation_tool_version = str(self.annotation_tool_version)
 
         if self.annotation_report is not None and not isinstance(self.annotation_report, AnnotationReport):
-            self.annotation_report = AnnotationReport()
+            self.annotation_report = AnnotationReport(**as_dict(self.annotation_report))
 
         super().__post_init__(**kwargs)
         self.type = str(self.class_name)

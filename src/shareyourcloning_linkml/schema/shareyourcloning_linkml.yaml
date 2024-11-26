@@ -474,6 +474,8 @@ classes:
   AnnotationReport:
     description: >-
       Represents a report of an annotation step
+    slots:
+      - type
 
   PlannotateAnnotationReport:
     is_a: AnnotationReport
@@ -523,6 +525,7 @@ classes:
             The version of the annotation tool
       - annotation_report:
           range: AnnotationReport
+          inlined: true
 
 slots:
   id:
@@ -568,7 +571,7 @@ slots:
     range: string
   type:
     description: >-
-      The type of the source
+      Designates the class
     designates_type: true
     range: string
 

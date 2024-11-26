@@ -14,6 +14,11 @@ message AddGeneIdSource
   string sequenceFileUrl = 0
   addGeneSequenceType addgeneSequenceType = 0
  }
+// Represents a report of an annotation step
+message AnnotationReport
+ {
+  string type = 0
+ }
 // Represents a computational step in which sequence features are annotated in a sequence
 message AnnotationSource
  {
@@ -215,6 +220,7 @@ message PCRSource
 // Represents a report of an annotation step using Plannotate
 message PlannotateAnnotationReport
  {
+  string type = 0
   string sseqid = 0
   integer startLocation = 0
   integer endLocation = 0

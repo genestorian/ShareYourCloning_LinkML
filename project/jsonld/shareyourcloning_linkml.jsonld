@@ -550,14 +550,15 @@
     {
       "name": "type",
       "definition_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/type",
-      "description": "The type of the source",
+      "description": "Designates the class",
       "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
       "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/type",
       "designates_type": true,
-      "owner": "Source",
+      "owner": "AnnotationReport",
       "domain_of": [
         "Sequence",
-        "Source"
+        "Source",
+        "AnnotationReport"
       ],
       "range": "string",
       "@type": "SlotDefinition"
@@ -2520,6 +2521,9 @@
       "definition_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/AnnotationReport",
       "description": "Represents a report of an annotation step",
       "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "slots": [
+        "type"
+      ],
       "slot_usage": {},
       "class_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/AnnotationReport",
       "@type": "ClassDefinition"
@@ -2531,6 +2535,7 @@
       "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
       "is_a": "AnnotationReport",
       "slots": [
+        "type",
         "plannotateAnnotationReport__sseqid",
         "plannotateAnnotationReport__start_location",
         "plannotateAnnotationReport__end_location",
@@ -2655,6 +2660,7 @@
         {
           "name": "annotation_report",
           "range": "AnnotationReport",
+          "inlined": true,
           "@type": "SlotDefinition"
         }
       ],
@@ -2664,9 +2670,9 @@
   ],
   "metamodel_version": "1.7.0",
   "source_file": "shareyourcloning_linkml.yaml",
-  "source_file_date": "2024-11-26T15:29:29",
-  "source_file_size": 18258,
-  "generation_date": "2024-11-26T15:30:03",
+  "source_file_date": "2024-11-26T16:45:45",
+  "source_file_size": 18304,
+  "generation_date": "2024-11-26T16:47:35",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/shareyourcloning_linkml.context.jsonld",

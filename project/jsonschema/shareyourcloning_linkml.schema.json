@@ -51,7 +51,7 @@
                     ]
                 },
                 "type": {
-                    "description": "The type of the source",
+                    "description": "Designates the class",
                     "enum": [
                         "AddGeneIdSource"
                     ],
@@ -81,6 +81,18 @@
         "AnnotationReport": {
             "additionalProperties": false,
             "description": "Represents a report of an annotation step",
+            "properties": {
+                "type": {
+                    "description": "Designates the class",
+                    "enum": [
+                        "AnnotationReport"
+                    ],
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
             "title": "AnnotationReport",
             "type": "object"
         },
@@ -92,6 +104,9 @@
                     "anyOf": [
                         {
                             "$ref": "#/$defs/AnnotationReport"
+                        },
+                        {
+                            "$ref": "#/$defs/PlannotateAnnotationReport"
                         },
                         {
                             "type": "null"
@@ -137,7 +152,7 @@
                     ]
                 },
                 "type": {
-                    "description": "The type of the source",
+                    "description": "Designates the class",
                     "enum": [
                         "AnnotationSource"
                     ],
@@ -248,7 +263,7 @@
                     ]
                 },
                 "type": {
-                    "description": "The type of the source",
+                    "description": "Designates the class",
                     "enum": [
                         "AssemblySource"
                     ],
@@ -306,7 +321,7 @@
                     "$ref": "#/$defs/RepositoryName"
                 },
                 "type": {
-                    "description": "The type of the source",
+                    "description": "Designates the class",
                     "enum": [
                         "BenchlingUrlSource"
                     ],
@@ -378,7 +393,7 @@
                     ]
                 },
                 "type": {
-                    "description": "The type of the source",
+                    "description": "Designates the class",
                     "enum": [
                         "CRISPRSource"
                     ],
@@ -557,7 +572,7 @@
                     "$ref": "#/$defs/RepositoryName"
                 },
                 "type": {
-                    "description": "The type of the source",
+                    "description": "Designates the class",
                     "enum": [
                         "EuroscarfSource"
                     ],
@@ -641,7 +656,7 @@
                     "$ref": "#/$defs/GatewayReactionType"
                 },
                 "type": {
-                    "description": "The type of the source",
+                    "description": "Designates the class",
                     "enum": [
                         "GatewaySource"
                     ],
@@ -729,7 +744,7 @@
                     "type": "integer"
                 },
                 "type": {
-                    "description": "The type of the source",
+                    "description": "Designates the class",
                     "enum": [
                         "GenomeCoordinatesSource"
                     ],
@@ -796,7 +811,7 @@
                     ]
                 },
                 "type": {
-                    "description": "The type of the source",
+                    "description": "Designates the class",
                     "enum": [
                         "GibsonAssemblySource"
                     ],
@@ -860,7 +875,7 @@
                     ]
                 },
                 "type": {
-                    "description": "The type of the source",
+                    "description": "Designates the class",
                     "enum": [
                         "HomologousRecombinationSource"
                     ],
@@ -924,7 +939,7 @@
                     ]
                 },
                 "type": {
-                    "description": "The type of the source",
+                    "description": "Designates the class",
                     "enum": [
                         "InFusionSource"
                     ],
@@ -988,7 +1003,7 @@
                     ]
                 },
                 "type": {
-                    "description": "The type of the source",
+                    "description": "Designates the class",
                     "enum": [
                         "LigationSource"
                     ],
@@ -1059,7 +1074,7 @@
                     ]
                 },
                 "type": {
-                    "description": "The type of the source",
+                    "description": "Designates the class",
                     "enum": [
                         "ManuallyTypedSource"
                     ],
@@ -1146,7 +1161,7 @@
                     "type": "integer"
                 },
                 "type": {
-                    "description": "The type of the source",
+                    "description": "Designates the class",
                     "enum": [
                         "OligoHybridizationSource"
                     ],
@@ -1211,7 +1226,7 @@
                     ]
                 },
                 "type": {
-                    "description": "The type of the source",
+                    "description": "Designates the class",
                     "enum": [
                         "OverlapExtensionPCRLigationSource"
                     ],
@@ -1282,7 +1297,7 @@
                     ]
                 },
                 "type": {
-                    "description": "The type of the source",
+                    "description": "Designates the class",
                     "enum": [
                         "PCRSource"
                     ],
@@ -1386,6 +1401,16 @@
                         "integer",
                         "null"
                     ]
+                },
+                "type": {
+                    "description": "Designates the class",
+                    "enum": [
+                        "PlannotateAnnotationReport"
+                    ],
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 }
             },
             "title": "PlannotateAnnotationReport",
@@ -1424,7 +1449,7 @@
                     ]
                 },
                 "type": {
-                    "description": "The type of the source",
+                    "description": "Designates the class",
                     "enum": [
                         "PolymeraseExtensionSource"
                     ],
@@ -1463,7 +1488,7 @@
                     ]
                 },
                 "type": {
-                    "description": "The type of the source",
+                    "description": "Designates the class",
                     "enum": [
                         "Primer"
                     ],
@@ -1519,7 +1544,7 @@
                     "$ref": "#/$defs/RepositoryName"
                 },
                 "type": {
-                    "description": "The type of the source",
+                    "description": "Designates the class",
                     "enum": [
                         "RepositoryIdSource"
                     ],
@@ -1602,7 +1627,7 @@
                     "type": "array"
                 },
                 "type": {
-                    "description": "The type of the source",
+                    "description": "Designates the class",
                     "enum": [
                         "RestrictionAndLigationSource"
                     ],
@@ -1673,7 +1698,7 @@
                     ]
                 },
                 "type": {
-                    "description": "The type of the source",
+                    "description": "Designates the class",
                     "enum": [
                         "RestrictionEnzymeDigestionSource"
                     ],
@@ -1786,7 +1811,7 @@
                     ]
                 },
                 "type": {
-                    "description": "The type of the source",
+                    "description": "Designates the class",
                     "enum": [
                         "SequenceCutSource"
                     ],
@@ -1881,7 +1906,7 @@
                     "$ref": "#/$defs/RepositoryName"
                 },
                 "type": {
-                    "description": "The type of the source",
+                    "description": "Designates the class",
                     "enum": [
                         "SnapGenePlasmidSource"
                     ],
@@ -1932,7 +1957,7 @@
                     "description": "The format of a sequence file"
                 },
                 "type": {
-                    "description": "The type of the source",
+                    "description": "Designates the class",
                     "enum": [
                         "TextFileSequence"
                     ],
@@ -2007,7 +2032,7 @@
                     "description": "The format of a sequence file"
                 },
                 "type": {
-                    "description": "The type of the source",
+                    "description": "Designates the class",
                     "enum": [
                         "UploadedFileSource"
                     ],
