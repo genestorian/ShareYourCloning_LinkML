@@ -78,6 +78,90 @@
             "title": "AddGeneSequenceType",
             "type": "string"
         },
+        "AnnotationReport": {
+            "additionalProperties": false,
+            "description": "Represents a report of an annotation step",
+            "title": "AnnotationReport",
+            "type": "object"
+        },
+        "AnnotationSource": {
+            "additionalProperties": false,
+            "description": "Represents a computational step in which sequence features are annotated in a sequence",
+            "properties": {
+                "annotation_report": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/AnnotationReport"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                },
+                "annotation_tool": {
+                    "$ref": "#/$defs/AnnotationTool"
+                },
+                "annotation_tool_version": {
+                    "description": "The version of the annotation tool",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "id": {
+                    "description": "A unique identifier for a thing",
+                    "type": "integer"
+                },
+                "input": {
+                    "description": "The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.",
+                    "items": {
+                        "type": "integer"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "output": {
+                    "description": "Identifier of the sequence that is the output of this source.",
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "output_name": {
+                    "description": "Used to specify the name of the output sequence",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "type": {
+                    "description": "The type of the source",
+                    "enum": [
+                        "AnnotationSource"
+                    ],
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "annotation_tool",
+                "id"
+            ],
+            "title": "AnnotationSource",
+            "type": "object"
+        },
+        "AnnotationTool": {
+            "description": "",
+            "enum": [
+                "plannotate"
+            ],
+            "title": "AnnotationTool",
+            "type": "string"
+        },
         "AssemblyFragment": {
             "additionalProperties": false,
             "description": "Represents a fragment in an assembly",
@@ -374,6 +458,9 @@
                             },
                             {
                                 "$ref": "#/$defs/PolymeraseExtensionSource"
+                            },
+                            {
+                                "$ref": "#/$defs/AnnotationSource"
                             },
                             {
                                 "$ref": "#/$defs/PCRSource"
@@ -1210,6 +1297,98 @@
                 "id"
             ],
             "title": "PCRSource",
+            "type": "object"
+        },
+        "PlannotateAnnotationReport": {
+            "additionalProperties": false,
+            "description": "Represents a report of an annotation step using Plannotate",
+            "properties": {
+                "Description": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Feature": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Type": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "database": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "end_location": {
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "fragment": {
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "full_length_of_feature_in_db": {
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "length_of_found_feature": {
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "percent_identity": {
+                    "type": [
+                        "number",
+                        "null"
+                    ]
+                },
+                "percent_match_length": {
+                    "type": [
+                        "number",
+                        "null"
+                    ]
+                },
+                "sequence": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "sseqid": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "start_location": {
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "strand": {
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                }
+            },
+            "title": "PlannotateAnnotationReport",
             "type": "object"
         },
         "PolymeraseExtensionSource": {

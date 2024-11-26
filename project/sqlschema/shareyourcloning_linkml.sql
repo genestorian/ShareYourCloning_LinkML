@@ -213,6 +213,32 @@
 -- # Class: "CloningStrategy" Description: "Represents a cloning strategy"
 --     * Slot: id Description:
 --     * Slot: description Description: A description of the cloning strategy
+-- # Class: "AnnotationReport" Description: "Represents a report of an annotation step"
+--     * Slot: id Description:
+-- # Class: "PlannotateAnnotationReport" Description: "Represents a report of an annotation step using Plannotate"
+--     * Slot: id Description:
+--     * Slot: sseqid Description:
+--     * Slot: start_location Description:
+--     * Slot: end_location Description:
+--     * Slot: strand Description:
+--     * Slot: percent_identity Description:
+--     * Slot: full_length_of_feature_in_db Description:
+--     * Slot: length_of_found_feature Description:
+--     * Slot: percent_match_length Description:
+--     * Slot: fragment Description:
+--     * Slot: database Description:
+--     * Slot: Feature Description:
+--     * Slot: Type Description:
+--     * Slot: Description Description:
+--     * Slot: sequence Description:
+-- # Class: "AnnotationSource" Description: "Represents a computational step in which sequence features are annotated in a sequence"
+--     * Slot: annotation_tool Description:
+--     * Slot: annotation_tool_version Description: The version of the annotation tool
+--     * Slot: output Description: Identifier of the sequence that is the output of this source.
+--     * Slot: type Description: The type of the source
+--     * Slot: output_name Description: Used to specify the name of the output sequence
+--     * Slot: id Description: A unique identifier for a thing
+--     * Slot: annotation_report_id Description:
 -- # Class: "Source_input" Description: ""
 --     * Slot: Source_id Description: Autocreated FK slot
 --     * Slot: input_id Description: The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.
@@ -288,6 +314,9 @@
 -- # Class: "PolymeraseExtensionSource_input" Description: ""
 --     * Slot: PolymeraseExtensionSource_id Description: Autocreated FK slot
 --     * Slot: input_id Description: The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.
+-- # Class: "AnnotationSource_input" Description: ""
+--     * Slot: AnnotationSource_id Description: Autocreated FK slot
+--     * Slot: input_id Description: The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.
 
 CREATE TABLE "NamedThing" (
 	id INTEGER NOT NULL,
@@ -325,6 +354,28 @@ CREATE TABLE "SimpleSequenceLocation" (
 CREATE TABLE "CloningStrategy" (
 	id INTEGER NOT NULL,
 	description TEXT,
+	PRIMARY KEY (id)
+);
+CREATE TABLE "AnnotationReport" (
+	id INTEGER NOT NULL,
+	PRIMARY KEY (id)
+);
+CREATE TABLE "PlannotateAnnotationReport" (
+	id INTEGER NOT NULL,
+	sseqid TEXT,
+	start_location INTEGER,
+	end_location INTEGER,
+	strand INTEGER,
+	percent_identity FLOAT,
+	full_length_of_feature_in_db INTEGER,
+	length_of_found_feature INTEGER,
+	percent_match_length FLOAT,
+	fragment BOOLEAN,
+	"database" TEXT,
+	"Feature" TEXT,
+	"Type" TEXT,
+	"Description" TEXT,
+	sequence TEXT,
 	PRIMARY KEY (id)
 );
 CREATE TABLE "Sequence" (
@@ -582,6 +633,18 @@ CREATE TABLE "PolymeraseExtensionSource" (
 	PRIMARY KEY (id),
 	FOREIGN KEY(output) REFERENCES "Sequence" (id)
 );
+CREATE TABLE "AnnotationSource" (
+	annotation_tool VARCHAR(10) NOT NULL,
+	annotation_tool_version TEXT,
+	output INTEGER,
+	type TEXT,
+	output_name TEXT,
+	id INTEGER NOT NULL,
+	annotation_report_id INTEGER,
+	PRIMARY KEY (id),
+	FOREIGN KEY(output) REFERENCES "Sequence" (id),
+	FOREIGN KEY(annotation_report_id) REFERENCES "AnnotationReport" (id)
+);
 CREATE TABLE "AssemblyFragment" (
 	id INTEGER NOT NULL,
 	sequence INTEGER NOT NULL,
@@ -785,5 +848,12 @@ CREATE TABLE "PolymeraseExtensionSource_input" (
 	input_id INTEGER,
 	PRIMARY KEY ("PolymeraseExtensionSource_id", input_id),
 	FOREIGN KEY("PolymeraseExtensionSource_id") REFERENCES "PolymeraseExtensionSource" (id),
+	FOREIGN KEY(input_id) REFERENCES "Sequence" (id)
+);
+CREATE TABLE "AnnotationSource_input" (
+	"AnnotationSource_id" INTEGER,
+	input_id INTEGER,
+	PRIMARY KEY ("AnnotationSource_id", input_id),
+	FOREIGN KEY("AnnotationSource_id") REFERENCES "AnnotationSource" (id),
 	FOREIGN KEY(input_id) REFERENCES "Sequence" (id)
 );

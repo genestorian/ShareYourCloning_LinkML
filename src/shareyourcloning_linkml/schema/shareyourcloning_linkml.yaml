@@ -471,6 +471,59 @@ classes:
           description: >-
             A description of the cloning strategy
 
+  AnnotationReport:
+    description: >-
+      Represents a report of an annotation step
+
+  PlannotateAnnotationReport:
+    is_a: AnnotationReport
+    description: >-
+      Represents a report of an annotation step using Plannotate
+    attributes:
+      sseqid:
+        range: string
+      start_location:
+        range: integer
+      end_location:
+        range: integer
+      strand:
+        range: integer
+      percent_identity:
+        range: float
+      full_length_of_feature_in_db:
+        range: integer
+      length_of_found_feature:
+        range: integer
+      percent_match_length:
+        range: float
+      fragment:
+        range: boolean
+      database:
+        range: string
+      Feature:
+        range: string
+      Type:
+        range: string
+      Description:
+        range: string
+      sequence:
+        range: string
+
+  AnnotationSource:
+    is_a: Source
+    description: >-
+      Represents a computational step in which sequence features are annotated in a sequence
+    attributes:
+      - annotation_tool:
+          range: AnnotationTool
+          required: true
+      - annotation_tool_version:
+          range: string
+          description: >-
+            The version of the annotation tool
+      - annotation_report:
+          range: AnnotationReport
+
 slots:
   id:
     identifier: true
@@ -596,3 +649,7 @@ enums:
       BP:
         description: >-
           BP reaction
+
+  AnnotationTool:
+    permissible_values:
+      plannotate:

@@ -102,6 +102,10 @@ class GatewayReactionType(str, Enum):
     BP = "BP"
 
 
+class AnnotationTool(str, Enum):
+    plannotate = "plannotate"
+
+
 class NamedThing(ConfiguredBaseModel):
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta(
         {"class_uri": "schema:Thing", "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML"}
@@ -220,7 +224,13 @@ class Primer(Sequence):
         json_schema_extra={"linkml_meta": {"alias": "name", "domain_of": ["Primer"], "slot_uri": "schema:name"}},
     )
     sequence: Optional[str] = Field(
-        None, json_schema_extra={"linkml_meta": {"alias": "sequence", "domain_of": ["Primer", "AssemblyFragment"]}}
+        None,
+        json_schema_extra={
+            "linkml_meta": {
+                "alias": "sequence",
+                "domain_of": ["Primer", "AssemblyFragment", "PlannotateAnnotationReport"],
+            }
+        },
     )
     id: int = Field(
         ...,
@@ -881,7 +891,10 @@ class GenomeCoordinatesSource(Source):
         ...,
         description="""The strand of the sequence in the sequence accession, should be 1 or -1""",
         json_schema_extra={
-            "linkml_meta": {"alias": "strand", "domain_of": ["GenomeCoordinatesSource", "SimpleSequenceLocation"]}
+            "linkml_meta": {
+                "alias": "strand",
+                "domain_of": ["GenomeCoordinatesSource", "SimpleSequenceLocation", "PlannotateAnnotationReport"],
+            }
         },
     )
     input: Optional[List[int]] = Field(
@@ -1058,7 +1071,10 @@ class SimpleSequenceLocation(ConfiguredBaseModel):
         None,
         description="""The strand of the location, should be 1 or -1 or null""",
         json_schema_extra={
-            "linkml_meta": {"alias": "strand", "domain_of": ["GenomeCoordinatesSource", "SimpleSequenceLocation"]}
+            "linkml_meta": {
+                "alias": "strand",
+                "domain_of": ["GenomeCoordinatesSource", "SimpleSequenceLocation", "PlannotateAnnotationReport"],
+            }
         },
     )
 
@@ -1073,7 +1089,13 @@ class AssemblyFragment(ConfiguredBaseModel):
     )
 
     sequence: int = Field(
-        ..., json_schema_extra={"linkml_meta": {"alias": "sequence", "domain_of": ["Primer", "AssemblyFragment"]}}
+        ...,
+        json_schema_extra={
+            "linkml_meta": {
+                "alias": "sequence",
+                "domain_of": ["Primer", "AssemblyFragment", "PlannotateAnnotationReport"],
+            }
+        },
     )
     left_location: Optional[SimpleSequenceLocation] = Field(
         None, json_schema_extra={"linkml_meta": {"alias": "left_location", "domain_of": ["AssemblyFragment"]}}
@@ -1768,6 +1790,7 @@ class CloningStrategy(ConfiguredBaseModel):
             AssemblySource,
             OligoHybridizationSource,
             PolymeraseExtensionSource,
+            AnnotationSource,
             PCRSource,
             LigationSource,
             HomologousRecombinationSource,
@@ -1797,6 +1820,145 @@ class CloningStrategy(ConfiguredBaseModel):
         None,
         description="""A description of the cloning strategy""",
         json_schema_extra={"linkml_meta": {"alias": "description", "domain_of": ["CloningStrategy"]}},
+    )
+
+
+class AnnotationReport(ConfiguredBaseModel):
+    """
+    Represents a report of an annotation step
+    """
+
+    linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta(
+        {"from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML"}
+    )
+
+    pass
+
+
+class PlannotateAnnotationReport(AnnotationReport):
+    """
+    Represents a report of an annotation step using Plannotate
+    """
+
+    linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta(
+        {"from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML"}
+    )
+
+    sseqid: Optional[str] = Field(
+        None, json_schema_extra={"linkml_meta": {"alias": "sseqid", "domain_of": ["PlannotateAnnotationReport"]}}
+    )
+    start_location: Optional[int] = Field(
+        None,
+        json_schema_extra={"linkml_meta": {"alias": "start_location", "domain_of": ["PlannotateAnnotationReport"]}},
+    )
+    end_location: Optional[int] = Field(
+        None, json_schema_extra={"linkml_meta": {"alias": "end_location", "domain_of": ["PlannotateAnnotationReport"]}}
+    )
+    strand: Optional[int] = Field(
+        None,
+        json_schema_extra={
+            "linkml_meta": {
+                "alias": "strand",
+                "domain_of": ["GenomeCoordinatesSource", "SimpleSequenceLocation", "PlannotateAnnotationReport"],
+            }
+        },
+    )
+    percent_identity: Optional[float] = Field(
+        None,
+        json_schema_extra={"linkml_meta": {"alias": "percent_identity", "domain_of": ["PlannotateAnnotationReport"]}},
+    )
+    full_length_of_feature_in_db: Optional[int] = Field(
+        None,
+        json_schema_extra={
+            "linkml_meta": {"alias": "full_length_of_feature_in_db", "domain_of": ["PlannotateAnnotationReport"]}
+        },
+    )
+    length_of_found_feature: Optional[int] = Field(
+        None,
+        json_schema_extra={
+            "linkml_meta": {"alias": "length_of_found_feature", "domain_of": ["PlannotateAnnotationReport"]}
+        },
+    )
+    percent_match_length: Optional[float] = Field(
+        None,
+        json_schema_extra={
+            "linkml_meta": {"alias": "percent_match_length", "domain_of": ["PlannotateAnnotationReport"]}
+        },
+    )
+    fragment: Optional[bool] = Field(
+        None, json_schema_extra={"linkml_meta": {"alias": "fragment", "domain_of": ["PlannotateAnnotationReport"]}}
+    )
+    database: Optional[str] = Field(
+        None, json_schema_extra={"linkml_meta": {"alias": "database", "domain_of": ["PlannotateAnnotationReport"]}}
+    )
+    Feature: Optional[str] = Field(
+        None, json_schema_extra={"linkml_meta": {"alias": "Feature", "domain_of": ["PlannotateAnnotationReport"]}}
+    )
+    Type: Optional[str] = Field(
+        None, json_schema_extra={"linkml_meta": {"alias": "Type", "domain_of": ["PlannotateAnnotationReport"]}}
+    )
+    Description: Optional[str] = Field(
+        None, json_schema_extra={"linkml_meta": {"alias": "Description", "domain_of": ["PlannotateAnnotationReport"]}}
+    )
+    sequence: Optional[str] = Field(
+        None,
+        json_schema_extra={
+            "linkml_meta": {
+                "alias": "sequence",
+                "domain_of": ["Primer", "AssemblyFragment", "PlannotateAnnotationReport"],
+            }
+        },
+    )
+
+
+class AnnotationSource(Source):
+    """
+    Represents a computational step in which sequence features are annotated in a sequence
+    """
+
+    linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta(
+        {"from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML"}
+    )
+
+    annotation_tool: AnnotationTool = Field(
+        ..., json_schema_extra={"linkml_meta": {"alias": "annotation_tool", "domain_of": ["AnnotationSource"]}}
+    )
+    annotation_tool_version: Optional[str] = Field(
+        None,
+        description="""The version of the annotation tool""",
+        json_schema_extra={"linkml_meta": {"alias": "annotation_tool_version", "domain_of": ["AnnotationSource"]}},
+    )
+    annotation_report: Optional[AnnotationReport] = Field(
+        None, json_schema_extra={"linkml_meta": {"alias": "annotation_report", "domain_of": ["AnnotationSource"]}}
+    )
+    input: Optional[List[int]] = Field(
+        None,
+        description="""The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.""",
+        json_schema_extra={"linkml_meta": {"alias": "input", "domain_of": ["Source"]}},
+    )
+    output: Optional[int] = Field(
+        None,
+        description="""Identifier of the sequence that is the output of this source.""",
+        json_schema_extra={"linkml_meta": {"alias": "output", "domain_of": ["Source"]}},
+    )
+    type: Literal["AnnotationSource"] = Field(
+        "AnnotationSource",
+        description="""The type of the source""",
+        json_schema_extra={
+            "linkml_meta": {"alias": "type", "designates_type": True, "domain_of": ["Sequence", "Source"]}
+        },
+    )
+    output_name: Optional[str] = Field(
+        None,
+        description="""Used to specify the name of the output sequence""",
+        json_schema_extra={"linkml_meta": {"alias": "output_name", "domain_of": ["Source"]}},
+    )
+    id: int = Field(
+        ...,
+        description="""A unique identifier for a thing""",
+        json_schema_extra={
+            "linkml_meta": {"alias": "id", "domain_of": ["NamedThing", "Sequence"], "slot_uri": "schema:identifier"}
+        },
     )
 
 
@@ -1834,3 +1996,6 @@ CRISPRSource.model_rebuild()
 OligoHybridizationSource.model_rebuild()
 PolymeraseExtensionSource.model_rebuild()
 CloningStrategy.model_rebuild()
+AnnotationReport.model_rebuild()
+PlannotateAnnotationReport.model_rebuild()
+AnnotationSource.model_rebuild()

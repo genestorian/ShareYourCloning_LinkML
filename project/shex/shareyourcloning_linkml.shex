@@ -55,6 +55,25 @@ linkml:Sparqlpath xsd:string
     )
 }
 
+<AnnotationReport>  (
+    CLOSED {
+       (  $<AnnotationReport_tes> rdf:type . * ;
+          rdf:type [ <AnnotationReport> ] ?
+       )
+    } OR @<PlannotateAnnotationReport>
+)
+
+<AnnotationSource> CLOSED {
+    (  $<AnnotationSource_tes> (  &<Source_tes> ;
+          rdf:type [ <Source> ] ? ;
+          <annotation_tool> [ <https://w3id.org/genestorian/ShareYourCloning_LinkML/AnnotationTool#plannotate> ] ;
+          <annotation_tool_version> @linkml:String ? ;
+          <annotation_report> @<AnnotationReport> ?
+       ) ;
+       rdf:type [ <AnnotationSource> ]
+    )
+}
+
 <AssemblyFragment> CLOSED {
     (  $<AssemblyFragment_tes> (  <sequence> @<Sequence> ;
           <left_location> @<SimpleSequenceLocation> ? ;
@@ -223,6 +242,28 @@ linkml:Sparqlpath xsd:string
     )
 }
 
+<PlannotateAnnotationReport> CLOSED {
+    (  $<PlannotateAnnotationReport_tes> (  &<AnnotationReport_tes> ;
+          rdf:type [ <AnnotationReport> ] ? ;
+          <sseqid> @linkml:String ? ;
+          <start_location> @linkml:Integer ? ;
+          <end_location> @linkml:Integer ? ;
+          <strand> @linkml:Integer ? ;
+          <percent_identity> @linkml:Float ? ;
+          <full_length_of_feature_in_db> @linkml:Integer ? ;
+          <length_of_found_feature> @linkml:Integer ? ;
+          <percent_match_length> @linkml:Float ? ;
+          <fragment> @linkml:Boolean ? ;
+          <database> @linkml:String ? ;
+          <Feature> @linkml:String ? ;
+          <Type> @linkml:String ? ;
+          <Description> @linkml:String ? ;
+          <sequence> @linkml:String ?
+       ) ;
+       rdf:type [ <PlannotateAnnotationReport> ] ?
+    )
+}
+
 <PolymeraseExtensionSource> CLOSED {
     (  $<PolymeraseExtensionSource_tes> (  &<Source_tes> ;
           rdf:type [ <Source> ] ?
@@ -339,8 +380,8 @@ linkml:Sparqlpath xsd:string
 }
 
 <Source>  (
-    @<AssemblySource> OR @<GenomeCoordinatesSource> OR @<ManuallyTypedSource> OR @<OligoHybridizationSource> OR
-    @<PolymeraseExtensionSource> OR @<RepositoryIdSource> OR @<SequenceCutSource> OR @<UploadedFileSource>
+    @<AnnotationSource> OR @<AssemblySource> OR @<GenomeCoordinatesSource> OR @<ManuallyTypedSource> OR @<OligoHybridizationSource>
+    OR @<PolymeraseExtensionSource> OR @<RepositoryIdSource> OR @<SequenceCutSource> OR @<UploadedFileSource>
 )
 
 <Source_struct> {

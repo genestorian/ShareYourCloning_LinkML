@@ -428,6 +428,16 @@
           "description": "BP reaction"
         }
       ]
+    },
+    {
+      "name": "AnnotationTool",
+      "definition_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/AnnotationTool",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "permissible_values": [
+        {
+          "text": "plannotate"
+        }
+      ]
     }
   ],
   "slots": [
@@ -1184,6 +1194,213 @@
         "CloningStrategy"
       ],
       "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "plannotateAnnotationReport__sseqid",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/sseqid",
+      "alias": "sseqid",
+      "owner": "PlannotateAnnotationReport",
+      "domain_of": [
+        "PlannotateAnnotationReport"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "plannotateAnnotationReport__start_location",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/start_location",
+      "alias": "start_location",
+      "owner": "PlannotateAnnotationReport",
+      "domain_of": [
+        "PlannotateAnnotationReport"
+      ],
+      "range": "integer",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "plannotateAnnotationReport__end_location",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/end_location",
+      "alias": "end_location",
+      "owner": "PlannotateAnnotationReport",
+      "domain_of": [
+        "PlannotateAnnotationReport"
+      ],
+      "range": "integer",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "plannotateAnnotationReport__strand",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/strand",
+      "alias": "strand",
+      "owner": "PlannotateAnnotationReport",
+      "domain_of": [
+        "PlannotateAnnotationReport"
+      ],
+      "range": "integer",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "plannotateAnnotationReport__percent_identity",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/percent_identity",
+      "alias": "percent_identity",
+      "owner": "PlannotateAnnotationReport",
+      "domain_of": [
+        "PlannotateAnnotationReport"
+      ],
+      "range": "float",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "plannotateAnnotationReport__full_length_of_feature_in_db",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/full_length_of_feature_in_db",
+      "alias": "full_length_of_feature_in_db",
+      "owner": "PlannotateAnnotationReport",
+      "domain_of": [
+        "PlannotateAnnotationReport"
+      ],
+      "range": "integer",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "plannotateAnnotationReport__length_of_found_feature",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/length_of_found_feature",
+      "alias": "length_of_found_feature",
+      "owner": "PlannotateAnnotationReport",
+      "domain_of": [
+        "PlannotateAnnotationReport"
+      ],
+      "range": "integer",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "plannotateAnnotationReport__percent_match_length",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/percent_match_length",
+      "alias": "percent_match_length",
+      "owner": "PlannotateAnnotationReport",
+      "domain_of": [
+        "PlannotateAnnotationReport"
+      ],
+      "range": "float",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "plannotateAnnotationReport__fragment",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/fragment",
+      "alias": "fragment",
+      "owner": "PlannotateAnnotationReport",
+      "domain_of": [
+        "PlannotateAnnotationReport"
+      ],
+      "range": "boolean",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "plannotateAnnotationReport__database",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/database",
+      "alias": "database",
+      "owner": "PlannotateAnnotationReport",
+      "domain_of": [
+        "PlannotateAnnotationReport"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "plannotateAnnotationReport__Feature",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/Feature",
+      "alias": "Feature",
+      "owner": "PlannotateAnnotationReport",
+      "domain_of": [
+        "PlannotateAnnotationReport"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "plannotateAnnotationReport__Type",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/Type",
+      "alias": "Type",
+      "owner": "PlannotateAnnotationReport",
+      "domain_of": [
+        "PlannotateAnnotationReport"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "plannotateAnnotationReport__Description",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/Description",
+      "alias": "Description",
+      "owner": "PlannotateAnnotationReport",
+      "domain_of": [
+        "PlannotateAnnotationReport"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "plannotateAnnotationReport__sequence",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/sequence",
+      "alias": "sequence",
+      "owner": "PlannotateAnnotationReport",
+      "domain_of": [
+        "PlannotateAnnotationReport"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "annotationSource__annotation_tool",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/annotation_tool",
+      "alias": "annotation_tool",
+      "owner": "AnnotationSource",
+      "domain_of": [
+        "AnnotationSource"
+      ],
+      "range": "AnnotationTool",
+      "required": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "annotationSource__annotation_tool_version",
+      "description": "The version of the annotation tool",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/annotation_tool_version",
+      "alias": "annotation_tool_version",
+      "owner": "AnnotationSource",
+      "domain_of": [
+        "AnnotationSource"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "annotationSource__annotation_report",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/annotation_report",
+      "alias": "annotation_report",
+      "owner": "AnnotationSource",
+      "domain_of": [
+        "AnnotationSource"
+      ],
+      "range": "AnnotationReport",
+      "inlined": true,
       "@type": "SlotDefinition"
     },
     {
@@ -2297,13 +2514,159 @@
       ],
       "class_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/CloningStrategy",
       "@type": "ClassDefinition"
+    },
+    {
+      "name": "AnnotationReport",
+      "definition_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/AnnotationReport",
+      "description": "Represents a report of an annotation step",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "slot_usage": {},
+      "class_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/AnnotationReport",
+      "@type": "ClassDefinition"
+    },
+    {
+      "name": "PlannotateAnnotationReport",
+      "definition_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/PlannotateAnnotationReport",
+      "description": "Represents a report of an annotation step using Plannotate",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "is_a": "AnnotationReport",
+      "slots": [
+        "plannotateAnnotationReport__sseqid",
+        "plannotateAnnotationReport__start_location",
+        "plannotateAnnotationReport__end_location",
+        "plannotateAnnotationReport__strand",
+        "plannotateAnnotationReport__percent_identity",
+        "plannotateAnnotationReport__full_length_of_feature_in_db",
+        "plannotateAnnotationReport__length_of_found_feature",
+        "plannotateAnnotationReport__percent_match_length",
+        "plannotateAnnotationReport__fragment",
+        "plannotateAnnotationReport__database",
+        "plannotateAnnotationReport__Feature",
+        "plannotateAnnotationReport__Type",
+        "plannotateAnnotationReport__Description",
+        "plannotateAnnotationReport__sequence"
+      ],
+      "slot_usage": {},
+      "attributes": [
+        {
+          "name": "sseqid",
+          "range": "string",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "start_location",
+          "range": "integer",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "end_location",
+          "range": "integer",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "strand",
+          "range": "integer",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "percent_identity",
+          "range": "float",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "full_length_of_feature_in_db",
+          "range": "integer",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "length_of_found_feature",
+          "range": "integer",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "percent_match_length",
+          "range": "float",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "fragment",
+          "range": "boolean",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "database",
+          "range": "string",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "Feature",
+          "range": "string",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "Type",
+          "range": "string",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "Description",
+          "range": "string",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "sequence",
+          "range": "string",
+          "@type": "SlotDefinition"
+        }
+      ],
+      "class_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/PlannotateAnnotationReport",
+      "@type": "ClassDefinition"
+    },
+    {
+      "name": "AnnotationSource",
+      "definition_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/AnnotationSource",
+      "description": "Represents a computational step in which sequence features are annotated in a sequence",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "is_a": "Source",
+      "slots": [
+        "id",
+        "input",
+        "output",
+        "type",
+        "output_name",
+        "annotationSource__annotation_tool",
+        "annotationSource__annotation_tool_version",
+        "annotationSource__annotation_report"
+      ],
+      "slot_usage": {},
+      "attributes": [
+        {
+          "name": "annotation_tool",
+          "range": "AnnotationTool",
+          "required": true,
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "annotation_tool_version",
+          "description": "The version of the annotation tool",
+          "range": "string",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "annotation_report",
+          "range": "AnnotationReport",
+          "@type": "SlotDefinition"
+        }
+      ],
+      "class_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/AnnotationSource",
+      "@type": "ClassDefinition"
     }
   ],
   "metamodel_version": "1.7.0",
   "source_file": "shareyourcloning_linkml.yaml",
-  "source_file_date": "2024-11-22T18:07:03",
-  "source_file_size": 16914,
-  "generation_date": "2024-11-22T18:08:09",
+  "source_file_date": "2024-11-26T15:29:29",
+  "source_file_size": 18258,
+  "generation_date": "2024-11-26T15:30:03",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/shareyourcloning_linkml.context.jsonld",
