@@ -102,6 +102,10 @@ class GatewayReactionType(str, Enum):
     BP = "BP"
 
 
+class AnnotationTool(str, Enum):
+    plannotate = "plannotate"
+
+
 class NamedThing(ConfiguredBaseModel):
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta(
         {"class_uri": "schema:Thing", "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML"}
@@ -134,9 +138,13 @@ class Sequence(NamedThing):
     )
     type: Literal["Sequence"] = Field(
         "Sequence",
-        description="""The type of the source""",
+        description="""Designates the class""",
         json_schema_extra={
-            "linkml_meta": {"alias": "type", "designates_type": True, "domain_of": ["Sequence", "Source"]}
+            "linkml_meta": {
+                "alias": "type",
+                "designates_type": True,
+                "domain_of": ["Sequence", "Source", "AnnotationReport"],
+            }
         },
     )
 
@@ -198,9 +206,13 @@ class TextFileSequence(Sequence):
     )
     type: Literal["TextFileSequence"] = Field(
         "TextFileSequence",
-        description="""The type of the source""",
+        description="""Designates the class""",
         json_schema_extra={
-            "linkml_meta": {"alias": "type", "designates_type": True, "domain_of": ["Sequence", "Source"]}
+            "linkml_meta": {
+                "alias": "type",
+                "designates_type": True,
+                "domain_of": ["Sequence", "Source", "AnnotationReport"],
+            }
         },
     )
 
@@ -220,7 +232,13 @@ class Primer(Sequence):
         json_schema_extra={"linkml_meta": {"alias": "name", "domain_of": ["Primer"], "slot_uri": "schema:name"}},
     )
     sequence: Optional[str] = Field(
-        None, json_schema_extra={"linkml_meta": {"alias": "sequence", "domain_of": ["Primer", "AssemblyFragment"]}}
+        None,
+        json_schema_extra={
+            "linkml_meta": {
+                "alias": "sequence",
+                "domain_of": ["Primer", "AssemblyFragment", "PlannotateAnnotationReport"],
+            }
+        },
     )
     id: int = Field(
         ...,
@@ -231,9 +249,13 @@ class Primer(Sequence):
     )
     type: Literal["Primer"] = Field(
         "Primer",
-        description="""The type of the source""",
+        description="""Designates the class""",
         json_schema_extra={
-            "linkml_meta": {"alias": "type", "designates_type": True, "domain_of": ["Sequence", "Source"]}
+            "linkml_meta": {
+                "alias": "type",
+                "designates_type": True,
+                "domain_of": ["Sequence", "Source", "AnnotationReport"],
+            }
         },
     )
 
@@ -326,9 +348,13 @@ class Source(NamedThing):
     )
     type: Literal["Source"] = Field(
         "Source",
-        description="""The type of the source""",
+        description="""Designates the class""",
         json_schema_extra={
-            "linkml_meta": {"alias": "type", "designates_type": True, "domain_of": ["Sequence", "Source"]}
+            "linkml_meta": {
+                "alias": "type",
+                "designates_type": True,
+                "domain_of": ["Sequence", "Source", "AnnotationReport"],
+            }
         },
     )
     output_name: Optional[str] = Field(
@@ -404,9 +430,13 @@ class ManuallyTypedSource(Source):
     )
     type: Literal["ManuallyTypedSource"] = Field(
         "ManuallyTypedSource",
-        description="""The type of the source""",
+        description="""Designates the class""",
         json_schema_extra={
-            "linkml_meta": {"alias": "type", "designates_type": True, "domain_of": ["Sequence", "Source"]}
+            "linkml_meta": {
+                "alias": "type",
+                "designates_type": True,
+                "domain_of": ["Sequence", "Source", "AnnotationReport"],
+            }
         },
     )
     output_name: Optional[str] = Field(
@@ -481,9 +511,13 @@ class UploadedFileSource(Source):
     )
     type: Literal["UploadedFileSource"] = Field(
         "UploadedFileSource",
-        description="""The type of the source""",
+        description="""Designates the class""",
         json_schema_extra={
-            "linkml_meta": {"alias": "type", "designates_type": True, "domain_of": ["Sequence", "Source"]}
+            "linkml_meta": {
+                "alias": "type",
+                "designates_type": True,
+                "domain_of": ["Sequence", "Source", "AnnotationReport"],
+            }
         },
     )
     output_name: Optional[str] = Field(
@@ -529,9 +563,13 @@ class RepositoryIdSource(Source):
     )
     type: Literal["RepositoryIdSource"] = Field(
         "RepositoryIdSource",
-        description="""The type of the source""",
+        description="""Designates the class""",
         json_schema_extra={
-            "linkml_meta": {"alias": "type", "designates_type": True, "domain_of": ["Sequence", "Source"]}
+            "linkml_meta": {
+                "alias": "type",
+                "designates_type": True,
+                "domain_of": ["Sequence", "Source", "AnnotationReport"],
+            }
         },
     )
     output_name: Optional[str] = Field(
@@ -585,9 +623,13 @@ class AddGeneIdSource(RepositoryIdSource):
     )
     type: Literal["AddGeneIdSource"] = Field(
         "AddGeneIdSource",
-        description="""The type of the source""",
+        description="""Designates the class""",
         json_schema_extra={
-            "linkml_meta": {"alias": "type", "designates_type": True, "domain_of": ["Sequence", "Source"]}
+            "linkml_meta": {
+                "alias": "type",
+                "designates_type": True,
+                "domain_of": ["Sequence", "Source", "AnnotationReport"],
+            }
         },
     )
     output_name: Optional[str] = Field(
@@ -656,9 +698,13 @@ class BenchlingUrlSource(RepositoryIdSource):
     )
     type: Literal["BenchlingUrlSource"] = Field(
         "BenchlingUrlSource",
-        description="""The type of the source""",
+        description="""Designates the class""",
         json_schema_extra={
-            "linkml_meta": {"alias": "type", "designates_type": True, "domain_of": ["Sequence", "Source"]}
+            "linkml_meta": {
+                "alias": "type",
+                "designates_type": True,
+                "domain_of": ["Sequence", "Source", "AnnotationReport"],
+            }
         },
     )
     output_name: Optional[str] = Field(
@@ -734,9 +780,13 @@ class SnapGenePlasmidSource(RepositoryIdSource):
     )
     type: Literal["SnapGenePlasmidSource"] = Field(
         "SnapGenePlasmidSource",
-        description="""The type of the source""",
+        description="""Designates the class""",
         json_schema_extra={
-            "linkml_meta": {"alias": "type", "designates_type": True, "domain_of": ["Sequence", "Source"]}
+            "linkml_meta": {
+                "alias": "type",
+                "designates_type": True,
+                "domain_of": ["Sequence", "Source", "AnnotationReport"],
+            }
         },
     )
     output_name: Optional[str] = Field(
@@ -803,9 +853,13 @@ class EuroscarfSource(RepositoryIdSource):
     )
     type: Literal["EuroscarfSource"] = Field(
         "EuroscarfSource",
-        description="""The type of the source""",
+        description="""Designates the class""",
         json_schema_extra={
-            "linkml_meta": {"alias": "type", "designates_type": True, "domain_of": ["Sequence", "Source"]}
+            "linkml_meta": {
+                "alias": "type",
+                "designates_type": True,
+                "domain_of": ["Sequence", "Source", "AnnotationReport"],
+            }
         },
     )
     output_name: Optional[str] = Field(
@@ -881,7 +935,10 @@ class GenomeCoordinatesSource(Source):
         ...,
         description="""The strand of the sequence in the sequence accession, should be 1 or -1""",
         json_schema_extra={
-            "linkml_meta": {"alias": "strand", "domain_of": ["GenomeCoordinatesSource", "SimpleSequenceLocation"]}
+            "linkml_meta": {
+                "alias": "strand",
+                "domain_of": ["GenomeCoordinatesSource", "SimpleSequenceLocation", "PlannotateAnnotationReport"],
+            }
         },
     )
     input: Optional[List[int]] = Field(
@@ -896,9 +953,13 @@ class GenomeCoordinatesSource(Source):
     )
     type: Literal["GenomeCoordinatesSource"] = Field(
         "GenomeCoordinatesSource",
-        description="""The type of the source""",
+        description="""Designates the class""",
         json_schema_extra={
-            "linkml_meta": {"alias": "type", "designates_type": True, "domain_of": ["Sequence", "Source"]}
+            "linkml_meta": {
+                "alias": "type",
+                "designates_type": True,
+                "domain_of": ["Sequence", "Source", "AnnotationReport"],
+            }
         },
     )
     output_name: Optional[str] = Field(
@@ -954,9 +1015,13 @@ class SequenceCutSource(Source):
     )
     type: Literal["SequenceCutSource"] = Field(
         "SequenceCutSource",
-        description="""The type of the source""",
+        description="""Designates the class""",
         json_schema_extra={
-            "linkml_meta": {"alias": "type", "designates_type": True, "domain_of": ["Sequence", "Source"]}
+            "linkml_meta": {
+                "alias": "type",
+                "designates_type": True,
+                "domain_of": ["Sequence", "Source", "AnnotationReport"],
+            }
         },
     )
     output_name: Optional[str] = Field(
@@ -1012,9 +1077,13 @@ class RestrictionEnzymeDigestionSource(SequenceCutSource):
     )
     type: Literal["RestrictionEnzymeDigestionSource"] = Field(
         "RestrictionEnzymeDigestionSource",
-        description="""The type of the source""",
+        description="""Designates the class""",
         json_schema_extra={
-            "linkml_meta": {"alias": "type", "designates_type": True, "domain_of": ["Sequence", "Source"]}
+            "linkml_meta": {
+                "alias": "type",
+                "designates_type": True,
+                "domain_of": ["Sequence", "Source", "AnnotationReport"],
+            }
         },
     )
     output_name: Optional[str] = Field(
@@ -1058,7 +1127,10 @@ class SimpleSequenceLocation(ConfiguredBaseModel):
         None,
         description="""The strand of the location, should be 1 or -1 or null""",
         json_schema_extra={
-            "linkml_meta": {"alias": "strand", "domain_of": ["GenomeCoordinatesSource", "SimpleSequenceLocation"]}
+            "linkml_meta": {
+                "alias": "strand",
+                "domain_of": ["GenomeCoordinatesSource", "SimpleSequenceLocation", "PlannotateAnnotationReport"],
+            }
         },
     )
 
@@ -1073,7 +1145,13 @@ class AssemblyFragment(ConfiguredBaseModel):
     )
 
     sequence: int = Field(
-        ..., json_schema_extra={"linkml_meta": {"alias": "sequence", "domain_of": ["Primer", "AssemblyFragment"]}}
+        ...,
+        json_schema_extra={
+            "linkml_meta": {
+                "alias": "sequence",
+                "domain_of": ["Primer", "AssemblyFragment", "PlannotateAnnotationReport"],
+            }
+        },
     )
     left_location: Optional[SimpleSequenceLocation] = Field(
         None, json_schema_extra={"linkml_meta": {"alias": "left_location", "domain_of": ["AssemblyFragment"]}}
@@ -1121,9 +1199,13 @@ class AssemblySource(Source):
     )
     type: Literal["AssemblySource"] = Field(
         "AssemblySource",
-        description="""The type of the source""",
+        description="""Designates the class""",
         json_schema_extra={
-            "linkml_meta": {"alias": "type", "designates_type": True, "domain_of": ["Sequence", "Source"]}
+            "linkml_meta": {
+                "alias": "type",
+                "designates_type": True,
+                "domain_of": ["Sequence", "Source", "AnnotationReport"],
+            }
         },
     )
     output_name: Optional[str] = Field(
@@ -1180,9 +1262,13 @@ class PCRSource(AssemblySource):
     )
     type: Literal["PCRSource"] = Field(
         "PCRSource",
-        description="""The type of the source""",
+        description="""Designates the class""",
         json_schema_extra={
-            "linkml_meta": {"alias": "type", "designates_type": True, "domain_of": ["Sequence", "Source"]}
+            "linkml_meta": {
+                "alias": "type",
+                "designates_type": True,
+                "domain_of": ["Sequence", "Source", "AnnotationReport"],
+            }
         },
     )
     output_name: Optional[str] = Field(
@@ -1232,9 +1318,13 @@ class LigationSource(AssemblySource):
     )
     type: Literal["LigationSource"] = Field(
         "LigationSource",
-        description="""The type of the source""",
+        description="""Designates the class""",
         json_schema_extra={
-            "linkml_meta": {"alias": "type", "designates_type": True, "domain_of": ["Sequence", "Source"]}
+            "linkml_meta": {
+                "alias": "type",
+                "designates_type": True,
+                "domain_of": ["Sequence", "Source", "AnnotationReport"],
+            }
         },
     )
     output_name: Optional[str] = Field(
@@ -1284,9 +1374,13 @@ class HomologousRecombinationSource(AssemblySource):
     )
     type: Literal["HomologousRecombinationSource"] = Field(
         "HomologousRecombinationSource",
-        description="""The type of the source""",
+        description="""Designates the class""",
         json_schema_extra={
-            "linkml_meta": {"alias": "type", "designates_type": True, "domain_of": ["Sequence", "Source"]}
+            "linkml_meta": {
+                "alias": "type",
+                "designates_type": True,
+                "domain_of": ["Sequence", "Source", "AnnotationReport"],
+            }
         },
     )
     output_name: Optional[str] = Field(
@@ -1336,9 +1430,13 @@ class GibsonAssemblySource(AssemblySource):
     )
     type: Literal["GibsonAssemblySource"] = Field(
         "GibsonAssemblySource",
-        description="""The type of the source""",
+        description="""Designates the class""",
         json_schema_extra={
-            "linkml_meta": {"alias": "type", "designates_type": True, "domain_of": ["Sequence", "Source"]}
+            "linkml_meta": {
+                "alias": "type",
+                "designates_type": True,
+                "domain_of": ["Sequence", "Source", "AnnotationReport"],
+            }
         },
     )
     output_name: Optional[str] = Field(
@@ -1388,9 +1486,13 @@ class InFusionSource(AssemblySource):
     )
     type: Literal["InFusionSource"] = Field(
         "InFusionSource",
-        description="""The type of the source""",
+        description="""Designates the class""",
         json_schema_extra={
-            "linkml_meta": {"alias": "type", "designates_type": True, "domain_of": ["Sequence", "Source"]}
+            "linkml_meta": {
+                "alias": "type",
+                "designates_type": True,
+                "domain_of": ["Sequence", "Source", "AnnotationReport"],
+            }
         },
     )
     output_name: Optional[str] = Field(
@@ -1440,9 +1542,13 @@ class OverlapExtensionPCRLigationSource(AssemblySource):
     )
     type: Literal["OverlapExtensionPCRLigationSource"] = Field(
         "OverlapExtensionPCRLigationSource",
-        description="""The type of the source""",
+        description="""Designates the class""",
         json_schema_extra={
-            "linkml_meta": {"alias": "type", "designates_type": True, "domain_of": ["Sequence", "Source"]}
+            "linkml_meta": {
+                "alias": "type",
+                "designates_type": True,
+                "domain_of": ["Sequence", "Source", "AnnotationReport"],
+            }
         },
     )
     output_name: Optional[str] = Field(
@@ -1505,9 +1611,13 @@ class RestrictionAndLigationSource(AssemblySource):
     )
     type: Literal["RestrictionAndLigationSource"] = Field(
         "RestrictionAndLigationSource",
-        description="""The type of the source""",
+        description="""Designates the class""",
         json_schema_extra={
-            "linkml_meta": {"alias": "type", "designates_type": True, "domain_of": ["Sequence", "Source"]}
+            "linkml_meta": {
+                "alias": "type",
+                "designates_type": True,
+                "domain_of": ["Sequence", "Source", "AnnotationReport"],
+            }
         },
     )
     output_name: Optional[str] = Field(
@@ -1567,9 +1677,13 @@ class GatewaySource(AssemblySource):
     )
     type: Literal["GatewaySource"] = Field(
         "GatewaySource",
-        description="""The type of the source""",
+        description="""Designates the class""",
         json_schema_extra={
-            "linkml_meta": {"alias": "type", "designates_type": True, "domain_of": ["Sequence", "Source"]}
+            "linkml_meta": {
+                "alias": "type",
+                "designates_type": True,
+                "domain_of": ["Sequence", "Source", "AnnotationReport"],
+            }
         },
     )
     output_name: Optional[str] = Field(
@@ -1624,9 +1738,13 @@ class CRISPRSource(HomologousRecombinationSource):
     )
     type: Literal["CRISPRSource"] = Field(
         "CRISPRSource",
-        description="""The type of the source""",
+        description="""Designates the class""",
         json_schema_extra={
-            "linkml_meta": {"alias": "type", "designates_type": True, "domain_of": ["Sequence", "Source"]}
+            "linkml_meta": {
+                "alias": "type",
+                "designates_type": True,
+                "domain_of": ["Sequence", "Source", "AnnotationReport"],
+            }
         },
     )
     output_name: Optional[str] = Field(
@@ -1684,9 +1802,13 @@ class OligoHybridizationSource(Source):
     )
     type: Literal["OligoHybridizationSource"] = Field(
         "OligoHybridizationSource",
-        description="""The type of the source""",
+        description="""Designates the class""",
         json_schema_extra={
-            "linkml_meta": {"alias": "type", "designates_type": True, "domain_of": ["Sequence", "Source"]}
+            "linkml_meta": {
+                "alias": "type",
+                "designates_type": True,
+                "domain_of": ["Sequence", "Source", "AnnotationReport"],
+            }
         },
     )
     output_name: Optional[str] = Field(
@@ -1724,9 +1846,13 @@ class PolymeraseExtensionSource(Source):
     )
     type: Literal["PolymeraseExtensionSource"] = Field(
         "PolymeraseExtensionSource",
-        description="""The type of the source""",
+        description="""Designates the class""",
         json_schema_extra={
-            "linkml_meta": {"alias": "type", "designates_type": True, "domain_of": ["Sequence", "Source"]}
+            "linkml_meta": {
+                "alias": "type",
+                "designates_type": True,
+                "domain_of": ["Sequence", "Source", "AnnotationReport"],
+            }
         },
     )
     output_name: Optional[str] = Field(
@@ -1768,6 +1894,7 @@ class CloningStrategy(ConfiguredBaseModel):
             AssemblySource,
             OligoHybridizationSource,
             PolymeraseExtensionSource,
+            AnnotationSource,
             PCRSource,
             LigationSource,
             HomologousRecombinationSource,
@@ -1797,6 +1924,170 @@ class CloningStrategy(ConfiguredBaseModel):
         None,
         description="""A description of the cloning strategy""",
         json_schema_extra={"linkml_meta": {"alias": "description", "domain_of": ["CloningStrategy"]}},
+    )
+
+
+class AnnotationReport(ConfiguredBaseModel):
+    """
+    Represents a report of an annotation step
+    """
+
+    linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta(
+        {"from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML"}
+    )
+
+    type: Literal["AnnotationReport"] = Field(
+        "AnnotationReport",
+        description="""Designates the class""",
+        json_schema_extra={
+            "linkml_meta": {
+                "alias": "type",
+                "designates_type": True,
+                "domain_of": ["Sequence", "Source", "AnnotationReport"],
+            }
+        },
+    )
+
+
+class PlannotateAnnotationReport(AnnotationReport):
+    """
+    Represents a report of an annotation step using Plannotate
+    """
+
+    linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta(
+        {"from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML"}
+    )
+
+    sseqid: Optional[str] = Field(
+        None, json_schema_extra={"linkml_meta": {"alias": "sseqid", "domain_of": ["PlannotateAnnotationReport"]}}
+    )
+    start_location: Optional[int] = Field(
+        None,
+        json_schema_extra={"linkml_meta": {"alias": "start_location", "domain_of": ["PlannotateAnnotationReport"]}},
+    )
+    end_location: Optional[int] = Field(
+        None, json_schema_extra={"linkml_meta": {"alias": "end_location", "domain_of": ["PlannotateAnnotationReport"]}}
+    )
+    strand: Optional[int] = Field(
+        None,
+        json_schema_extra={
+            "linkml_meta": {
+                "alias": "strand",
+                "domain_of": ["GenomeCoordinatesSource", "SimpleSequenceLocation", "PlannotateAnnotationReport"],
+            }
+        },
+    )
+    percent_identity: Optional[float] = Field(
+        None,
+        json_schema_extra={"linkml_meta": {"alias": "percent_identity", "domain_of": ["PlannotateAnnotationReport"]}},
+    )
+    full_length_of_feature_in_db: Optional[int] = Field(
+        None,
+        json_schema_extra={
+            "linkml_meta": {"alias": "full_length_of_feature_in_db", "domain_of": ["PlannotateAnnotationReport"]}
+        },
+    )
+    length_of_found_feature: Optional[int] = Field(
+        None,
+        json_schema_extra={
+            "linkml_meta": {"alias": "length_of_found_feature", "domain_of": ["PlannotateAnnotationReport"]}
+        },
+    )
+    percent_match_length: Optional[float] = Field(
+        None,
+        json_schema_extra={
+            "linkml_meta": {"alias": "percent_match_length", "domain_of": ["PlannotateAnnotationReport"]}
+        },
+    )
+    fragment: Optional[bool] = Field(
+        None, json_schema_extra={"linkml_meta": {"alias": "fragment", "domain_of": ["PlannotateAnnotationReport"]}}
+    )
+    database: Optional[str] = Field(
+        None, json_schema_extra={"linkml_meta": {"alias": "database", "domain_of": ["PlannotateAnnotationReport"]}}
+    )
+    Feature: Optional[str] = Field(
+        None, json_schema_extra={"linkml_meta": {"alias": "Feature", "domain_of": ["PlannotateAnnotationReport"]}}
+    )
+    Type: Optional[str] = Field(
+        None, json_schema_extra={"linkml_meta": {"alias": "Type", "domain_of": ["PlannotateAnnotationReport"]}}
+    )
+    Description: Optional[str] = Field(
+        None, json_schema_extra={"linkml_meta": {"alias": "Description", "domain_of": ["PlannotateAnnotationReport"]}}
+    )
+    sequence: Optional[str] = Field(
+        None,
+        json_schema_extra={
+            "linkml_meta": {
+                "alias": "sequence",
+                "domain_of": ["Primer", "AssemblyFragment", "PlannotateAnnotationReport"],
+            }
+        },
+    )
+    type: Literal["PlannotateAnnotationReport"] = Field(
+        "PlannotateAnnotationReport",
+        description="""Designates the class""",
+        json_schema_extra={
+            "linkml_meta": {
+                "alias": "type",
+                "designates_type": True,
+                "domain_of": ["Sequence", "Source", "AnnotationReport"],
+            }
+        },
+    )
+
+
+class AnnotationSource(Source):
+    """
+    Represents a computational step in which sequence features are annotated in a sequence
+    """
+
+    linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta(
+        {"from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML"}
+    )
+
+    annotation_tool: AnnotationTool = Field(
+        ..., json_schema_extra={"linkml_meta": {"alias": "annotation_tool", "domain_of": ["AnnotationSource"]}}
+    )
+    annotation_tool_version: Optional[str] = Field(
+        None,
+        description="""The version of the annotation tool""",
+        json_schema_extra={"linkml_meta": {"alias": "annotation_tool_version", "domain_of": ["AnnotationSource"]}},
+    )
+    annotation_report: Optional[List[Union[AnnotationReport, PlannotateAnnotationReport]]] = Field(
+        None, json_schema_extra={"linkml_meta": {"alias": "annotation_report", "domain_of": ["AnnotationSource"]}}
+    )
+    input: Optional[List[int]] = Field(
+        None,
+        description="""The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.""",
+        json_schema_extra={"linkml_meta": {"alias": "input", "domain_of": ["Source"]}},
+    )
+    output: Optional[int] = Field(
+        None,
+        description="""Identifier of the sequence that is the output of this source.""",
+        json_schema_extra={"linkml_meta": {"alias": "output", "domain_of": ["Source"]}},
+    )
+    type: Literal["AnnotationSource"] = Field(
+        "AnnotationSource",
+        description="""Designates the class""",
+        json_schema_extra={
+            "linkml_meta": {
+                "alias": "type",
+                "designates_type": True,
+                "domain_of": ["Sequence", "Source", "AnnotationReport"],
+            }
+        },
+    )
+    output_name: Optional[str] = Field(
+        None,
+        description="""Used to specify the name of the output sequence""",
+        json_schema_extra={"linkml_meta": {"alias": "output_name", "domain_of": ["Source"]}},
+    )
+    id: int = Field(
+        ...,
+        description="""A unique identifier for a thing""",
+        json_schema_extra={
+            "linkml_meta": {"alias": "id", "domain_of": ["NamedThing", "Sequence"], "slot_uri": "schema:identifier"}
+        },
     )
 
 
@@ -1834,3 +2125,6 @@ CRISPRSource.model_rebuild()
 OligoHybridizationSource.model_rebuild()
 PolymeraseExtensionSource.model_rebuild()
 CloningStrategy.model_rebuild()
+AnnotationReport.model_rebuild()
+PlannotateAnnotationReport.model_rebuild()
+AnnotationSource.model_rebuild()

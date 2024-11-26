@@ -1,5 +1,5 @@
 # Auto generated from shareyourcloning_linkml.yaml by pythongen.py version: 0.0.1
-# Generation date: 2024-11-22T18:08:10
+# Generation date: 2024-11-26T16:51:09
 # Schema: ShareYourCloning_LinkML
 #
 # id: https://w3id.org/genestorian/ShareYourCloning_LinkML
@@ -22,7 +22,7 @@ from linkml_runtime.utils.formatutils import camelcase, underscore, sfx
 from linkml_runtime.utils.enumerations import EnumDefinitionImpl
 from rdflib import Namespace, URIRef
 from linkml_runtime.utils.curienamespace import CurieNamespace
-from linkml_runtime.linkml_model.types import Boolean, Integer, String
+from linkml_runtime.linkml_model.types import Boolean, Float, Integer, String
 from linkml_runtime.utils.metamodelcore import Bool
 
 metamodel_version = "1.7.0"
@@ -153,6 +153,10 @@ class OligoHybridizationSourceId(SourceId):
 
 
 class PolymeraseExtensionSourceId(SourceId):
+    pass
+
+
+class AnnotationSourceId(SourceId):
     pass
 
 
@@ -1259,6 +1263,162 @@ class CloningStrategy(YAMLRoot):
         super().__post_init__(**kwargs)
 
 
+@dataclass(repr=False)
+class AnnotationReport(YAMLRoot):
+    """
+    Represents a report of an annotation step
+    """
+
+    _inherited_slots: ClassVar[List[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML["AnnotationReport"]
+    class_class_curie: ClassVar[str] = "shareyourcloning_linkml:AnnotationReport"
+    class_name: ClassVar[str] = "AnnotationReport"
+    class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.AnnotationReport
+
+    type: Optional[str] = None
+
+    def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
+        self.type = str(self.class_name)
+
+        super().__post_init__(**kwargs)
+
+    def __new__(cls, *args, **kwargs):
+
+        type_designator = "type"
+        if not type_designator in kwargs:
+            return super().__new__(cls, *args, **kwargs)
+        else:
+            type_designator_value = kwargs[type_designator]
+            target_cls = cls._class_for("class_name", type_designator_value)
+
+            if target_cls is None:
+                raise ValueError(
+                    f"Wrong type designator value: class {cls.__name__} "
+                    f"has no subclass with ['class_name']='{kwargs[type_designator]}'"
+                )
+            return super().__new__(target_cls, *args, **kwargs)
+
+
+@dataclass(repr=False)
+class PlannotateAnnotationReport(AnnotationReport):
+    """
+    Represents a report of an annotation step using Plannotate
+    """
+
+    _inherited_slots: ClassVar[List[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML["PlannotateAnnotationReport"]
+    class_class_curie: ClassVar[str] = "shareyourcloning_linkml:PlannotateAnnotationReport"
+    class_name: ClassVar[str] = "PlannotateAnnotationReport"
+    class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.PlannotateAnnotationReport
+
+    sseqid: Optional[str] = None
+    start_location: Optional[int] = None
+    end_location: Optional[int] = None
+    strand: Optional[int] = None
+    percent_identity: Optional[float] = None
+    full_length_of_feature_in_db: Optional[int] = None
+    length_of_found_feature: Optional[int] = None
+    percent_match_length: Optional[float] = None
+    fragment: Optional[Union[bool, Bool]] = None
+    database: Optional[str] = None
+    Feature: Optional[str] = None
+    Type: Optional[str] = None
+    Description: Optional[str] = None
+    sequence: Optional[str] = None
+
+    def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
+        if self.sseqid is not None and not isinstance(self.sseqid, str):
+            self.sseqid = str(self.sseqid)
+
+        if self.start_location is not None and not isinstance(self.start_location, int):
+            self.start_location = int(self.start_location)
+
+        if self.end_location is not None and not isinstance(self.end_location, int):
+            self.end_location = int(self.end_location)
+
+        if self.strand is not None and not isinstance(self.strand, int):
+            self.strand = int(self.strand)
+
+        if self.percent_identity is not None and not isinstance(self.percent_identity, float):
+            self.percent_identity = float(self.percent_identity)
+
+        if self.full_length_of_feature_in_db is not None and not isinstance(self.full_length_of_feature_in_db, int):
+            self.full_length_of_feature_in_db = int(self.full_length_of_feature_in_db)
+
+        if self.length_of_found_feature is not None and not isinstance(self.length_of_found_feature, int):
+            self.length_of_found_feature = int(self.length_of_found_feature)
+
+        if self.percent_match_length is not None and not isinstance(self.percent_match_length, float):
+            self.percent_match_length = float(self.percent_match_length)
+
+        if self.fragment is not None and not isinstance(self.fragment, Bool):
+            self.fragment = Bool(self.fragment)
+
+        if self.database is not None and not isinstance(self.database, str):
+            self.database = str(self.database)
+
+        if self.Feature is not None and not isinstance(self.Feature, str):
+            self.Feature = str(self.Feature)
+
+        if self.Type is not None and not isinstance(self.Type, str):
+            self.Type = str(self.Type)
+
+        if self.Description is not None and not isinstance(self.Description, str):
+            self.Description = str(self.Description)
+
+        if self.sequence is not None and not isinstance(self.sequence, str):
+            self.sequence = str(self.sequence)
+
+        super().__post_init__(**kwargs)
+        self.type = str(self.class_name)
+
+
+@dataclass(repr=False)
+class AnnotationSource(Source):
+    """
+    Represents a computational step in which sequence features are annotated in a sequence
+    """
+
+    _inherited_slots: ClassVar[List[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML["AnnotationSource"]
+    class_class_curie: ClassVar[str] = "shareyourcloning_linkml:AnnotationSource"
+    class_name: ClassVar[str] = "AnnotationSource"
+    class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.AnnotationSource
+
+    id: Union[int, AnnotationSourceId] = None
+    annotation_tool: Union[str, "AnnotationTool"] = None
+    annotation_tool_version: Optional[str] = None
+    annotation_report: Optional[Union[Union[dict, AnnotationReport], List[Union[dict, AnnotationReport]]]] = (
+        empty_list()
+    )
+
+    def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
+        if self._is_empty(self.id):
+            self.MissingRequiredField("id")
+        if not isinstance(self.id, AnnotationSourceId):
+            self.id = AnnotationSourceId(self.id)
+
+        if self._is_empty(self.annotation_tool):
+            self.MissingRequiredField("annotation_tool")
+        if not isinstance(self.annotation_tool, AnnotationTool):
+            self.annotation_tool = AnnotationTool(self.annotation_tool)
+
+        if self.annotation_tool_version is not None and not isinstance(self.annotation_tool_version, str):
+            self.annotation_tool_version = str(self.annotation_tool_version)
+
+        if not isinstance(self.annotation_report, list):
+            self.annotation_report = [self.annotation_report] if self.annotation_report is not None else []
+        self.annotation_report = [
+            v if isinstance(v, AnnotationReport) else AnnotationReport(**as_dict(v)) for v in self.annotation_report
+        ]
+
+        super().__post_init__(**kwargs)
+        self.type = str(self.class_name)
+
+
 # Enumerations
 class RepositoryName(EnumDefinitionImpl):
 
@@ -1314,6 +1474,15 @@ class GatewayReactionType(EnumDefinitionImpl):
 
     _defn = EnumDefinition(
         name="GatewayReactionType",
+    )
+
+
+class AnnotationTool(EnumDefinitionImpl):
+
+    plannotate = PermissibleValue(text="plannotate")
+
+    _defn = EnumDefinition(
+        name="AnnotationTool",
     )
 
 
@@ -1811,6 +1980,159 @@ slots.cloningStrategy__description = Slot(
     model_uri=SHAREYOURCLONING_LINKML.cloningStrategy__description,
     domain=None,
     range=Optional[str],
+)
+
+slots.plannotateAnnotationReport__sseqid = Slot(
+    uri=SHAREYOURCLONING_LINKML.sseqid,
+    name="plannotateAnnotationReport__sseqid",
+    curie=SHAREYOURCLONING_LINKML.curie("sseqid"),
+    model_uri=SHAREYOURCLONING_LINKML.plannotateAnnotationReport__sseqid,
+    domain=None,
+    range=Optional[str],
+)
+
+slots.plannotateAnnotationReport__start_location = Slot(
+    uri=SHAREYOURCLONING_LINKML.start_location,
+    name="plannotateAnnotationReport__start_location",
+    curie=SHAREYOURCLONING_LINKML.curie("start_location"),
+    model_uri=SHAREYOURCLONING_LINKML.plannotateAnnotationReport__start_location,
+    domain=None,
+    range=Optional[int],
+)
+
+slots.plannotateAnnotationReport__end_location = Slot(
+    uri=SHAREYOURCLONING_LINKML.end_location,
+    name="plannotateAnnotationReport__end_location",
+    curie=SHAREYOURCLONING_LINKML.curie("end_location"),
+    model_uri=SHAREYOURCLONING_LINKML.plannotateAnnotationReport__end_location,
+    domain=None,
+    range=Optional[int],
+)
+
+slots.plannotateAnnotationReport__strand = Slot(
+    uri=SHAREYOURCLONING_LINKML.strand,
+    name="plannotateAnnotationReport__strand",
+    curie=SHAREYOURCLONING_LINKML.curie("strand"),
+    model_uri=SHAREYOURCLONING_LINKML.plannotateAnnotationReport__strand,
+    domain=None,
+    range=Optional[int],
+)
+
+slots.plannotateAnnotationReport__percent_identity = Slot(
+    uri=SHAREYOURCLONING_LINKML.percent_identity,
+    name="plannotateAnnotationReport__percent_identity",
+    curie=SHAREYOURCLONING_LINKML.curie("percent_identity"),
+    model_uri=SHAREYOURCLONING_LINKML.plannotateAnnotationReport__percent_identity,
+    domain=None,
+    range=Optional[float],
+)
+
+slots.plannotateAnnotationReport__full_length_of_feature_in_db = Slot(
+    uri=SHAREYOURCLONING_LINKML.full_length_of_feature_in_db,
+    name="plannotateAnnotationReport__full_length_of_feature_in_db",
+    curie=SHAREYOURCLONING_LINKML.curie("full_length_of_feature_in_db"),
+    model_uri=SHAREYOURCLONING_LINKML.plannotateAnnotationReport__full_length_of_feature_in_db,
+    domain=None,
+    range=Optional[int],
+)
+
+slots.plannotateAnnotationReport__length_of_found_feature = Slot(
+    uri=SHAREYOURCLONING_LINKML.length_of_found_feature,
+    name="plannotateAnnotationReport__length_of_found_feature",
+    curie=SHAREYOURCLONING_LINKML.curie("length_of_found_feature"),
+    model_uri=SHAREYOURCLONING_LINKML.plannotateAnnotationReport__length_of_found_feature,
+    domain=None,
+    range=Optional[int],
+)
+
+slots.plannotateAnnotationReport__percent_match_length = Slot(
+    uri=SHAREYOURCLONING_LINKML.percent_match_length,
+    name="plannotateAnnotationReport__percent_match_length",
+    curie=SHAREYOURCLONING_LINKML.curie("percent_match_length"),
+    model_uri=SHAREYOURCLONING_LINKML.plannotateAnnotationReport__percent_match_length,
+    domain=None,
+    range=Optional[float],
+)
+
+slots.plannotateAnnotationReport__fragment = Slot(
+    uri=SHAREYOURCLONING_LINKML.fragment,
+    name="plannotateAnnotationReport__fragment",
+    curie=SHAREYOURCLONING_LINKML.curie("fragment"),
+    model_uri=SHAREYOURCLONING_LINKML.plannotateAnnotationReport__fragment,
+    domain=None,
+    range=Optional[Union[bool, Bool]],
+)
+
+slots.plannotateAnnotationReport__database = Slot(
+    uri=SHAREYOURCLONING_LINKML.database,
+    name="plannotateAnnotationReport__database",
+    curie=SHAREYOURCLONING_LINKML.curie("database"),
+    model_uri=SHAREYOURCLONING_LINKML.plannotateAnnotationReport__database,
+    domain=None,
+    range=Optional[str],
+)
+
+slots.plannotateAnnotationReport__Feature = Slot(
+    uri=SHAREYOURCLONING_LINKML.Feature,
+    name="plannotateAnnotationReport__Feature",
+    curie=SHAREYOURCLONING_LINKML.curie("Feature"),
+    model_uri=SHAREYOURCLONING_LINKML.plannotateAnnotationReport__Feature,
+    domain=None,
+    range=Optional[str],
+)
+
+slots.plannotateAnnotationReport__Type = Slot(
+    uri=SHAREYOURCLONING_LINKML.Type,
+    name="plannotateAnnotationReport__Type",
+    curie=SHAREYOURCLONING_LINKML.curie("Type"),
+    model_uri=SHAREYOURCLONING_LINKML.plannotateAnnotationReport__Type,
+    domain=None,
+    range=Optional[str],
+)
+
+slots.plannotateAnnotationReport__Description = Slot(
+    uri=SHAREYOURCLONING_LINKML.Description,
+    name="plannotateAnnotationReport__Description",
+    curie=SHAREYOURCLONING_LINKML.curie("Description"),
+    model_uri=SHAREYOURCLONING_LINKML.plannotateAnnotationReport__Description,
+    domain=None,
+    range=Optional[str],
+)
+
+slots.plannotateAnnotationReport__sequence = Slot(
+    uri=SHAREYOURCLONING_LINKML.sequence,
+    name="plannotateAnnotationReport__sequence",
+    curie=SHAREYOURCLONING_LINKML.curie("sequence"),
+    model_uri=SHAREYOURCLONING_LINKML.plannotateAnnotationReport__sequence,
+    domain=None,
+    range=Optional[str],
+)
+
+slots.annotationSource__annotation_tool = Slot(
+    uri=SHAREYOURCLONING_LINKML.annotation_tool,
+    name="annotationSource__annotation_tool",
+    curie=SHAREYOURCLONING_LINKML.curie("annotation_tool"),
+    model_uri=SHAREYOURCLONING_LINKML.annotationSource__annotation_tool,
+    domain=None,
+    range=Union[str, "AnnotationTool"],
+)
+
+slots.annotationSource__annotation_tool_version = Slot(
+    uri=SHAREYOURCLONING_LINKML.annotation_tool_version,
+    name="annotationSource__annotation_tool_version",
+    curie=SHAREYOURCLONING_LINKML.curie("annotation_tool_version"),
+    model_uri=SHAREYOURCLONING_LINKML.annotationSource__annotation_tool_version,
+    domain=None,
+    range=Optional[str],
+)
+
+slots.annotationSource__annotation_report = Slot(
+    uri=SHAREYOURCLONING_LINKML.annotation_report,
+    name="annotationSource__annotation_report",
+    curie=SHAREYOURCLONING_LINKML.curie("annotation_report"),
+    model_uri=SHAREYOURCLONING_LINKML.annotationSource__annotation_report,
+    domain=None,
+    range=Optional[Union[Union[dict, AnnotationReport], List[Union[dict, AnnotationReport]]]],
 )
 
 slots.TextFileSequence_sequence_file_format = Slot(

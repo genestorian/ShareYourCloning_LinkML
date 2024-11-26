@@ -12,6 +12,23 @@ type AddGeneIdSource
     addgeneSequenceType: AddGeneSequenceType
   }
 
+type AnnotationReport
+  {
+    type: String
+  }
+
+type AnnotationSource
+  {
+    id: Integer!
+    input: [Sequence]
+    output: Sequence
+    type: String
+    outputName: String
+    annotationTool: AnnotationTool!
+    annotationToolVersion: String
+    annotationReport: [AnnotationReport]
+  }
+
 type AssemblyFragment
   {
     sequence: Sequence!
@@ -197,6 +214,25 @@ type PCRSource
     circular: Boolean
     assembly: [AssemblyFragment]!
     addPrimerFeatures: Boolean
+  }
+
+type PlannotateAnnotationReport
+  {
+    type: String
+    sseqid: String
+    startLocation: Integer
+    endLocation: Integer
+    strand: Integer
+    percentIdentity: Float
+    fullLengthOfFeatureInDb: Integer
+    lengthOfFoundFeature: Integer
+    percentMatchLength: Float
+    fragment: Boolean
+    database: String
+    feature: String
+    type: String
+    description: String
+    sequence: String
   }
 
 type PolymeraseExtensionSource
