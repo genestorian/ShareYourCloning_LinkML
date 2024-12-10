@@ -79,6 +79,8 @@ class RepositoryName(str, Enum):
     snapgene = "snapgene"
     # Euroscarf (plasmids only)
     euroscarf = "euroscarf"
+    # iGEM collection
+    igem = "igem"
 
 
 class SequenceFileFormat(str, Enum):

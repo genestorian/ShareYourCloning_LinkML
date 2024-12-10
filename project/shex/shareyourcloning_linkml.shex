@@ -301,7 +301,8 @@ linkml:Sparqlpath xsd:string
                 <https://w3id.org/genestorian/ShareYourCloning_LinkML/RepositoryName#genbank>
                 <https://w3id.org/genestorian/ShareYourCloning_LinkML/RepositoryName#benchling>
                 <https://w3id.org/genestorian/ShareYourCloning_LinkML/RepositoryName#snapgene>
-                <https://w3id.org/genestorian/ShareYourCloning_LinkML/RepositoryName#euroscarf> ]
+                <https://w3id.org/genestorian/ShareYourCloning_LinkML/RepositoryName#euroscarf>
+                <https://w3id.org/genestorian/ShareYourCloning_LinkML/RepositoryName#igem> ]
           ) ;
           rdf:type [ <RepositoryIdSource> ]
        )

@@ -1641,7 +1641,8 @@
                 "genbank",
                 "benchling",
                 "snapgene",
-                "euroscarf"
+                "euroscarf",
+                "igem"
             ],
             "title": "RepositoryName",
             "type": "string"

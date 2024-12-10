@@ -639,6 +639,9 @@ enums:
       euroscarf:
         description: >-
           Euroscarf (plasmids only)
+      igem:
+        description: >-
+          iGEM collection
 
   SequenceFileFormat:
     permissible_values:

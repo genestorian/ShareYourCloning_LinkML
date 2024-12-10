@@ -1,5 +1,5 @@
 # Auto generated from shareyourcloning_linkml.yaml by pythongen.py version: 0.0.1
-# Generation date: 2024-12-10T14:31:03
+# Generation date: 2024-12-10T14:37:44
 # Schema: ShareYourCloning_LinkML
 #
 # id: https://w3id.org/genestorian/ShareYourCloning_LinkML
@@ -1467,6 +1467,7 @@ class RepositoryName(EnumDefinitionImpl):
     benchling = PermissibleValue(text="benchling", description="Benchling")
     snapgene = PermissibleValue(text="snapgene", description="SnapGene plasmid library")
     euroscarf = PermissibleValue(text="euroscarf", description="Euroscarf (plasmids only)")
+    igem = PermissibleValue(text="igem", description="iGEM collection")
 
     _defn = EnumDefinition(
         name="RepositoryName",
