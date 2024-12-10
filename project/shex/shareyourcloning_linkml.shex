@@ -181,8 +181,8 @@ linkml:Sparqlpath xsd:string
 <IGEMSource> CLOSED {
     (  $<IGEMSource_tes> (  &<RepositoryIdSource_tes> ;
           rdf:type [ <RepositoryIdSource> ] ? ;
-          <repository_id> @linkml:String ;
-          <sequence_file_url> @linkml:String ?
+          <sequence_file_url> @linkml:String ? ;
+          <repository_id> @linkml:String
        ) ;
        rdf:type [ <IGEMSource> ]
     )

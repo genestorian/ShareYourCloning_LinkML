@@ -213,6 +213,8 @@ classes:
     is_a: RepositoryIdSource
     description: >-
       Represents the source of a sequence from an iGEM collection
+    slots:
+      - sequence_file_url
     slot_usage:
       repository_id:
         description: >-

@@ -937,6 +937,14 @@
                 "repository_name": {
                     "$ref": "#/$defs/RepositoryName"
                 },
+                "sequence_file_url": {
+                    "description": "The URL of the sequence file, for now github repository",
+                    "pattern": "^https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)$",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
                 "type": {
                     "description": "Designates the class",
                     "enum": [

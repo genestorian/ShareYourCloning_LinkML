@@ -149,8 +149,8 @@ type IGEMSource
     type: String
     outputName: String
     repositoryName: RepositoryName!
-    repositoryId: String!
     sequenceFileUrl: String
+    repositoryId: String!
   }
 
 type InFusionSource

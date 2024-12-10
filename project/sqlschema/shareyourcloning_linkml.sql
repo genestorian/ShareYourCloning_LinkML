@@ -88,6 +88,7 @@
 --     * Slot: output_name Description: Used to specify the name of the output sequence
 --     * Slot: id Description: A unique identifier for a thing
 -- # Class: "IGEMSource" Description: "Represents the source of a sequence from an iGEM collection"
+--     * Slot: sequence_file_url Description: The URL of the sequence file, for now github repository
 --     * Slot: repository_id Description: The unique identifier of the sequence in the iGEM collection (for now, {part_id}-{plasmid_backbone})
 --     * Slot: repository_name Description:
 --     * Slot: output Description: Identifier of the sequence that is the output of this source.
@@ -490,6 +491,7 @@ CREATE TABLE "EuroscarfSource" (
 	FOREIGN KEY(output) REFERENCES "Sequence" (id)
 );
 CREATE TABLE "IGEMSource" (
+	sequence_file_url TEXT,
 	repository_id TEXT NOT NULL,
 	repository_name VARCHAR(9) NOT NULL,
 	output INTEGER,

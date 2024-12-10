@@ -613,9 +613,10 @@
       "description": "The URL of a sequence file",
       "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
       "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/sequence_file_url",
-      "owner": "AddGeneIdSource",
+      "owner": "IGEMSource",
       "domain_of": [
-        "AddGeneIdSource"
+        "AddGeneIdSource",
+        "IGEMSource"
       ],
       "range": "string",
       "pattern": "^https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)$",
@@ -2005,8 +2006,8 @@
         "type",
         "output_name",
         "repositoryIdSource__repository_name",
-        "IGEMSource_repository_id",
-        "IGEMSource_sequence_file_url"
+        "IGEMSource_sequence_file_url",
+        "IGEMSource_repository_id"
       ],
       "slot_usage": {},
       "class_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/IGEMSource",
@@ -2731,9 +2732,9 @@
   ],
   "metamodel_version": "1.7.0",
   "source_file": "shareyourcloning_linkml.yaml",
-  "source_file_date": "2024-12-10T14:17:43",
-  "source_file_size": 18757,
-  "generation_date": "2024-12-10T14:17:54",
+  "source_file_date": "2024-12-10T14:30:56",
+  "source_file_size": 18794,
+  "generation_date": "2024-12-10T14:31:02",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/shareyourcloning_linkml.context.jsonld",

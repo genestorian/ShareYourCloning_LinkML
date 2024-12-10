@@ -598,7 +598,9 @@ class AddGeneIdSource(RepositoryIdSource):
     sequence_file_url: Optional[str] = Field(
         None,
         description="""The URL of a sequence file""",
-        json_schema_extra={"linkml_meta": {"alias": "sequence_file_url", "domain_of": ["AddGeneIdSource"]}},
+        json_schema_extra={
+            "linkml_meta": {"alias": "sequence_file_url", "domain_of": ["AddGeneIdSource", "IGEMSource"]}
+        },
     )
     addgene_sequence_type: Optional[AddGeneSequenceType] = Field(
         None, json_schema_extra={"linkml_meta": {"alias": "addgene_sequence_type", "domain_of": ["AddGeneIdSource"]}}
@@ -912,6 +914,13 @@ class IGEMSource(RepositoryIdSource):
         }
     )
 
+    sequence_file_url: Optional[str] = Field(
+        None,
+        description="""The URL of the sequence file, for now github repository""",
+        json_schema_extra={
+            "linkml_meta": {"alias": "sequence_file_url", "domain_of": ["AddGeneIdSource", "IGEMSource"]}
+        },
+    )
     repository_id: str = Field(
         ...,
         description="""The unique identifier of the sequence in the iGEM collection (for now, {part_id}-{plasmid_backbone})""",
@@ -953,6 +962,20 @@ class IGEMSource(RepositoryIdSource):
             "linkml_meta": {"alias": "id", "domain_of": ["NamedThing", "Sequence"], "slot_uri": "schema:identifier"}
         },
     )
+
+    @field_validator("sequence_file_url")
+    def pattern_sequence_file_url(cls, v):
+        pattern = re.compile(
+            r"^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)$"
+        )
+        if isinstance(v, list):
+            for element in v:
+                if not pattern.match(element):
+                    raise ValueError(f"Invalid sequence_file_url format: {element}")
+        elif isinstance(v, str):
+            if not pattern.match(v):
+                raise ValueError(f"Invalid sequence_file_url format: {v}")
+        return v
 
 
 class GenomeCoordinatesSource(Source):
