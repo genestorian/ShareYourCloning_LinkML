@@ -79,6 +79,8 @@ class RepositoryName(str, Enum):
     snapgene = "snapgene"
     # Euroscarf (plasmids only)
     euroscarf = "euroscarf"
+    # iGEM collection
+    igem = "igem"
 
 
 class SequenceFileFormat(str, Enum):
@@ -598,7 +600,9 @@ class AddGeneIdSource(RepositoryIdSource):
     sequence_file_url: Optional[str] = Field(
         None,
         description="""The URL of a sequence file""",
-        json_schema_extra={"linkml_meta": {"alias": "sequence_file_url", "domain_of": ["AddGeneIdSource"]}},
+        json_schema_extra={
+            "linkml_meta": {"alias": "sequence_file_url", "domain_of": ["AddGeneIdSource", "IGEMSource"]}
+        },
     )
     addgene_sequence_type: Optional[AddGeneSequenceType] = Field(
         None, json_schema_extra={"linkml_meta": {"alias": "addgene_sequence_type", "domain_of": ["AddGeneIdSource"]}}
@@ -885,6 +889,95 @@ class EuroscarfSource(RepositoryIdSource):
         elif isinstance(v, str):
             if not pattern.match(v):
                 raise ValueError(f"Invalid repository_id format: {v}")
+        return v
+
+
+class IGEMSource(RepositoryIdSource):
+    """
+    Represents the source of a sequence from an iGEM collection
+    """
+
+    linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta(
+        {
+            "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+            "slot_usage": {
+                "repository_id": {
+                    "description": "The unique identifier of the "
+                    "sequence in the iGEM "
+                    "collection (for now, "
+                    "{part_id}-{plasmid_backbone})",
+                    "name": "repository_id",
+                },
+                "sequence_file_url": {
+                    "description": "The URL of the sequence " "file, for now github " "repository",
+                    "name": "sequence_file_url",
+                    "required": True,
+                },
+            },
+        }
+    )
+
+    sequence_file_url: str = Field(
+        ...,
+        description="""The URL of the sequence file, for now github repository""",
+        json_schema_extra={
+            "linkml_meta": {"alias": "sequence_file_url", "domain_of": ["AddGeneIdSource", "IGEMSource"]}
+        },
+    )
+    repository_id: str = Field(
+        ...,
+        description="""The unique identifier of the sequence in the iGEM collection (for now, {part_id}-{plasmid_backbone})""",
+        json_schema_extra={"linkml_meta": {"alias": "repository_id", "domain_of": ["RepositoryIdSource"]}},
+    )
+    repository_name: RepositoryName = Field(
+        ..., json_schema_extra={"linkml_meta": {"alias": "repository_name", "domain_of": ["RepositoryIdSource"]}}
+    )
+    input: Optional[List[int]] = Field(
+        None,
+        description="""The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.""",
+        json_schema_extra={"linkml_meta": {"alias": "input", "domain_of": ["Source"]}},
+    )
+    output: Optional[int] = Field(
+        None,
+        description="""Identifier of the sequence that is the output of this source.""",
+        json_schema_extra={"linkml_meta": {"alias": "output", "domain_of": ["Source"]}},
+    )
+    type: Literal["IGEMSource"] = Field(
+        "IGEMSource",
+        description="""Designates the class""",
+        json_schema_extra={
+            "linkml_meta": {
+                "alias": "type",
+                "designates_type": True,
+                "domain_of": ["Sequence", "Source", "AnnotationReport"],
+            }
+        },
+    )
+    output_name: Optional[str] = Field(
+        None,
+        description="""Used to specify the name of the output sequence""",
+        json_schema_extra={"linkml_meta": {"alias": "output_name", "domain_of": ["Source"]}},
+    )
+    id: int = Field(
+        ...,
+        description="""A unique identifier for a thing""",
+        json_schema_extra={
+            "linkml_meta": {"alias": "id", "domain_of": ["NamedThing", "Sequence"], "slot_uri": "schema:identifier"}
+        },
+    )
+
+    @field_validator("sequence_file_url")
+    def pattern_sequence_file_url(cls, v):
+        pattern = re.compile(
+            r"^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)$"
+        )
+        if isinstance(v, list):
+            for element in v:
+                if not pattern.match(element):
+                    raise ValueError(f"Invalid sequence_file_url format: {element}")
+        elif isinstance(v, str):
+            if not pattern.match(v):
+                raise ValueError(f"Invalid sequence_file_url format: {v}")
         return v
 
 
@@ -1909,6 +2002,7 @@ class CloningStrategy(ConfiguredBaseModel):
             BenchlingUrlSource,
             SnapGenePlasmidSource,
             EuroscarfSource,
+            IGEMSource,
         ]
     ] = Field(
         ...,
@@ -2107,6 +2201,7 @@ AddGeneIdSource.model_rebuild()
 BenchlingUrlSource.model_rebuild()
 SnapGenePlasmidSource.model_rebuild()
 EuroscarfSource.model_rebuild()
+IGEMSource.model_rebuild()
 GenomeCoordinatesSource.model_rebuild()
 SequenceCutSource.model_rebuild()
 RestrictionEnzymeDigestionSource.model_rebuild()
