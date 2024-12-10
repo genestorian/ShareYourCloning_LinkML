@@ -1,5 +1,5 @@
 # Auto generated from shareyourcloning_linkml.yaml by pythongen.py version: 0.0.1
-# Generation date: 2024-11-26T16:51:09
+# Generation date: 2024-12-10T14:17:55
 # Schema: ShareYourCloning_LinkML
 #
 # id: https://w3id.org/genestorian/ShareYourCloning_LinkML
@@ -93,6 +93,10 @@ class SnapGenePlasmidSourceId(RepositoryIdSourceId):
 
 
 class EuroscarfSourceId(RepositoryIdSourceId):
+    pass
+
+
+class IGEMSourceId(RepositoryIdSourceId):
     pass
 
 
@@ -656,6 +660,42 @@ class EuroscarfSource(RepositoryIdSource):
             self.MissingRequiredField("repository_id")
         if not isinstance(self.repository_id, str):
             self.repository_id = str(self.repository_id)
+
+        super().__post_init__(**kwargs)
+        self.type = str(self.class_name)
+
+
+@dataclass(repr=False)
+class IGEMSource(RepositoryIdSource):
+    """
+    Represents the source of a sequence from an iGEM collection
+    """
+
+    _inherited_slots: ClassVar[List[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML["IGEMSource"]
+    class_class_curie: ClassVar[str] = "shareyourcloning_linkml:IGEMSource"
+    class_name: ClassVar[str] = "IGEMSource"
+    class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.IGEMSource
+
+    id: Union[int, IGEMSourceId] = None
+    repository_name: Union[str, "RepositoryName"] = None
+    repository_id: str = None
+    sequence_file_url: Optional[str] = None
+
+    def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
+        if self._is_empty(self.id):
+            self.MissingRequiredField("id")
+        if not isinstance(self.id, IGEMSourceId):
+            self.id = IGEMSourceId(self.id)
+
+        if self._is_empty(self.repository_id):
+            self.MissingRequiredField("repository_id")
+        if not isinstance(self.repository_id, str):
+            self.repository_id = str(self.repository_id)
+
+        if self.sequence_file_url is not None and not isinstance(self.sequence_file_url, str):
+            self.sequence_file_url = str(self.sequence_file_url)
 
         super().__post_init__(**kwargs)
         self.type = str(self.class_name)
@@ -2226,6 +2266,27 @@ slots.EuroscarfSource_repository_id = Slot(
     domain=EuroscarfSource,
     range=str,
     pattern=re.compile(r"^P\d+$"),
+)
+
+slots.IGEMSource_repository_id = Slot(
+    uri=SHAREYOURCLONING_LINKML.repository_id,
+    name="IGEMSource_repository_id",
+    curie=SHAREYOURCLONING_LINKML.curie("repository_id"),
+    model_uri=SHAREYOURCLONING_LINKML.IGEMSource_repository_id,
+    domain=IGEMSource,
+    range=str,
+)
+
+slots.IGEMSource_sequence_file_url = Slot(
+    uri=SHAREYOURCLONING_LINKML.sequence_file_url,
+    name="IGEMSource_sequence_file_url",
+    curie=SHAREYOURCLONING_LINKML.curie("sequence_file_url"),
+    model_uri=SHAREYOURCLONING_LINKML.IGEMSource_sequence_file_url,
+    domain=IGEMSource,
+    range=Optional[str],
+    pattern=re.compile(
+        r"^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)$"
+    ),
 )
 
 slots.RestrictionAndLigationSource_restriction_enzymes = Slot(

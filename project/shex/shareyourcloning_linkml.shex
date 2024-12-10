@@ -178,6 +178,16 @@ linkml:Sparqlpath xsd:string
     } OR @<CRISPRSource>
 )
 
+<IGEMSource> CLOSED {
+    (  $<IGEMSource_tes> (  &<RepositoryIdSource_tes> ;
+          rdf:type [ <RepositoryIdSource> ] ? ;
+          <repository_id> @linkml:String ;
+          <sequence_file_url> @linkml:String ?
+       ) ;
+       rdf:type [ <IGEMSource> ]
+    )
+}
+
 <InFusionSource> CLOSED {
     (  $<InFusionSource_tes> (  &<AssemblySource_tes> ;
           rdf:type [ <AssemblySource> ] ?
@@ -295,7 +305,7 @@ linkml:Sparqlpath xsd:string
           ) ;
           rdf:type [ <RepositoryIdSource> ]
        )
-    } OR @<AddGeneIdSource> OR @<BenchlingUrlSource> OR @<EuroscarfSource> OR @<SnapGenePlasmidSource>
+    } OR @<AddGeneIdSource> OR @<BenchlingUrlSource> OR @<EuroscarfSource> OR @<IGEMSource> OR @<SnapGenePlasmidSource>
 )
 
 <RestrictionAndLigationSource> CLOSED {

@@ -209,6 +209,18 @@ classes:
           The id of the plasmid in the Euroscarf plasmid library
         pattern: ^P\d+$
 
+  IGEMSource:
+    is_a: RepositoryIdSource
+    description: >-
+      Represents the source of a sequence from an iGEM collection
+    slot_usage:
+      repository_id:
+        description: >-
+          The unique identifier of the sequence in the iGEM collection (for now, {part_id}-{plasmid_backbone})
+      sequence_file_url:
+        description: >-
+          The URL of the sequence file, for now github repository
+
   GenomeCoordinatesSource:
     is_a: Source
     description: >-

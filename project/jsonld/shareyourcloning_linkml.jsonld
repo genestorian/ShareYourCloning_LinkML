@@ -1602,6 +1602,44 @@
       "@type": "SlotDefinition"
     },
     {
+      "name": "IGEMSource_repository_id",
+      "definition_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/repository_id",
+      "description": "The unique identifier of the sequence in the iGEM collection (for now, {part_id}-{plasmid_backbone})",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "is_a": "repository_id",
+      "domain": "IGEMSource",
+      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/repository_id",
+      "alias": "repository_id",
+      "owner": "IGEMSource",
+      "domain_of": [
+        "IGEMSource"
+      ],
+      "is_usage_slot": true,
+      "usage_slot_name": "repository_id",
+      "range": "string",
+      "required": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "IGEMSource_sequence_file_url",
+      "definition_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/sequence_file_url",
+      "description": "The URL of the sequence file, for now github repository",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "is_a": "sequence_file_url",
+      "domain": "IGEMSource",
+      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/sequence_file_url",
+      "alias": "sequence_file_url",
+      "owner": "IGEMSource",
+      "domain_of": [
+        "IGEMSource"
+      ],
+      "is_usage_slot": true,
+      "usage_slot_name": "sequence_file_url",
+      "range": "string",
+      "pattern": "^https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)$",
+      "@type": "SlotDefinition"
+    },
+    {
       "name": "RestrictionAndLigationSource_restriction_enzymes",
       "definition_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/restriction_enzymes",
       "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
@@ -1952,6 +1990,26 @@
       ],
       "slot_usage": {},
       "class_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/EuroscarfSource",
+      "@type": "ClassDefinition"
+    },
+    {
+      "name": "IGEMSource",
+      "definition_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/IGEMSource",
+      "description": "Represents the source of a sequence from an iGEM collection",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "is_a": "RepositoryIdSource",
+      "slots": [
+        "id",
+        "input",
+        "output",
+        "type",
+        "output_name",
+        "repositoryIdSource__repository_name",
+        "IGEMSource_repository_id",
+        "IGEMSource_sequence_file_url"
+      ],
+      "slot_usage": {},
+      "class_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/IGEMSource",
       "@type": "ClassDefinition"
     },
     {
@@ -2673,9 +2731,9 @@
   ],
   "metamodel_version": "1.7.0",
   "source_file": "shareyourcloning_linkml.yaml",
-  "source_file_date": "2024-11-26T16:51:02",
-  "source_file_size": 18340,
-  "generation_date": "2024-11-26T16:51:08",
+  "source_file_date": "2024-12-10T14:17:43",
+  "source_file_size": 18757,
+  "generation_date": "2024-12-10T14:17:54",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/shareyourcloning_linkml.context.jsonld",

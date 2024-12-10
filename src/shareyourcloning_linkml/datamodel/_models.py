@@ -888,6 +888,73 @@ class EuroscarfSource(RepositoryIdSource):
         return v
 
 
+class IGEMSource(RepositoryIdSource):
+    """
+    Represents the source of a sequence from an iGEM collection
+    """
+
+    linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta(
+        {
+            "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+            "slot_usage": {
+                "repository_id": {
+                    "description": "The unique identifier of the "
+                    "sequence in the iGEM "
+                    "collection (for now, "
+                    "{part_id}-{plasmid_backbone})",
+                    "name": "repository_id",
+                },
+                "sequence_file_url": {
+                    "description": "The URL of the sequence " "file, for now github " "repository",
+                    "name": "sequence_file_url",
+                },
+            },
+        }
+    )
+
+    repository_id: str = Field(
+        ...,
+        description="""The unique identifier of the sequence in the iGEM collection (for now, {part_id}-{plasmid_backbone})""",
+        json_schema_extra={"linkml_meta": {"alias": "repository_id", "domain_of": ["RepositoryIdSource"]}},
+    )
+    repository_name: RepositoryName = Field(
+        ..., json_schema_extra={"linkml_meta": {"alias": "repository_name", "domain_of": ["RepositoryIdSource"]}}
+    )
+    input: Optional[List[int]] = Field(
+        None,
+        description="""The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.""",
+        json_schema_extra={"linkml_meta": {"alias": "input", "domain_of": ["Source"]}},
+    )
+    output: Optional[int] = Field(
+        None,
+        description="""Identifier of the sequence that is the output of this source.""",
+        json_schema_extra={"linkml_meta": {"alias": "output", "domain_of": ["Source"]}},
+    )
+    type: Literal["IGEMSource"] = Field(
+        "IGEMSource",
+        description="""Designates the class""",
+        json_schema_extra={
+            "linkml_meta": {
+                "alias": "type",
+                "designates_type": True,
+                "domain_of": ["Sequence", "Source", "AnnotationReport"],
+            }
+        },
+    )
+    output_name: Optional[str] = Field(
+        None,
+        description="""Used to specify the name of the output sequence""",
+        json_schema_extra={"linkml_meta": {"alias": "output_name", "domain_of": ["Source"]}},
+    )
+    id: int = Field(
+        ...,
+        description="""A unique identifier for a thing""",
+        json_schema_extra={
+            "linkml_meta": {"alias": "id", "domain_of": ["NamedThing", "Sequence"], "slot_uri": "schema:identifier"}
+        },
+    )
+
+
 class GenomeCoordinatesSource(Source):
     """
     Represents the source of a sequence that is identified by genome coordinates, requested from NCBI
@@ -1909,6 +1976,7 @@ class CloningStrategy(ConfiguredBaseModel):
             BenchlingUrlSource,
             SnapGenePlasmidSource,
             EuroscarfSource,
+            IGEMSource,
         ]
     ] = Field(
         ...,
@@ -2107,6 +2175,7 @@ AddGeneIdSource.model_rebuild()
 BenchlingUrlSource.model_rebuild()
 SnapGenePlasmidSource.model_rebuild()
 EuroscarfSource.model_rebuild()
+IGEMSource.model_rebuild()
 GenomeCoordinatesSource.model_rebuild()
 SequenceCutSource.model_rebuild()
 RestrictionEnzymeDigestionSource.model_rebuild()

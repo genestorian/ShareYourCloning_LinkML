@@ -141,6 +141,18 @@ type HomologousRecombinationSource
     assembly: [AssemblyFragment]!
   }
 
+type IGEMSource
+  {
+    id: Integer!
+    input: [Sequence]
+    output: Sequence
+    type: String
+    outputName: String
+    repositoryName: RepositoryName!
+    repositoryId: String!
+    sequenceFileUrl: String
+  }
+
 type InFusionSource
   {
     id: Integer!

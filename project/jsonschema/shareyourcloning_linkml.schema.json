@@ -521,6 +521,9 @@
                             },
                             {
                                 "$ref": "#/$defs/EuroscarfSource"
+                            },
+                            {
+                                "$ref": "#/$defs/IGEMSource"
                             }
                         ]
                     },
@@ -893,6 +896,64 @@
                 "id"
             ],
             "title": "HomologousRecombinationSource",
+            "type": "object"
+        },
+        "IGEMSource": {
+            "additionalProperties": false,
+            "description": "Represents the source of a sequence from an iGEM collection",
+            "properties": {
+                "id": {
+                    "description": "A unique identifier for a thing",
+                    "type": "integer"
+                },
+                "input": {
+                    "description": "The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.",
+                    "items": {
+                        "type": "integer"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "output": {
+                    "description": "Identifier of the sequence that is the output of this source.",
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "output_name": {
+                    "description": "Used to specify the name of the output sequence",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "repository_id": {
+                    "description": "The unique identifier of the sequence in the iGEM collection (for now, {part_id}-{plasmid_backbone})",
+                    "type": "string"
+                },
+                "repository_name": {
+                    "$ref": "#/$defs/RepositoryName"
+                },
+                "type": {
+                    "description": "Designates the class",
+                    "enum": [
+                        "IGEMSource"
+                    ],
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "repository_id",
+                "repository_name",
+                "id"
+            ],
+            "title": "IGEMSource",
             "type": "object"
         },
         "InFusionSource": {
