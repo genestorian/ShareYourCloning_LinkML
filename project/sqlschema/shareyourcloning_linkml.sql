@@ -491,7 +491,7 @@ CREATE TABLE "EuroscarfSource" (
 	FOREIGN KEY(output) REFERENCES "Sequence" (id)
 );
 CREATE TABLE "IGEMSource" (
-	sequence_file_url TEXT,
+	sequence_file_url TEXT NOT NULL,
 	repository_id TEXT NOT NULL,
 	repository_name VARCHAR(9) NOT NULL,
 	output INTEGER,

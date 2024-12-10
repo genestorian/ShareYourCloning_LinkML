@@ -1,5 +1,5 @@
 # Auto generated from shareyourcloning_linkml.yaml by pythongen.py version: 0.0.1
-# Generation date: 2024-12-10T14:37:44
+# Generation date: 2024-12-10T14:43:54
 # Schema: ShareYourCloning_LinkML
 #
 # id: https://w3id.org/genestorian/ShareYourCloning_LinkML
@@ -680,8 +680,8 @@ class IGEMSource(RepositoryIdSource):
 
     id: Union[int, IGEMSourceId] = None
     repository_name: Union[str, "RepositoryName"] = None
+    sequence_file_url: str = None
     repository_id: str = None
-    sequence_file_url: Optional[str] = None
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
         if self._is_empty(self.id):
@@ -689,13 +689,15 @@ class IGEMSource(RepositoryIdSource):
         if not isinstance(self.id, IGEMSourceId):
             self.id = IGEMSourceId(self.id)
 
+        if self._is_empty(self.sequence_file_url):
+            self.MissingRequiredField("sequence_file_url")
+        if not isinstance(self.sequence_file_url, str):
+            self.sequence_file_url = str(self.sequence_file_url)
+
         if self._is_empty(self.repository_id):
             self.MissingRequiredField("repository_id")
         if not isinstance(self.repository_id, str):
             self.repository_id = str(self.repository_id)
-
-        if self.sequence_file_url is not None and not isinstance(self.sequence_file_url, str):
-            self.sequence_file_url = str(self.sequence_file_url)
 
         super().__post_init__(**kwargs)
         self.type = str(self.class_name)
@@ -2284,7 +2286,7 @@ slots.IGEMSource_sequence_file_url = Slot(
     curie=SHAREYOURCLONING_LINKML.curie("sequence_file_url"),
     model_uri=SHAREYOURCLONING_LINKML.IGEMSource_sequence_file_url,
     domain=IGEMSource,
-    range=Optional[str],
+    range=str,
     pattern=re.compile(
         r"^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)$"
     ),

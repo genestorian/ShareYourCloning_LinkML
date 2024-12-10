@@ -149,7 +149,7 @@ type IGEMSource
     type: String
     outputName: String
     repositoryName: RepositoryName!
-    sequenceFileUrl: String
+    sequenceFileUrl: String!
     repositoryId: String!
   }
 

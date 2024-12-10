@@ -1641,6 +1641,7 @@
       "is_usage_slot": true,
       "usage_slot_name": "sequence_file_url",
       "range": "string",
+      "required": true,
       "pattern": "^https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)$",
       "@type": "SlotDefinition"
     },
@@ -2736,9 +2737,9 @@
   ],
   "metamodel_version": "1.7.0",
   "source_file": "shareyourcloning_linkml.yaml",
-  "source_file_date": "2024-12-10T14:37:33",
-  "source_file_size": 18856,
-  "generation_date": "2024-12-10T14:37:43",
+  "source_file_date": "2024-12-10T14:43:32",
+  "source_file_size": 18879,
+  "generation_date": "2024-12-10T14:43:53",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/shareyourcloning_linkml.context.jsonld",

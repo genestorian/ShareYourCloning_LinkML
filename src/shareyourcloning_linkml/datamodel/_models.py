@@ -911,13 +911,14 @@ class IGEMSource(RepositoryIdSource):
                 "sequence_file_url": {
                     "description": "The URL of the sequence " "file, for now github " "repository",
                     "name": "sequence_file_url",
+                    "required": True,
                 },
             },
         }
     )
 
-    sequence_file_url: Optional[str] = Field(
-        None,
+    sequence_file_url: str = Field(
+        ...,
         description="""The URL of the sequence file, for now github repository""",
         json_schema_extra={
             "linkml_meta": {"alias": "sequence_file_url", "domain_of": ["AddGeneIdSource", "IGEMSource"]}
