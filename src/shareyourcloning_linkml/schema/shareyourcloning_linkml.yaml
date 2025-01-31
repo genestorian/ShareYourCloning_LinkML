@@ -109,6 +109,93 @@ classes:
       - type
       - output_name
 
+  CollectionSource:
+    is_a: Source
+    description: >-
+      Represents a collection of possible sources in a template
+    attributes:
+      - category_id:
+          range: string
+          description: >-
+            The identifier of the category of the part in the template
+          required: false
+      - title:
+          range: string
+          description: >-
+            The title of the category
+          required: true
+      - description:
+          range: string
+          description: >-
+            A description of the category
+          required: false
+      - image:
+          range: string
+          description: >-
+            URL and size of the image representing this category. For images with size specification,
+            this is a list with two elements: [url, size].
+          multivalued: true
+          required: false
+      - options:
+          range: CollectionOption
+          description: >-
+            The options available in this category.
+          required: true
+          multivalued: true
+          inlined_as_list: true
+
+  CollectionOption:
+    description: >-
+      Represents an option in a collection
+    slots:
+      - name
+    slot_usage:
+      name:
+        required: true
+    attributes:
+      - source:
+          range: Source
+          description: >-
+            The source of the sequence for this option
+          required: true
+          inlined: true
+      - info:
+          range: CollectionOptionInfo
+          description: >-
+            Additional information about this option
+          required: false
+          inlined: true
+
+  CollectionOptionInfo:
+    description: >-
+      Additional information about a collection option
+    slots:
+      - name
+    slot_usage:
+      name:
+        required: false
+    attributes:
+      - description:
+          range: string
+          description: >-
+            A description of the option
+          required: false
+      - type:
+          range: CollectionOptionType
+          description: >-
+            The type of the option, this is redundant with the type of the source, and could be removed.
+          required: false
+      - resistance:
+          range: string
+          description: >-
+            The antibiotic resistance of the plasmid
+          required: false
+      - well:
+          range: string
+          description: >-
+            The well position in the kit plate
+          required: false
+
   ManuallyTypedSource:
     is_a: Source
     description: >-
@@ -488,6 +575,7 @@ classes:
           range: string
           description: >-
             A description of the cloning strategy
+          required: false
       - files:
           range: AssociatedFile
           description: >-
@@ -688,6 +776,15 @@ enums:
       igem:
         description: >-
           iGEM collection
+
+  Collection:
+    permissible_values:
+      AddGenePlasmid:
+        description: >-
+          A plasmid from AddGene
+      OligoPair:
+        description: >-
+          A pair of oligonucleotides for hybridization
 
   SequenceFileFormat:
     permissible_values:
