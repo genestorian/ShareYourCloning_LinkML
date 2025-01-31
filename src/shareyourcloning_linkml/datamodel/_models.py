@@ -1,11 +1,14 @@
 from __future__ import annotations
-from datetime import datetime, date, time
-from decimal import Decimal
-from enum import Enum
+
 import re
 import sys
-from typing import Any, ClassVar, List, Literal, Dict, Optional, Union
+from datetime import date, datetime, time
+from decimal import Decimal
+from enum import Enum
+from typing import Any, ClassVar, Dict, List, Literal, Optional, Union
+
 from pydantic import BaseModel, ConfigDict, Field, RootModel, field_validator
+
 
 metamodel_version = "None"
 version = "None"
@@ -50,6 +53,7 @@ linkml_meta = LinkMLMeta(
         "license": "MIT",
         "name": "ShareYourCloning_LinkML",
         "prefixes": {
+            "NCIT": {"prefix_prefix": "NCIT", "prefix_reference": "http://purl.obolibrary.org/obo/NCIT_"},
             "OBI": {"prefix_prefix": "OBI", "prefix_reference": "http://purl.obolibrary.org/obo/OBI_"},
             "PATO": {"prefix_prefix": "PATO", "prefix_reference": "http://purl.obolibrary.org/obo/PATO_"},
             "biolink": {"prefix_prefix": "biolink", "prefix_reference": "https://w3id.org/biolink/"},
@@ -108,13 +112,18 @@ class AnnotationTool(str, Enum):
     plannotate = "plannotate"
 
 
+class AssociatedFileType(str, Enum):
+    # Sanger sequencing trace file
+    Sanger_sequencing = "Sanger sequencing"
+
+
 class NamedThing(ConfiguredBaseModel):
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta(
         {"class_uri": "schema:Thing", "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML"}
     )
 
     id: int = Field(
-        ...,
+        default=...,
         description="""A unique identifier for a thing""",
         json_schema_extra={
             "linkml_meta": {"alias": "id", "domain_of": ["NamedThing", "Sequence"], "slot_uri": "schema:identifier"}
@@ -132,20 +141,20 @@ class Sequence(NamedThing):
     )
 
     id: int = Field(
-        ...,
+        default=...,
         description="""A unique identifier for a thing""",
         json_schema_extra={
             "linkml_meta": {"alias": "id", "domain_of": ["NamedThing", "Sequence"], "slot_uri": "schema:identifier"}
         },
     )
     type: Literal["Sequence"] = Field(
-        "Sequence",
+        default="Sequence",
         description="""Designates the class""",
         json_schema_extra={
             "linkml_meta": {
                 "alias": "type",
                 "designates_type": True,
-                "domain_of": ["Sequence", "Source", "AnnotationReport"],
+                "domain_of": ["Sequence", "Source", "AnnotationReport", "AssociatedFile"],
             }
         },
     )
@@ -168,14 +177,14 @@ class TextFileSequence(Sequence):
     )
 
     sequence_file_format: SequenceFileFormat = Field(
-        ...,
+        default=...,
         description="""The format of a sequence file""",
         json_schema_extra={
             "linkml_meta": {"alias": "sequence_file_format", "domain_of": ["TextFileSequence", "UploadedFileSource"]}
         },
     )
     overhang_crick_3prime: Optional[int] = Field(
-        0,
+        default=0,
         description="""Taken from pydna's `dseq::ovhg`An integer describing the length of the crick strand overhang in the 5' of the molecule, or 3' of the crick strand""",
         json_schema_extra={
             "linkml_meta": {
@@ -186,7 +195,7 @@ class TextFileSequence(Sequence):
         },
     )
     overhang_watson_3prime: Optional[int] = Field(
-        0,
+        default=0,
         description="""The equivalent of `overhang_crick_3prime` but for the watson strand""",
         json_schema_extra={
             "linkml_meta": {
@@ -197,23 +206,23 @@ class TextFileSequence(Sequence):
         },
     )
     file_content: Optional[str] = Field(
-        None, json_schema_extra={"linkml_meta": {"alias": "file_content", "domain_of": ["TextFileSequence"]}}
+        default=None, json_schema_extra={"linkml_meta": {"alias": "file_content", "domain_of": ["TextFileSequence"]}}
     )
     id: int = Field(
-        ...,
+        default=...,
         description="""A unique identifier for a thing""",
         json_schema_extra={
             "linkml_meta": {"alias": "id", "domain_of": ["NamedThing", "Sequence"], "slot_uri": "schema:identifier"}
         },
     )
     type: Literal["TextFileSequence"] = Field(
-        "TextFileSequence",
+        default="TextFileSequence",
         description="""Designates the class""",
         json_schema_extra={
             "linkml_meta": {
                 "alias": "type",
                 "designates_type": True,
-                "domain_of": ["Sequence", "Source", "AnnotationReport"],
+                "domain_of": ["Sequence", "Source", "AnnotationReport", "AssociatedFile"],
             }
         },
     )
@@ -229,12 +238,12 @@ class Primer(Sequence):
     )
 
     name: Optional[str] = Field(
-        None,
+        default=None,
         description="""A human-readable name for a thing""",
         json_schema_extra={"linkml_meta": {"alias": "name", "domain_of": ["Primer"], "slot_uri": "schema:name"}},
     )
     sequence: Optional[str] = Field(
-        None,
+        default=None,
         json_schema_extra={
             "linkml_meta": {
                 "alias": "sequence",
@@ -243,20 +252,20 @@ class Primer(Sequence):
         },
     )
     id: int = Field(
-        ...,
+        default=...,
         description="""A unique identifier for a thing""",
         json_schema_extra={
             "linkml_meta": {"alias": "id", "domain_of": ["NamedThing", "Sequence"], "slot_uri": "schema:identifier"}
         },
     )
     type: Literal["Primer"] = Field(
-        "Primer",
+        default="Primer",
         description="""Designates the class""",
         json_schema_extra={
             "linkml_meta": {
                 "alias": "type",
                 "designates_type": True,
-                "domain_of": ["Sequence", "Source", "AnnotationReport"],
+                "domain_of": ["Sequence", "Source", "AnnotationReport", "AssociatedFile"],
             }
         },
     )
@@ -266,7 +275,7 @@ class Primer(Sequence):
         pattern = re.compile(r"^[acgtACGT]+$")
         if isinstance(v, list):
             for element in v:
-                if not pattern.match(element):
+                if isinstance(v, str) and not pattern.match(element):
                     raise ValueError(f"Invalid sequence format: {element}")
         elif isinstance(v, str):
             if not pattern.match(v):
@@ -284,12 +293,12 @@ class SequenceCut(ConfiguredBaseModel):
     )
 
     cut_watson: int = Field(
-        ...,
+        default=...,
         description="""The position of the cut in the watson strand. The cut is made before the base at this position (zero-based), so that cut position 1 cuts after the first base.""",
         json_schema_extra={"linkml_meta": {"alias": "cut_watson", "domain_of": ["SequenceCut"]}},
     )
     overhang: int = Field(
-        ...,
+        default=...,
         description="""The length of the overhang that is left after the cut. It can be negative, same meaning as in pydna's `dseq::ovhg` and biopython's `Bio.Restriction.RestrictionType.ovhg`.""",
         json_schema_extra={"linkml_meta": {"alias": "overhang", "domain_of": ["SequenceCut"]}},
     )
@@ -308,7 +317,7 @@ class RestrictionSequenceCut(SequenceCut):
     )
 
     restriction_enzyme: str = Field(
-        ...,
+        default=...,
         json_schema_extra={
             "linkml_meta": {
                 "alias": "restriction_enzyme",
@@ -318,12 +327,12 @@ class RestrictionSequenceCut(SequenceCut):
         },
     )
     cut_watson: int = Field(
-        ...,
+        default=...,
         description="""The position of the cut in the watson strand. The cut is made before the base at this position (zero-based), so that cut position 1 cuts after the first base.""",
         json_schema_extra={"linkml_meta": {"alias": "cut_watson", "domain_of": ["SequenceCut"]}},
     )
     overhang: int = Field(
-        ...,
+        default=...,
         description="""The length of the overhang that is left after the cut. It can be negative, same meaning as in pydna's `dseq::ovhg` and biopython's `Bio.Restriction.RestrictionType.ovhg`.""",
         json_schema_extra={"linkml_meta": {"alias": "overhang", "domain_of": ["SequenceCut"]}},
     )
@@ -339,33 +348,33 @@ class Source(NamedThing):
     )
 
     input: Optional[List[int]] = Field(
-        None,
+        default=None,
         description="""The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.""",
         json_schema_extra={"linkml_meta": {"alias": "input", "domain_of": ["Source"]}},
     )
     output: Optional[int] = Field(
-        None,
+        default=None,
         description="""Identifier of the sequence that is the output of this source.""",
         json_schema_extra={"linkml_meta": {"alias": "output", "domain_of": ["Source"]}},
     )
     type: Literal["Source"] = Field(
-        "Source",
+        default="Source",
         description="""Designates the class""",
         json_schema_extra={
             "linkml_meta": {
                 "alias": "type",
                 "designates_type": True,
-                "domain_of": ["Sequence", "Source", "AnnotationReport"],
+                "domain_of": ["Sequence", "Source", "AnnotationReport", "AssociatedFile"],
             }
         },
     )
     output_name: Optional[str] = Field(
-        None,
+        default=None,
         description="""Used to specify the name of the output sequence""",
         json_schema_extra={"linkml_meta": {"alias": "output_name", "domain_of": ["Source"]}},
     )
     id: int = Field(
-        ...,
+        default=...,
         description="""A unique identifier for a thing""",
         json_schema_extra={
             "linkml_meta": {"alias": "id", "domain_of": ["NamedThing", "Sequence"], "slot_uri": "schema:identifier"}
@@ -389,7 +398,7 @@ class ManuallyTypedSource(Source):
     )
 
     overhang_crick_3prime: Optional[int] = Field(
-        0,
+        default=0,
         description="""Taken from pydna's `dseq::ovhg`An integer describing the length of the crick strand overhang in the 5' of the molecule, or 3' of the crick strand""",
         json_schema_extra={
             "linkml_meta": {
@@ -400,7 +409,7 @@ class ManuallyTypedSource(Source):
         },
     )
     overhang_watson_3prime: Optional[int] = Field(
-        0,
+        default=0,
         description="""The equivalent of `overhang_crick_3prime` but for the watson strand""",
         json_schema_extra={
             "linkml_meta": {
@@ -411,43 +420,43 @@ class ManuallyTypedSource(Source):
         },
     )
     user_input: str = Field(
-        ..., json_schema_extra={"linkml_meta": {"alias": "user_input", "domain_of": ["ManuallyTypedSource"]}}
+        default=..., json_schema_extra={"linkml_meta": {"alias": "user_input", "domain_of": ["ManuallyTypedSource"]}}
     )
     circular: Optional[bool] = Field(
-        None,
+        default=None,
         description="""Whether the sequence is circular or not""",
         json_schema_extra={
             "linkml_meta": {"alias": "circular", "domain_of": ["ManuallyTypedSource", "AssemblySource"]}
         },
     )
     input: Optional[List[int]] = Field(
-        None,
+        default=None,
         description="""The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.""",
         json_schema_extra={"linkml_meta": {"alias": "input", "domain_of": ["Source"]}},
     )
     output: Optional[int] = Field(
-        None,
+        default=None,
         description="""Identifier of the sequence that is the output of this source.""",
         json_schema_extra={"linkml_meta": {"alias": "output", "domain_of": ["Source"]}},
     )
     type: Literal["ManuallyTypedSource"] = Field(
-        "ManuallyTypedSource",
+        default="ManuallyTypedSource",
         description="""Designates the class""",
         json_schema_extra={
             "linkml_meta": {
                 "alias": "type",
                 "designates_type": True,
-                "domain_of": ["Sequence", "Source", "AnnotationReport"],
+                "domain_of": ["Sequence", "Source", "AnnotationReport", "AssociatedFile"],
             }
         },
     )
     output_name: Optional[str] = Field(
-        None,
+        default=None,
         description="""Used to specify the name of the output sequence""",
         json_schema_extra={"linkml_meta": {"alias": "output_name", "domain_of": ["Source"]}},
     )
     id: int = Field(
-        ...,
+        default=...,
         description="""A unique identifier for a thing""",
         json_schema_extra={
             "linkml_meta": {"alias": "id", "domain_of": ["NamedThing", "Sequence"], "slot_uri": "schema:identifier"}
@@ -459,7 +468,7 @@ class ManuallyTypedSource(Source):
         pattern = re.compile(r"^[acgtACGT]+$")
         if isinstance(v, list):
             for element in v:
-                if not pattern.match(element):
+                if isinstance(v, str) and not pattern.match(element):
                     raise ValueError(f"Invalid user_input format: {element}")
         elif isinstance(v, str):
             if not pattern.match(v):
@@ -480,55 +489,57 @@ class UploadedFileSource(Source):
     )
 
     sequence_file_format: SequenceFileFormat = Field(
-        ...,
+        default=...,
         description="""The format of a sequence file""",
         json_schema_extra={
             "linkml_meta": {"alias": "sequence_file_format", "domain_of": ["TextFileSequence", "UploadedFileSource"]}
         },
     )
     file_name: Optional[str] = Field(
-        None,
+        default=None,
         description="""The name of the file""",
-        json_schema_extra={"linkml_meta": {"alias": "file_name", "domain_of": ["UploadedFileSource"]}},
+        json_schema_extra={
+            "linkml_meta": {"alias": "file_name", "domain_of": ["UploadedFileSource", "AssociatedFile"]}
+        },
     )
     index_in_file: Optional[int] = Field(
-        None,
+        default=None,
         description="""The index of the sequence in the file""",
         json_schema_extra={"linkml_meta": {"alias": "index_in_file", "domain_of": ["UploadedFileSource"]}},
     )
     circularize: Optional[bool] = Field(
-        None,
+        default=None,
         description="""Whether the sequence should be circularized (FASTA only)""",
         json_schema_extra={"linkml_meta": {"alias": "circularize", "domain_of": ["UploadedFileSource"]}},
     )
     input: Optional[List[int]] = Field(
-        None,
+        default=None,
         description="""The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.""",
         json_schema_extra={"linkml_meta": {"alias": "input", "domain_of": ["Source"]}},
     )
     output: Optional[int] = Field(
-        None,
+        default=None,
         description="""Identifier of the sequence that is the output of this source.""",
         json_schema_extra={"linkml_meta": {"alias": "output", "domain_of": ["Source"]}},
     )
     type: Literal["UploadedFileSource"] = Field(
-        "UploadedFileSource",
+        default="UploadedFileSource",
         description="""Designates the class""",
         json_schema_extra={
             "linkml_meta": {
                 "alias": "type",
                 "designates_type": True,
-                "domain_of": ["Sequence", "Source", "AnnotationReport"],
+                "domain_of": ["Sequence", "Source", "AnnotationReport", "AssociatedFile"],
             }
         },
     )
     output_name: Optional[str] = Field(
-        None,
+        default=None,
         description="""Used to specify the name of the output sequence""",
         json_schema_extra={"linkml_meta": {"alias": "output_name", "domain_of": ["Source"]}},
     )
     id: int = Field(
-        ...,
+        default=...,
         description="""A unique identifier for a thing""",
         json_schema_extra={
             "linkml_meta": {"alias": "id", "domain_of": ["NamedThing", "Sequence"], "slot_uri": "schema:identifier"}
@@ -546,41 +557,42 @@ class RepositoryIdSource(Source):
     )
 
     repository_id: str = Field(
-        ...,
+        default=...,
         description="""The id of the sequence in the repository""",
         json_schema_extra={"linkml_meta": {"alias": "repository_id", "domain_of": ["RepositoryIdSource"]}},
     )
     repository_name: RepositoryName = Field(
-        ..., json_schema_extra={"linkml_meta": {"alias": "repository_name", "domain_of": ["RepositoryIdSource"]}}
+        default=...,
+        json_schema_extra={"linkml_meta": {"alias": "repository_name", "domain_of": ["RepositoryIdSource"]}},
     )
     input: Optional[List[int]] = Field(
-        None,
+        default=None,
         description="""The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.""",
         json_schema_extra={"linkml_meta": {"alias": "input", "domain_of": ["Source"]}},
     )
     output: Optional[int] = Field(
-        None,
+        default=None,
         description="""Identifier of the sequence that is the output of this source.""",
         json_schema_extra={"linkml_meta": {"alias": "output", "domain_of": ["Source"]}},
     )
     type: Literal["RepositoryIdSource"] = Field(
-        "RepositoryIdSource",
+        default="RepositoryIdSource",
         description="""Designates the class""",
         json_schema_extra={
             "linkml_meta": {
                 "alias": "type",
                 "designates_type": True,
-                "domain_of": ["Sequence", "Source", "AnnotationReport"],
+                "domain_of": ["Sequence", "Source", "AnnotationReport", "AssociatedFile"],
             }
         },
     )
     output_name: Optional[str] = Field(
-        None,
+        default=None,
         description="""Used to specify the name of the output sequence""",
         json_schema_extra={"linkml_meta": {"alias": "output_name", "domain_of": ["Source"]}},
     )
     id: int = Field(
-        ...,
+        default=...,
         description="""A unique identifier for a thing""",
         json_schema_extra={
             "linkml_meta": {"alias": "id", "domain_of": ["NamedThing", "Sequence"], "slot_uri": "schema:identifier"}
@@ -598,51 +610,53 @@ class AddGeneIdSource(RepositoryIdSource):
     )
 
     sequence_file_url: Optional[str] = Field(
-        None,
+        default=None,
         description="""The URL of a sequence file""",
         json_schema_extra={
             "linkml_meta": {"alias": "sequence_file_url", "domain_of": ["AddGeneIdSource", "IGEMSource"]}
         },
     )
     addgene_sequence_type: Optional[AddGeneSequenceType] = Field(
-        None, json_schema_extra={"linkml_meta": {"alias": "addgene_sequence_type", "domain_of": ["AddGeneIdSource"]}}
+        default=None,
+        json_schema_extra={"linkml_meta": {"alias": "addgene_sequence_type", "domain_of": ["AddGeneIdSource"]}},
     )
     repository_id: str = Field(
-        ...,
+        default=...,
         description="""The id of the sequence in the repository""",
         json_schema_extra={"linkml_meta": {"alias": "repository_id", "domain_of": ["RepositoryIdSource"]}},
     )
     repository_name: RepositoryName = Field(
-        ..., json_schema_extra={"linkml_meta": {"alias": "repository_name", "domain_of": ["RepositoryIdSource"]}}
+        default=...,
+        json_schema_extra={"linkml_meta": {"alias": "repository_name", "domain_of": ["RepositoryIdSource"]}},
     )
     input: Optional[List[int]] = Field(
-        None,
+        default=None,
         description="""The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.""",
         json_schema_extra={"linkml_meta": {"alias": "input", "domain_of": ["Source"]}},
     )
     output: Optional[int] = Field(
-        None,
+        default=None,
         description="""Identifier of the sequence that is the output of this source.""",
         json_schema_extra={"linkml_meta": {"alias": "output", "domain_of": ["Source"]}},
     )
     type: Literal["AddGeneIdSource"] = Field(
-        "AddGeneIdSource",
+        default="AddGeneIdSource",
         description="""Designates the class""",
         json_schema_extra={
             "linkml_meta": {
                 "alias": "type",
                 "designates_type": True,
-                "domain_of": ["Sequence", "Source", "AnnotationReport"],
+                "domain_of": ["Sequence", "Source", "AnnotationReport", "AssociatedFile"],
             }
         },
     )
     output_name: Optional[str] = Field(
-        None,
+        default=None,
         description="""Used to specify the name of the output sequence""",
         json_schema_extra={"linkml_meta": {"alias": "output_name", "domain_of": ["Source"]}},
     )
     id: int = Field(
-        ...,
+        default=...,
         description="""A unique identifier for a thing""",
         json_schema_extra={
             "linkml_meta": {"alias": "id", "domain_of": ["NamedThing", "Sequence"], "slot_uri": "schema:identifier"}
@@ -656,7 +670,7 @@ class AddGeneIdSource(RepositoryIdSource):
         )
         if isinstance(v, list):
             for element in v:
-                if not pattern.match(element):
+                if isinstance(v, str) and not pattern.match(element):
                     raise ValueError(f"Invalid sequence_file_url format: {element}")
         elif isinstance(v, str):
             if not pattern.match(v):
@@ -683,41 +697,42 @@ class BenchlingUrlSource(RepositoryIdSource):
     )
 
     repository_id: str = Field(
-        ...,
+        default=...,
         description="""The url of the gb file associated with the sequence""",
         json_schema_extra={"linkml_meta": {"alias": "repository_id", "domain_of": ["RepositoryIdSource"]}},
     )
     repository_name: RepositoryName = Field(
-        ..., json_schema_extra={"linkml_meta": {"alias": "repository_name", "domain_of": ["RepositoryIdSource"]}}
+        default=...,
+        json_schema_extra={"linkml_meta": {"alias": "repository_name", "domain_of": ["RepositoryIdSource"]}},
     )
     input: Optional[List[int]] = Field(
-        None,
+        default=None,
         description="""The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.""",
         json_schema_extra={"linkml_meta": {"alias": "input", "domain_of": ["Source"]}},
     )
     output: Optional[int] = Field(
-        None,
+        default=None,
         description="""Identifier of the sequence that is the output of this source.""",
         json_schema_extra={"linkml_meta": {"alias": "output", "domain_of": ["Source"]}},
     )
     type: Literal["BenchlingUrlSource"] = Field(
-        "BenchlingUrlSource",
+        default="BenchlingUrlSource",
         description="""Designates the class""",
         json_schema_extra={
             "linkml_meta": {
                 "alias": "type",
                 "designates_type": True,
-                "domain_of": ["Sequence", "Source", "AnnotationReport"],
+                "domain_of": ["Sequence", "Source", "AnnotationReport", "AssociatedFile"],
             }
         },
     )
     output_name: Optional[str] = Field(
-        None,
+        default=None,
         description="""Used to specify the name of the output sequence""",
         json_schema_extra={"linkml_meta": {"alias": "output_name", "domain_of": ["Source"]}},
     )
     id: int = Field(
-        ...,
+        default=...,
         description="""A unique identifier for a thing""",
         json_schema_extra={
             "linkml_meta": {"alias": "id", "domain_of": ["NamedThing", "Sequence"], "slot_uri": "schema:identifier"}
@@ -729,7 +744,7 @@ class BenchlingUrlSource(RepositoryIdSource):
         pattern = re.compile(r"^https:\/\/benchling\.com\/.+\.gb$")
         if isinstance(v, list):
             for element in v:
-                if not pattern.match(element):
+                if isinstance(v, str) and not pattern.match(element):
                     raise ValueError(f"Invalid repository_id format: {element}")
         elif isinstance(v, str):
             if not pattern.match(v):
@@ -765,41 +780,42 @@ class SnapGenePlasmidSource(RepositoryIdSource):
     )
 
     repository_id: str = Field(
-        ...,
+        default=...,
         description="""The subpath of the plasmid in the SnapGene plasmid library. Requesting the plasmid is possible with https://www.snapgene.com/local/fetch.php?set={category_path}&plasmid={plasmid['subpath']} where category_path is the left part of the subpath before the first / and plasmid is the subpath after the /.""",
         json_schema_extra={"linkml_meta": {"alias": "repository_id", "domain_of": ["RepositoryIdSource"]}},
     )
     repository_name: RepositoryName = Field(
-        ..., json_schema_extra={"linkml_meta": {"alias": "repository_name", "domain_of": ["RepositoryIdSource"]}}
+        default=...,
+        json_schema_extra={"linkml_meta": {"alias": "repository_name", "domain_of": ["RepositoryIdSource"]}},
     )
     input: Optional[List[int]] = Field(
-        None,
+        default=None,
         description="""The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.""",
         json_schema_extra={"linkml_meta": {"alias": "input", "domain_of": ["Source"]}},
     )
     output: Optional[int] = Field(
-        None,
+        default=None,
         description="""Identifier of the sequence that is the output of this source.""",
         json_schema_extra={"linkml_meta": {"alias": "output", "domain_of": ["Source"]}},
     )
     type: Literal["SnapGenePlasmidSource"] = Field(
-        "SnapGenePlasmidSource",
+        default="SnapGenePlasmidSource",
         description="""Designates the class""",
         json_schema_extra={
             "linkml_meta": {
                 "alias": "type",
                 "designates_type": True,
-                "domain_of": ["Sequence", "Source", "AnnotationReport"],
+                "domain_of": ["Sequence", "Source", "AnnotationReport", "AssociatedFile"],
             }
         },
     )
     output_name: Optional[str] = Field(
-        None,
+        default=None,
         description="""Used to specify the name of the output sequence""",
         json_schema_extra={"linkml_meta": {"alias": "output_name", "domain_of": ["Source"]}},
     )
     id: int = Field(
-        ...,
+        default=...,
         description="""A unique identifier for a thing""",
         json_schema_extra={
             "linkml_meta": {"alias": "id", "domain_of": ["NamedThing", "Sequence"], "slot_uri": "schema:identifier"}
@@ -811,7 +827,7 @@ class SnapGenePlasmidSource(RepositoryIdSource):
         pattern = re.compile(r"^.+\/.+$")
         if isinstance(v, list):
             for element in v:
-                if not pattern.match(element):
+                if isinstance(v, str) and not pattern.match(element):
                     raise ValueError(f"Invalid repository_id format: {element}")
         elif isinstance(v, str):
             if not pattern.match(v):
@@ -838,41 +854,42 @@ class EuroscarfSource(RepositoryIdSource):
     )
 
     repository_id: str = Field(
-        ...,
+        default=...,
         description="""The id of the plasmid in the Euroscarf plasmid library""",
         json_schema_extra={"linkml_meta": {"alias": "repository_id", "domain_of": ["RepositoryIdSource"]}},
     )
     repository_name: RepositoryName = Field(
-        ..., json_schema_extra={"linkml_meta": {"alias": "repository_name", "domain_of": ["RepositoryIdSource"]}}
+        default=...,
+        json_schema_extra={"linkml_meta": {"alias": "repository_name", "domain_of": ["RepositoryIdSource"]}},
     )
     input: Optional[List[int]] = Field(
-        None,
+        default=None,
         description="""The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.""",
         json_schema_extra={"linkml_meta": {"alias": "input", "domain_of": ["Source"]}},
     )
     output: Optional[int] = Field(
-        None,
+        default=None,
         description="""Identifier of the sequence that is the output of this source.""",
         json_schema_extra={"linkml_meta": {"alias": "output", "domain_of": ["Source"]}},
     )
     type: Literal["EuroscarfSource"] = Field(
-        "EuroscarfSource",
+        default="EuroscarfSource",
         description="""Designates the class""",
         json_schema_extra={
             "linkml_meta": {
                 "alias": "type",
                 "designates_type": True,
-                "domain_of": ["Sequence", "Source", "AnnotationReport"],
+                "domain_of": ["Sequence", "Source", "AnnotationReport", "AssociatedFile"],
             }
         },
     )
     output_name: Optional[str] = Field(
-        None,
+        default=None,
         description="""Used to specify the name of the output sequence""",
         json_schema_extra={"linkml_meta": {"alias": "output_name", "domain_of": ["Source"]}},
     )
     id: int = Field(
-        ...,
+        default=...,
         description="""A unique identifier for a thing""",
         json_schema_extra={
             "linkml_meta": {"alias": "id", "domain_of": ["NamedThing", "Sequence"], "slot_uri": "schema:identifier"}
@@ -884,7 +901,7 @@ class EuroscarfSource(RepositoryIdSource):
         pattern = re.compile(r"^P\d+$")
         if isinstance(v, list):
             for element in v:
-                if not pattern.match(element):
+                if isinstance(v, str) and not pattern.match(element):
                     raise ValueError(f"Invalid repository_id format: {element}")
         elif isinstance(v, str):
             if not pattern.match(v):
@@ -918,48 +935,49 @@ class IGEMSource(RepositoryIdSource):
     )
 
     sequence_file_url: str = Field(
-        ...,
+        default=...,
         description="""The URL of the sequence file, for now github repository""",
         json_schema_extra={
             "linkml_meta": {"alias": "sequence_file_url", "domain_of": ["AddGeneIdSource", "IGEMSource"]}
         },
     )
     repository_id: str = Field(
-        ...,
+        default=...,
         description="""The unique identifier of the sequence in the iGEM collection (for now, {part_id}-{plasmid_backbone})""",
         json_schema_extra={"linkml_meta": {"alias": "repository_id", "domain_of": ["RepositoryIdSource"]}},
     )
     repository_name: RepositoryName = Field(
-        ..., json_schema_extra={"linkml_meta": {"alias": "repository_name", "domain_of": ["RepositoryIdSource"]}}
+        default=...,
+        json_schema_extra={"linkml_meta": {"alias": "repository_name", "domain_of": ["RepositoryIdSource"]}},
     )
     input: Optional[List[int]] = Field(
-        None,
+        default=None,
         description="""The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.""",
         json_schema_extra={"linkml_meta": {"alias": "input", "domain_of": ["Source"]}},
     )
     output: Optional[int] = Field(
-        None,
+        default=None,
         description="""Identifier of the sequence that is the output of this source.""",
         json_schema_extra={"linkml_meta": {"alias": "output", "domain_of": ["Source"]}},
     )
     type: Literal["IGEMSource"] = Field(
-        "IGEMSource",
+        default="IGEMSource",
         description="""Designates the class""",
         json_schema_extra={
             "linkml_meta": {
                 "alias": "type",
                 "designates_type": True,
-                "domain_of": ["Sequence", "Source", "AnnotationReport"],
+                "domain_of": ["Sequence", "Source", "AnnotationReport", "AssociatedFile"],
             }
         },
     )
     output_name: Optional[str] = Field(
-        None,
+        default=None,
         description="""Used to specify the name of the output sequence""",
         json_schema_extra={"linkml_meta": {"alias": "output_name", "domain_of": ["Source"]}},
     )
     id: int = Field(
-        ...,
+        default=...,
         description="""A unique identifier for a thing""",
         json_schema_extra={
             "linkml_meta": {"alias": "id", "domain_of": ["NamedThing", "Sequence"], "slot_uri": "schema:identifier"}
@@ -973,7 +991,7 @@ class IGEMSource(RepositoryIdSource):
         )
         if isinstance(v, list):
             for element in v:
-                if not pattern.match(element):
+                if isinstance(v, str) and not pattern.match(element):
                     raise ValueError(f"Invalid sequence_file_url format: {element}")
         elif isinstance(v, str):
             if not pattern.match(v):
@@ -991,41 +1009,41 @@ class GenomeCoordinatesSource(Source):
     )
 
     assembly_accession: Optional[str] = Field(
-        None,
+        default=None,
         description="""The accession of the assembly""",
         json_schema_extra={"linkml_meta": {"alias": "assembly_accession", "domain_of": ["GenomeCoordinatesSource"]}},
     )
     sequence_accession: str = Field(
-        ...,
+        default=...,
         description="""The accession of the sequence""",
         json_schema_extra={"linkml_meta": {"alias": "sequence_accession", "domain_of": ["GenomeCoordinatesSource"]}},
     )
     locus_tag: Optional[str] = Field(
-        None,
+        default=None,
         description="""The locus tag of the sequence""",
         json_schema_extra={"linkml_meta": {"alias": "locus_tag", "domain_of": ["GenomeCoordinatesSource"]}},
     )
     gene_id: Optional[int] = Field(
-        None,
+        default=None,
         description="""The gene id of the sequence""",
         json_schema_extra={"linkml_meta": {"alias": "gene_id", "domain_of": ["GenomeCoordinatesSource"]}},
     )
     start: int = Field(
-        ...,
+        default=...,
         description="""The starting coordinate (1-based) of the sequence in the sequence accession""",
         json_schema_extra={
             "linkml_meta": {"alias": "start", "domain_of": ["GenomeCoordinatesSource", "SimpleSequenceLocation"]}
         },
     )
     end: int = Field(
-        ...,
+        default=...,
         description="""The ending coordinate (1-based) of the sequence in the sequence accession""",
         json_schema_extra={
             "linkml_meta": {"alias": "end", "domain_of": ["GenomeCoordinatesSource", "SimpleSequenceLocation"]}
         },
     )
     strand: int = Field(
-        ...,
+        default=...,
         description="""The strand of the sequence in the sequence accession, should be 1 or -1""",
         json_schema_extra={
             "linkml_meta": {
@@ -1035,33 +1053,33 @@ class GenomeCoordinatesSource(Source):
         },
     )
     input: Optional[List[int]] = Field(
-        None,
+        default=None,
         description="""The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.""",
         json_schema_extra={"linkml_meta": {"alias": "input", "domain_of": ["Source"]}},
     )
     output: Optional[int] = Field(
-        None,
+        default=None,
         description="""Identifier of the sequence that is the output of this source.""",
         json_schema_extra={"linkml_meta": {"alias": "output", "domain_of": ["Source"]}},
     )
     type: Literal["GenomeCoordinatesSource"] = Field(
-        "GenomeCoordinatesSource",
+        default="GenomeCoordinatesSource",
         description="""Designates the class""",
         json_schema_extra={
             "linkml_meta": {
                 "alias": "type",
                 "designates_type": True,
-                "domain_of": ["Sequence", "Source", "AnnotationReport"],
+                "domain_of": ["Sequence", "Source", "AnnotationReport", "AssociatedFile"],
             }
         },
     )
     output_name: Optional[str] = Field(
-        None,
+        default=None,
         description="""Used to specify the name of the output sequence""",
         json_schema_extra={"linkml_meta": {"alias": "output_name", "domain_of": ["Source"]}},
     )
     id: int = Field(
-        ...,
+        default=...,
         description="""A unique identifier for a thing""",
         json_schema_extra={
             "linkml_meta": {"alias": "id", "domain_of": ["NamedThing", "Sequence"], "slot_uri": "schema:identifier"}
@@ -1079,7 +1097,7 @@ class SequenceCutSource(Source):
     )
 
     left_edge: Optional[SequenceCut] = Field(
-        None,
+        default=None,
         json_schema_extra={
             "linkml_meta": {
                 "alias": "left_edge",
@@ -1088,7 +1106,7 @@ class SequenceCutSource(Source):
         },
     )
     right_edge: Optional[SequenceCut] = Field(
-        None,
+        default=None,
         json_schema_extra={
             "linkml_meta": {
                 "alias": "right_edge",
@@ -1097,33 +1115,33 @@ class SequenceCutSource(Source):
         },
     )
     input: Optional[List[int]] = Field(
-        None,
+        default=None,
         description="""The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.""",
         json_schema_extra={"linkml_meta": {"alias": "input", "domain_of": ["Source"]}},
     )
     output: Optional[int] = Field(
-        None,
+        default=None,
         description="""Identifier of the sequence that is the output of this source.""",
         json_schema_extra={"linkml_meta": {"alias": "output", "domain_of": ["Source"]}},
     )
     type: Literal["SequenceCutSource"] = Field(
-        "SequenceCutSource",
+        default="SequenceCutSource",
         description="""Designates the class""",
         json_schema_extra={
             "linkml_meta": {
                 "alias": "type",
                 "designates_type": True,
-                "domain_of": ["Sequence", "Source", "AnnotationReport"],
+                "domain_of": ["Sequence", "Source", "AnnotationReport", "AssociatedFile"],
             }
         },
     )
     output_name: Optional[str] = Field(
-        None,
+        default=None,
         description="""Used to specify the name of the output sequence""",
         json_schema_extra={"linkml_meta": {"alias": "output_name", "domain_of": ["Source"]}},
     )
     id: int = Field(
-        ...,
+        default=...,
         description="""A unique identifier for a thing""",
         json_schema_extra={
             "linkml_meta": {"alias": "id", "domain_of": ["NamedThing", "Sequence"], "slot_uri": "schema:identifier"}
@@ -1141,7 +1159,7 @@ class RestrictionEnzymeDigestionSource(SequenceCutSource):
     )
 
     left_edge: Optional[RestrictionSequenceCut] = Field(
-        None,
+        default=None,
         json_schema_extra={
             "linkml_meta": {
                 "alias": "left_edge",
@@ -1150,7 +1168,7 @@ class RestrictionEnzymeDigestionSource(SequenceCutSource):
         },
     )
     right_edge: Optional[RestrictionSequenceCut] = Field(
-        None,
+        default=None,
         json_schema_extra={
             "linkml_meta": {
                 "alias": "right_edge",
@@ -1159,33 +1177,33 @@ class RestrictionEnzymeDigestionSource(SequenceCutSource):
         },
     )
     input: Optional[List[int]] = Field(
-        None,
+        default=None,
         description="""The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.""",
         json_schema_extra={"linkml_meta": {"alias": "input", "domain_of": ["Source"]}},
     )
     output: Optional[int] = Field(
-        None,
+        default=None,
         description="""Identifier of the sequence that is the output of this source.""",
         json_schema_extra={"linkml_meta": {"alias": "output", "domain_of": ["Source"]}},
     )
     type: Literal["RestrictionEnzymeDigestionSource"] = Field(
-        "RestrictionEnzymeDigestionSource",
+        default="RestrictionEnzymeDigestionSource",
         description="""Designates the class""",
         json_schema_extra={
             "linkml_meta": {
                 "alias": "type",
                 "designates_type": True,
-                "domain_of": ["Sequence", "Source", "AnnotationReport"],
+                "domain_of": ["Sequence", "Source", "AnnotationReport", "AssociatedFile"],
             }
         },
     )
     output_name: Optional[str] = Field(
-        None,
+        default=None,
         description="""Used to specify the name of the output sequence""",
         json_schema_extra={"linkml_meta": {"alias": "output_name", "domain_of": ["Source"]}},
     )
     id: int = Field(
-        ...,
+        default=...,
         description="""A unique identifier for a thing""",
         json_schema_extra={
             "linkml_meta": {"alias": "id", "domain_of": ["NamedThing", "Sequence"], "slot_uri": "schema:identifier"}
@@ -1203,21 +1221,21 @@ class SimpleSequenceLocation(ConfiguredBaseModel):
     )
 
     start: int = Field(
-        ...,
+        default=...,
         description="""The starting coordinate (1-based) of the location""",
         json_schema_extra={
             "linkml_meta": {"alias": "start", "domain_of": ["GenomeCoordinatesSource", "SimpleSequenceLocation"]}
         },
     )
     end: int = Field(
-        ...,
+        default=...,
         description="""The ending coordinate (1-based) of the location""",
         json_schema_extra={
             "linkml_meta": {"alias": "end", "domain_of": ["GenomeCoordinatesSource", "SimpleSequenceLocation"]}
         },
     )
     strand: Optional[int] = Field(
-        None,
+        default=None,
         description="""The strand of the location, should be 1 or -1 or null""",
         json_schema_extra={
             "linkml_meta": {
@@ -1238,7 +1256,7 @@ class AssemblyFragment(ConfiguredBaseModel):
     )
 
     sequence: int = Field(
-        ...,
+        default=...,
         json_schema_extra={
             "linkml_meta": {
                 "alias": "sequence",
@@ -1247,13 +1265,13 @@ class AssemblyFragment(ConfiguredBaseModel):
         },
     )
     left_location: Optional[SimpleSequenceLocation] = Field(
-        None, json_schema_extra={"linkml_meta": {"alias": "left_location", "domain_of": ["AssemblyFragment"]}}
+        default=None, json_schema_extra={"linkml_meta": {"alias": "left_location", "domain_of": ["AssemblyFragment"]}}
     )
     right_location: Optional[SimpleSequenceLocation] = Field(
-        None, json_schema_extra={"linkml_meta": {"alias": "right_location", "domain_of": ["AssemblyFragment"]}}
+        default=None, json_schema_extra={"linkml_meta": {"alias": "right_location", "domain_of": ["AssemblyFragment"]}}
     )
     reverse_complemented: bool = Field(
-        ...,
+        default=...,
         description="""Whether the sequence is reverse complemented in the assembly""",
         json_schema_extra={"linkml_meta": {"alias": "reverse_complemented", "domain_of": ["AssemblyFragment"]}},
     )
@@ -1269,45 +1287,45 @@ class AssemblySource(Source):
     )
 
     circular: Optional[bool] = Field(
-        None,
+        default=None,
         description="""Whether the assembly is circular or not""",
         json_schema_extra={
             "linkml_meta": {"alias": "circular", "domain_of": ["ManuallyTypedSource", "AssemblySource"]}
         },
     )
     assembly: List[AssemblyFragment] = Field(
-        ...,
+        default=...,
         description="""A list of the fragments that are assembled, in order""",
         json_schema_extra={"linkml_meta": {"alias": "assembly", "domain_of": ["AssemblySource"]}},
     )
     input: Optional[List[int]] = Field(
-        None,
+        default=None,
         description="""The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.""",
         json_schema_extra={"linkml_meta": {"alias": "input", "domain_of": ["Source"]}},
     )
     output: Optional[int] = Field(
-        None,
+        default=None,
         description="""Identifier of the sequence that is the output of this source.""",
         json_schema_extra={"linkml_meta": {"alias": "output", "domain_of": ["Source"]}},
     )
     type: Literal["AssemblySource"] = Field(
-        "AssemblySource",
+        default="AssemblySource",
         description="""Designates the class""",
         json_schema_extra={
             "linkml_meta": {
                 "alias": "type",
                 "designates_type": True,
-                "domain_of": ["Sequence", "Source", "AnnotationReport"],
+                "domain_of": ["Sequence", "Source", "AnnotationReport", "AssociatedFile"],
             }
         },
     )
     output_name: Optional[str] = Field(
-        None,
+        default=None,
         description="""Used to specify the name of the output sequence""",
         json_schema_extra={"linkml_meta": {"alias": "output_name", "domain_of": ["Source"]}},
     )
     id: int = Field(
-        ...,
+        default=...,
         description="""A unique identifier for a thing""",
         json_schema_extra={
             "linkml_meta": {"alias": "id", "domain_of": ["NamedThing", "Sequence"], "slot_uri": "schema:identifier"}
@@ -1325,52 +1343,52 @@ class PCRSource(AssemblySource):
     )
 
     add_primer_features: Optional[bool] = Field(
-        False,
+        default=False,
         description="""Whether to add primer features to the PCR product""",
         json_schema_extra={
             "linkml_meta": {"alias": "add_primer_features", "domain_of": ["PCRSource"], "ifabsent": "boolean(false)"}
         },
     )
     circular: Optional[bool] = Field(
-        None,
+        default=None,
         description="""Whether the assembly is circular or not""",
         json_schema_extra={
             "linkml_meta": {"alias": "circular", "domain_of": ["ManuallyTypedSource", "AssemblySource"]}
         },
     )
     assembly: List[AssemblyFragment] = Field(
-        ...,
+        default=...,
         description="""A list of the fragments that are assembled, in order""",
         json_schema_extra={"linkml_meta": {"alias": "assembly", "domain_of": ["AssemblySource"]}},
     )
     input: Optional[List[int]] = Field(
-        None,
+        default=None,
         description="""The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.""",
         json_schema_extra={"linkml_meta": {"alias": "input", "domain_of": ["Source"]}},
     )
     output: Optional[int] = Field(
-        None,
+        default=None,
         description="""Identifier of the sequence that is the output of this source.""",
         json_schema_extra={"linkml_meta": {"alias": "output", "domain_of": ["Source"]}},
     )
     type: Literal["PCRSource"] = Field(
-        "PCRSource",
+        default="PCRSource",
         description="""Designates the class""",
         json_schema_extra={
             "linkml_meta": {
                 "alias": "type",
                 "designates_type": True,
-                "domain_of": ["Sequence", "Source", "AnnotationReport"],
+                "domain_of": ["Sequence", "Source", "AnnotationReport", "AssociatedFile"],
             }
         },
     )
     output_name: Optional[str] = Field(
-        None,
+        default=None,
         description="""Used to specify the name of the output sequence""",
         json_schema_extra={"linkml_meta": {"alias": "output_name", "domain_of": ["Source"]}},
     )
     id: int = Field(
-        ...,
+        default=...,
         description="""A unique identifier for a thing""",
         json_schema_extra={
             "linkml_meta": {"alias": "id", "domain_of": ["NamedThing", "Sequence"], "slot_uri": "schema:identifier"}
@@ -1388,45 +1406,45 @@ class LigationSource(AssemblySource):
     )
 
     circular: Optional[bool] = Field(
-        None,
+        default=None,
         description="""Whether the assembly is circular or not""",
         json_schema_extra={
             "linkml_meta": {"alias": "circular", "domain_of": ["ManuallyTypedSource", "AssemblySource"]}
         },
     )
     assembly: List[AssemblyFragment] = Field(
-        ...,
+        default=...,
         description="""A list of the fragments that are assembled, in order""",
         json_schema_extra={"linkml_meta": {"alias": "assembly", "domain_of": ["AssemblySource"]}},
     )
     input: Optional[List[int]] = Field(
-        None,
+        default=None,
         description="""The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.""",
         json_schema_extra={"linkml_meta": {"alias": "input", "domain_of": ["Source"]}},
     )
     output: Optional[int] = Field(
-        None,
+        default=None,
         description="""Identifier of the sequence that is the output of this source.""",
         json_schema_extra={"linkml_meta": {"alias": "output", "domain_of": ["Source"]}},
     )
     type: Literal["LigationSource"] = Field(
-        "LigationSource",
+        default="LigationSource",
         description="""Designates the class""",
         json_schema_extra={
             "linkml_meta": {
                 "alias": "type",
                 "designates_type": True,
-                "domain_of": ["Sequence", "Source", "AnnotationReport"],
+                "domain_of": ["Sequence", "Source", "AnnotationReport", "AssociatedFile"],
             }
         },
     )
     output_name: Optional[str] = Field(
-        None,
+        default=None,
         description="""Used to specify the name of the output sequence""",
         json_schema_extra={"linkml_meta": {"alias": "output_name", "domain_of": ["Source"]}},
     )
     id: int = Field(
-        ...,
+        default=...,
         description="""A unique identifier for a thing""",
         json_schema_extra={
             "linkml_meta": {"alias": "id", "domain_of": ["NamedThing", "Sequence"], "slot_uri": "schema:identifier"}
@@ -1444,45 +1462,45 @@ class HomologousRecombinationSource(AssemblySource):
     )
 
     circular: Optional[bool] = Field(
-        None,
+        default=None,
         description="""Whether the assembly is circular or not""",
         json_schema_extra={
             "linkml_meta": {"alias": "circular", "domain_of": ["ManuallyTypedSource", "AssemblySource"]}
         },
     )
     assembly: List[AssemblyFragment] = Field(
-        ...,
+        default=...,
         description="""A list of the fragments that are assembled, in order""",
         json_schema_extra={"linkml_meta": {"alias": "assembly", "domain_of": ["AssemblySource"]}},
     )
     input: Optional[List[int]] = Field(
-        None,
+        default=None,
         description="""The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.""",
         json_schema_extra={"linkml_meta": {"alias": "input", "domain_of": ["Source"]}},
     )
     output: Optional[int] = Field(
-        None,
+        default=None,
         description="""Identifier of the sequence that is the output of this source.""",
         json_schema_extra={"linkml_meta": {"alias": "output", "domain_of": ["Source"]}},
     )
     type: Literal["HomologousRecombinationSource"] = Field(
-        "HomologousRecombinationSource",
+        default="HomologousRecombinationSource",
         description="""Designates the class""",
         json_schema_extra={
             "linkml_meta": {
                 "alias": "type",
                 "designates_type": True,
-                "domain_of": ["Sequence", "Source", "AnnotationReport"],
+                "domain_of": ["Sequence", "Source", "AnnotationReport", "AssociatedFile"],
             }
         },
     )
     output_name: Optional[str] = Field(
-        None,
+        default=None,
         description="""Used to specify the name of the output sequence""",
         json_schema_extra={"linkml_meta": {"alias": "output_name", "domain_of": ["Source"]}},
     )
     id: int = Field(
-        ...,
+        default=...,
         description="""A unique identifier for a thing""",
         json_schema_extra={
             "linkml_meta": {"alias": "id", "domain_of": ["NamedThing", "Sequence"], "slot_uri": "schema:identifier"}
@@ -1500,45 +1518,45 @@ class GibsonAssemblySource(AssemblySource):
     )
 
     circular: Optional[bool] = Field(
-        None,
+        default=None,
         description="""Whether the assembly is circular or not""",
         json_schema_extra={
             "linkml_meta": {"alias": "circular", "domain_of": ["ManuallyTypedSource", "AssemblySource"]}
         },
     )
     assembly: List[AssemblyFragment] = Field(
-        ...,
+        default=...,
         description="""A list of the fragments that are assembled, in order""",
         json_schema_extra={"linkml_meta": {"alias": "assembly", "domain_of": ["AssemblySource"]}},
     )
     input: Optional[List[int]] = Field(
-        None,
+        default=None,
         description="""The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.""",
         json_schema_extra={"linkml_meta": {"alias": "input", "domain_of": ["Source"]}},
     )
     output: Optional[int] = Field(
-        None,
+        default=None,
         description="""Identifier of the sequence that is the output of this source.""",
         json_schema_extra={"linkml_meta": {"alias": "output", "domain_of": ["Source"]}},
     )
     type: Literal["GibsonAssemblySource"] = Field(
-        "GibsonAssemblySource",
+        default="GibsonAssemblySource",
         description="""Designates the class""",
         json_schema_extra={
             "linkml_meta": {
                 "alias": "type",
                 "designates_type": True,
-                "domain_of": ["Sequence", "Source", "AnnotationReport"],
+                "domain_of": ["Sequence", "Source", "AnnotationReport", "AssociatedFile"],
             }
         },
     )
     output_name: Optional[str] = Field(
-        None,
+        default=None,
         description="""Used to specify the name of the output sequence""",
         json_schema_extra={"linkml_meta": {"alias": "output_name", "domain_of": ["Source"]}},
     )
     id: int = Field(
-        ...,
+        default=...,
         description="""A unique identifier for a thing""",
         json_schema_extra={
             "linkml_meta": {"alias": "id", "domain_of": ["NamedThing", "Sequence"], "slot_uri": "schema:identifier"}
@@ -1556,45 +1574,45 @@ class InFusionSource(AssemblySource):
     )
 
     circular: Optional[bool] = Field(
-        None,
+        default=None,
         description="""Whether the assembly is circular or not""",
         json_schema_extra={
             "linkml_meta": {"alias": "circular", "domain_of": ["ManuallyTypedSource", "AssemblySource"]}
         },
     )
     assembly: List[AssemblyFragment] = Field(
-        ...,
+        default=...,
         description="""A list of the fragments that are assembled, in order""",
         json_schema_extra={"linkml_meta": {"alias": "assembly", "domain_of": ["AssemblySource"]}},
     )
     input: Optional[List[int]] = Field(
-        None,
+        default=None,
         description="""The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.""",
         json_schema_extra={"linkml_meta": {"alias": "input", "domain_of": ["Source"]}},
     )
     output: Optional[int] = Field(
-        None,
+        default=None,
         description="""Identifier of the sequence that is the output of this source.""",
         json_schema_extra={"linkml_meta": {"alias": "output", "domain_of": ["Source"]}},
     )
     type: Literal["InFusionSource"] = Field(
-        "InFusionSource",
+        default="InFusionSource",
         description="""Designates the class""",
         json_schema_extra={
             "linkml_meta": {
                 "alias": "type",
                 "designates_type": True,
-                "domain_of": ["Sequence", "Source", "AnnotationReport"],
+                "domain_of": ["Sequence", "Source", "AnnotationReport", "AssociatedFile"],
             }
         },
     )
     output_name: Optional[str] = Field(
-        None,
+        default=None,
         description="""Used to specify the name of the output sequence""",
         json_schema_extra={"linkml_meta": {"alias": "output_name", "domain_of": ["Source"]}},
     )
     id: int = Field(
-        ...,
+        default=...,
         description="""A unique identifier for a thing""",
         json_schema_extra={
             "linkml_meta": {"alias": "id", "domain_of": ["NamedThing", "Sequence"], "slot_uri": "schema:identifier"}
@@ -1612,45 +1630,45 @@ class OverlapExtensionPCRLigationSource(AssemblySource):
     )
 
     circular: Optional[bool] = Field(
-        None,
+        default=None,
         description="""Whether the assembly is circular or not""",
         json_schema_extra={
             "linkml_meta": {"alias": "circular", "domain_of": ["ManuallyTypedSource", "AssemblySource"]}
         },
     )
     assembly: List[AssemblyFragment] = Field(
-        ...,
+        default=...,
         description="""A list of the fragments that are assembled, in order""",
         json_schema_extra={"linkml_meta": {"alias": "assembly", "domain_of": ["AssemblySource"]}},
     )
     input: Optional[List[int]] = Field(
-        None,
+        default=None,
         description="""The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.""",
         json_schema_extra={"linkml_meta": {"alias": "input", "domain_of": ["Source"]}},
     )
     output: Optional[int] = Field(
-        None,
+        default=None,
         description="""Identifier of the sequence that is the output of this source.""",
         json_schema_extra={"linkml_meta": {"alias": "output", "domain_of": ["Source"]}},
     )
     type: Literal["OverlapExtensionPCRLigationSource"] = Field(
-        "OverlapExtensionPCRLigationSource",
+        default="OverlapExtensionPCRLigationSource",
         description="""Designates the class""",
         json_schema_extra={
             "linkml_meta": {
                 "alias": "type",
                 "designates_type": True,
-                "domain_of": ["Sequence", "Source", "AnnotationReport"],
+                "domain_of": ["Sequence", "Source", "AnnotationReport", "AssociatedFile"],
             }
         },
     )
     output_name: Optional[str] = Field(
-        None,
+        default=None,
         description="""Used to specify the name of the output sequence""",
         json_schema_extra={"linkml_meta": {"alias": "output_name", "domain_of": ["Source"]}},
     )
     id: int = Field(
-        ...,
+        default=...,
         description="""A unique identifier for a thing""",
         json_schema_extra={
             "linkml_meta": {"alias": "id", "domain_of": ["NamedThing", "Sequence"], "slot_uri": "schema:identifier"}
@@ -1671,7 +1689,7 @@ class RestrictionAndLigationSource(AssemblySource):
     )
 
     restriction_enzymes: List[str] = Field(
-        ...,
+        default=...,
         json_schema_extra={
             "linkml_meta": {
                 "alias": "restriction_enzymes",
@@ -1681,45 +1699,45 @@ class RestrictionAndLigationSource(AssemblySource):
         },
     )
     circular: Optional[bool] = Field(
-        None,
+        default=None,
         description="""Whether the assembly is circular or not""",
         json_schema_extra={
             "linkml_meta": {"alias": "circular", "domain_of": ["ManuallyTypedSource", "AssemblySource"]}
         },
     )
     assembly: List[AssemblyFragment] = Field(
-        ...,
+        default=...,
         description="""A list of the fragments that are assembled, in order""",
         json_schema_extra={"linkml_meta": {"alias": "assembly", "domain_of": ["AssemblySource"]}},
     )
     input: Optional[List[int]] = Field(
-        None,
+        default=None,
         description="""The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.""",
         json_schema_extra={"linkml_meta": {"alias": "input", "domain_of": ["Source"]}},
     )
     output: Optional[int] = Field(
-        None,
+        default=None,
         description="""Identifier of the sequence that is the output of this source.""",
         json_schema_extra={"linkml_meta": {"alias": "output", "domain_of": ["Source"]}},
     )
     type: Literal["RestrictionAndLigationSource"] = Field(
-        "RestrictionAndLigationSource",
+        default="RestrictionAndLigationSource",
         description="""Designates the class""",
         json_schema_extra={
             "linkml_meta": {
                 "alias": "type",
                 "designates_type": True,
-                "domain_of": ["Sequence", "Source", "AnnotationReport"],
+                "domain_of": ["Sequence", "Source", "AnnotationReport", "AssociatedFile"],
             }
         },
     )
     output_name: Optional[str] = Field(
-        None,
+        default=None,
         description="""Used to specify the name of the output sequence""",
         json_schema_extra={"linkml_meta": {"alias": "output_name", "domain_of": ["Source"]}},
     )
     id: int = Field(
-        ...,
+        default=...,
         description="""A unique identifier for a thing""",
         json_schema_extra={
             "linkml_meta": {"alias": "id", "domain_of": ["NamedThing", "Sequence"], "slot_uri": "schema:identifier"}
@@ -1737,55 +1755,55 @@ class GatewaySource(AssemblySource):
     )
 
     reaction_type: GatewayReactionType = Field(
-        ..., json_schema_extra={"linkml_meta": {"alias": "reaction_type", "domain_of": ["GatewaySource"]}}
+        default=..., json_schema_extra={"linkml_meta": {"alias": "reaction_type", "domain_of": ["GatewaySource"]}}
     )
     greedy: Optional[bool] = Field(
-        False,
+        default=False,
         description="""Whether to use a greedy consensus sequence for att sites (see https://github.com/manulera/GateWayMine)""",
         json_schema_extra={
             "linkml_meta": {"alias": "greedy", "domain_of": ["GatewaySource"], "ifabsent": "boolean(false)"}
         },
     )
     circular: Optional[bool] = Field(
-        None,
+        default=None,
         description="""Whether the assembly is circular or not""",
         json_schema_extra={
             "linkml_meta": {"alias": "circular", "domain_of": ["ManuallyTypedSource", "AssemblySource"]}
         },
     )
     assembly: List[AssemblyFragment] = Field(
-        ...,
+        default=...,
         description="""A list of the fragments that are assembled, in order""",
         json_schema_extra={"linkml_meta": {"alias": "assembly", "domain_of": ["AssemblySource"]}},
     )
     input: Optional[List[int]] = Field(
-        None,
+        default=None,
         description="""The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.""",
         json_schema_extra={"linkml_meta": {"alias": "input", "domain_of": ["Source"]}},
     )
     output: Optional[int] = Field(
-        None,
+        default=None,
         description="""Identifier of the sequence that is the output of this source.""",
         json_schema_extra={"linkml_meta": {"alias": "output", "domain_of": ["Source"]}},
     )
     type: Literal["GatewaySource"] = Field(
-        "GatewaySource",
+        default="GatewaySource",
         description="""Designates the class""",
         json_schema_extra={
             "linkml_meta": {
                 "alias": "type",
                 "designates_type": True,
-                "domain_of": ["Sequence", "Source", "AnnotationReport"],
+                "domain_of": ["Sequence", "Source", "AnnotationReport", "AssociatedFile"],
             }
         },
     )
     output_name: Optional[str] = Field(
-        None,
+        default=None,
         description="""Used to specify the name of the output sequence""",
         json_schema_extra={"linkml_meta": {"alias": "output_name", "domain_of": ["Source"]}},
     )
     id: int = Field(
-        ...,
+        default=...,
         description="""A unique identifier for a thing""",
         json_schema_extra={
             "linkml_meta": {"alias": "id", "domain_of": ["NamedThing", "Sequence"], "slot_uri": "schema:identifier"}
@@ -1803,50 +1821,50 @@ class CRISPRSource(HomologousRecombinationSource):
     )
 
     guides: List[int] = Field(
-        ...,
+        default=...,
         description="""The guide RNAs used in the CRISPR""",
         json_schema_extra={"linkml_meta": {"alias": "guides", "domain_of": ["CRISPRSource"]}},
     )
     circular: Optional[bool] = Field(
-        None,
+        default=None,
         description="""Whether the assembly is circular or not""",
         json_schema_extra={
             "linkml_meta": {"alias": "circular", "domain_of": ["ManuallyTypedSource", "AssemblySource"]}
         },
     )
     assembly: List[AssemblyFragment] = Field(
-        ...,
+        default=...,
         description="""A list of the fragments that are assembled, in order""",
         json_schema_extra={"linkml_meta": {"alias": "assembly", "domain_of": ["AssemblySource"]}},
     )
     input: Optional[List[int]] = Field(
-        None,
+        default=None,
         description="""The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.""",
         json_schema_extra={"linkml_meta": {"alias": "input", "domain_of": ["Source"]}},
     )
     output: Optional[int] = Field(
-        None,
+        default=None,
         description="""Identifier of the sequence that is the output of this source.""",
         json_schema_extra={"linkml_meta": {"alias": "output", "domain_of": ["Source"]}},
     )
     type: Literal["CRISPRSource"] = Field(
-        "CRISPRSource",
+        default="CRISPRSource",
         description="""Designates the class""",
         json_schema_extra={
             "linkml_meta": {
                 "alias": "type",
                 "designates_type": True,
-                "domain_of": ["Sequence", "Source", "AnnotationReport"],
+                "domain_of": ["Sequence", "Source", "AnnotationReport", "AssociatedFile"],
             }
         },
     )
     output_name: Optional[str] = Field(
-        None,
+        default=None,
         description="""Used to specify the name of the output sequence""",
         json_schema_extra={"linkml_meta": {"alias": "output_name", "domain_of": ["Source"]}},
     )
     id: int = Field(
-        ...,
+        default=...,
         description="""A unique identifier for a thing""",
         json_schema_extra={
             "linkml_meta": {"alias": "id", "domain_of": ["NamedThing", "Sequence"], "slot_uri": "schema:identifier"}
@@ -1864,7 +1882,7 @@ class OligoHybridizationSource(Source):
     )
 
     overhang_crick_3prime: Optional[int] = Field(
-        None,
+        default=None,
         description="""Taken from pydna's `dseq::ovhg`An integer describing the length of the crick strand overhang in the 5' of the molecule, or 3' of the crick strand""",
         json_schema_extra={
             "linkml_meta": {
@@ -1874,43 +1892,43 @@ class OligoHybridizationSource(Source):
         },
     )
     forward_oligo: int = Field(
-        ...,
+        default=...,
         description="""The forward oligo used in the hybridization""",
         json_schema_extra={"linkml_meta": {"alias": "forward_oligo", "domain_of": ["OligoHybridizationSource"]}},
     )
     reverse_oligo: int = Field(
-        ...,
+        default=...,
         description="""The reverse oligo used in the hybridization""",
         json_schema_extra={"linkml_meta": {"alias": "reverse_oligo", "domain_of": ["OligoHybridizationSource"]}},
     )
     input: Optional[List[int]] = Field(
-        None,
+        default=None,
         description="""The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.""",
         json_schema_extra={"linkml_meta": {"alias": "input", "domain_of": ["Source"]}},
     )
     output: Optional[int] = Field(
-        None,
+        default=None,
         description="""Identifier of the sequence that is the output of this source.""",
         json_schema_extra={"linkml_meta": {"alias": "output", "domain_of": ["Source"]}},
     )
     type: Literal["OligoHybridizationSource"] = Field(
-        "OligoHybridizationSource",
+        default="OligoHybridizationSource",
         description="""Designates the class""",
         json_schema_extra={
             "linkml_meta": {
                 "alias": "type",
                 "designates_type": True,
-                "domain_of": ["Sequence", "Source", "AnnotationReport"],
+                "domain_of": ["Sequence", "Source", "AnnotationReport", "AssociatedFile"],
             }
         },
     )
     output_name: Optional[str] = Field(
-        None,
+        default=None,
         description="""Used to specify the name of the output sequence""",
         json_schema_extra={"linkml_meta": {"alias": "output_name", "domain_of": ["Source"]}},
     )
     id: int = Field(
-        ...,
+        default=...,
         description="""A unique identifier for a thing""",
         json_schema_extra={
             "linkml_meta": {"alias": "id", "domain_of": ["NamedThing", "Sequence"], "slot_uri": "schema:identifier"}
@@ -1928,33 +1946,33 @@ class PolymeraseExtensionSource(Source):
     )
 
     input: Optional[List[int]] = Field(
-        None,
+        default=None,
         description="""The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.""",
         json_schema_extra={"linkml_meta": {"alias": "input", "domain_of": ["Source"]}},
     )
     output: Optional[int] = Field(
-        None,
+        default=None,
         description="""Identifier of the sequence that is the output of this source.""",
         json_schema_extra={"linkml_meta": {"alias": "output", "domain_of": ["Source"]}},
     )
     type: Literal["PolymeraseExtensionSource"] = Field(
-        "PolymeraseExtensionSource",
+        default="PolymeraseExtensionSource",
         description="""Designates the class""",
         json_schema_extra={
             "linkml_meta": {
                 "alias": "type",
                 "designates_type": True,
-                "domain_of": ["Sequence", "Source", "AnnotationReport"],
+                "domain_of": ["Sequence", "Source", "AnnotationReport", "AssociatedFile"],
             }
         },
     )
     output_name: Optional[str] = Field(
-        None,
+        default=None,
         description="""Used to specify the name of the output sequence""",
         json_schema_extra={"linkml_meta": {"alias": "output_name", "domain_of": ["Source"]}},
     )
     id: int = Field(
-        ...,
+        default=...,
         description="""A unique identifier for a thing""",
         json_schema_extra={
             "linkml_meta": {"alias": "id", "domain_of": ["NamedThing", "Sequence"], "slot_uri": "schema:identifier"}
@@ -1972,7 +1990,7 @@ class CloningStrategy(ConfiguredBaseModel):
     )
 
     sequences: List[Union[Sequence, TextFileSequence, Primer]] = Field(
-        ...,
+        default=...,
         description="""The sequences that are used in the cloning strategy""",
         json_schema_extra={"linkml_meta": {"alias": "sequences", "domain_of": ["CloningStrategy"]}},
     )
@@ -2005,19 +2023,24 @@ class CloningStrategy(ConfiguredBaseModel):
             IGEMSource,
         ]
     ] = Field(
-        ...,
+        default=...,
         description="""The sources of the sequences that are used in the cloning strategy""",
         json_schema_extra={"linkml_meta": {"alias": "sources", "domain_of": ["CloningStrategy"]}},
     )
     primers: Optional[List[Primer]] = Field(
-        None,
+        default=None,
         description="""The primers that are used in the cloning strategy""",
         json_schema_extra={"linkml_meta": {"alias": "primers", "domain_of": ["CloningStrategy"]}},
     )
     description: Optional[str] = Field(
-        None,
+        default=None,
         description="""A description of the cloning strategy""",
         json_schema_extra={"linkml_meta": {"alias": "description", "domain_of": ["CloningStrategy"]}},
+    )
+    files: Optional[List[Union[AssociatedFile, SequencingFile]]] = Field(
+        default=None,
+        description="""Files associated with this cloning strategy""",
+        json_schema_extra={"linkml_meta": {"alias": "files", "domain_of": ["CloningStrategy"]}},
     )
 
 
@@ -2031,13 +2054,13 @@ class AnnotationReport(ConfiguredBaseModel):
     )
 
     type: Literal["AnnotationReport"] = Field(
-        "AnnotationReport",
+        default="AnnotationReport",
         description="""Designates the class""",
         json_schema_extra={
             "linkml_meta": {
                 "alias": "type",
                 "designates_type": True,
-                "domain_of": ["Sequence", "Source", "AnnotationReport"],
+                "domain_of": ["Sequence", "Source", "AnnotationReport", "AssociatedFile"],
             }
         },
     )
@@ -2053,17 +2076,19 @@ class PlannotateAnnotationReport(AnnotationReport):
     )
 
     sseqid: Optional[str] = Field(
-        None, json_schema_extra={"linkml_meta": {"alias": "sseqid", "domain_of": ["PlannotateAnnotationReport"]}}
+        default=None,
+        json_schema_extra={"linkml_meta": {"alias": "sseqid", "domain_of": ["PlannotateAnnotationReport"]}},
     )
     start_location: Optional[int] = Field(
-        None,
+        default=None,
         json_schema_extra={"linkml_meta": {"alias": "start_location", "domain_of": ["PlannotateAnnotationReport"]}},
     )
     end_location: Optional[int] = Field(
-        None, json_schema_extra={"linkml_meta": {"alias": "end_location", "domain_of": ["PlannotateAnnotationReport"]}}
+        default=None,
+        json_schema_extra={"linkml_meta": {"alias": "end_location", "domain_of": ["PlannotateAnnotationReport"]}},
     )
     strand: Optional[int] = Field(
-        None,
+        default=None,
         json_schema_extra={
             "linkml_meta": {
                 "alias": "strand",
@@ -2072,44 +2097,48 @@ class PlannotateAnnotationReport(AnnotationReport):
         },
     )
     percent_identity: Optional[float] = Field(
-        None,
+        default=None,
         json_schema_extra={"linkml_meta": {"alias": "percent_identity", "domain_of": ["PlannotateAnnotationReport"]}},
     )
     full_length_of_feature_in_db: Optional[int] = Field(
-        None,
+        default=None,
         json_schema_extra={
             "linkml_meta": {"alias": "full_length_of_feature_in_db", "domain_of": ["PlannotateAnnotationReport"]}
         },
     )
     length_of_found_feature: Optional[int] = Field(
-        None,
+        default=None,
         json_schema_extra={
             "linkml_meta": {"alias": "length_of_found_feature", "domain_of": ["PlannotateAnnotationReport"]}
         },
     )
     percent_match_length: Optional[float] = Field(
-        None,
+        default=None,
         json_schema_extra={
             "linkml_meta": {"alias": "percent_match_length", "domain_of": ["PlannotateAnnotationReport"]}
         },
     )
     fragment: Optional[bool] = Field(
-        None, json_schema_extra={"linkml_meta": {"alias": "fragment", "domain_of": ["PlannotateAnnotationReport"]}}
+        default=None,
+        json_schema_extra={"linkml_meta": {"alias": "fragment", "domain_of": ["PlannotateAnnotationReport"]}},
     )
     database: Optional[str] = Field(
-        None, json_schema_extra={"linkml_meta": {"alias": "database", "domain_of": ["PlannotateAnnotationReport"]}}
+        default=None,
+        json_schema_extra={"linkml_meta": {"alias": "database", "domain_of": ["PlannotateAnnotationReport"]}},
     )
     Feature: Optional[str] = Field(
-        None, json_schema_extra={"linkml_meta": {"alias": "Feature", "domain_of": ["PlannotateAnnotationReport"]}}
+        default=None,
+        json_schema_extra={"linkml_meta": {"alias": "Feature", "domain_of": ["PlannotateAnnotationReport"]}},
     )
     Type: Optional[str] = Field(
-        None, json_schema_extra={"linkml_meta": {"alias": "Type", "domain_of": ["PlannotateAnnotationReport"]}}
+        default=None, json_schema_extra={"linkml_meta": {"alias": "Type", "domain_of": ["PlannotateAnnotationReport"]}}
     )
     Description: Optional[str] = Field(
-        None, json_schema_extra={"linkml_meta": {"alias": "Description", "domain_of": ["PlannotateAnnotationReport"]}}
+        default=None,
+        json_schema_extra={"linkml_meta": {"alias": "Description", "domain_of": ["PlannotateAnnotationReport"]}},
     )
     sequence: Optional[str] = Field(
-        None,
+        default=None,
         json_schema_extra={
             "linkml_meta": {
                 "alias": "sequence",
@@ -2118,13 +2147,13 @@ class PlannotateAnnotationReport(AnnotationReport):
         },
     )
     type: Literal["PlannotateAnnotationReport"] = Field(
-        "PlannotateAnnotationReport",
+        default="PlannotateAnnotationReport",
         description="""Designates the class""",
         json_schema_extra={
             "linkml_meta": {
                 "alias": "type",
                 "designates_type": True,
-                "domain_of": ["Sequence", "Source", "AnnotationReport"],
+                "domain_of": ["Sequence", "Source", "AnnotationReport", "AssociatedFile"],
             }
         },
     )
@@ -2140,48 +2169,132 @@ class AnnotationSource(Source):
     )
 
     annotation_tool: AnnotationTool = Field(
-        ..., json_schema_extra={"linkml_meta": {"alias": "annotation_tool", "domain_of": ["AnnotationSource"]}}
+        default=..., json_schema_extra={"linkml_meta": {"alias": "annotation_tool", "domain_of": ["AnnotationSource"]}}
     )
     annotation_tool_version: Optional[str] = Field(
-        None,
+        default=None,
         description="""The version of the annotation tool""",
         json_schema_extra={"linkml_meta": {"alias": "annotation_tool_version", "domain_of": ["AnnotationSource"]}},
     )
     annotation_report: Optional[List[Union[AnnotationReport, PlannotateAnnotationReport]]] = Field(
-        None, json_schema_extra={"linkml_meta": {"alias": "annotation_report", "domain_of": ["AnnotationSource"]}}
+        default=None,
+        json_schema_extra={"linkml_meta": {"alias": "annotation_report", "domain_of": ["AnnotationSource"]}},
     )
     input: Optional[List[int]] = Field(
-        None,
+        default=None,
         description="""The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.""",
         json_schema_extra={"linkml_meta": {"alias": "input", "domain_of": ["Source"]}},
     )
     output: Optional[int] = Field(
-        None,
+        default=None,
         description="""Identifier of the sequence that is the output of this source.""",
         json_schema_extra={"linkml_meta": {"alias": "output", "domain_of": ["Source"]}},
     )
     type: Literal["AnnotationSource"] = Field(
-        "AnnotationSource",
+        default="AnnotationSource",
         description="""Designates the class""",
         json_schema_extra={
             "linkml_meta": {
                 "alias": "type",
                 "designates_type": True,
-                "domain_of": ["Sequence", "Source", "AnnotationReport"],
+                "domain_of": ["Sequence", "Source", "AnnotationReport", "AssociatedFile"],
             }
         },
     )
     output_name: Optional[str] = Field(
-        None,
+        default=None,
         description="""Used to specify the name of the output sequence""",
         json_schema_extra={"linkml_meta": {"alias": "output_name", "domain_of": ["Source"]}},
     )
     id: int = Field(
-        ...,
+        default=...,
         description="""A unique identifier for a thing""",
         json_schema_extra={
             "linkml_meta": {"alias": "id", "domain_of": ["NamedThing", "Sequence"], "slot_uri": "schema:identifier"}
         },
+    )
+
+
+class AssociatedFile(ConfiguredBaseModel):
+    """
+    Represents a file associated with a sequence
+    """
+
+    linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta(
+        {"from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML"}
+    )
+
+    type: Literal["AssociatedFile"] = Field(
+        default="AssociatedFile",
+        description="""Designates the class""",
+        json_schema_extra={
+            "linkml_meta": {
+                "alias": "type",
+                "designates_type": True,
+                "domain_of": ["Sequence", "Source", "AnnotationReport", "AssociatedFile"],
+            }
+        },
+    )
+    sequence_id: int = Field(
+        default=...,
+        description="""The sequence this file is associated with""",
+        json_schema_extra={"linkml_meta": {"alias": "sequence_id", "domain_of": ["AssociatedFile"]}},
+    )
+    file_name: str = Field(
+        default=...,
+        description="""The name of the file""",
+        json_schema_extra={
+            "linkml_meta": {"alias": "file_name", "domain_of": ["UploadedFileSource", "AssociatedFile"]}
+        },
+    )
+    file_type: AssociatedFileType = Field(
+        default=...,
+        description="""The type of file""",
+        json_schema_extra={"linkml_meta": {"alias": "file_type", "domain_of": ["AssociatedFile"]}},
+    )
+
+
+class SequencingFile(AssociatedFile):
+    """
+    Represents a sequencing file and its alignment to a sequence
+    """
+
+    linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta(
+        {"from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML"}
+    )
+
+    alignment: List[str] = Field(
+        default=...,
+        description="""The alignment of the sequencing read to the sequence. List of strings representing aligned sequences.""",
+        json_schema_extra={"linkml_meta": {"alias": "alignment", "domain_of": ["SequencingFile"]}},
+    )
+    type: Literal["SequencingFile"] = Field(
+        default="SequencingFile",
+        description="""Designates the class""",
+        json_schema_extra={
+            "linkml_meta": {
+                "alias": "type",
+                "designates_type": True,
+                "domain_of": ["Sequence", "Source", "AnnotationReport", "AssociatedFile"],
+            }
+        },
+    )
+    sequence_id: int = Field(
+        default=...,
+        description="""The sequence this file is associated with""",
+        json_schema_extra={"linkml_meta": {"alias": "sequence_id", "domain_of": ["AssociatedFile"]}},
+    )
+    file_name: str = Field(
+        default=...,
+        description="""The name of the file""",
+        json_schema_extra={
+            "linkml_meta": {"alias": "file_name", "domain_of": ["UploadedFileSource", "AssociatedFile"]}
+        },
+    )
+    file_type: AssociatedFileType = Field(
+        default=...,
+        description="""The type of file""",
+        json_schema_extra={"linkml_meta": {"alias": "file_type", "domain_of": ["AssociatedFile"]}},
     )
 
 
@@ -2223,3 +2336,5 @@ CloningStrategy.model_rebuild()
 AnnotationReport.model_rebuild()
 PlannotateAnnotationReport.model_rebuild()
 AnnotationSource.model_rebuild()
+AssociatedFile.model_rebuild()
+SequencingFile.model_rebuild()

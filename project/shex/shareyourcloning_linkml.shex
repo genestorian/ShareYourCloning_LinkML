@@ -97,6 +97,18 @@ linkml:Sparqlpath xsd:string
     OR @<OverlapExtensionPCRLigationSource> OR @<PCRSource> OR @<RestrictionAndLigationSource>
 )
 
+<AssociatedFile>  (
+    CLOSED {
+       (  $<AssociatedFile_tes> (  <type> @linkml:String ? ;
+             <sequence_id> @<Sequence> ;
+             <file_name> @linkml:String ;
+             <file_type> [ <http://purl.obolibrary.org/obo/NCIT_C172877> ]
+          ) ;
+          rdf:type [ <AssociatedFile> ] ?
+       )
+    } OR @<SequencingFile>
+)
+
 <BenchlingUrlSource> CLOSED {
     (  $<BenchlingUrlSource_tes> (  &<RepositoryIdSource_tes> ;
           rdf:type [ <RepositoryIdSource> ] ? ;
@@ -110,7 +122,8 @@ linkml:Sparqlpath xsd:string
     (  $<CloningStrategy_tes> (  <sequences> @<Sequence> + ;
           <sources> @<Source> + ;
           <primers> @<Primer> * ;
-          <description> @linkml:String ?
+          <description> @linkml:String ? ;
+          <files> @<AssociatedFile> *
        ) ;
        rdf:type [ <CloningStrategy> ] ?
     )
@@ -371,6 +384,15 @@ linkml:Sparqlpath xsd:string
        )
     } OR @<RestrictionEnzymeDigestionSource>
 )
+
+<SequencingFile> CLOSED {
+    (  $<SequencingFile_tes> (  &<AssociatedFile_tes> ;
+          rdf:type [ <AssociatedFile> ] ? ;
+          <alignment> @linkml:String +
+       ) ;
+       rdf:type [ <SequencingFile> ] ?
+    )
+}
 
 <SimpleSequenceLocation> CLOSED {
     (  $<SimpleSequenceLocation_tes> (  <start> @linkml:Integer ;

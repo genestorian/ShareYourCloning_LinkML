@@ -1,5 +1,5 @@
 # Auto generated from shareyourcloning_linkml.yaml by pythongen.py version: 0.0.1
-# Generation date: 2024-12-10T14:43:54
+# Generation date: 2025-01-31T09:04:12
 # Schema: ShareYourCloning_LinkML
 #
 # id: https://w3id.org/genestorian/ShareYourCloning_LinkML
@@ -8,20 +8,21 @@
 
 import dataclasses
 import re
-from jsonasobj2 import JsonObj, as_dict
-from typing import Optional, List, Union, Dict, ClassVar, Any
 from dataclasses import dataclass
 from datetime import date, datetime, time
-from linkml_runtime.linkml_model.meta import EnumDefinition, PermissibleValue, PvFormulaOptions
+from typing import Any, ClassVar, Dict, List, Optional, Union
 
-from linkml_runtime.utils.slot import Slot
-from linkml_runtime.utils.metamodelcore import empty_list, empty_dict, bnode
-from linkml_runtime.utils.yamlutils import YAMLRoot, extended_str, extended_float, extended_int
-from linkml_runtime.utils.dataclass_extensions_376 import dataclasses_init_fn_with_kwargs
-from linkml_runtime.utils.formatutils import camelcase, underscore, sfx
-from linkml_runtime.utils.enumerations import EnumDefinitionImpl
-from rdflib import Namespace, URIRef
+from jsonasobj2 import JsonObj, as_dict
+from linkml_runtime.linkml_model.meta import EnumDefinition, PermissibleValue, PvFormulaOptions
 from linkml_runtime.utils.curienamespace import CurieNamespace
+from linkml_runtime.utils.dataclass_extensions_376 import dataclasses_init_fn_with_kwargs
+from linkml_runtime.utils.enumerations import EnumDefinitionImpl
+from linkml_runtime.utils.formatutils import camelcase, sfx, underscore
+from linkml_runtime.utils.metamodelcore import bnode, empty_dict, empty_list
+from linkml_runtime.utils.slot import Slot
+from linkml_runtime.utils.yamlutils import YAMLRoot, extended_float, extended_int, extended_str
+from rdflib import Namespace, URIRef
+
 from linkml_runtime.linkml_model.types import Boolean, Float, Integer, String
 from linkml_runtime.utils.metamodelcore import Bool
 
@@ -32,6 +33,7 @@ version = None
 dataclasses._init_fn = dataclasses_init_fn_with_kwargs
 
 # Namespaces
+NCIT = CurieNamespace("NCIT", "http://purl.obolibrary.org/obo/NCIT_")
 OBI = CurieNamespace("OBI", "http://purl.obolibrary.org/obo/OBI_")
 PATO = CurieNamespace("PATO", "http://purl.obolibrary.org/obo/PATO_")
 BIOLINK = CurieNamespace("biolink", "https://w3id.org/biolink/")
@@ -1287,6 +1289,7 @@ class CloningStrategy(YAMLRoot):
     sources: Union[Dict[Union[int, SourceId], Union[dict, Source]], List[Union[dict, Source]]] = empty_dict()
     primers: Optional[Union[Dict[Union[int, PrimerId], Union[dict, Primer]], List[Union[dict, Primer]]]] = empty_dict()
     description: Optional[str] = None
+    files: Optional[Union[Union[dict, "AssociatedFile"], List[Union[dict, "AssociatedFile"]]]] = empty_list()
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
         if self._is_empty(self.sequences):
@@ -1301,6 +1304,10 @@ class CloningStrategy(YAMLRoot):
 
         if self.description is not None and not isinstance(self.description, str):
             self.description = str(self.description)
+
+        if not isinstance(self.files, list):
+            self.files = [self.files] if self.files is not None else []
+        self.files = [v if isinstance(v, AssociatedFile) else AssociatedFile(**as_dict(v)) for v in self.files]
 
         super().__post_init__(**kwargs)
 
@@ -1461,6 +1468,90 @@ class AnnotationSource(Source):
         self.type = str(self.class_name)
 
 
+@dataclass(repr=False)
+class AssociatedFile(YAMLRoot):
+    """
+    Represents a file associated with a sequence
+    """
+
+    _inherited_slots: ClassVar[List[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML["AssociatedFile"]
+    class_class_curie: ClassVar[str] = "shareyourcloning_linkml:AssociatedFile"
+    class_name: ClassVar[str] = "AssociatedFile"
+    class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.AssociatedFile
+
+    sequence_id: Union[int, SequenceId] = None
+    file_name: str = None
+    file_type: Union[str, "AssociatedFileType"] = None
+    type: Optional[str] = None
+
+    def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
+        if self._is_empty(self.sequence_id):
+            self.MissingRequiredField("sequence_id")
+        if not isinstance(self.sequence_id, SequenceId):
+            self.sequence_id = SequenceId(self.sequence_id)
+
+        if self._is_empty(self.file_name):
+            self.MissingRequiredField("file_name")
+        if not isinstance(self.file_name, str):
+            self.file_name = str(self.file_name)
+
+        if self._is_empty(self.file_type):
+            self.MissingRequiredField("file_type")
+        if not isinstance(self.file_type, AssociatedFileType):
+            self.file_type = AssociatedFileType(self.file_type)
+
+        self.type = str(self.class_name)
+
+        super().__post_init__(**kwargs)
+
+    def __new__(cls, *args, **kwargs):
+
+        type_designator = "type"
+        if not type_designator in kwargs:
+            return super().__new__(cls, *args, **kwargs)
+        else:
+            type_designator_value = kwargs[type_designator]
+            target_cls = cls._class_for("class_name", type_designator_value)
+
+            if target_cls is None:
+                raise ValueError(
+                    f"Wrong type designator value: class {cls.__name__} "
+                    f"has no subclass with ['class_name']='{kwargs[type_designator]}'"
+                )
+            return super().__new__(target_cls, *args, **kwargs)
+
+
+@dataclass(repr=False)
+class SequencingFile(AssociatedFile):
+    """
+    Represents a sequencing file and its alignment to a sequence
+    """
+
+    _inherited_slots: ClassVar[List[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML["SequencingFile"]
+    class_class_curie: ClassVar[str] = "shareyourcloning_linkml:SequencingFile"
+    class_name: ClassVar[str] = "SequencingFile"
+    class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.SequencingFile
+
+    sequence_id: Union[int, SequenceId] = None
+    file_name: str = None
+    file_type: Union[str, "AssociatedFileType"] = None
+    alignment: Union[str, List[str]] = None
+
+    def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
+        if self._is_empty(self.alignment):
+            self.MissingRequiredField("alignment")
+        if not isinstance(self.alignment, list):
+            self.alignment = [self.alignment] if self.alignment is not None else []
+        self.alignment = [v if isinstance(v, str) else str(v) for v in self.alignment]
+
+        super().__post_init__(**kwargs)
+        self.type = str(self.class_name)
+
+
 # Enumerations
 class RepositoryName(EnumDefinitionImpl):
 
@@ -1527,6 +1618,23 @@ class AnnotationTool(EnumDefinitionImpl):
     _defn = EnumDefinition(
         name="AnnotationTool",
     )
+
+
+class AssociatedFileType(EnumDefinitionImpl):
+
+    _defn = EnumDefinition(
+        name="AssociatedFileType",
+    )
+
+    @classmethod
+    def _addvals(cls):
+        setattr(
+            cls,
+            "Sanger sequencing",
+            PermissibleValue(
+                text="Sanger sequencing", description="Sanger sequencing trace file", meaning=NCIT["C172877"]
+            ),
+        )
 
 
 # Slots
@@ -2025,6 +2133,15 @@ slots.cloningStrategy__description = Slot(
     range=Optional[str],
 )
 
+slots.cloningStrategy__files = Slot(
+    uri=SHAREYOURCLONING_LINKML.files,
+    name="cloningStrategy__files",
+    curie=SHAREYOURCLONING_LINKML.curie("files"),
+    model_uri=SHAREYOURCLONING_LINKML.cloningStrategy__files,
+    domain=None,
+    range=Optional[Union[Union[dict, AssociatedFile], List[Union[dict, AssociatedFile]]]],
+)
+
 slots.plannotateAnnotationReport__sseqid = Slot(
     uri=SHAREYOURCLONING_LINKML.sseqid,
     name="plannotateAnnotationReport__sseqid",
@@ -2176,6 +2293,42 @@ slots.annotationSource__annotation_report = Slot(
     model_uri=SHAREYOURCLONING_LINKML.annotationSource__annotation_report,
     domain=None,
     range=Optional[Union[Union[dict, AnnotationReport], List[Union[dict, AnnotationReport]]]],
+)
+
+slots.associatedFile__sequence_id = Slot(
+    uri=SHAREYOURCLONING_LINKML.sequence_id,
+    name="associatedFile__sequence_id",
+    curie=SHAREYOURCLONING_LINKML.curie("sequence_id"),
+    model_uri=SHAREYOURCLONING_LINKML.associatedFile__sequence_id,
+    domain=None,
+    range=Union[int, SequenceId],
+)
+
+slots.associatedFile__file_name = Slot(
+    uri=SHAREYOURCLONING_LINKML.file_name,
+    name="associatedFile__file_name",
+    curie=SHAREYOURCLONING_LINKML.curie("file_name"),
+    model_uri=SHAREYOURCLONING_LINKML.associatedFile__file_name,
+    domain=None,
+    range=str,
+)
+
+slots.associatedFile__file_type = Slot(
+    uri=SHAREYOURCLONING_LINKML.file_type,
+    name="associatedFile__file_type",
+    curie=SHAREYOURCLONING_LINKML.curie("file_type"),
+    model_uri=SHAREYOURCLONING_LINKML.associatedFile__file_type,
+    domain=None,
+    range=Union[str, "AssociatedFileType"],
+)
+
+slots.sequencingFile__alignment = Slot(
+    uri=SHAREYOURCLONING_LINKML.alignment,
+    name="sequencingFile__alignment",
+    curie=SHAREYOURCLONING_LINKML.curie("alignment"),
+    model_uri=SHAREYOURCLONING_LINKML.sequencingFile__alignment,
+    domain=None,
+    range=Union[str, List[str]],
 )
 
 slots.TextFileSequence_sequence_file_format = Slot(

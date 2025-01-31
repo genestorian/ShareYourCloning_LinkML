@@ -283,6 +283,49 @@
             "title": "AssemblySource",
             "type": "object"
         },
+        "AssociatedFile": {
+            "additionalProperties": false,
+            "description": "Represents a file associated with a sequence",
+            "properties": {
+                "file_name": {
+                    "description": "The name of the file",
+                    "type": "string"
+                },
+                "file_type": {
+                    "$ref": "#/$defs/AssociatedFileType",
+                    "description": "The type of file"
+                },
+                "sequence_id": {
+                    "description": "The sequence this file is associated with",
+                    "type": "integer"
+                },
+                "type": {
+                    "description": "Designates the class",
+                    "enum": [
+                        "AssociatedFile"
+                    ],
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "sequence_id",
+                "file_name",
+                "file_type"
+            ],
+            "title": "AssociatedFile",
+            "type": "object"
+        },
+        "AssociatedFileType": {
+            "description": "",
+            "enum": [
+                "Sanger sequencing"
+            ],
+            "title": "AssociatedFileType",
+            "type": "string"
+        },
         "BenchlingUrlSource": {
             "additionalProperties": false,
             "description": "Represents the source of a sequence that is identified by a Benchling URL",
@@ -422,6 +465,23 @@
                     "description": "A description of the cloning strategy",
                     "type": [
                         "string",
+                        "null"
+                    ]
+                },
+                "files": {
+                    "description": "Files associated with this cloning strategy",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/$defs/AssociatedFile"
+                            },
+                            {
+                                "$ref": "#/$defs/SequencingFile"
+                            }
+                        ]
+                    },
+                    "type": [
+                        "array",
                         "null"
                     ]
                 },
@@ -1908,6 +1968,49 @@
             ],
             "title": "SequenceFileFormat",
             "type": "string"
+        },
+        "SequencingFile": {
+            "additionalProperties": false,
+            "description": "Represents a sequencing file and its alignment to a sequence",
+            "properties": {
+                "alignment": {
+                    "description": "The alignment of the sequencing read to the sequence. List of strings representing aligned sequences.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "file_name": {
+                    "description": "The name of the file",
+                    "type": "string"
+                },
+                "file_type": {
+                    "$ref": "#/$defs/AssociatedFileType",
+                    "description": "The type of file"
+                },
+                "sequence_id": {
+                    "description": "The sequence this file is associated with",
+                    "type": "integer"
+                },
+                "type": {
+                    "description": "Designates the class",
+                    "enum": [
+                        "SequencingFile"
+                    ],
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "alignment",
+                "sequence_id",
+                "file_name",
+                "file_type"
+            ],
+            "title": "SequencingFile",
+            "type": "object"
         },
         "SimpleSequenceLocation": {
             "additionalProperties": false,
