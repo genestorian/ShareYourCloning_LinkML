@@ -89,7 +89,7 @@ linkml:Sparqlpath xsd:string
        (  $<AssemblySource_tes> (  &<Source_tes> ;
              rdf:type [ <Source> ] ? ;
              <circular> @linkml:Boolean ? ;
-             <assembly> @<AssemblyFragment> +
+             <assembly> @<AssemblyFragment> *
           ) ;
           rdf:type [ <AssemblySource> ]
        )
@@ -126,6 +126,40 @@ linkml:Sparqlpath xsd:string
           <files> @<AssociatedFile> *
        ) ;
        rdf:type [ <CloningStrategy> ] ?
+    )
+}
+
+<CollectionOption> CLOSED {
+    (  $<CollectionOption_tes> (  schema1:name @linkml:String ;
+          <source> @<Source> ;
+          <info> @<CollectionOptionInfo> ?
+       ) ;
+       rdf:type [ <CollectionOption> ] ?
+    )
+}
+
+<CollectionOptionInfo> CLOSED {
+    (  $<CollectionOptionInfo_tes> (  schema1:name @linkml:String ? ;
+          <description> @linkml:String ? ;
+          <type> [ <https://w3id.org/genestorian/ShareYourCloning_LinkML/CollectionOptionType#OligoPair>
+             <https://w3id.org/genestorian/ShareYourCloning_LinkML/CollectionOptionType#AddGenePlasmid> ] ? ;
+          <resistance> @linkml:String ? ;
+          <well> @linkml:String ?
+       ) ;
+       rdf:type [ <CollectionOptionInfo> ] ?
+    )
+}
+
+<CollectionSource> CLOSED {
+    (  $<CollectionSource_tes> (  &<Source_tes> ;
+          rdf:type [ <Source> ] ? ;
+          <category_id> @linkml:String ? ;
+          <title> @linkml:String ;
+          <description> @linkml:String ? ;
+          <image> @linkml:String * ;
+          <options> @<CollectionOption> *
+       ) ;
+       rdf:type [ <CollectionSource> ]
     )
 }
 
@@ -351,7 +385,7 @@ linkml:Sparqlpath xsd:string
 }
 
 <Sequence>  (
-    @<Primer> OR @<TextFileSequence>
+    @<Primer> OR @<TemplateSequence> OR @<TextFileSequence>
 )
 
 <Sequence_struct> {
@@ -413,8 +447,9 @@ linkml:Sparqlpath xsd:string
 }
 
 <Source>  (
-    @<AnnotationSource> OR @<AssemblySource> OR @<GenomeCoordinatesSource> OR @<ManuallyTypedSource> OR @<OligoHybridizationSource>
-    OR @<PolymeraseExtensionSource> OR @<RepositoryIdSource> OR @<SequenceCutSource> OR @<UploadedFileSource>
+    @<AnnotationSource> OR @<AssemblySource> OR @<CollectionSource> OR @<GenomeCoordinatesSource> OR @<ManuallyTypedSource> OR
+    @<OligoHybridizationSource> OR @<PolymeraseExtensionSource> OR @<RepositoryIdSource> OR @<SequenceCutSource> OR
+    @<UploadedFileSource>
 )
 
 <Source_struct> {
@@ -426,6 +461,16 @@ linkml:Sparqlpath xsd:string
           <output_name> @linkml:String ?
        ) ;
        rdf:type [ <Source> ]
+    )
+}
+
+<TemplateSequence> CLOSED {
+    (  $<TemplateSequence_tes> (  &<Sequence_tes> ;
+          rdf:type [ <Sequence> ] ? ;
+          <circular> @linkml:Boolean ? ;
+          <primer_design> @linkml:String ?
+       ) ;
+       rdf:type [ <TemplateSequence> ]
     )
 }
 

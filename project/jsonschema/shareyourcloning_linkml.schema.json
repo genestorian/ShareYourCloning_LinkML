@@ -228,7 +228,10 @@
                     "items": {
                         "$ref": "#/$defs/AssemblyFragment"
                     },
-                    "type": "array"
+                    "type": [
+                        "array",
+                        "null"
+                    ]
                 },
                 "circular": {
                     "description": "Whether the assembly is circular or not",
@@ -277,7 +280,6 @@
                 }
             },
             "required": [
-                "assembly",
                 "id"
             ],
             "title": "AssemblySource",
@@ -394,7 +396,10 @@
                     "items": {
                         "$ref": "#/$defs/AssemblyFragment"
                     },
-                    "type": "array"
+                    "type": [
+                        "array",
+                        "null"
+                    ]
                 },
                 "circular": {
                     "description": "Whether the assembly is circular or not",
@@ -451,7 +456,6 @@
             },
             "required": [
                 "guides",
-                "assembly",
                 "id"
             ],
             "title": "CRISPRSource",
@@ -500,6 +504,9 @@
                     "items": {
                         "anyOf": [
                             {
+                                "$ref": "#/$defs/TemplateSequence"
+                            },
+                            {
                                 "$ref": "#/$defs/TextFileSequence"
                             },
                             {
@@ -513,6 +520,9 @@
                     "description": "The sources of the sequences that are used in the cloning strategy",
                     "items": {
                         "anyOf": [
+                            {
+                                "$ref": "#/$defs/CollectionSource"
+                            },
                             {
                                 "$ref": "#/$defs/ManuallyTypedSource"
                             },
@@ -597,6 +607,259 @@
             "title": "CloningStrategy",
             "type": "object"
         },
+        "Collection": {
+            "description": "",
+            "enum": [
+                "AddGenePlasmid",
+                "OligoPair"
+            ],
+            "title": "Collection",
+            "type": "string"
+        },
+        "CollectionOption": {
+            "additionalProperties": false,
+            "description": "Represents an option in a collection",
+            "properties": {
+                "info": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/CollectionOptionInfo"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Additional information about this option"
+                },
+                "name": {
+                    "description": "A human-readable name for a thing",
+                    "type": "string"
+                },
+                "source": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/CollectionSource"
+                        },
+                        {
+                            "$ref": "#/$defs/ManuallyTypedSource"
+                        },
+                        {
+                            "$ref": "#/$defs/UploadedFileSource"
+                        },
+                        {
+                            "$ref": "#/$defs/RepositoryIdSource"
+                        },
+                        {
+                            "$ref": "#/$defs/GenomeCoordinatesSource"
+                        },
+                        {
+                            "$ref": "#/$defs/SequenceCutSource"
+                        },
+                        {
+                            "$ref": "#/$defs/AssemblySource"
+                        },
+                        {
+                            "$ref": "#/$defs/OligoHybridizationSource"
+                        },
+                        {
+                            "$ref": "#/$defs/PolymeraseExtensionSource"
+                        },
+                        {
+                            "$ref": "#/$defs/AnnotationSource"
+                        },
+                        {
+                            "$ref": "#/$defs/PCRSource"
+                        },
+                        {
+                            "$ref": "#/$defs/LigationSource"
+                        },
+                        {
+                            "$ref": "#/$defs/HomologousRecombinationSource"
+                        },
+                        {
+                            "$ref": "#/$defs/GibsonAssemblySource"
+                        },
+                        {
+                            "$ref": "#/$defs/InFusionSource"
+                        },
+                        {
+                            "$ref": "#/$defs/OverlapExtensionPCRLigationSource"
+                        },
+                        {
+                            "$ref": "#/$defs/RestrictionAndLigationSource"
+                        },
+                        {
+                            "$ref": "#/$defs/GatewaySource"
+                        },
+                        {
+                            "$ref": "#/$defs/CRISPRSource"
+                        },
+                        {
+                            "$ref": "#/$defs/RestrictionEnzymeDigestionSource"
+                        },
+                        {
+                            "$ref": "#/$defs/AddGeneIdSource"
+                        },
+                        {
+                            "$ref": "#/$defs/BenchlingUrlSource"
+                        },
+                        {
+                            "$ref": "#/$defs/SnapGenePlasmidSource"
+                        },
+                        {
+                            "$ref": "#/$defs/EuroscarfSource"
+                        },
+                        {
+                            "$ref": "#/$defs/IGEMSource"
+                        }
+                    ],
+                    "description": "The source of the sequence for this option"
+                }
+            },
+            "required": [
+                "name",
+                "source"
+            ],
+            "title": "CollectionOption",
+            "type": "object"
+        },
+        "CollectionOptionInfo": {
+            "additionalProperties": false,
+            "description": "Additional information about a collection option",
+            "properties": {
+                "description": {
+                    "description": "A description of the option",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "name": {
+                    "description": "A human-readable name for a thing",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "resistance": {
+                    "description": "The antibiotic resistance of the plasmid",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "type": {
+                    "$ref": "#/$defs/CollectionOptionType",
+                    "description": "The type of the option, this is redundant with the type of the source, and could be removed."
+                },
+                "well": {
+                    "description": "The well position in the kit plate",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "title": "CollectionOptionInfo",
+            "type": "object"
+        },
+        "CollectionOptionType": {
+            "description": "",
+            "enum": [
+                "OligoPair",
+                "AddGenePlasmid"
+            ],
+            "title": "CollectionOptionType",
+            "type": "string"
+        },
+        "CollectionSource": {
+            "additionalProperties": false,
+            "description": "Represents a collection of possible sources in a template",
+            "properties": {
+                "category_id": {
+                    "description": "The identifier of the category of the part in the template",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "description": {
+                    "description": "A description of the category",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "id": {
+                    "description": "A unique identifier for a thing",
+                    "type": "integer"
+                },
+                "image": {
+                    "description": "URL and size of the image representing this category. For images with size specification, this is a list with two elements: [url, size].",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "input": {
+                    "description": "The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.",
+                    "items": {
+                        "type": "integer"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "options": {
+                    "description": "The options available in this category.",
+                    "items": {
+                        "$ref": "#/$defs/CollectionOption"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "output": {
+                    "description": "Identifier of the sequence that is the output of this source.",
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "output_name": {
+                    "description": "Used to specify the name of the output sequence",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "title": {
+                    "description": "The title of the category",
+                    "type": "string"
+                },
+                "type": {
+                    "description": "Designates the class",
+                    "enum": [
+                        "CollectionSource"
+                    ],
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "title",
+                "id"
+            ],
+            "title": "CollectionSource",
+            "type": "object"
+        },
         "EuroscarfSource": {
             "additionalProperties": false,
             "description": "Represents the source of a sequence from the Euroscarf plasmid library",
@@ -674,7 +937,10 @@
                     "items": {
                         "$ref": "#/$defs/AssemblyFragment"
                     },
-                    "type": "array"
+                    "type": [
+                        "array",
+                        "null"
+                    ]
                 },
                 "circular": {
                     "description": "Whether the assembly is circular or not",
@@ -734,7 +1000,6 @@
             },
             "required": [
                 "reaction_type",
-                "assembly",
                 "id"
             ],
             "title": "GatewaySource",
@@ -839,7 +1104,10 @@
                     "items": {
                         "$ref": "#/$defs/AssemblyFragment"
                     },
-                    "type": "array"
+                    "type": [
+                        "array",
+                        "null"
+                    ]
                 },
                 "circular": {
                     "description": "Whether the assembly is circular or not",
@@ -888,7 +1156,6 @@
                 }
             },
             "required": [
-                "assembly",
                 "id"
             ],
             "title": "GibsonAssemblySource",
@@ -903,7 +1170,10 @@
                     "items": {
                         "$ref": "#/$defs/AssemblyFragment"
                     },
-                    "type": "array"
+                    "type": [
+                        "array",
+                        "null"
+                    ]
                 },
                 "circular": {
                     "description": "Whether the assembly is circular or not",
@@ -952,7 +1222,6 @@
                 }
             },
             "required": [
-                "assembly",
                 "id"
             ],
             "title": "HomologousRecombinationSource",
@@ -1031,7 +1300,10 @@
                     "items": {
                         "$ref": "#/$defs/AssemblyFragment"
                     },
-                    "type": "array"
+                    "type": [
+                        "array",
+                        "null"
+                    ]
                 },
                 "circular": {
                     "description": "Whether the assembly is circular or not",
@@ -1080,7 +1352,6 @@
                 }
             },
             "required": [
-                "assembly",
                 "id"
             ],
             "title": "InFusionSource",
@@ -1095,7 +1366,10 @@
                     "items": {
                         "$ref": "#/$defs/AssemblyFragment"
                     },
-                    "type": "array"
+                    "type": [
+                        "array",
+                        "null"
+                    ]
                 },
                 "circular": {
                     "description": "Whether the assembly is circular or not",
@@ -1144,7 +1418,6 @@
                 }
             },
             "required": [
-                "assembly",
                 "id"
             ],
             "title": "LigationSource",
@@ -1318,7 +1591,10 @@
                     "items": {
                         "$ref": "#/$defs/AssemblyFragment"
                     },
-                    "type": "array"
+                    "type": [
+                        "array",
+                        "null"
+                    ]
                 },
                 "circular": {
                     "description": "Whether the assembly is circular or not",
@@ -1367,7 +1643,6 @@
                 }
             },
             "required": [
-                "assembly",
                 "id"
             ],
             "title": "OverlapExtensionPCRLigationSource",
@@ -1389,7 +1664,10 @@
                     "items": {
                         "$ref": "#/$defs/AssemblyFragment"
                     },
-                    "type": "array"
+                    "type": [
+                        "array",
+                        "null"
+                    ]
                 },
                 "circular": {
                     "description": "Whether the assembly is circular or not",
@@ -1438,7 +1716,6 @@
                 }
             },
             "required": [
-                "assembly",
                 "id"
             ],
             "title": "PCRSource",
@@ -1714,7 +1991,10 @@
                     "items": {
                         "$ref": "#/$defs/AssemblyFragment"
                     },
-                    "type": "array"
+                    "type": [
+                        "array",
+                        "null"
+                    ]
                 },
                 "circular": {
                     "description": "Whether the assembly is circular or not",
@@ -1770,7 +2050,6 @@
             },
             "required": [
                 "restriction_enzymes",
-                "assembly",
                 "id"
             ],
             "title": "RestrictionAndLigationSource",
@@ -2096,6 +2375,45 @@
                 "id"
             ],
             "title": "SnapGenePlasmidSource",
+            "type": "object"
+        },
+        "TemplateSequence": {
+            "additionalProperties": false,
+            "description": "Represents a sequence that is part of a template, where the actual sequence content will be determined by the user's actions",
+            "properties": {
+                "circular": {
+                    "description": "Whether the sequence is circular or linear",
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "id": {
+                    "description": "A unique identifier for a thing",
+                    "type": "integer"
+                },
+                "primer_design": {
+                    "description": "Can be used to indicate the intended primer design for this sequence in the template",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "type": {
+                    "description": "Designates the class",
+                    "enum": [
+                        "TemplateSequence"
+                    ],
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "id"
+            ],
+            "title": "TemplateSequence",
             "type": "object"
         },
         "TextFileSequence": {

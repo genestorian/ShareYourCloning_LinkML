@@ -71,8 +71,13 @@ def get_json_files_from_repo(
 
 def main():
     """Main function to execute the download process."""
-    print("Starting template download...")
-    downloaded = get_json_files_from_repo()
+    print("Starting test data download...")
+    downloaded = get_json_files_from_repo(
+        repo_name="genestorian/ShareYourCloning-submission", target_dir="processed", output_dir="src/data/templates"
+    )
+    downloaded += get_json_files_from_repo(
+        repo_name="manulera/ShareYourCloning_frontend", target_dir="public/examples", output_dir="src/data/examples"
+    )
     print(f"\nDownload complete! Downloaded {len(downloaded)} files.")
     for file in downloaded:
         print(f"- {file['path']} ({file['size']} bytes)")

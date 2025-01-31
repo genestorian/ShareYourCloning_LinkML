@@ -87,6 +87,13 @@ class RepositoryName(str, Enum):
     igem = "igem"
 
 
+class Collection(str, Enum):
+    # A plasmid from AddGene
+    AddGenePlasmid = "AddGenePlasmid"
+    # A pair of oligonucleotides for hybridization
+    OligoPair = "OligoPair"
+
+
 class SequenceFileFormat(str, Enum):
     fasta = "fasta"
     genbank = "genbank"
@@ -115,6 +122,13 @@ class AnnotationTool(str, Enum):
 class AssociatedFileType(str, Enum):
     # Sanger sequencing trace file
     Sanger_sequencing = "Sanger sequencing"
+
+
+class CollectionOptionType(str, Enum):
+    # A pair of oligonucleotides for hybridization
+    OligoPair = "OligoPair"
+    # A plasmid from AddGene
+    AddGenePlasmid = "AddGenePlasmid"
 
 
 class NamedThing(ConfiguredBaseModel):
@@ -154,7 +168,51 @@ class Sequence(NamedThing):
             "linkml_meta": {
                 "alias": "type",
                 "designates_type": True,
-                "domain_of": ["Sequence", "Source", "AnnotationReport", "AssociatedFile"],
+                "domain_of": ["Sequence", "Source", "CollectionOptionInfo", "AnnotationReport", "AssociatedFile"],
+            }
+        },
+    )
+
+
+class TemplateSequence(Sequence):
+    """
+    Represents a sequence that is part of a template, where the actual sequence content will be determined by the user's actions
+    """
+
+    linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta(
+        {"from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML"}
+    )
+
+    circular: Optional[bool] = Field(
+        default=None,
+        description="""Whether the sequence is circular or linear""",
+        json_schema_extra={
+            "linkml_meta": {
+                "alias": "circular",
+                "domain_of": ["TemplateSequence", "ManuallyTypedSource", "AssemblySource"],
+            }
+        },
+    )
+    primer_design: Optional[str] = Field(
+        default=None,
+        description="""Can be used to indicate the intended primer design for this sequence in the template""",
+        json_schema_extra={"linkml_meta": {"alias": "primer_design", "domain_of": ["TemplateSequence"]}},
+    )
+    id: int = Field(
+        default=...,
+        description="""A unique identifier for a thing""",
+        json_schema_extra={
+            "linkml_meta": {"alias": "id", "domain_of": ["NamedThing", "Sequence"], "slot_uri": "schema:identifier"}
+        },
+    )
+    type: Literal["TemplateSequence"] = Field(
+        default="TemplateSequence",
+        description="""Designates the class""",
+        json_schema_extra={
+            "linkml_meta": {
+                "alias": "type",
+                "designates_type": True,
+                "domain_of": ["Sequence", "Source", "CollectionOptionInfo", "AnnotationReport", "AssociatedFile"],
             }
         },
     )
@@ -222,7 +280,7 @@ class TextFileSequence(Sequence):
             "linkml_meta": {
                 "alias": "type",
                 "designates_type": True,
-                "domain_of": ["Sequence", "Source", "AnnotationReport", "AssociatedFile"],
+                "domain_of": ["Sequence", "Source", "CollectionOptionInfo", "AnnotationReport", "AssociatedFile"],
             }
         },
     )
@@ -240,7 +298,13 @@ class Primer(Sequence):
     name: Optional[str] = Field(
         default=None,
         description="""A human-readable name for a thing""",
-        json_schema_extra={"linkml_meta": {"alias": "name", "domain_of": ["Primer"], "slot_uri": "schema:name"}},
+        json_schema_extra={
+            "linkml_meta": {
+                "alias": "name",
+                "domain_of": ["Primer", "CollectionOption", "CollectionOptionInfo"],
+                "slot_uri": "schema:name",
+            }
+        },
     )
     sequence: Optional[str] = Field(
         default=None,
@@ -265,7 +329,7 @@ class Primer(Sequence):
             "linkml_meta": {
                 "alias": "type",
                 "designates_type": True,
-                "domain_of": ["Sequence", "Source", "AnnotationReport", "AssociatedFile"],
+                "domain_of": ["Sequence", "Source", "CollectionOptionInfo", "AnnotationReport", "AssociatedFile"],
             }
         },
     )
@@ -364,7 +428,7 @@ class Source(NamedThing):
             "linkml_meta": {
                 "alias": "type",
                 "designates_type": True,
-                "domain_of": ["Sequence", "Source", "AnnotationReport", "AssociatedFile"],
+                "domain_of": ["Sequence", "Source", "CollectionOptionInfo", "AnnotationReport", "AssociatedFile"],
             }
         },
     )
@@ -379,6 +443,197 @@ class Source(NamedThing):
         json_schema_extra={
             "linkml_meta": {"alias": "id", "domain_of": ["NamedThing", "Sequence"], "slot_uri": "schema:identifier"}
         },
+    )
+
+
+class CollectionSource(Source):
+    """
+    Represents a collection of possible sources in a template
+    """
+
+    linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta(
+        {"from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML"}
+    )
+
+    category_id: Optional[str] = Field(
+        default=None,
+        description="""The identifier of the category of the part in the template""",
+        json_schema_extra={"linkml_meta": {"alias": "category_id", "domain_of": ["CollectionSource"]}},
+    )
+    title: str = Field(
+        default=...,
+        description="""The title of the category""",
+        json_schema_extra={"linkml_meta": {"alias": "title", "domain_of": ["CollectionSource"]}},
+    )
+    description: Optional[str] = Field(
+        default=None,
+        description="""A description of the category""",
+        json_schema_extra={
+            "linkml_meta": {
+                "alias": "description",
+                "domain_of": ["CollectionSource", "CollectionOptionInfo", "CloningStrategy"],
+            }
+        },
+    )
+    image: Optional[List[str]] = Field(
+        default=None,
+        description="""URL and size of the image representing this category. For images with size specification, this is a list with two elements: [url, size].""",
+        json_schema_extra={"linkml_meta": {"alias": "image", "domain_of": ["CollectionSource"]}},
+    )
+    options: Optional[List[CollectionOption]] = Field(
+        default=None,
+        description="""The options available in this category.""",
+        json_schema_extra={"linkml_meta": {"alias": "options", "domain_of": ["CollectionSource"]}},
+    )
+    input: Optional[List[int]] = Field(
+        default=None,
+        description="""The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.""",
+        json_schema_extra={"linkml_meta": {"alias": "input", "domain_of": ["Source"]}},
+    )
+    output: Optional[int] = Field(
+        default=None,
+        description="""Identifier of the sequence that is the output of this source.""",
+        json_schema_extra={"linkml_meta": {"alias": "output", "domain_of": ["Source"]}},
+    )
+    type: Literal["CollectionSource"] = Field(
+        default="CollectionSource",
+        description="""Designates the class""",
+        json_schema_extra={
+            "linkml_meta": {
+                "alias": "type",
+                "designates_type": True,
+                "domain_of": ["Sequence", "Source", "CollectionOptionInfo", "AnnotationReport", "AssociatedFile"],
+            }
+        },
+    )
+    output_name: Optional[str] = Field(
+        default=None,
+        description="""Used to specify the name of the output sequence""",
+        json_schema_extra={"linkml_meta": {"alias": "output_name", "domain_of": ["Source"]}},
+    )
+    id: int = Field(
+        default=...,
+        description="""A unique identifier for a thing""",
+        json_schema_extra={
+            "linkml_meta": {"alias": "id", "domain_of": ["NamedThing", "Sequence"], "slot_uri": "schema:identifier"}
+        },
+    )
+
+
+class CollectionOption(ConfiguredBaseModel):
+    """
+    Represents an option in a collection
+    """
+
+    linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta(
+        {
+            "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+            "slot_usage": {"name": {"name": "name", "required": True}},
+        }
+    )
+
+    name: str = Field(
+        default=...,
+        description="""A human-readable name for a thing""",
+        json_schema_extra={
+            "linkml_meta": {
+                "alias": "name",
+                "domain_of": ["Primer", "CollectionOption", "CollectionOptionInfo"],
+                "slot_uri": "schema:name",
+            }
+        },
+    )
+    source: Union[
+        Source,
+        CollectionSource,
+        ManuallyTypedSource,
+        UploadedFileSource,
+        RepositoryIdSource,
+        GenomeCoordinatesSource,
+        SequenceCutSource,
+        AssemblySource,
+        OligoHybridizationSource,
+        PolymeraseExtensionSource,
+        AnnotationSource,
+        PCRSource,
+        LigationSource,
+        HomologousRecombinationSource,
+        GibsonAssemblySource,
+        InFusionSource,
+        OverlapExtensionPCRLigationSource,
+        RestrictionAndLigationSource,
+        GatewaySource,
+        CRISPRSource,
+        RestrictionEnzymeDigestionSource,
+        AddGeneIdSource,
+        BenchlingUrlSource,
+        SnapGenePlasmidSource,
+        EuroscarfSource,
+        IGEMSource,
+    ] = Field(
+        default=...,
+        description="""The source of the sequence for this option""",
+        json_schema_extra={"linkml_meta": {"alias": "source", "domain_of": ["CollectionOption"]}},
+    )
+    info: Optional[CollectionOptionInfo] = Field(
+        default=None,
+        description="""Additional information about this option""",
+        json_schema_extra={"linkml_meta": {"alias": "info", "domain_of": ["CollectionOption"]}},
+    )
+
+
+class CollectionOptionInfo(ConfiguredBaseModel):
+    """
+    Additional information about a collection option
+    """
+
+    linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta(
+        {
+            "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+            "slot_usage": {"name": {"name": "name", "required": False}},
+        }
+    )
+
+    name: Optional[str] = Field(
+        default=None,
+        description="""A human-readable name for a thing""",
+        json_schema_extra={
+            "linkml_meta": {
+                "alias": "name",
+                "domain_of": ["Primer", "CollectionOption", "CollectionOptionInfo"],
+                "slot_uri": "schema:name",
+            }
+        },
+    )
+    description: Optional[str] = Field(
+        default=None,
+        description="""A description of the option""",
+        json_schema_extra={
+            "linkml_meta": {
+                "alias": "description",
+                "domain_of": ["CollectionSource", "CollectionOptionInfo", "CloningStrategy"],
+            }
+        },
+    )
+    type: Optional[CollectionOptionType] = Field(
+        default=None,
+        description="""The type of the option, this is redundant with the type of the source, and could be removed.""",
+        json_schema_extra={
+            "linkml_meta": {
+                "alias": "type",
+                "domain_of": ["Sequence", "Source", "CollectionOptionInfo", "AnnotationReport", "AssociatedFile"],
+            }
+        },
+    )
+    resistance: Optional[str] = Field(
+        default=None,
+        description="""The antibiotic resistance of the plasmid""",
+        json_schema_extra={"linkml_meta": {"alias": "resistance", "domain_of": ["CollectionOptionInfo"]}},
+    )
+    well: Optional[str] = Field(
+        default=None,
+        description="""The well position in the kit plate""",
+        json_schema_extra={"linkml_meta": {"alias": "well", "domain_of": ["CollectionOptionInfo"]}},
     )
 
 
@@ -426,7 +681,10 @@ class ManuallyTypedSource(Source):
         default=None,
         description="""Whether the sequence is circular or not""",
         json_schema_extra={
-            "linkml_meta": {"alias": "circular", "domain_of": ["ManuallyTypedSource", "AssemblySource"]}
+            "linkml_meta": {
+                "alias": "circular",
+                "domain_of": ["TemplateSequence", "ManuallyTypedSource", "AssemblySource"],
+            }
         },
     )
     input: Optional[List[int]] = Field(
@@ -446,7 +704,7 @@ class ManuallyTypedSource(Source):
             "linkml_meta": {
                 "alias": "type",
                 "designates_type": True,
-                "domain_of": ["Sequence", "Source", "AnnotationReport", "AssociatedFile"],
+                "domain_of": ["Sequence", "Source", "CollectionOptionInfo", "AnnotationReport", "AssociatedFile"],
             }
         },
     )
@@ -529,7 +787,7 @@ class UploadedFileSource(Source):
             "linkml_meta": {
                 "alias": "type",
                 "designates_type": True,
-                "domain_of": ["Sequence", "Source", "AnnotationReport", "AssociatedFile"],
+                "domain_of": ["Sequence", "Source", "CollectionOptionInfo", "AnnotationReport", "AssociatedFile"],
             }
         },
     )
@@ -582,7 +840,7 @@ class RepositoryIdSource(Source):
             "linkml_meta": {
                 "alias": "type",
                 "designates_type": True,
-                "domain_of": ["Sequence", "Source", "AnnotationReport", "AssociatedFile"],
+                "domain_of": ["Sequence", "Source", "CollectionOptionInfo", "AnnotationReport", "AssociatedFile"],
             }
         },
     )
@@ -646,7 +904,7 @@ class AddGeneIdSource(RepositoryIdSource):
             "linkml_meta": {
                 "alias": "type",
                 "designates_type": True,
-                "domain_of": ["Sequence", "Source", "AnnotationReport", "AssociatedFile"],
+                "domain_of": ["Sequence", "Source", "CollectionOptionInfo", "AnnotationReport", "AssociatedFile"],
             }
         },
     )
@@ -722,7 +980,7 @@ class BenchlingUrlSource(RepositoryIdSource):
             "linkml_meta": {
                 "alias": "type",
                 "designates_type": True,
-                "domain_of": ["Sequence", "Source", "AnnotationReport", "AssociatedFile"],
+                "domain_of": ["Sequence", "Source", "CollectionOptionInfo", "AnnotationReport", "AssociatedFile"],
             }
         },
     )
@@ -805,7 +1063,7 @@ class SnapGenePlasmidSource(RepositoryIdSource):
             "linkml_meta": {
                 "alias": "type",
                 "designates_type": True,
-                "domain_of": ["Sequence", "Source", "AnnotationReport", "AssociatedFile"],
+                "domain_of": ["Sequence", "Source", "CollectionOptionInfo", "AnnotationReport", "AssociatedFile"],
             }
         },
     )
@@ -879,7 +1137,7 @@ class EuroscarfSource(RepositoryIdSource):
             "linkml_meta": {
                 "alias": "type",
                 "designates_type": True,
-                "domain_of": ["Sequence", "Source", "AnnotationReport", "AssociatedFile"],
+                "domain_of": ["Sequence", "Source", "CollectionOptionInfo", "AnnotationReport", "AssociatedFile"],
             }
         },
     )
@@ -967,7 +1225,7 @@ class IGEMSource(RepositoryIdSource):
             "linkml_meta": {
                 "alias": "type",
                 "designates_type": True,
-                "domain_of": ["Sequence", "Source", "AnnotationReport", "AssociatedFile"],
+                "domain_of": ["Sequence", "Source", "CollectionOptionInfo", "AnnotationReport", "AssociatedFile"],
             }
         },
     )
@@ -1069,7 +1327,7 @@ class GenomeCoordinatesSource(Source):
             "linkml_meta": {
                 "alias": "type",
                 "designates_type": True,
-                "domain_of": ["Sequence", "Source", "AnnotationReport", "AssociatedFile"],
+                "domain_of": ["Sequence", "Source", "CollectionOptionInfo", "AnnotationReport", "AssociatedFile"],
             }
         },
     )
@@ -1131,7 +1389,7 @@ class SequenceCutSource(Source):
             "linkml_meta": {
                 "alias": "type",
                 "designates_type": True,
-                "domain_of": ["Sequence", "Source", "AnnotationReport", "AssociatedFile"],
+                "domain_of": ["Sequence", "Source", "CollectionOptionInfo", "AnnotationReport", "AssociatedFile"],
             }
         },
     )
@@ -1193,7 +1451,7 @@ class RestrictionEnzymeDigestionSource(SequenceCutSource):
             "linkml_meta": {
                 "alias": "type",
                 "designates_type": True,
-                "domain_of": ["Sequence", "Source", "AnnotationReport", "AssociatedFile"],
+                "domain_of": ["Sequence", "Source", "CollectionOptionInfo", "AnnotationReport", "AssociatedFile"],
             }
         },
     )
@@ -1290,11 +1548,14 @@ class AssemblySource(Source):
         default=None,
         description="""Whether the assembly is circular or not""",
         json_schema_extra={
-            "linkml_meta": {"alias": "circular", "domain_of": ["ManuallyTypedSource", "AssemblySource"]}
+            "linkml_meta": {
+                "alias": "circular",
+                "domain_of": ["TemplateSequence", "ManuallyTypedSource", "AssemblySource"],
+            }
         },
     )
-    assembly: List[AssemblyFragment] = Field(
-        default=...,
+    assembly: Optional[List[AssemblyFragment]] = Field(
+        default=None,
         description="""A list of the fragments that are assembled, in order""",
         json_schema_extra={"linkml_meta": {"alias": "assembly", "domain_of": ["AssemblySource"]}},
     )
@@ -1315,7 +1576,7 @@ class AssemblySource(Source):
             "linkml_meta": {
                 "alias": "type",
                 "designates_type": True,
-                "domain_of": ["Sequence", "Source", "AnnotationReport", "AssociatedFile"],
+                "domain_of": ["Sequence", "Source", "CollectionOptionInfo", "AnnotationReport", "AssociatedFile"],
             }
         },
     )
@@ -1353,11 +1614,14 @@ class PCRSource(AssemblySource):
         default=None,
         description="""Whether the assembly is circular or not""",
         json_schema_extra={
-            "linkml_meta": {"alias": "circular", "domain_of": ["ManuallyTypedSource", "AssemblySource"]}
+            "linkml_meta": {
+                "alias": "circular",
+                "domain_of": ["TemplateSequence", "ManuallyTypedSource", "AssemblySource"],
+            }
         },
     )
-    assembly: List[AssemblyFragment] = Field(
-        default=...,
+    assembly: Optional[List[AssemblyFragment]] = Field(
+        default=None,
         description="""A list of the fragments that are assembled, in order""",
         json_schema_extra={"linkml_meta": {"alias": "assembly", "domain_of": ["AssemblySource"]}},
     )
@@ -1378,7 +1642,7 @@ class PCRSource(AssemblySource):
             "linkml_meta": {
                 "alias": "type",
                 "designates_type": True,
-                "domain_of": ["Sequence", "Source", "AnnotationReport", "AssociatedFile"],
+                "domain_of": ["Sequence", "Source", "CollectionOptionInfo", "AnnotationReport", "AssociatedFile"],
             }
         },
     )
@@ -1409,11 +1673,14 @@ class LigationSource(AssemblySource):
         default=None,
         description="""Whether the assembly is circular or not""",
         json_schema_extra={
-            "linkml_meta": {"alias": "circular", "domain_of": ["ManuallyTypedSource", "AssemblySource"]}
+            "linkml_meta": {
+                "alias": "circular",
+                "domain_of": ["TemplateSequence", "ManuallyTypedSource", "AssemblySource"],
+            }
         },
     )
-    assembly: List[AssemblyFragment] = Field(
-        default=...,
+    assembly: Optional[List[AssemblyFragment]] = Field(
+        default=None,
         description="""A list of the fragments that are assembled, in order""",
         json_schema_extra={"linkml_meta": {"alias": "assembly", "domain_of": ["AssemblySource"]}},
     )
@@ -1434,7 +1701,7 @@ class LigationSource(AssemblySource):
             "linkml_meta": {
                 "alias": "type",
                 "designates_type": True,
-                "domain_of": ["Sequence", "Source", "AnnotationReport", "AssociatedFile"],
+                "domain_of": ["Sequence", "Source", "CollectionOptionInfo", "AnnotationReport", "AssociatedFile"],
             }
         },
     )
@@ -1465,11 +1732,14 @@ class HomologousRecombinationSource(AssemblySource):
         default=None,
         description="""Whether the assembly is circular or not""",
         json_schema_extra={
-            "linkml_meta": {"alias": "circular", "domain_of": ["ManuallyTypedSource", "AssemblySource"]}
+            "linkml_meta": {
+                "alias": "circular",
+                "domain_of": ["TemplateSequence", "ManuallyTypedSource", "AssemblySource"],
+            }
         },
     )
-    assembly: List[AssemblyFragment] = Field(
-        default=...,
+    assembly: Optional[List[AssemblyFragment]] = Field(
+        default=None,
         description="""A list of the fragments that are assembled, in order""",
         json_schema_extra={"linkml_meta": {"alias": "assembly", "domain_of": ["AssemblySource"]}},
     )
@@ -1490,7 +1760,7 @@ class HomologousRecombinationSource(AssemblySource):
             "linkml_meta": {
                 "alias": "type",
                 "designates_type": True,
-                "domain_of": ["Sequence", "Source", "AnnotationReport", "AssociatedFile"],
+                "domain_of": ["Sequence", "Source", "CollectionOptionInfo", "AnnotationReport", "AssociatedFile"],
             }
         },
     )
@@ -1521,11 +1791,14 @@ class GibsonAssemblySource(AssemblySource):
         default=None,
         description="""Whether the assembly is circular or not""",
         json_schema_extra={
-            "linkml_meta": {"alias": "circular", "domain_of": ["ManuallyTypedSource", "AssemblySource"]}
+            "linkml_meta": {
+                "alias": "circular",
+                "domain_of": ["TemplateSequence", "ManuallyTypedSource", "AssemblySource"],
+            }
         },
     )
-    assembly: List[AssemblyFragment] = Field(
-        default=...,
+    assembly: Optional[List[AssemblyFragment]] = Field(
+        default=None,
         description="""A list of the fragments that are assembled, in order""",
         json_schema_extra={"linkml_meta": {"alias": "assembly", "domain_of": ["AssemblySource"]}},
     )
@@ -1546,7 +1819,7 @@ class GibsonAssemblySource(AssemblySource):
             "linkml_meta": {
                 "alias": "type",
                 "designates_type": True,
-                "domain_of": ["Sequence", "Source", "AnnotationReport", "AssociatedFile"],
+                "domain_of": ["Sequence", "Source", "CollectionOptionInfo", "AnnotationReport", "AssociatedFile"],
             }
         },
     )
@@ -1577,11 +1850,14 @@ class InFusionSource(AssemblySource):
         default=None,
         description="""Whether the assembly is circular or not""",
         json_schema_extra={
-            "linkml_meta": {"alias": "circular", "domain_of": ["ManuallyTypedSource", "AssemblySource"]}
+            "linkml_meta": {
+                "alias": "circular",
+                "domain_of": ["TemplateSequence", "ManuallyTypedSource", "AssemblySource"],
+            }
         },
     )
-    assembly: List[AssemblyFragment] = Field(
-        default=...,
+    assembly: Optional[List[AssemblyFragment]] = Field(
+        default=None,
         description="""A list of the fragments that are assembled, in order""",
         json_schema_extra={"linkml_meta": {"alias": "assembly", "domain_of": ["AssemblySource"]}},
     )
@@ -1602,7 +1878,7 @@ class InFusionSource(AssemblySource):
             "linkml_meta": {
                 "alias": "type",
                 "designates_type": True,
-                "domain_of": ["Sequence", "Source", "AnnotationReport", "AssociatedFile"],
+                "domain_of": ["Sequence", "Source", "CollectionOptionInfo", "AnnotationReport", "AssociatedFile"],
             }
         },
     )
@@ -1633,11 +1909,14 @@ class OverlapExtensionPCRLigationSource(AssemblySource):
         default=None,
         description="""Whether the assembly is circular or not""",
         json_schema_extra={
-            "linkml_meta": {"alias": "circular", "domain_of": ["ManuallyTypedSource", "AssemblySource"]}
+            "linkml_meta": {
+                "alias": "circular",
+                "domain_of": ["TemplateSequence", "ManuallyTypedSource", "AssemblySource"],
+            }
         },
     )
-    assembly: List[AssemblyFragment] = Field(
-        default=...,
+    assembly: Optional[List[AssemblyFragment]] = Field(
+        default=None,
         description="""A list of the fragments that are assembled, in order""",
         json_schema_extra={"linkml_meta": {"alias": "assembly", "domain_of": ["AssemblySource"]}},
     )
@@ -1658,7 +1937,7 @@ class OverlapExtensionPCRLigationSource(AssemblySource):
             "linkml_meta": {
                 "alias": "type",
                 "designates_type": True,
-                "domain_of": ["Sequence", "Source", "AnnotationReport", "AssociatedFile"],
+                "domain_of": ["Sequence", "Source", "CollectionOptionInfo", "AnnotationReport", "AssociatedFile"],
             }
         },
     )
@@ -1702,11 +1981,14 @@ class RestrictionAndLigationSource(AssemblySource):
         default=None,
         description="""Whether the assembly is circular or not""",
         json_schema_extra={
-            "linkml_meta": {"alias": "circular", "domain_of": ["ManuallyTypedSource", "AssemblySource"]}
+            "linkml_meta": {
+                "alias": "circular",
+                "domain_of": ["TemplateSequence", "ManuallyTypedSource", "AssemblySource"],
+            }
         },
     )
-    assembly: List[AssemblyFragment] = Field(
-        default=...,
+    assembly: Optional[List[AssemblyFragment]] = Field(
+        default=None,
         description="""A list of the fragments that are assembled, in order""",
         json_schema_extra={"linkml_meta": {"alias": "assembly", "domain_of": ["AssemblySource"]}},
     )
@@ -1727,7 +2009,7 @@ class RestrictionAndLigationSource(AssemblySource):
             "linkml_meta": {
                 "alias": "type",
                 "designates_type": True,
-                "domain_of": ["Sequence", "Source", "AnnotationReport", "AssociatedFile"],
+                "domain_of": ["Sequence", "Source", "CollectionOptionInfo", "AnnotationReport", "AssociatedFile"],
             }
         },
     )
@@ -1768,11 +2050,14 @@ class GatewaySource(AssemblySource):
         default=None,
         description="""Whether the assembly is circular or not""",
         json_schema_extra={
-            "linkml_meta": {"alias": "circular", "domain_of": ["ManuallyTypedSource", "AssemblySource"]}
+            "linkml_meta": {
+                "alias": "circular",
+                "domain_of": ["TemplateSequence", "ManuallyTypedSource", "AssemblySource"],
+            }
         },
     )
-    assembly: List[AssemblyFragment] = Field(
-        default=...,
+    assembly: Optional[List[AssemblyFragment]] = Field(
+        default=None,
         description="""A list of the fragments that are assembled, in order""",
         json_schema_extra={"linkml_meta": {"alias": "assembly", "domain_of": ["AssemblySource"]}},
     )
@@ -1793,7 +2078,7 @@ class GatewaySource(AssemblySource):
             "linkml_meta": {
                 "alias": "type",
                 "designates_type": True,
-                "domain_of": ["Sequence", "Source", "AnnotationReport", "AssociatedFile"],
+                "domain_of": ["Sequence", "Source", "CollectionOptionInfo", "AnnotationReport", "AssociatedFile"],
             }
         },
     )
@@ -1829,11 +2114,14 @@ class CRISPRSource(HomologousRecombinationSource):
         default=None,
         description="""Whether the assembly is circular or not""",
         json_schema_extra={
-            "linkml_meta": {"alias": "circular", "domain_of": ["ManuallyTypedSource", "AssemblySource"]}
+            "linkml_meta": {
+                "alias": "circular",
+                "domain_of": ["TemplateSequence", "ManuallyTypedSource", "AssemblySource"],
+            }
         },
     )
-    assembly: List[AssemblyFragment] = Field(
-        default=...,
+    assembly: Optional[List[AssemblyFragment]] = Field(
+        default=None,
         description="""A list of the fragments that are assembled, in order""",
         json_schema_extra={"linkml_meta": {"alias": "assembly", "domain_of": ["AssemblySource"]}},
     )
@@ -1854,7 +2142,7 @@ class CRISPRSource(HomologousRecombinationSource):
             "linkml_meta": {
                 "alias": "type",
                 "designates_type": True,
-                "domain_of": ["Sequence", "Source", "AnnotationReport", "AssociatedFile"],
+                "domain_of": ["Sequence", "Source", "CollectionOptionInfo", "AnnotationReport", "AssociatedFile"],
             }
         },
     )
@@ -1918,7 +2206,7 @@ class OligoHybridizationSource(Source):
             "linkml_meta": {
                 "alias": "type",
                 "designates_type": True,
-                "domain_of": ["Sequence", "Source", "AnnotationReport", "AssociatedFile"],
+                "domain_of": ["Sequence", "Source", "CollectionOptionInfo", "AnnotationReport", "AssociatedFile"],
             }
         },
     )
@@ -1962,7 +2250,7 @@ class PolymeraseExtensionSource(Source):
             "linkml_meta": {
                 "alias": "type",
                 "designates_type": True,
-                "domain_of": ["Sequence", "Source", "AnnotationReport", "AssociatedFile"],
+                "domain_of": ["Sequence", "Source", "CollectionOptionInfo", "AnnotationReport", "AssociatedFile"],
             }
         },
     )
@@ -1989,7 +2277,7 @@ class CloningStrategy(ConfiguredBaseModel):
         {"from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML"}
     )
 
-    sequences: List[Union[Sequence, TextFileSequence, Primer]] = Field(
+    sequences: List[Union[Sequence, TemplateSequence, TextFileSequence, Primer]] = Field(
         default=...,
         description="""The sequences that are used in the cloning strategy""",
         json_schema_extra={"linkml_meta": {"alias": "sequences", "domain_of": ["CloningStrategy"]}},
@@ -1997,6 +2285,7 @@ class CloningStrategy(ConfiguredBaseModel):
     sources: List[
         Union[
             Source,
+            CollectionSource,
             ManuallyTypedSource,
             UploadedFileSource,
             RepositoryIdSource,
@@ -2035,7 +2324,12 @@ class CloningStrategy(ConfiguredBaseModel):
     description: Optional[str] = Field(
         default=None,
         description="""A description of the cloning strategy""",
-        json_schema_extra={"linkml_meta": {"alias": "description", "domain_of": ["CloningStrategy"]}},
+        json_schema_extra={
+            "linkml_meta": {
+                "alias": "description",
+                "domain_of": ["CollectionSource", "CollectionOptionInfo", "CloningStrategy"],
+            }
+        },
     )
     files: Optional[List[Union[AssociatedFile, SequencingFile]]] = Field(
         default=None,
@@ -2060,7 +2354,7 @@ class AnnotationReport(ConfiguredBaseModel):
             "linkml_meta": {
                 "alias": "type",
                 "designates_type": True,
-                "domain_of": ["Sequence", "Source", "AnnotationReport", "AssociatedFile"],
+                "domain_of": ["Sequence", "Source", "CollectionOptionInfo", "AnnotationReport", "AssociatedFile"],
             }
         },
     )
@@ -2153,7 +2447,7 @@ class PlannotateAnnotationReport(AnnotationReport):
             "linkml_meta": {
                 "alias": "type",
                 "designates_type": True,
-                "domain_of": ["Sequence", "Source", "AnnotationReport", "AssociatedFile"],
+                "domain_of": ["Sequence", "Source", "CollectionOptionInfo", "AnnotationReport", "AssociatedFile"],
             }
         },
     )
@@ -2197,7 +2491,7 @@ class AnnotationSource(Source):
             "linkml_meta": {
                 "alias": "type",
                 "designates_type": True,
-                "domain_of": ["Sequence", "Source", "AnnotationReport", "AssociatedFile"],
+                "domain_of": ["Sequence", "Source", "CollectionOptionInfo", "AnnotationReport", "AssociatedFile"],
             }
         },
     )
@@ -2231,7 +2525,7 @@ class AssociatedFile(ConfiguredBaseModel):
             "linkml_meta": {
                 "alias": "type",
                 "designates_type": True,
-                "domain_of": ["Sequence", "Source", "AnnotationReport", "AssociatedFile"],
+                "domain_of": ["Sequence", "Source", "CollectionOptionInfo", "AnnotationReport", "AssociatedFile"],
             }
         },
     )
@@ -2275,7 +2569,7 @@ class SequencingFile(AssociatedFile):
             "linkml_meta": {
                 "alias": "type",
                 "designates_type": True,
-                "domain_of": ["Sequence", "Source", "AnnotationReport", "AssociatedFile"],
+                "domain_of": ["Sequence", "Source", "CollectionOptionInfo", "AnnotationReport", "AssociatedFile"],
             }
         },
     )
@@ -2302,11 +2596,15 @@ class SequencingFile(AssociatedFile):
 # see https://pydantic-docs.helpmanual.io/usage/models/#rebuilding-a-model
 NamedThing.model_rebuild()
 Sequence.model_rebuild()
+TemplateSequence.model_rebuild()
 TextFileSequence.model_rebuild()
 Primer.model_rebuild()
 SequenceCut.model_rebuild()
 RestrictionSequenceCut.model_rebuild()
 Source.model_rebuild()
+CollectionSource.model_rebuild()
+CollectionOption.model_rebuild()
+CollectionOptionInfo.model_rebuild()
 ManuallyTypedSource.model_rebuild()
 UploadedFileSource.model_rebuild()
 RepositoryIdSource.model_rebuild()

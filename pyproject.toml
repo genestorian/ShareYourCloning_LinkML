@@ -6,6 +6,7 @@ license = "MIT"
 name = "shareyourcloning-linkml"
 readme = "README.md"
 version = "0.1.0"
+package-mode = true
 
 homepage = "https://github.com/genestorian/ShareYourCloning_LinkML"
 repository = "https://github.com/genestorian/ShareYourCloning_LinkML"

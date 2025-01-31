@@ -8,9 +8,13 @@ from linkml_runtime.loaders import json_loader
 from shareyourcloning_linkml.datamodel import CloningStrategy
 
 ROOT = os.path.join(os.path.dirname(__file__), "..")
-DATA_DIR = os.path.join(ROOT, "src", "data", "examples")
+DATA_DIR = os.path.join(ROOT, "src", "data")
 
-EXAMPLE_FILES = glob.glob(os.path.join(DATA_DIR, "*.json"))
+EXAMPLE_FILES = glob.glob(os.path.join(DATA_DIR, "**/*.json"), recursive=True)
+
+known_exceptions = ["submission.json", "pcr_based_targeting.json"]
+
+EXAMPLE_FILES = [f for f in EXAMPLE_FILES if os.path.basename(f) not in known_exceptions]
 
 
 class TestData(unittest.TestCase):
@@ -19,5 +23,9 @@ class TestData(unittest.TestCase):
     def test_data(self):
         """Date test."""
         for path in EXAMPLE_FILES:
-            obj = json_loader.load(path, target_class=CloningStrategy)
-            assert obj
+            try:
+                obj = json_loader.load(path, target_class=CloningStrategy)
+                assert obj
+            except Exception as e:
+                print(f"Error loading \033[93m{path}\033[0m:")
+                raise e

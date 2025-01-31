@@ -40,6 +40,23 @@ classes:
       - id
       - type
 
+  TemplateSequence:
+    is_a: Sequence
+    description: >-
+      Represents a sequence that is part of a template, where the actual sequence
+      content will be determined by the user's actions
+    attributes:
+      circular:
+        range: boolean
+        description: >-
+          Whether the sequence is circular or linear
+        required: false
+      primer_design:
+        range: string
+        description: >-
+          Can be used to indicate the intended primer design for this sequence in the template
+        required: false
+
   TextFileSequence:
     is_a: Sequence
     description: A sequence (may have features) defined by the content of a text file
@@ -140,7 +157,7 @@ classes:
           range: CollectionOption
           description: >-
             The options available in this category.
-          required: true
+          required: false
           multivalued: true
           inlined_as_list: true
 
@@ -439,7 +456,7 @@ classes:
             Whether the assembly is circular or not
       - assembly:
           range: AssemblyFragment
-          required: true
+          required: false
           multivalued: true
           inlined_as_list: true
           description: >-
@@ -824,3 +841,12 @@ enums:
         description: >-
           Sanger sequencing trace file
         meaning: NCIT:C172877
+
+  CollectionOptionType:
+    permissible_values:
+      OligoPair:
+        description: >-
+          A pair of oligonucleotides for hybridization
+      AddGenePlasmid:
+        description: >-
+          A plasmid from AddGene
