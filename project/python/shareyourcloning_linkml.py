@@ -1,5 +1,5 @@
 # Auto generated from shareyourcloning_linkml.yaml by pythongen.py version: 0.0.1
-# Generation date: 2025-01-31T09:04:12
+# Generation date: 2025-01-31T14:24:10
 # Schema: ShareYourCloning_LinkML
 #
 # id: https://w3id.org/genestorian/ShareYourCloning_LinkML
@@ -58,6 +58,10 @@ class SequenceId(NamedThingId):
     pass
 
 
+class TemplateSequenceId(SequenceId):
+    pass
+
+
 class TextFileSequenceId(SequenceId):
     pass
 
@@ -67,6 +71,10 @@ class PrimerId(SequenceId):
 
 
 class SourceId(NamedThingId):
+    pass
+
+
+class CollectionSourceId(SourceId):
     pass
 
 
@@ -227,6 +235,40 @@ class Sequence(NamedThing):
                     f"has no subclass with ['class_name']='{kwargs[type_designator]}'"
                 )
             return super().__new__(target_cls, *args, **kwargs)
+
+
+@dataclass(repr=False)
+class TemplateSequence(Sequence):
+    """
+    Represents a sequence that is part of a template, where the actual sequence content will be determined by the
+    user's actions
+    """
+
+    _inherited_slots: ClassVar[List[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML["TemplateSequence"]
+    class_class_curie: ClassVar[str] = "shareyourcloning_linkml:TemplateSequence"
+    class_name: ClassVar[str] = "TemplateSequence"
+    class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.TemplateSequence
+
+    id: Union[int, TemplateSequenceId] = None
+    circular: Optional[Union[bool, Bool]] = None
+    primer_design: Optional[str] = None
+
+    def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
+        if self._is_empty(self.id):
+            self.MissingRequiredField("id")
+        if not isinstance(self.id, TemplateSequenceId):
+            self.id = TemplateSequenceId(self.id)
+
+        if self.circular is not None and not isinstance(self.circular, Bool):
+            self.circular = Bool(self.circular)
+
+        if self.primer_design is not None and not isinstance(self.primer_design, str):
+            self.primer_design = str(self.primer_design)
+
+        super().__post_init__(**kwargs)
+        self.type = str(self.class_name)
 
 
 @dataclass(repr=False)
@@ -410,6 +452,127 @@ class Source(NamedThing):
                     f"has no subclass with ['class_name']='{kwargs[type_designator]}'"
                 )
             return super().__new__(target_cls, *args, **kwargs)
+
+
+@dataclass(repr=False)
+class CollectionSource(Source):
+    """
+    Represents a collection of possible sources in a template
+    """
+
+    _inherited_slots: ClassVar[List[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML["CollectionSource"]
+    class_class_curie: ClassVar[str] = "shareyourcloning_linkml:CollectionSource"
+    class_name: ClassVar[str] = "CollectionSource"
+    class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.CollectionSource
+
+    id: Union[int, CollectionSourceId] = None
+    title: str = None
+    category_id: Optional[str] = None
+    description: Optional[str] = None
+    image: Optional[Union[str, List[str]]] = empty_list()
+    options: Optional[Union[Union[dict, "CollectionOption"], List[Union[dict, "CollectionOption"]]]] = empty_list()
+
+    def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
+        if self._is_empty(self.id):
+            self.MissingRequiredField("id")
+        if not isinstance(self.id, CollectionSourceId):
+            self.id = CollectionSourceId(self.id)
+
+        if self._is_empty(self.title):
+            self.MissingRequiredField("title")
+        if not isinstance(self.title, str):
+            self.title = str(self.title)
+
+        if self.category_id is not None and not isinstance(self.category_id, str):
+            self.category_id = str(self.category_id)
+
+        if self.description is not None and not isinstance(self.description, str):
+            self.description = str(self.description)
+
+        if not isinstance(self.image, list):
+            self.image = [self.image] if self.image is not None else []
+        self.image = [v if isinstance(v, str) else str(v) for v in self.image]
+
+        if not isinstance(self.options, list):
+            self.options = [self.options] if self.options is not None else []
+        self.options = [v if isinstance(v, CollectionOption) else CollectionOption(**as_dict(v)) for v in self.options]
+
+        super().__post_init__(**kwargs)
+        self.type = str(self.class_name)
+
+
+@dataclass(repr=False)
+class CollectionOption(YAMLRoot):
+    """
+    Represents an option in a collection
+    """
+
+    _inherited_slots: ClassVar[List[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML["CollectionOption"]
+    class_class_curie: ClassVar[str] = "shareyourcloning_linkml:CollectionOption"
+    class_name: ClassVar[str] = "CollectionOption"
+    class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.CollectionOption
+
+    name: str = None
+    source: Union[dict, Source] = None
+    info: Optional[Union[dict, "CollectionOptionInfo"]] = None
+
+    def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
+        if self._is_empty(self.name):
+            self.MissingRequiredField("name")
+        if not isinstance(self.name, str):
+            self.name = str(self.name)
+
+        if self._is_empty(self.source):
+            self.MissingRequiredField("source")
+        if not isinstance(self.source, Source):
+            self.source = Source(**as_dict(self.source))
+
+        if self.info is not None and not isinstance(self.info, CollectionOptionInfo):
+            self.info = CollectionOptionInfo(**as_dict(self.info))
+
+        super().__post_init__(**kwargs)
+
+
+@dataclass(repr=False)
+class CollectionOptionInfo(YAMLRoot):
+    """
+    Additional information about a collection option
+    """
+
+    _inherited_slots: ClassVar[List[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML["CollectionOptionInfo"]
+    class_class_curie: ClassVar[str] = "shareyourcloning_linkml:CollectionOptionInfo"
+    class_name: ClassVar[str] = "CollectionOptionInfo"
+    class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.CollectionOptionInfo
+
+    name: Optional[str] = None
+    description: Optional[str] = None
+    type: Optional[Union[str, "CollectionOptionType"]] = None
+    resistance: Optional[str] = None
+    well: Optional[str] = None
+
+    def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
+        if self.name is not None and not isinstance(self.name, str):
+            self.name = str(self.name)
+
+        if self.description is not None and not isinstance(self.description, str):
+            self.description = str(self.description)
+
+        if self.type is not None and not isinstance(self.type, CollectionOptionType):
+            self.type = CollectionOptionType(self.type)
+
+        if self.resistance is not None and not isinstance(self.resistance, str):
+            self.resistance = str(self.resistance)
+
+        if self.well is not None and not isinstance(self.well, str):
+            self.well = str(self.well)
+
+        super().__post_init__(**kwargs)
 
 
 @dataclass(repr=False)
@@ -919,8 +1082,8 @@ class AssemblySource(Source):
     class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.AssemblySource
 
     id: Union[int, AssemblySourceId] = None
-    assembly: Union[Union[dict, AssemblyFragment], List[Union[dict, AssemblyFragment]]] = None
     circular: Optional[Union[bool, Bool]] = None
+    assembly: Optional[Union[Union[dict, AssemblyFragment], List[Union[dict, AssemblyFragment]]]] = empty_list()
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
         if self._is_empty(self.id):
@@ -928,16 +1091,14 @@ class AssemblySource(Source):
         if not isinstance(self.id, AssemblySourceId):
             self.id = AssemblySourceId(self.id)
 
-        if self._is_empty(self.assembly):
-            self.MissingRequiredField("assembly")
+        if self.circular is not None and not isinstance(self.circular, Bool):
+            self.circular = Bool(self.circular)
+
         if not isinstance(self.assembly, list):
             self.assembly = [self.assembly] if self.assembly is not None else []
         self.assembly = [
             v if isinstance(v, AssemblyFragment) else AssemblyFragment(**as_dict(v)) for v in self.assembly
         ]
-
-        if self.circular is not None and not isinstance(self.circular, Bool):
-            self.circular = Bool(self.circular)
 
         super().__post_init__(**kwargs)
         self.type = str(self.class_name)
@@ -957,7 +1118,6 @@ class PCRSource(AssemblySource):
     class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.PCRSource
 
     id: Union[int, PCRSourceId] = None
-    assembly: Union[Union[dict, AssemblyFragment], List[Union[dict, AssemblyFragment]]] = None
     add_primer_features: Optional[Union[bool, Bool]] = False
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
@@ -987,7 +1147,6 @@ class LigationSource(AssemblySource):
     class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.LigationSource
 
     id: Union[int, LigationSourceId] = None
-    assembly: Union[Union[dict, AssemblyFragment], List[Union[dict, AssemblyFragment]]] = None
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
         if self._is_empty(self.id):
@@ -1013,7 +1172,6 @@ class HomologousRecombinationSource(AssemblySource):
     class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.HomologousRecombinationSource
 
     id: Union[int, HomologousRecombinationSourceId] = None
-    assembly: Union[Union[dict, AssemblyFragment], List[Union[dict, AssemblyFragment]]] = None
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
         if self._is_empty(self.id):
@@ -1039,7 +1197,6 @@ class GibsonAssemblySource(AssemblySource):
     class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.GibsonAssemblySource
 
     id: Union[int, GibsonAssemblySourceId] = None
-    assembly: Union[Union[dict, AssemblyFragment], List[Union[dict, AssemblyFragment]]] = None
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
         if self._is_empty(self.id):
@@ -1065,7 +1222,6 @@ class InFusionSource(AssemblySource):
     class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.InFusionSource
 
     id: Union[int, InFusionSourceId] = None
-    assembly: Union[Union[dict, AssemblyFragment], List[Union[dict, AssemblyFragment]]] = None
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
         if self._is_empty(self.id):
@@ -1092,7 +1248,6 @@ class OverlapExtensionPCRLigationSource(AssemblySource):
     class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.OverlapExtensionPCRLigationSource
 
     id: Union[int, OverlapExtensionPCRLigationSourceId] = None
-    assembly: Union[Union[dict, AssemblyFragment], List[Union[dict, AssemblyFragment]]] = None
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
         if self._is_empty(self.id):
@@ -1118,7 +1273,6 @@ class RestrictionAndLigationSource(AssemblySource):
     class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.RestrictionAndLigationSource
 
     id: Union[int, RestrictionAndLigationSourceId] = None
-    assembly: Union[Union[dict, AssemblyFragment], List[Union[dict, AssemblyFragment]]] = None
     restriction_enzymes: Union[str, List[str]] = None
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
@@ -1151,7 +1305,6 @@ class GatewaySource(AssemblySource):
     class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.GatewaySource
 
     id: Union[int, GatewaySourceId] = None
-    assembly: Union[Union[dict, AssemblyFragment], List[Union[dict, AssemblyFragment]]] = None
     reaction_type: Union[str, "GatewayReactionType"] = None
     greedy: Optional[Union[bool, Bool]] = False
 
@@ -1187,7 +1340,6 @@ class CRISPRSource(HomologousRecombinationSource):
     class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.CRISPRSource
 
     id: Union[int, CRISPRSourceId] = None
-    assembly: Union[Union[dict, AssemblyFragment], List[Union[dict, AssemblyFragment]]] = None
     guides: Union[Union[int, PrimerId], List[Union[int, PrimerId]]] = None
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
@@ -1567,6 +1719,16 @@ class RepositoryName(EnumDefinitionImpl):
     )
 
 
+class Collection(EnumDefinitionImpl):
+
+    AddGenePlasmid = PermissibleValue(text="AddGenePlasmid", description="A plasmid from AddGene")
+    OligoPair = PermissibleValue(text="OligoPair", description="A pair of oligonucleotides for hybridization")
+
+    _defn = EnumDefinition(
+        name="Collection",
+    )
+
+
 class SequenceFileFormat(EnumDefinitionImpl):
 
     fasta = PermissibleValue(text="fasta")
@@ -1635,6 +1797,16 @@ class AssociatedFileType(EnumDefinitionImpl):
                 text="Sanger sequencing", description="Sanger sequencing trace file", meaning=NCIT["C172877"]
             ),
         )
+
+
+class CollectionOptionType(EnumDefinitionImpl):
+
+    OligoPair = PermissibleValue(text="OligoPair", description="A pair of oligonucleotides for hybridization")
+    AddGenePlasmid = PermissibleValue(text="AddGenePlasmid", description="A plasmid from AddGene")
+
+    _defn = EnumDefinition(
+        name="CollectionOptionType",
+    )
 
 
 # Slots
@@ -1762,6 +1934,24 @@ slots.repository_id = Slot(
     range=str,
 )
 
+slots.templateSequence__circular = Slot(
+    uri=SHAREYOURCLONING_LINKML.circular,
+    name="templateSequence__circular",
+    curie=SHAREYOURCLONING_LINKML.curie("circular"),
+    model_uri=SHAREYOURCLONING_LINKML.templateSequence__circular,
+    domain=None,
+    range=Optional[Union[bool, Bool]],
+)
+
+slots.templateSequence__primer_design = Slot(
+    uri=SHAREYOURCLONING_LINKML.primer_design,
+    name="templateSequence__primer_design",
+    curie=SHAREYOURCLONING_LINKML.curie("primer_design"),
+    model_uri=SHAREYOURCLONING_LINKML.templateSequence__primer_design,
+    domain=None,
+    range=Optional[str],
+)
+
 slots.textFileSequence__file_content = Slot(
     uri=SHAREYOURCLONING_LINKML.file_content,
     name="textFileSequence__file_content",
@@ -1797,6 +1987,105 @@ slots.sequenceCut__overhang = Slot(
     model_uri=SHAREYOURCLONING_LINKML.sequenceCut__overhang,
     domain=None,
     range=int,
+)
+
+slots.collectionSource__category_id = Slot(
+    uri=SHAREYOURCLONING_LINKML.category_id,
+    name="collectionSource__category_id",
+    curie=SHAREYOURCLONING_LINKML.curie("category_id"),
+    model_uri=SHAREYOURCLONING_LINKML.collectionSource__category_id,
+    domain=None,
+    range=Optional[str],
+)
+
+slots.collectionSource__title = Slot(
+    uri=SHAREYOURCLONING_LINKML.title,
+    name="collectionSource__title",
+    curie=SHAREYOURCLONING_LINKML.curie("title"),
+    model_uri=SHAREYOURCLONING_LINKML.collectionSource__title,
+    domain=None,
+    range=str,
+)
+
+slots.collectionSource__description = Slot(
+    uri=SHAREYOURCLONING_LINKML.description,
+    name="collectionSource__description",
+    curie=SHAREYOURCLONING_LINKML.curie("description"),
+    model_uri=SHAREYOURCLONING_LINKML.collectionSource__description,
+    domain=None,
+    range=Optional[str],
+)
+
+slots.collectionSource__image = Slot(
+    uri=SHAREYOURCLONING_LINKML.image,
+    name="collectionSource__image",
+    curie=SHAREYOURCLONING_LINKML.curie("image"),
+    model_uri=SHAREYOURCLONING_LINKML.collectionSource__image,
+    domain=None,
+    range=Optional[Union[str, List[str]]],
+)
+
+slots.collectionSource__options = Slot(
+    uri=SHAREYOURCLONING_LINKML.options,
+    name="collectionSource__options",
+    curie=SHAREYOURCLONING_LINKML.curie("options"),
+    model_uri=SHAREYOURCLONING_LINKML.collectionSource__options,
+    domain=None,
+    range=Optional[Union[Union[dict, CollectionOption], List[Union[dict, CollectionOption]]]],
+)
+
+slots.collectionOption__source = Slot(
+    uri=SHAREYOURCLONING_LINKML.source,
+    name="collectionOption__source",
+    curie=SHAREYOURCLONING_LINKML.curie("source"),
+    model_uri=SHAREYOURCLONING_LINKML.collectionOption__source,
+    domain=None,
+    range=Union[dict, Source],
+)
+
+slots.collectionOption__info = Slot(
+    uri=SHAREYOURCLONING_LINKML.info,
+    name="collectionOption__info",
+    curie=SHAREYOURCLONING_LINKML.curie("info"),
+    model_uri=SHAREYOURCLONING_LINKML.collectionOption__info,
+    domain=None,
+    range=Optional[Union[dict, CollectionOptionInfo]],
+)
+
+slots.collectionOptionInfo__description = Slot(
+    uri=SHAREYOURCLONING_LINKML.description,
+    name="collectionOptionInfo__description",
+    curie=SHAREYOURCLONING_LINKML.curie("description"),
+    model_uri=SHAREYOURCLONING_LINKML.collectionOptionInfo__description,
+    domain=None,
+    range=Optional[str],
+)
+
+slots.collectionOptionInfo__type = Slot(
+    uri=SHAREYOURCLONING_LINKML.type,
+    name="collectionOptionInfo__type",
+    curie=SHAREYOURCLONING_LINKML.curie("type"),
+    model_uri=SHAREYOURCLONING_LINKML.collectionOptionInfo__type,
+    domain=None,
+    range=Optional[Union[str, "CollectionOptionType"]],
+)
+
+slots.collectionOptionInfo__resistance = Slot(
+    uri=SHAREYOURCLONING_LINKML.resistance,
+    name="collectionOptionInfo__resistance",
+    curie=SHAREYOURCLONING_LINKML.curie("resistance"),
+    model_uri=SHAREYOURCLONING_LINKML.collectionOptionInfo__resistance,
+    domain=None,
+    range=Optional[str],
+)
+
+slots.collectionOptionInfo__well = Slot(
+    uri=SHAREYOURCLONING_LINKML.well,
+    name="collectionOptionInfo__well",
+    curie=SHAREYOURCLONING_LINKML.curie("well"),
+    model_uri=SHAREYOURCLONING_LINKML.collectionOptionInfo__well,
+    domain=None,
+    range=Optional[str],
 )
 
 slots.manuallyTypedSource__user_input = Slot(
@@ -2040,7 +2329,7 @@ slots.assemblySource__assembly = Slot(
     curie=SHAREYOURCLONING_LINKML.curie("assembly"),
     model_uri=SHAREYOURCLONING_LINKML.assemblySource__assembly,
     domain=None,
-    range=Union[Union[dict, AssemblyFragment], List[Union[dict, AssemblyFragment]]],
+    range=Optional[Union[Union[dict, AssemblyFragment], List[Union[dict, AssemblyFragment]]]],
 )
 
 slots.pCRSource__add_primer_features = Slot(
@@ -2365,6 +2654,24 @@ slots.RestrictionSequenceCut_restriction_enzyme = Slot(
     model_uri=SHAREYOURCLONING_LINKML.RestrictionSequenceCut_restriction_enzyme,
     domain=RestrictionSequenceCut,
     range=str,
+)
+
+slots.CollectionOption_name = Slot(
+    uri=SCHEMA.name,
+    name="CollectionOption_name",
+    curie=SCHEMA.curie("name"),
+    model_uri=SHAREYOURCLONING_LINKML.CollectionOption_name,
+    domain=CollectionOption,
+    range=str,
+)
+
+slots.CollectionOptionInfo_name = Slot(
+    uri=SCHEMA.name,
+    name="CollectionOptionInfo_name",
+    curie=SCHEMA.curie("name"),
+    model_uri=SHAREYOURCLONING_LINKML.CollectionOptionInfo_name,
+    domain=CollectionOptionInfo,
+    range=Optional[str],
 )
 
 slots.ManuallyTypedSource_overhang_crick_3prime = Slot(

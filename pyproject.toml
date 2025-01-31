@@ -6,6 +6,7 @@ license = "MIT"
 name = "shareyourcloning-linkml"
 readme = "README.md"
 version = "0.1.0"
+package-mode = true
 
 homepage = "https://github.com/genestorian/ShareYourCloning_LinkML"
 repository = "https://github.com/genestorian/ShareYourCloning_LinkML"
@@ -42,6 +43,7 @@ flake8-bugbear = "^24.4.21"
 black = "24.2.0"
 pre-commit = "^3.7.0"
 
+pygithub = "^2.5.0"
 [tool.poetry.extras]
 docs = ["linkml", "mkdocs-material"]
 

@@ -389,6 +389,21 @@
       ]
     },
     {
+      "name": "Collection",
+      "definition_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/Collection",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "permissible_values": [
+        {
+          "text": "AddGenePlasmid",
+          "description": "A plasmid from AddGene"
+        },
+        {
+          "text": "OligoPair",
+          "description": "A pair of oligonucleotides for hybridization"
+        }
+      ]
+    },
+    {
       "name": "SequenceFileFormat",
       "definition_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/SequenceFileFormat",
       "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
@@ -458,6 +473,21 @@
           "meaning": "NCIT:C172877"
         }
       ]
+    },
+    {
+      "name": "CollectionOptionType",
+      "definition_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/CollectionOptionType",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "permissible_values": [
+        {
+          "text": "OligoPair",
+          "description": "A pair of oligonucleotides for hybridization"
+        },
+        {
+          "text": "AddGenePlasmid",
+          "description": "A plasmid from AddGene"
+        }
+      ]
     }
   ],
   "slots": [
@@ -489,9 +519,11 @@
         "http://schema.org/name"
       ],
       "slot_uri": "http://schema.org/name",
-      "owner": "Primer",
+      "owner": "CollectionOptionInfo",
       "domain_of": [
-        "Primer"
+        "Primer",
+        "CollectionOption",
+        "CollectionOptionInfo"
       ],
       "range": "string",
       "@type": "SlotDefinition"
@@ -658,6 +690,32 @@
       "@type": "SlotDefinition"
     },
     {
+      "name": "templateSequence__circular",
+      "description": "Whether the sequence is circular or linear",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/circular",
+      "alias": "circular",
+      "owner": "TemplateSequence",
+      "domain_of": [
+        "TemplateSequence"
+      ],
+      "range": "boolean",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "templateSequence__primer_design",
+      "description": "Can be used to indicate the intended primer design for this sequence in the template",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/primer_design",
+      "alias": "primer_design",
+      "owner": "TemplateSequence",
+      "domain_of": [
+        "TemplateSequence"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
       "name": "textFileSequence__file_content",
       "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
       "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/file_content",
@@ -708,6 +766,157 @@
       ],
       "range": "integer",
       "required": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "collectionSource__category_id",
+      "description": "The identifier of the category of the part in the template",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/category_id",
+      "alias": "category_id",
+      "owner": "CollectionSource",
+      "domain_of": [
+        "CollectionSource"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "collectionSource__title",
+      "description": "The title of the category",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/title",
+      "alias": "title",
+      "owner": "CollectionSource",
+      "domain_of": [
+        "CollectionSource"
+      ],
+      "range": "string",
+      "required": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "collectionSource__description",
+      "description": "A description of the category",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/description",
+      "alias": "description",
+      "owner": "CollectionSource",
+      "domain_of": [
+        "CollectionSource"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "collectionSource__image",
+      "description": "URL and size of the image representing this category. For images with size specification, this is a list with two elements: [url, size].",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/image",
+      "alias": "image",
+      "owner": "CollectionSource",
+      "domain_of": [
+        "CollectionSource"
+      ],
+      "range": "string",
+      "multivalued": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "collectionSource__options",
+      "description": "The options available in this category.",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/options",
+      "alias": "options",
+      "owner": "CollectionSource",
+      "domain_of": [
+        "CollectionSource"
+      ],
+      "range": "CollectionOption",
+      "multivalued": true,
+      "inlined": true,
+      "inlined_as_list": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "collectionOption__source",
+      "description": "The source of the sequence for this option",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/source",
+      "alias": "source",
+      "owner": "CollectionOption",
+      "domain_of": [
+        "CollectionOption"
+      ],
+      "range": "Source",
+      "required": true,
+      "inlined": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "collectionOption__info",
+      "description": "Additional information about this option",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/info",
+      "alias": "info",
+      "owner": "CollectionOption",
+      "domain_of": [
+        "CollectionOption"
+      ],
+      "range": "CollectionOptionInfo",
+      "inlined": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "collectionOptionInfo__description",
+      "description": "A description of the option",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/description",
+      "alias": "description",
+      "owner": "CollectionOptionInfo",
+      "domain_of": [
+        "CollectionOptionInfo"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "collectionOptionInfo__type",
+      "description": "The type of the option, this is redundant with the type of the source, and could be removed.",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/type",
+      "alias": "type",
+      "owner": "CollectionOptionInfo",
+      "domain_of": [
+        "CollectionOptionInfo"
+      ],
+      "range": "CollectionOptionType",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "collectionOptionInfo__resistance",
+      "description": "The antibiotic resistance of the plasmid",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/resistance",
+      "alias": "resistance",
+      "owner": "CollectionOptionInfo",
+      "domain_of": [
+        "CollectionOptionInfo"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "collectionOptionInfo__well",
+      "description": "The well position in the kit plate",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/well",
+      "alias": "well",
+      "owner": "CollectionOptionInfo",
+      "domain_of": [
+        "CollectionOptionInfo"
+      ],
+      "range": "string",
       "@type": "SlotDefinition"
     },
     {
@@ -1066,7 +1275,6 @@
         "AssemblySource"
       ],
       "range": "AssemblyFragment",
-      "required": true,
       "multivalued": true,
       "inlined": true,
       "inlined_as_list": true,
@@ -1580,6 +1788,49 @@
       "@type": "SlotDefinition"
     },
     {
+      "name": "CollectionOption_name",
+      "definition_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/name",
+      "description": "A human-readable name for a thing",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "mappings": [
+        "http://schema.org/name"
+      ],
+      "is_a": "name",
+      "domain": "CollectionOption",
+      "slot_uri": "http://schema.org/name",
+      "alias": "name",
+      "owner": "CollectionOption",
+      "domain_of": [
+        "CollectionOption"
+      ],
+      "is_usage_slot": true,
+      "usage_slot_name": "name",
+      "range": "string",
+      "required": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "CollectionOptionInfo_name",
+      "definition_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/name",
+      "description": "A human-readable name for a thing",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "mappings": [
+        "http://schema.org/name"
+      ],
+      "is_a": "name",
+      "domain": "CollectionOptionInfo",
+      "slot_uri": "http://schema.org/name",
+      "alias": "name",
+      "owner": "CollectionOptionInfo",
+      "domain_of": [
+        "CollectionOptionInfo"
+      ],
+      "is_usage_slot": true,
+      "usage_slot_name": "name",
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
       "name": "ManuallyTypedSource_overhang_crick_3prime",
       "definition_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/overhang_crick_3prime",
       "description": "Taken from pydna's `dseq::ovhg`An integer describing the length of the crick strand overhang in the 5' of the molecule, or 3' of the crick strand",
@@ -1789,6 +2040,36 @@
       "@type": "ClassDefinition"
     },
     {
+      "name": "TemplateSequence",
+      "definition_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/TemplateSequence",
+      "description": "Represents a sequence that is part of a template, where the actual sequence content will be determined by the user's actions",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "is_a": "Sequence",
+      "slots": [
+        "id",
+        "type",
+        "templateSequence__circular",
+        "templateSequence__primer_design"
+      ],
+      "slot_usage": {},
+      "attributes": [
+        {
+          "name": "circular",
+          "description": "Whether the sequence is circular or linear",
+          "range": "boolean",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "primer_design",
+          "description": "Can be used to indicate the intended primer design for this sequence in the template",
+          "range": "string",
+          "@type": "SlotDefinition"
+        }
+      ],
+      "class_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/TemplateSequence",
+      "@type": "ClassDefinition"
+    },
+    {
       "name": "TextFileSequence",
       "definition_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/TextFileSequence",
       "description": "A sequence (may have features) defined by the content of a text file",
@@ -1897,6 +2178,137 @@
       ],
       "slot_usage": {},
       "class_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/Source",
+      "@type": "ClassDefinition"
+    },
+    {
+      "name": "CollectionSource",
+      "definition_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/CollectionSource",
+      "description": "Represents a collection of possible sources in a template",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "is_a": "Source",
+      "slots": [
+        "id",
+        "input",
+        "output",
+        "type",
+        "output_name",
+        "collectionSource__category_id",
+        "collectionSource__title",
+        "collectionSource__description",
+        "collectionSource__image",
+        "collectionSource__options"
+      ],
+      "slot_usage": {},
+      "attributes": [
+        {
+          "name": "category_id",
+          "description": "The identifier of the category of the part in the template",
+          "range": "string",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "title",
+          "description": "The title of the category",
+          "range": "string",
+          "required": true,
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "description",
+          "description": "A description of the category",
+          "range": "string",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "image",
+          "description": "URL and size of the image representing this category. For images with size specification, this is a list with two elements: [url, size].",
+          "range": "string",
+          "multivalued": true,
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "options",
+          "description": "The options available in this category.",
+          "range": "CollectionOption",
+          "multivalued": true,
+          "inlined_as_list": true,
+          "@type": "SlotDefinition"
+        }
+      ],
+      "class_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/CollectionSource",
+      "@type": "ClassDefinition"
+    },
+    {
+      "name": "CollectionOption",
+      "definition_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/CollectionOption",
+      "description": "Represents an option in a collection",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "slots": [
+        "CollectionOption_name",
+        "collectionOption__source",
+        "collectionOption__info"
+      ],
+      "slot_usage": {},
+      "attributes": [
+        {
+          "name": "source",
+          "description": "The source of the sequence for this option",
+          "range": "Source",
+          "required": true,
+          "inlined": true,
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "info",
+          "description": "Additional information about this option",
+          "range": "CollectionOptionInfo",
+          "inlined": true,
+          "@type": "SlotDefinition"
+        }
+      ],
+      "class_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/CollectionOption",
+      "@type": "ClassDefinition"
+    },
+    {
+      "name": "CollectionOptionInfo",
+      "definition_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/CollectionOptionInfo",
+      "description": "Additional information about a collection option",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "slots": [
+        "CollectionOptionInfo_name",
+        "collectionOptionInfo__description",
+        "collectionOptionInfo__type",
+        "collectionOptionInfo__resistance",
+        "collectionOptionInfo__well"
+      ],
+      "slot_usage": {},
+      "attributes": [
+        {
+          "name": "description",
+          "description": "A description of the option",
+          "range": "string",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "type",
+          "description": "The type of the option, this is redundant with the type of the source, and could be removed.",
+          "range": "CollectionOptionType",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "resistance",
+          "description": "The antibiotic resistance of the plasmid",
+          "range": "string",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "well",
+          "description": "The well position in the kit plate",
+          "range": "string",
+          "@type": "SlotDefinition"
+        }
+      ],
+      "class_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/CollectionOptionInfo",
       "@type": "ClassDefinition"
     },
     {
@@ -2351,7 +2763,6 @@
           "name": "assembly",
           "description": "A list of the fragments that are assembled, in order",
           "range": "AssemblyFragment",
-          "required": true,
           "multivalued": true,
           "inlined_as_list": true,
           "@type": "SlotDefinition"
@@ -2901,9 +3312,9 @@
   ],
   "metamodel_version": "1.7.0",
   "source_file": "shareyourcloning_linkml.yaml",
-  "source_file_date": "2025-01-31T09:04:07",
-  "source_file_size": 20405,
-  "generation_date": "2025-01-31T09:04:11",
+  "source_file_date": "2025-01-31T14:04:06",
+  "source_file_size": 23827,
+  "generation_date": "2025-01-31T14:24:09",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/shareyourcloning_linkml.context.jsonld",

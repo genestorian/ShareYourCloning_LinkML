@@ -4,6 +4,11 @@
 --     * Slot: id Description: A unique identifier for a thing
 --     * Slot: type Description: Designates the class
 --     * Slot: CloningStrategy_id Description: Autocreated FK slot
+-- # Class: "TemplateSequence" Description: "Represents a sequence that is part of a template, where the actual sequence content will be determined by the user's actions"
+--     * Slot: circular Description: Whether the sequence is circular or linear
+--     * Slot: primer_design Description: Can be used to indicate the intended primer design for this sequence in the template
+--     * Slot: id Description: A unique identifier for a thing
+--     * Slot: type Description: Designates the class
 -- # Class: "TextFileSequence" Description: "A sequence (may have features) defined by the content of a text file"
 --     * Slot: sequence_file_format Description: The format of a sequence file
 --     * Slot: overhang_crick_3prime Description: Taken from pydna's `dseq::ovhg`An integer describing the length of the crick strand overhang in the 5' of the molecule, or 3' of the crick strand
@@ -32,6 +37,27 @@
 --     * Slot: output_name Description: Used to specify the name of the output sequence
 --     * Slot: id Description: A unique identifier for a thing
 --     * Slot: CloningStrategy_id Description: Autocreated FK slot
+-- # Class: "CollectionSource" Description: "Represents a collection of possible sources in a template"
+--     * Slot: category_id Description: The identifier of the category of the part in the template
+--     * Slot: title Description: The title of the category
+--     * Slot: description Description: A description of the category
+--     * Slot: output Description: Identifier of the sequence that is the output of this source.
+--     * Slot: type Description: Designates the class
+--     * Slot: output_name Description: Used to specify the name of the output sequence
+--     * Slot: id Description: A unique identifier for a thing
+-- # Class: "CollectionOption" Description: "Represents an option in a collection"
+--     * Slot: id Description:
+--     * Slot: name Description: A human-readable name for a thing
+--     * Slot: CollectionSource_id Description: Autocreated FK slot
+--     * Slot: source_id Description: The source of the sequence for this option
+--     * Slot: info_id Description: Additional information about this option
+-- # Class: "CollectionOptionInfo" Description: "Additional information about a collection option"
+--     * Slot: id Description:
+--     * Slot: name Description: A human-readable name for a thing
+--     * Slot: description Description: A description of the option
+--     * Slot: type Description: The type of the option, this is redundant with the type of the source, and could be removed.
+--     * Slot: resistance Description: The antibiotic resistance of the plasmid
+--     * Slot: well Description: The well position in the kit plate
 -- # Class: "ManuallyTypedSource" Description: "Represents the source of a sequence that is manually typed by the user"
 --     * Slot: overhang_crick_3prime Description: Taken from pydna's `dseq::ovhg`An integer describing the length of the crick strand overhang in the 5' of the molecule, or 3' of the crick strand
 --     * Slot: overhang_watson_3prime Description: The equivalent of `overhang_crick_3prime` but for the watson strand
@@ -265,6 +291,12 @@
 -- # Class: "Source_input" Description: ""
 --     * Slot: Source_id Description: Autocreated FK slot
 --     * Slot: input_id Description: The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.
+-- # Class: "CollectionSource_image" Description: ""
+--     * Slot: CollectionSource_id Description: Autocreated FK slot
+--     * Slot: image Description: URL and size of the image representing this category. For images with size specification, this is a list with two elements: [url, size].
+-- # Class: "CollectionSource_input" Description: ""
+--     * Slot: CollectionSource_id Description: Autocreated FK slot
+--     * Slot: input_id Description: The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.
 -- # Class: "ManuallyTypedSource_input" Description: ""
 --     * Slot: ManuallyTypedSource_id Description: Autocreated FK slot
 --     * Slot: input_id Description: The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.
@@ -351,6 +383,13 @@ CREATE TABLE "NamedThing" (
 	id INTEGER NOT NULL,
 	PRIMARY KEY (id)
 );
+CREATE TABLE "TemplateSequence" (
+	circular BOOLEAN,
+	primer_design TEXT,
+	id INTEGER NOT NULL,
+	type TEXT,
+	PRIMARY KEY (id)
+);
 CREATE TABLE "TextFileSequence" (
 	sequence_file_format VARCHAR(8) NOT NULL,
 	overhang_crick_3prime INTEGER,
@@ -371,6 +410,15 @@ CREATE TABLE "RestrictionSequenceCut" (
 	restriction_enzyme TEXT NOT NULL,
 	cut_watson INTEGER NOT NULL,
 	overhang INTEGER NOT NULL,
+	PRIMARY KEY (id)
+);
+CREATE TABLE "CollectionOptionInfo" (
+	id INTEGER NOT NULL,
+	name TEXT,
+	description TEXT,
+	type VARCHAR(14),
+	resistance TEXT,
+	well TEXT,
 	PRIMARY KEY (id)
 );
 CREATE TABLE "SimpleSequenceLocation" (
@@ -429,6 +477,17 @@ CREATE TABLE "Source" (
 	PRIMARY KEY (id),
 	FOREIGN KEY(output) REFERENCES "Sequence" (id),
 	FOREIGN KEY("CloningStrategy_id") REFERENCES "CloningStrategy" (id)
+);
+CREATE TABLE "CollectionSource" (
+	category_id TEXT,
+	title TEXT NOT NULL,
+	description TEXT,
+	output INTEGER,
+	type TEXT,
+	output_name TEXT,
+	id INTEGER NOT NULL,
+	PRIMARY KEY (id),
+	FOREIGN KEY(output) REFERENCES "Sequence" (id)
 );
 CREATE TABLE "ManuallyTypedSource" (
 	overhang_crick_3prime INTEGER,
@@ -700,6 +759,17 @@ CREATE TABLE "SequencingFile" (
 	PRIMARY KEY (id),
 	FOREIGN KEY(sequence_id) REFERENCES "Sequence" (id)
 );
+CREATE TABLE "CollectionOption" (
+	id INTEGER NOT NULL,
+	name TEXT NOT NULL,
+	"CollectionSource_id" INTEGER,
+	source_id INTEGER NOT NULL,
+	info_id INTEGER,
+	PRIMARY KEY (id),
+	FOREIGN KEY("CollectionSource_id") REFERENCES "CollectionSource" (id),
+	FOREIGN KEY(source_id) REFERENCES "Source" (id),
+	FOREIGN KEY(info_id) REFERENCES "CollectionOptionInfo" (id)
+);
 CREATE TABLE "AssemblyFragment" (
 	id INTEGER NOT NULL,
 	sequence INTEGER NOT NULL,
@@ -743,6 +813,19 @@ CREATE TABLE "Source_input" (
 	input_id INTEGER,
 	PRIMARY KEY ("Source_id", input_id),
 	FOREIGN KEY("Source_id") REFERENCES "Source" (id),
+	FOREIGN KEY(input_id) REFERENCES "Sequence" (id)
+);
+CREATE TABLE "CollectionSource_image" (
+	"CollectionSource_id" INTEGER,
+	image TEXT,
+	PRIMARY KEY ("CollectionSource_id", image),
+	FOREIGN KEY("CollectionSource_id") REFERENCES "CollectionSource" (id)
+);
+CREATE TABLE "CollectionSource_input" (
+	"CollectionSource_id" INTEGER,
+	input_id INTEGER,
+	PRIMARY KEY ("CollectionSource_id", input_id),
+	FOREIGN KEY("CollectionSource_id") REFERENCES "CollectionSource" (id),
 	FOREIGN KEY(input_id) REFERENCES "Sequence" (id)
 );
 CREATE TABLE "ManuallyTypedSource_input" (

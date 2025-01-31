@@ -1,7 +1,6 @@
 # ShareYourCloning_LinkML
 
-A LinkML data model for ShareYourCloning
-<!--  -->
+A LinkML data model for ShareYourCloning, a standardized schema for describing molecular cloning strategies and DNA assembly protocols.
 
 ## Website
 
@@ -20,6 +19,12 @@ A LinkML data model for ShareYourCloning
 * [tests/](tests/) - Python tests
 
 ## Developer Documentation
+
+The python package can be installed from PyPI:
+
+```bash
+pip install shareyourcloning-linkml
+```
 
 <details>
 Use the `make` command to generate project artefacts:
