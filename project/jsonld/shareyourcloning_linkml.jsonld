@@ -38,6 +38,10 @@
     {
       "prefix_prefix": "OBI",
       "prefix_reference": "http://purl.obolibrary.org/obo/OBI_"
+    },
+    {
+      "prefix_prefix": "NCIT",
+      "prefix_reference": "http://purl.obolibrary.org/obo/NCIT_"
     }
   ],
   "default_prefix": "shareyourcloning_linkml",
@@ -442,6 +446,18 @@
           "text": "plannotate"
         }
       ]
+    },
+    {
+      "name": "AssociatedFileType",
+      "definition_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/AssociatedFileType",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "permissible_values": [
+        {
+          "text": "Sanger sequencing",
+          "description": "Sanger sequencing trace file",
+          "meaning": "NCIT:C172877"
+        }
+      ]
     }
   ],
   "slots": [
@@ -558,11 +574,12 @@
       "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
       "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/type",
       "designates_type": true,
-      "owner": "AnnotationReport",
+      "owner": "AssociatedFile",
       "domain_of": [
         "Sequence",
         "Source",
-        "AnnotationReport"
+        "AnnotationReport",
+        "AssociatedFile"
       ],
       "range": "string",
       "@type": "SlotDefinition"
@@ -1203,6 +1220,22 @@
       "@type": "SlotDefinition"
     },
     {
+      "name": "cloningStrategy__files",
+      "description": "Files associated with this cloning strategy",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/files",
+      "alias": "files",
+      "owner": "CloningStrategy",
+      "domain_of": [
+        "CloningStrategy"
+      ],
+      "range": "AssociatedFile",
+      "multivalued": true,
+      "inlined": true,
+      "inlined_as_list": true,
+      "@type": "SlotDefinition"
+    },
+    {
       "name": "plannotateAnnotationReport__sseqid",
       "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
       "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/sseqid",
@@ -1409,6 +1442,63 @@
       "multivalued": true,
       "inlined": true,
       "inlined_as_list": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "associatedFile__sequence_id",
+      "description": "The sequence this file is associated with",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/sequence_id",
+      "alias": "sequence_id",
+      "owner": "AssociatedFile",
+      "domain_of": [
+        "AssociatedFile"
+      ],
+      "range": "Sequence",
+      "required": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "associatedFile__file_name",
+      "description": "The name of the file",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/file_name",
+      "alias": "file_name",
+      "owner": "AssociatedFile",
+      "domain_of": [
+        "AssociatedFile"
+      ],
+      "range": "string",
+      "required": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "associatedFile__file_type",
+      "description": "The type of file",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/file_type",
+      "alias": "file_type",
+      "owner": "AssociatedFile",
+      "domain_of": [
+        "AssociatedFile"
+      ],
+      "range": "AssociatedFileType",
+      "required": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "sequencingFile__alignment",
+      "description": "The alignment of the sequencing read to the sequence. List of strings representing aligned sequences.",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "slot_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/alignment",
+      "alias": "alignment",
+      "owner": "SequencingFile",
+      "domain_of": [
+        "SequencingFile"
+      ],
+      "range": "string",
+      "required": true,
+      "multivalued": true,
       "@type": "SlotDefinition"
     },
     {
@@ -2542,7 +2632,8 @@
         "cloningStrategy__sequences",
         "cloningStrategy__sources",
         "cloningStrategy__primers",
-        "cloningStrategy__description"
+        "cloningStrategy__description",
+        "cloningStrategy__files"
       ],
       "slot_usage": {},
       "attributes": [
@@ -2576,6 +2667,14 @@
           "name": "description",
           "description": "A description of the cloning strategy",
           "range": "string",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "files",
+          "description": "Files associated with this cloning strategy",
+          "range": "AssociatedFile",
+          "multivalued": true,
+          "inlined_as_list": true,
           "@type": "SlotDefinition"
         }
       ],
@@ -2733,13 +2832,78 @@
       ],
       "class_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/AnnotationSource",
       "@type": "ClassDefinition"
+    },
+    {
+      "name": "AssociatedFile",
+      "definition_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/AssociatedFile",
+      "description": "Represents a file associated with a sequence",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "slots": [
+        "type",
+        "associatedFile__sequence_id",
+        "associatedFile__file_name",
+        "associatedFile__file_type"
+      ],
+      "slot_usage": {},
+      "attributes": [
+        {
+          "name": "sequence_id",
+          "description": "The sequence this file is associated with",
+          "range": "Sequence",
+          "required": true,
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "file_name",
+          "description": "The name of the file",
+          "range": "string",
+          "required": true,
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "file_type",
+          "description": "The type of file",
+          "range": "AssociatedFileType",
+          "required": true,
+          "@type": "SlotDefinition"
+        }
+      ],
+      "class_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/AssociatedFile",
+      "@type": "ClassDefinition"
+    },
+    {
+      "name": "SequencingFile",
+      "definition_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/SequencingFile",
+      "description": "Represents a sequencing file and its alignment to a sequence",
+      "from_schema": "https://w3id.org/genestorian/ShareYourCloning_LinkML",
+      "is_a": "AssociatedFile",
+      "slots": [
+        "type",
+        "associatedFile__sequence_id",
+        "associatedFile__file_name",
+        "associatedFile__file_type",
+        "sequencingFile__alignment"
+      ],
+      "slot_usage": {},
+      "attributes": [
+        {
+          "name": "alignment",
+          "description": "The alignment of the sequencing read to the sequence. List of strings representing aligned sequences.",
+          "range": "string",
+          "required": true,
+          "multivalued": true,
+          "@type": "SlotDefinition"
+        }
+      ],
+      "class_uri": "https://w3id.org/genestorian/ShareYourCloning_LinkML/SequencingFile",
+      "@type": "ClassDefinition"
     }
   ],
   "metamodel_version": "1.7.0",
   "source_file": "shareyourcloning_linkml.yaml",
-  "source_file_date": "2024-12-10T14:43:32",
-  "source_file_size": 18879,
-  "generation_date": "2024-12-10T14:43:53",
+  "source_file_date": "2025-01-31T09:04:07",
+  "source_file_size": 20405,
+  "generation_date": "2025-01-31T09:04:11",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/shareyourcloning_linkml.context.jsonld",

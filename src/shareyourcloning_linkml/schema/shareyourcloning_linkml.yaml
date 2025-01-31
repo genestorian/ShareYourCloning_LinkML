@@ -9,6 +9,8 @@ see_also:
   - https://genestorian.github.io/ShareYourCloning_LinkML
 
 prefixes:
+  # These are the prefixes that you would use in the URL to refer to the classes,
+  # for example, for NCIT:C172877 http://purl.obolibrary.org/obo/NCIT_C172877
   shareyourcloning_linkml: https://w3id.org/genestorian/ShareYourCloning_LinkML/
   linkml: https://w3id.org/linkml/
   biolink: https://w3id.org/biolink/
@@ -16,6 +18,7 @@ prefixes:
   PATO: http://purl.obolibrary.org/obo/PATO_
   example: https://example.org/
   OBI: http://purl.obolibrary.org/obo/OBI_
+  NCIT: http://purl.obolibrary.org/obo/NCIT_
 default_prefix: shareyourcloning_linkml
 default_range: string
 
@@ -485,6 +488,13 @@ classes:
           range: string
           description: >-
             A description of the cloning strategy
+      - files:
+          range: AssociatedFile
+          description: >-
+            Files associated with this cloning strategy
+          required: false
+          multivalued: true
+          inlined_as_list: true
 
   AnnotationReport:
     description: >-
@@ -541,6 +551,41 @@ classes:
       - annotation_report:
           range: AnnotationReport
           inlined_as_list: true
+          multivalued: true
+
+  AssociatedFile:
+    description: >-
+      Represents a file associated with a sequence
+    slots:
+      - type
+    attributes:
+      - sequence_id:
+          range: Sequence
+          description: >-
+            The sequence this file is associated with
+          required: true
+      - file_name:
+          range: string
+          description: >-
+            The name of the file
+          required: true
+      - file_type:
+          range: AssociatedFileType
+          description: >-
+            The type of file
+          required: true
+
+  SequencingFile:
+    is_a: AssociatedFile
+    description: >-
+      Represents a sequencing file and its alignment to a sequence
+    attributes:
+      - alignment:
+          range: string
+          description: >-
+            The alignment of the sequencing read to the sequence.
+            List of strings representing aligned sequences.
+          required: true
           multivalued: true
 
 slots:
@@ -675,3 +720,10 @@ enums:
   AnnotationTool:
     permissible_values:
       plannotate:
+
+  AssociatedFileType:
+    permissible_values:
+      "Sanger sequencing":
+        description: >-
+          Sanger sequencing trace file
+        meaning: NCIT:C172877

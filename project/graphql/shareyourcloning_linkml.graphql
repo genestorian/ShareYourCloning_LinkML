@@ -1,4 +1,44 @@
 # metamodel_version: 1.7.0
+enum AddGeneSequenceType
+  {
+    depositor__HYPHEN_MINUS__full
+    addgene__HYPHEN_MINUS__full
+  }
+
+enum AnnotationTool
+  {
+    plannotate
+  }
+
+enum AssociatedFileType
+  {
+    Sanger_sequencing
+  }
+
+enum GatewayReactionType
+  {
+    LR
+    BP
+  }
+
+enum RepositoryName
+  {
+    addgene
+    genbank
+    benchling
+    snapgene
+    euroscarf
+    igem
+  }
+
+enum SequenceFileFormat
+  {
+    fasta
+    genbank
+    snapgene
+    embl
+  }
+
 type AddGeneIdSource
   {
     id: Integer!
@@ -48,6 +88,14 @@ type AssemblySource
     assembly: [AssemblyFragment]!
   }
 
+type AssociatedFile
+  {
+    type: String
+    sequenceId: Sequence!
+    fileName: String!
+    fileType: AssociatedFileType!
+  }
+
 type BenchlingUrlSource
   {
     id: Integer!
@@ -65,6 +113,7 @@ type CloningStrategy
     sources: [Source]!
     primers: [Primer]
     description: String
+    files: [AssociatedFile]
   }
 
 type CRISPRSource
@@ -326,6 +375,15 @@ type SequenceCutSource
     outputName: String
     leftEdge: SequenceCut
     rightEdge: SequenceCut
+  }
+
+type SequencingFile
+  {
+    type: String
+    sequenceId: Sequence!
+    fileName: String!
+    fileType: AssociatedFileType!
+    alignment: [String]!
   }
 
 type SimpleSequenceLocation

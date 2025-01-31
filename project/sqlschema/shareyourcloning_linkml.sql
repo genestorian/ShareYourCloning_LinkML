@@ -249,6 +249,19 @@
 --     * Slot: type Description: Designates the class
 --     * Slot: output_name Description: Used to specify the name of the output sequence
 --     * Slot: id Description: A unique identifier for a thing
+-- # Class: "AssociatedFile" Description: "Represents a file associated with a sequence"
+--     * Slot: id Description:
+--     * Slot: type Description: Designates the class
+--     * Slot: sequence_id Description: The sequence this file is associated with
+--     * Slot: file_name Description: The name of the file
+--     * Slot: file_type Description: The type of file
+--     * Slot: CloningStrategy_id Description: Autocreated FK slot
+-- # Class: "SequencingFile" Description: "Represents a sequencing file and its alignment to a sequence"
+--     * Slot: id Description:
+--     * Slot: type Description: Designates the class
+--     * Slot: sequence_id Description: The sequence this file is associated with
+--     * Slot: file_name Description: The name of the file
+--     * Slot: file_type Description: The type of file
 -- # Class: "Source_input" Description: ""
 --     * Slot: Source_id Description: Autocreated FK slot
 --     * Slot: input_id Description: The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.
@@ -330,6 +343,9 @@
 -- # Class: "AnnotationSource_input" Description: ""
 --     * Slot: AnnotationSource_id Description: Autocreated FK slot
 --     * Slot: input_id Description: The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.
+-- # Class: "SequencingFile_alignment" Description: ""
+--     * Slot: SequencingFile_id Description: Autocreated FK slot
+--     * Slot: alignment Description: The alignment of the sequencing read to the sequence. List of strings representing aligned sequences.
 
 CREATE TABLE "NamedThing" (
 	id INTEGER NOT NULL,
@@ -664,6 +680,26 @@ CREATE TABLE "AnnotationSource" (
 	PRIMARY KEY (id),
 	FOREIGN KEY(output) REFERENCES "Sequence" (id)
 );
+CREATE TABLE "AssociatedFile" (
+	id INTEGER NOT NULL,
+	type TEXT,
+	sequence_id INTEGER NOT NULL,
+	file_name TEXT NOT NULL,
+	file_type VARCHAR(17) NOT NULL,
+	"CloningStrategy_id" INTEGER,
+	PRIMARY KEY (id),
+	FOREIGN KEY(sequence_id) REFERENCES "Sequence" (id),
+	FOREIGN KEY("CloningStrategy_id") REFERENCES "CloningStrategy" (id)
+);
+CREATE TABLE "SequencingFile" (
+	id INTEGER NOT NULL,
+	type TEXT,
+	sequence_id INTEGER NOT NULL,
+	file_name TEXT NOT NULL,
+	file_type VARCHAR(17) NOT NULL,
+	PRIMARY KEY (id),
+	FOREIGN KEY(sequence_id) REFERENCES "Sequence" (id)
+);
 CREATE TABLE "AssemblyFragment" (
 	id INTEGER NOT NULL,
 	sequence INTEGER NOT NULL,
@@ -889,4 +925,10 @@ CREATE TABLE "AnnotationSource_input" (
 	PRIMARY KEY ("AnnotationSource_id", input_id),
 	FOREIGN KEY("AnnotationSource_id") REFERENCES "AnnotationSource" (id),
 	FOREIGN KEY(input_id) REFERENCES "Sequence" (id)
+);
+CREATE TABLE "SequencingFile_alignment" (
+	"SequencingFile_id" INTEGER,
+	alignment TEXT NOT NULL,
+	PRIMARY KEY ("SequencingFile_id", alignment),
+	FOREIGN KEY("SequencingFile_id") REFERENCES "SequencingFile" (id)
 );

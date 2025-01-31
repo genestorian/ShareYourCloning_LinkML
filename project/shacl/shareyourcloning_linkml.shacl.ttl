@@ -1,12 +1,22 @@
+@prefix NCIT: <http://purl.obolibrary.org/obo/NCIT_> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix schema1: <http://schema.org/> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix shareyourcloning_linkml: <https://w3id.org/genestorian/ShareYourCloning_LinkML/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
+schema1:Thing a sh:NodeShape ;
+    sh:closed true ;
+    sh:ignoredProperties ( shareyourcloning_linkml:restriction_enzymes shareyourcloning_linkml:user_input shareyourcloning_linkml:repository_id shareyourcloning_linkml:overhang_watson_3prime shareyourcloning_linkml:type shareyourcloning_linkml:sequence_file_url shareyourcloning_linkml:reaction_type shareyourcloning_linkml:add_primer_features schema1:name shareyourcloning_linkml:gene_id shareyourcloning_linkml:circularize shareyourcloning_linkml:right_edge rdf:type shareyourcloning_linkml:output_name shareyourcloning_linkml:start shareyourcloning_linkml:index_in_file shareyourcloning_linkml:output shareyourcloning_linkml:circular shareyourcloning_linkml:input shareyourcloning_linkml:annotation_tool_version shareyourcloning_linkml:repository_name shareyourcloning_linkml:greedy shareyourcloning_linkml:assembly_accession shareyourcloning_linkml:end shareyourcloning_linkml:file_name shareyourcloning_linkml:addgene_sequence_type shareyourcloning_linkml:strand shareyourcloning_linkml:sequence_file_format shareyourcloning_linkml:assembly shareyourcloning_linkml:locus_tag shareyourcloning_linkml:file_content shareyourcloning_linkml:sequence shareyourcloning_linkml:reverse_oligo shareyourcloning_linkml:sequence_accession shareyourcloning_linkml:guides shareyourcloning_linkml:annotation_tool shareyourcloning_linkml:overhang_crick_3prime shareyourcloning_linkml:annotation_report shareyourcloning_linkml:left_edge shareyourcloning_linkml:forward_oligo ) ;
+    sh:property [ sh:datatype xsd:integer ;
+            sh:description "A unique identifier for a thing" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path schema1:identifier ] ;
+    sh:targetClass schema1:Thing .
+
 shareyourcloning_linkml:AddGeneIdSource a sh:NodeShape ;
-    rdfs:subClassOf shareyourcloning_linkml:RepositoryIdSource ;
     sh:closed true ;
     sh:description "Represents the source of a sequence that is identified by an AddGene id" ;
     sh:ignoredProperties ( rdf:type ) ;
@@ -22,23 +32,6 @@ shareyourcloning_linkml:AddGeneIdSource a sh:NodeShape ;
             sh:minCount 1 ;
             sh:order 3 ;
             sh:path shareyourcloning_linkml:repository_name ],
-        [ sh:datatype xsd:string ;
-            sh:description "The id of the sequence in the repository" ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 2 ;
-            sh:path shareyourcloning_linkml:repository_id ],
-        [ sh:datatype xsd:string ;
-            sh:description "Designates the class" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 6 ;
-            sh:path shareyourcloning_linkml:type ],
-        [ sh:in ( "depositor-full" "addgene-full" ) ;
-            sh:maxCount 1 ;
-            sh:order 1 ;
-            sh:path shareyourcloning_linkml:addgene_sequence_type ],
         [ sh:datatype xsd:integer ;
             sh:description "A unique identifier for a thing" ;
             sh:maxCount 1 ;
@@ -46,6 +39,22 @@ shareyourcloning_linkml:AddGeneIdSource a sh:NodeShape ;
             sh:nodeKind sh:Literal ;
             sh:order 8 ;
             sh:path schema1:identifier ],
+        [ sh:in ( "depositor-full" "addgene-full" ) ;
+            sh:maxCount 1 ;
+            sh:order 1 ;
+            sh:path shareyourcloning_linkml:addgene_sequence_type ],
+        [ sh:datatype xsd:string ;
+            sh:description "Designates the class" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 6 ;
+            sh:path shareyourcloning_linkml:type ],
+        [ sh:class shareyourcloning_linkml:Sequence ;
+            sh:description "Identifier of the sequence that is the output of this source." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 5 ;
+            sh:path shareyourcloning_linkml:output ],
         [ sh:datatype xsd:string ;
             sh:description "Used to specify the name of the output sequence" ;
             sh:maxCount 1 ;
@@ -57,36 +66,29 @@ shareyourcloning_linkml:AddGeneIdSource a sh:NodeShape ;
             sh:nodeKind sh:IRI ;
             sh:order 4 ;
             sh:path shareyourcloning_linkml:input ],
-        [ sh:class shareyourcloning_linkml:Sequence ;
-            sh:description "Identifier of the sequence that is the output of this source." ;
+        [ sh:datatype xsd:string ;
+            sh:description "The id of the sequence in the repository" ;
             sh:maxCount 1 ;
-            sh:nodeKind sh:IRI ;
-            sh:order 5 ;
-            sh:path shareyourcloning_linkml:output ] ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path shareyourcloning_linkml:repository_id ] ;
     sh:targetClass shareyourcloning_linkml:AddGeneIdSource .
 
 shareyourcloning_linkml:AnnotationSource a sh:NodeShape ;
-    rdfs:subClassOf shareyourcloning_linkml:Source ;
     sh:closed true ;
     sh:description "Represents a computational step in which sequence features are annotated in a sequence" ;
     sh:ignoredProperties ( rdf:type ) ;
-    sh:property [ sh:class shareyourcloning_linkml:AnnotationReport ;
-            sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 2 ;
-            sh:path shareyourcloning_linkml:annotation_report ],
-        [ sh:datatype xsd:string ;
+    sh:property [ sh:datatype xsd:string ;
             sh:description "The version of the annotation tool" ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
             sh:order 1 ;
             sh:path shareyourcloning_linkml:annotation_tool_version ],
-        [ sh:datatype xsd:integer ;
-            sh:description "A unique identifier for a thing" ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 7 ;
-            sh:path schema1:identifier ],
+        [ sh:class shareyourcloning_linkml:AnnotationReport ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 2 ;
+            sh:path shareyourcloning_linkml:annotation_report ],
         [ sh:in ( "plannotate" ) ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
@@ -110,6 +112,13 @@ shareyourcloning_linkml:AnnotationSource a sh:NodeShape ;
             sh:nodeKind sh:Literal ;
             sh:order 5 ;
             sh:path shareyourcloning_linkml:type ],
+        [ sh:datatype xsd:integer ;
+            sh:description "A unique identifier for a thing" ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 7 ;
+            sh:path schema1:identifier ],
         [ sh:class shareyourcloning_linkml:Sequence ;
             sh:description "The sequences that are an input to this source. If the source represents external import of a sequence, it's empty." ;
             sh:nodeKind sh:IRI ;
@@ -117,16 +126,221 @@ shareyourcloning_linkml:AnnotationSource a sh:NodeShape ;
             sh:path shareyourcloning_linkml:input ] ;
     sh:targetClass shareyourcloning_linkml:AnnotationSource .
 
-shareyourcloning_linkml:BenchlingUrlSource a sh:NodeShape ;
-    rdfs:subClassOf shareyourcloning_linkml:RepositoryIdSource ;
+shareyourcloning_linkml:AssemblySource a sh:NodeShape ;
     sh:closed true ;
-    sh:description "Represents the source of a sequence that is identified by a Benchling URL" ;
-    sh:ignoredProperties ( rdf:type ) ;
+    sh:description "Represents the source of a sequence that is an assembly of other sequences" ;
+    sh:ignoredProperties ( shareyourcloning_linkml:guides shareyourcloning_linkml:restriction_enzymes shareyourcloning_linkml:greedy rdf:type shareyourcloning_linkml:reaction_type shareyourcloning_linkml:add_primer_features ) ;
     sh:property [ sh:class shareyourcloning_linkml:Sequence ;
             sh:description "The sequences that are an input to this source. If the source represents external import of a sequence, it's empty." ;
             sh:nodeKind sh:IRI ;
             sh:order 2 ;
             sh:path shareyourcloning_linkml:input ],
+        [ sh:class shareyourcloning_linkml:AssemblyFragment ;
+            sh:description "A list of the fragments that are assembled, in order" ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 1 ;
+            sh:path shareyourcloning_linkml:assembly ],
+        [ sh:datatype xsd:boolean ;
+            sh:description "Whether the assembly is circular or not" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path shareyourcloning_linkml:circular ],
+        [ sh:datatype xsd:string ;
+            sh:description "Used to specify the name of the output sequence" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 5 ;
+            sh:path shareyourcloning_linkml:output_name ],
+        [ sh:datatype xsd:string ;
+            sh:description "Designates the class" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path shareyourcloning_linkml:type ],
+        [ sh:class shareyourcloning_linkml:Sequence ;
+            sh:description "Identifier of the sequence that is the output of this source." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 3 ;
+            sh:path shareyourcloning_linkml:output ],
+        [ sh:datatype xsd:integer ;
+            sh:description "A unique identifier for a thing" ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 6 ;
+            sh:path schema1:identifier ] ;
+    sh:targetClass shareyourcloning_linkml:AssemblySource .
+
+shareyourcloning_linkml:BenchlingUrlSource a sh:NodeShape ;
+    sh:closed true ;
+    sh:description "Represents the source of a sequence that is identified by a Benchling URL" ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:in ( "addgene" "genbank" "benchling" "snapgene" "euroscarf" "igem" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 1 ;
+            sh:path shareyourcloning_linkml:repository_name ],
+        [ sh:datatype xsd:integer ;
+            sh:description "A unique identifier for a thing" ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 6 ;
+            sh:path schema1:identifier ],
+        [ sh:datatype xsd:string ;
+            sh:description "The url of the gb file associated with the sequence" ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path shareyourcloning_linkml:repository_id ;
+            sh:pattern "^https:\\/\\/benchling\\.com\\/.+\\.gb$" ],
+        [ sh:class shareyourcloning_linkml:Sequence ;
+            sh:description "Identifier of the sequence that is the output of this source." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 3 ;
+            sh:path shareyourcloning_linkml:output ],
+        [ sh:datatype xsd:string ;
+            sh:description "Designates the class" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path shareyourcloning_linkml:type ],
+        [ sh:class shareyourcloning_linkml:Sequence ;
+            sh:description "The sequences that are an input to this source. If the source represents external import of a sequence, it's empty." ;
+            sh:nodeKind sh:IRI ;
+            sh:order 2 ;
+            sh:path shareyourcloning_linkml:input ],
+        [ sh:datatype xsd:string ;
+            sh:description "Used to specify the name of the output sequence" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 5 ;
+            sh:path shareyourcloning_linkml:output_name ] ;
+    sh:targetClass shareyourcloning_linkml:BenchlingUrlSource .
+
+shareyourcloning_linkml:CRISPRSource a sh:NodeShape ;
+    sh:closed true ;
+    sh:description "Represents the source of a sequence that is generated by CRISPR" ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:class shareyourcloning_linkml:Sequence ;
+            sh:description "Identifier of the sequence that is the output of this source." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 4 ;
+            sh:path shareyourcloning_linkml:output ],
+        [ sh:datatype xsd:string ;
+            sh:description "Used to specify the name of the output sequence" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 6 ;
+            sh:path shareyourcloning_linkml:output_name ],
+        [ sh:datatype xsd:boolean ;
+            sh:description "Whether the assembly is circular or not" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path shareyourcloning_linkml:circular ],
+        [ sh:class shareyourcloning_linkml:Primer ;
+            sh:description "The guide RNAs used in the CRISPR" ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 0 ;
+            sh:path shareyourcloning_linkml:guides ],
+        [ sh:class shareyourcloning_linkml:Sequence ;
+            sh:description "The sequences that are an input to this source. If the source represents external import of a sequence, it's empty." ;
+            sh:nodeKind sh:IRI ;
+            sh:order 3 ;
+            sh:path shareyourcloning_linkml:input ],
+        [ sh:datatype xsd:integer ;
+            sh:description "A unique identifier for a thing" ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 7 ;
+            sh:path schema1:identifier ],
+        [ sh:class shareyourcloning_linkml:AssemblyFragment ;
+            sh:description "A list of the fragments that are assembled, in order" ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 2 ;
+            sh:path shareyourcloning_linkml:assembly ],
+        [ sh:datatype xsd:string ;
+            sh:description "Designates the class" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 5 ;
+            sh:path shareyourcloning_linkml:type ] ;
+    sh:targetClass shareyourcloning_linkml:CRISPRSource .
+
+shareyourcloning_linkml:CloningStrategy a sh:NodeShape ;
+    sh:closed true ;
+    sh:description "Represents a cloning strategy" ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:class shareyourcloning_linkml:Primer ;
+            sh:description "The primers that are used in the cloning strategy" ;
+            sh:nodeKind sh:IRI ;
+            sh:order 2 ;
+            sh:path shareyourcloning_linkml:primers ],
+        [ sh:class shareyourcloning_linkml:Source ;
+            sh:description "The sources of the sequences that are used in the cloning strategy" ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 1 ;
+            sh:path shareyourcloning_linkml:sources ],
+        [ sh:class shareyourcloning_linkml:Sequence ;
+            sh:description "The sequences that are used in the cloning strategy" ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 0 ;
+            sh:path shareyourcloning_linkml:sequences ],
+        [ sh:class shareyourcloning_linkml:AssociatedFile ;
+            sh:description "Files associated with this cloning strategy" ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 4 ;
+            sh:path shareyourcloning_linkml:files ],
+        [ sh:datatype xsd:string ;
+            sh:description "A description of the cloning strategy" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path shareyourcloning_linkml:description ] ;
+    sh:targetClass shareyourcloning_linkml:CloningStrategy .
+
+shareyourcloning_linkml:EuroscarfSource a sh:NodeShape ;
+    sh:closed true ;
+    sh:description "Represents the source of a sequence from the Euroscarf plasmid library" ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:integer ;
+            sh:description "A unique identifier for a thing" ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 6 ;
+            sh:path schema1:identifier ],
+        [ sh:datatype xsd:string ;
+            sh:description "Used to specify the name of the output sequence" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 5 ;
+            sh:path shareyourcloning_linkml:output_name ],
+        [ sh:class shareyourcloning_linkml:Sequence ;
+            sh:description "The sequences that are an input to this source. If the source represents external import of a sequence, it's empty." ;
+            sh:nodeKind sh:IRI ;
+            sh:order 2 ;
+            sh:path shareyourcloning_linkml:input ],
+        [ sh:datatype xsd:string ;
+            sh:description "The id of the plasmid in the Euroscarf plasmid library" ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path shareyourcloning_linkml:repository_id ;
+            sh:pattern "^P\\d+$" ],
         [ sh:in ( "addgene" "genbank" "benchling" "snapgene" "euroscarf" "igem" ) ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
@@ -138,191 +352,25 @@ shareyourcloning_linkml:BenchlingUrlSource a sh:NodeShape ;
             sh:nodeKind sh:Literal ;
             sh:order 4 ;
             sh:path shareyourcloning_linkml:type ],
-        [ sh:datatype xsd:string ;
-            sh:description "The url of the gb file associated with the sequence" ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 0 ;
-            sh:path shareyourcloning_linkml:repository_id ;
-            sh:pattern "^https:\\/\\/benchling\\.com\\/.+\\.gb$" ],
-        [ sh:datatype xsd:integer ;
-            sh:description "A unique identifier for a thing" ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 6 ;
-            sh:path schema1:identifier ],
-        [ sh:datatype xsd:string ;
-            sh:description "Used to specify the name of the output sequence" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 5 ;
-            sh:path shareyourcloning_linkml:output_name ],
         [ sh:class shareyourcloning_linkml:Sequence ;
             sh:description "Identifier of the sequence that is the output of this source." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:IRI ;
             sh:order 3 ;
             sh:path shareyourcloning_linkml:output ] ;
-    sh:targetClass shareyourcloning_linkml:BenchlingUrlSource .
-
-shareyourcloning_linkml:CRISPRSource a sh:NodeShape ;
-    rdfs:subClassOf shareyourcloning_linkml:HomologousRecombinationSource ;
-    sh:closed true ;
-    sh:description "Represents the source of a sequence that is generated by CRISPR" ;
-    sh:ignoredProperties ( rdf:type ) ;
-    sh:property [ sh:class shareyourcloning_linkml:AssemblyFragment ;
-            sh:description "A list of the fragments that are assembled, in order" ;
-            sh:minCount 1 ;
-            sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 2 ;
-            sh:path shareyourcloning_linkml:assembly ],
-        [ sh:datatype xsd:string ;
-            sh:description "Used to specify the name of the output sequence" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 6 ;
-            sh:path shareyourcloning_linkml:output_name ],
-        [ sh:class shareyourcloning_linkml:Sequence ;
-            sh:description "The sequences that are an input to this source. If the source represents external import of a sequence, it's empty." ;
-            sh:nodeKind sh:IRI ;
-            sh:order 3 ;
-            sh:path shareyourcloning_linkml:input ],
-        [ sh:datatype xsd:string ;
-            sh:description "Designates the class" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 5 ;
-            sh:path shareyourcloning_linkml:type ],
-        [ sh:class shareyourcloning_linkml:Primer ;
-            sh:description "The guide RNAs used in the CRISPR" ;
-            sh:minCount 1 ;
-            sh:nodeKind sh:IRI ;
-            sh:order 0 ;
-            sh:path shareyourcloning_linkml:guides ],
-        [ sh:datatype xsd:boolean ;
-            sh:description "Whether the assembly is circular or not" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 1 ;
-            sh:path shareyourcloning_linkml:circular ],
-        [ sh:class shareyourcloning_linkml:Sequence ;
-            sh:description "Identifier of the sequence that is the output of this source." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:IRI ;
-            sh:order 4 ;
-            sh:path shareyourcloning_linkml:output ],
-        [ sh:datatype xsd:integer ;
-            sh:description "A unique identifier for a thing" ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 7 ;
-            sh:path schema1:identifier ] ;
-    sh:targetClass shareyourcloning_linkml:CRISPRSource .
-
-shareyourcloning_linkml:CloningStrategy a sh:NodeShape ;
-    sh:closed true ;
-    sh:description "Represents a cloning strategy" ;
-    sh:ignoredProperties ( rdf:type ) ;
-    sh:property [ sh:datatype xsd:string ;
-            sh:description "A description of the cloning strategy" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 3 ;
-            sh:path shareyourcloning_linkml:description ],
-        [ sh:class shareyourcloning_linkml:Sequence ;
-            sh:description "The sequences that are used in the cloning strategy" ;
-            sh:minCount 1 ;
-            sh:nodeKind sh:IRI ;
-            sh:order 0 ;
-            sh:path shareyourcloning_linkml:sequences ],
-        [ sh:class shareyourcloning_linkml:Source ;
-            sh:description "The sources of the sequences that are used in the cloning strategy" ;
-            sh:minCount 1 ;
-            sh:nodeKind sh:IRI ;
-            sh:order 1 ;
-            sh:path shareyourcloning_linkml:sources ],
-        [ sh:class shareyourcloning_linkml:Primer ;
-            sh:description "The primers that are used in the cloning strategy" ;
-            sh:nodeKind sh:IRI ;
-            sh:order 2 ;
-            sh:path shareyourcloning_linkml:primers ] ;
-    sh:targetClass shareyourcloning_linkml:CloningStrategy .
-
-shareyourcloning_linkml:EuroscarfSource a sh:NodeShape ;
-    rdfs:subClassOf shareyourcloning_linkml:RepositoryIdSource ;
-    sh:closed true ;
-    sh:description "Represents the source of a sequence from the Euroscarf plasmid library" ;
-    sh:ignoredProperties ( rdf:type ) ;
-    sh:property [ sh:in ( "addgene" "genbank" "benchling" "snapgene" "euroscarf" "igem" ) ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:order 1 ;
-            sh:path shareyourcloning_linkml:repository_name ],
-        [ sh:datatype xsd:string ;
-            sh:description "Used to specify the name of the output sequence" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 5 ;
-            sh:path shareyourcloning_linkml:output_name ],
-        [ sh:datatype xsd:string ;
-            sh:description "The id of the plasmid in the Euroscarf plasmid library" ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 0 ;
-            sh:path shareyourcloning_linkml:repository_id ;
-            sh:pattern "^P\\d+$" ],
-        [ sh:class shareyourcloning_linkml:Sequence ;
-            sh:description "Identifier of the sequence that is the output of this source." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:IRI ;
-            sh:order 3 ;
-            sh:path shareyourcloning_linkml:output ],
-        [ sh:datatype xsd:integer ;
-            sh:description "A unique identifier for a thing" ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 6 ;
-            sh:path schema1:identifier ],
-        [ sh:datatype xsd:string ;
-            sh:description "Designates the class" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 4 ;
-            sh:path shareyourcloning_linkml:type ],
-        [ sh:class shareyourcloning_linkml:Sequence ;
-            sh:description "The sequences that are an input to this source. If the source represents external import of a sequence, it's empty." ;
-            sh:nodeKind sh:IRI ;
-            sh:order 2 ;
-            sh:path shareyourcloning_linkml:input ] ;
     sh:targetClass shareyourcloning_linkml:EuroscarfSource .
 
 shareyourcloning_linkml:GatewaySource a sh:NodeShape ;
-    rdfs:subClassOf shareyourcloning_linkml:AssemblySource ;
     sh:closed true ;
     sh:description "Represents the source of a sequence that is generated by Gateway cloning" ;
     sh:ignoredProperties ( rdf:type ) ;
-    sh:property [ sh:class shareyourcloning_linkml:Sequence ;
-            sh:description "The sequences that are an input to this source. If the source represents external import of a sequence, it's empty." ;
-            sh:nodeKind sh:IRI ;
-            sh:order 4 ;
-            sh:path shareyourcloning_linkml:input ],
-        [ sh:datatype xsd:boolean ;
-            sh:description "Whether the assembly is circular or not" ;
+    sh:property [ sh:datatype xsd:integer ;
+            sh:description "A unique identifier for a thing" ;
             sh:maxCount 1 ;
+            sh:minCount 1 ;
             sh:nodeKind sh:Literal ;
-            sh:order 2 ;
-            sh:path shareyourcloning_linkml:circular ],
-        [ sh:datatype xsd:string ;
-            sh:description "Used to specify the name of the output sequence" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 7 ;
-            sh:path shareyourcloning_linkml:output_name ],
+            sh:order 8 ;
+            sh:path schema1:identifier ],
         [ sh:in ( "LR" "BP" ) ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
@@ -334,93 +382,53 @@ shareyourcloning_linkml:GatewaySource a sh:NodeShape ;
             sh:nodeKind sh:BlankNodeOrIRI ;
             sh:order 3 ;
             sh:path shareyourcloning_linkml:assembly ],
+        [ sh:class shareyourcloning_linkml:Sequence ;
+            sh:description "The sequences that are an input to this source. If the source represents external import of a sequence, it's empty." ;
+            sh:nodeKind sh:IRI ;
+            sh:order 4 ;
+            sh:path shareyourcloning_linkml:input ],
+        [ sh:class shareyourcloning_linkml:Sequence ;
+            sh:description "Identifier of the sequence that is the output of this source." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 5 ;
+            sh:path shareyourcloning_linkml:output ],
         [ sh:datatype xsd:boolean ;
-            sh:description "Whether to use a greedy consensus sequence for att sites (see https://github.com/manulera/GateWayMine)" ;
+            sh:description "Whether the assembly is circular or not" ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
-            sh:order 1 ;
-            sh:path shareyourcloning_linkml:greedy ],
+            sh:order 2 ;
+            sh:path shareyourcloning_linkml:circular ],
         [ sh:datatype xsd:string ;
             sh:description "Designates the class" ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
             sh:order 6 ;
             sh:path shareyourcloning_linkml:type ],
-        [ sh:datatype xsd:integer ;
-            sh:description "A unique identifier for a thing" ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 8 ;
-            sh:path schema1:identifier ],
-        [ sh:class shareyourcloning_linkml:Sequence ;
-            sh:description "Identifier of the sequence that is the output of this source." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:IRI ;
-            sh:order 5 ;
-            sh:path shareyourcloning_linkml:output ] ;
-    sh:targetClass shareyourcloning_linkml:GatewaySource .
-
-shareyourcloning_linkml:GenomeCoordinatesSource a sh:NodeShape ;
-    rdfs:subClassOf shareyourcloning_linkml:Source ;
-    sh:closed true ;
-    sh:description "Represents the source of a sequence that is identified by genome coordinates, requested from NCBI" ;
-    sh:ignoredProperties ( rdf:type ) ;
-    sh:property [ sh:datatype xsd:string ;
-            sh:description "Designates the class" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 9 ;
-            sh:path shareyourcloning_linkml:type ],
-        [ sh:datatype xsd:string ;
-            sh:description "The accession of the assembly" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 0 ;
-            sh:path shareyourcloning_linkml:assembly_accession ],
         [ sh:datatype xsd:string ;
             sh:description "Used to specify the name of the output sequence" ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
-            sh:order 10 ;
+            sh:order 7 ;
             sh:path shareyourcloning_linkml:output_name ],
-        [ sh:datatype xsd:integer ;
-            sh:description "The starting coordinate (1-based) of the sequence in the sequence accession" ;
+        [ sh:datatype xsd:boolean ;
+            sh:description "Whether to use a greedy consensus sequence for att sites (see https://github.com/manulera/GateWayMine)" ;
             sh:maxCount 1 ;
-            sh:minCount 1 ;
             sh:nodeKind sh:Literal ;
-            sh:order 4 ;
-            sh:path shareyourcloning_linkml:start ],
-        [ sh:class shareyourcloning_linkml:Sequence ;
+            sh:order 1 ;
+            sh:path shareyourcloning_linkml:greedy ] ;
+    sh:targetClass shareyourcloning_linkml:GatewaySource .
+
+shareyourcloning_linkml:GenomeCoordinatesSource a sh:NodeShape ;
+    sh:closed true ;
+    sh:description "Represents the source of a sequence that is identified by genome coordinates, requested from NCBI" ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:class shareyourcloning_linkml:Sequence ;
             sh:description "Identifier of the sequence that is the output of this source." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:IRI ;
             sh:order 8 ;
             sh:path shareyourcloning_linkml:output ],
-        [ sh:datatype xsd:integer ;
-            sh:description "The gene id of the sequence" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 3 ;
-            sh:path shareyourcloning_linkml:gene_id ],
-        [ sh:datatype xsd:string ;
-            sh:description "The locus tag of the sequence" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 2 ;
-            sh:path shareyourcloning_linkml:locus_tag ],
-        [ sh:class shareyourcloning_linkml:Sequence ;
-            sh:description "The sequences that are an input to this source. If the source represents external import of a sequence, it's empty." ;
-            sh:nodeKind sh:IRI ;
-            sh:order 7 ;
-            sh:path shareyourcloning_linkml:input ],
-        [ sh:datatype xsd:string ;
-            sh:description "The accession of the sequence" ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 1 ;
-            sh:path shareyourcloning_linkml:sequence_accession ],
         [ sh:datatype xsd:integer ;
             sh:description "The ending coordinate (1-based) of the sequence in the sequence accession" ;
             sh:maxCount 1 ;
@@ -429,32 +437,103 @@ shareyourcloning_linkml:GenomeCoordinatesSource a sh:NodeShape ;
             sh:order 5 ;
             sh:path shareyourcloning_linkml:end ],
         [ sh:datatype xsd:integer ;
-            sh:description "A unique identifier for a thing" ;
+            sh:description "The gene id of the sequence" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path shareyourcloning_linkml:gene_id ],
+        [ sh:datatype xsd:integer ;
+            sh:description "The starting coordinate (1-based) of the sequence in the sequence accession" ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
             sh:nodeKind sh:Literal ;
-            sh:order 11 ;
-            sh:path schema1:identifier ],
+            sh:order 4 ;
+            sh:path shareyourcloning_linkml:start ],
         [ sh:datatype xsd:integer ;
             sh:description "The strand of the sequence in the sequence accession, should be 1 or -1" ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
             sh:nodeKind sh:Literal ;
             sh:order 6 ;
-            sh:path shareyourcloning_linkml:strand ] ;
+            sh:path shareyourcloning_linkml:strand ],
+        [ sh:class shareyourcloning_linkml:Sequence ;
+            sh:description "The sequences that are an input to this source. If the source represents external import of a sequence, it's empty." ;
+            sh:nodeKind sh:IRI ;
+            sh:order 7 ;
+            sh:path shareyourcloning_linkml:input ],
+        [ sh:datatype xsd:string ;
+            sh:description "The locus tag of the sequence" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path shareyourcloning_linkml:locus_tag ],
+        [ sh:datatype xsd:string ;
+            sh:description "The accession of the sequence" ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path shareyourcloning_linkml:sequence_accession ],
+        [ sh:datatype xsd:string ;
+            sh:description "Used to specify the name of the output sequence" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 10 ;
+            sh:path shareyourcloning_linkml:output_name ],
+        [ sh:datatype xsd:string ;
+            sh:description "The accession of the assembly" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path shareyourcloning_linkml:assembly_accession ],
+        [ sh:datatype xsd:string ;
+            sh:description "Designates the class" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 9 ;
+            sh:path shareyourcloning_linkml:type ],
+        [ sh:datatype xsd:integer ;
+            sh:description "A unique identifier for a thing" ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 11 ;
+            sh:path schema1:identifier ] ;
     sh:targetClass shareyourcloning_linkml:GenomeCoordinatesSource .
 
 shareyourcloning_linkml:GibsonAssemblySource a sh:NodeShape ;
-    rdfs:subClassOf shareyourcloning_linkml:AssemblySource ;
     sh:closed true ;
     sh:description "Represents the source of a sequence that is generated by Gibson assembly" ;
     sh:ignoredProperties ( rdf:type ) ;
     sh:property [ sh:datatype xsd:string ;
+            sh:description "Designates the class" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path shareyourcloning_linkml:type ],
+        [ sh:datatype xsd:string ;
             sh:description "Used to specify the name of the output sequence" ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
             sh:order 5 ;
             sh:path shareyourcloning_linkml:output_name ],
+        [ sh:class shareyourcloning_linkml:Sequence ;
+            sh:description "The sequences that are an input to this source. If the source represents external import of a sequence, it's empty." ;
+            sh:nodeKind sh:IRI ;
+            sh:order 2 ;
+            sh:path shareyourcloning_linkml:input ],
+        [ sh:class shareyourcloning_linkml:AssemblyFragment ;
+            sh:description "A list of the fragments that are assembled, in order" ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 1 ;
+            sh:path shareyourcloning_linkml:assembly ],
+        [ sh:class shareyourcloning_linkml:Sequence ;
+            sh:description "Identifier of the sequence that is the output of this source." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 3 ;
+            sh:path shareyourcloning_linkml:output ],
         [ sh:datatype xsd:integer ;
             sh:description "A unique identifier for a thing" ;
             sh:maxCount 1 ;
@@ -467,44 +546,62 @@ shareyourcloning_linkml:GibsonAssemblySource a sh:NodeShape ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
             sh:order 0 ;
-            sh:path shareyourcloning_linkml:circular ],
-        [ sh:class shareyourcloning_linkml:Sequence ;
-            sh:description "Identifier of the sequence that is the output of this source." ;
+            sh:path shareyourcloning_linkml:circular ] ;
+    sh:targetClass shareyourcloning_linkml:GibsonAssemblySource .
+
+shareyourcloning_linkml:HomologousRecombinationSource a sh:NodeShape ;
+    sh:closed true ;
+    sh:description "Represents the source of a sequence that is generated by homologous recombination" ;
+    sh:ignoredProperties ( rdf:type shareyourcloning_linkml:guides ) ;
+    sh:property [ sh:class shareyourcloning_linkml:AssemblyFragment ;
+            sh:description "A list of the fragments that are assembled, in order" ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 1 ;
+            sh:path shareyourcloning_linkml:assembly ],
+        [ sh:datatype xsd:boolean ;
+            sh:description "Whether the assembly is circular or not" ;
             sh:maxCount 1 ;
-            sh:nodeKind sh:IRI ;
-            sh:order 3 ;
-            sh:path shareyourcloning_linkml:output ],
-        [ sh:class shareyourcloning_linkml:Sequence ;
-            sh:description "The sequences that are an input to this source. If the source represents external import of a sequence, it's empty." ;
-            sh:nodeKind sh:IRI ;
-            sh:order 2 ;
-            sh:path shareyourcloning_linkml:input ],
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path shareyourcloning_linkml:circular ],
         [ sh:datatype xsd:string ;
             sh:description "Designates the class" ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
             sh:order 4 ;
             sh:path shareyourcloning_linkml:type ],
-        [ sh:class shareyourcloning_linkml:AssemblyFragment ;
-            sh:description "A list of the fragments that are assembled, in order" ;
-            sh:minCount 1 ;
-            sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 1 ;
-            sh:path shareyourcloning_linkml:assembly ] ;
-    sh:targetClass shareyourcloning_linkml:GibsonAssemblySource .
-
-shareyourcloning_linkml:IGEMSource a sh:NodeShape ;
-    rdfs:subClassOf shareyourcloning_linkml:RepositoryIdSource ;
-    sh:closed true ;
-    sh:description "Represents the source of a sequence from an iGEM collection" ;
-    sh:ignoredProperties ( rdf:type ) ;
-    sh:property [ sh:class shareyourcloning_linkml:Sequence ;
+        [ sh:class shareyourcloning_linkml:Sequence ;
+            sh:description "The sequences that are an input to this source. If the source represents external import of a sequence, it's empty." ;
+            sh:nodeKind sh:IRI ;
+            sh:order 2 ;
+            sh:path shareyourcloning_linkml:input ],
+        [ sh:class shareyourcloning_linkml:Sequence ;
             sh:description "Identifier of the sequence that is the output of this source." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:IRI ;
-            sh:order 4 ;
+            sh:order 3 ;
             sh:path shareyourcloning_linkml:output ],
+        [ sh:datatype xsd:integer ;
+            sh:description "A unique identifier for a thing" ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 6 ;
+            sh:path schema1:identifier ],
         [ sh:datatype xsd:string ;
+            sh:description "Used to specify the name of the output sequence" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 5 ;
+            sh:path shareyourcloning_linkml:output_name ] ;
+    sh:targetClass shareyourcloning_linkml:HomologousRecombinationSource .
+
+shareyourcloning_linkml:IGEMSource a sh:NodeShape ;
+    sh:closed true ;
+    sh:description "Represents the source of a sequence from an iGEM collection" ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
             sh:description "The URL of the sequence file, for now github repository" ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
@@ -512,23 +609,6 @@ shareyourcloning_linkml:IGEMSource a sh:NodeShape ;
             sh:order 0 ;
             sh:path shareyourcloning_linkml:sequence_file_url ;
             sh:pattern "^https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)$" ],
-        [ sh:datatype xsd:string ;
-            sh:description "Designates the class" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 5 ;
-            sh:path shareyourcloning_linkml:type ],
-        [ sh:datatype xsd:string ;
-            sh:description "Used to specify the name of the output sequence" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 6 ;
-            sh:path shareyourcloning_linkml:output_name ],
-        [ sh:class shareyourcloning_linkml:Sequence ;
-            sh:description "The sequences that are an input to this source. If the source represents external import of a sequence, it's empty." ;
-            sh:nodeKind sh:IRI ;
-            sh:order 3 ;
-            sh:path shareyourcloning_linkml:input ],
         [ sh:datatype xsd:integer ;
             sh:description "A unique identifier for a thing" ;
             sh:maxCount 1 ;
@@ -536,6 +616,28 @@ shareyourcloning_linkml:IGEMSource a sh:NodeShape ;
             sh:nodeKind sh:Literal ;
             sh:order 7 ;
             sh:path schema1:identifier ],
+        [ sh:class shareyourcloning_linkml:Sequence ;
+            sh:description "Identifier of the sequence that is the output of this source." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 4 ;
+            sh:path shareyourcloning_linkml:output ],
+        [ sh:class shareyourcloning_linkml:Sequence ;
+            sh:description "The sequences that are an input to this source. If the source represents external import of a sequence, it's empty." ;
+            sh:nodeKind sh:IRI ;
+            sh:order 3 ;
+            sh:path shareyourcloning_linkml:input ],
+        [ sh:in ( "addgene" "genbank" "benchling" "snapgene" "euroscarf" "igem" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 2 ;
+            sh:path shareyourcloning_linkml:repository_name ],
+        [ sh:datatype xsd:string ;
+            sh:description "Designates the class" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 5 ;
+            sh:path shareyourcloning_linkml:type ],
         [ sh:datatype xsd:string ;
             sh:description "The unique identifier of the sequence in the iGEM collection (for now, {part_id}-{plasmid_backbone})" ;
             sh:maxCount 1 ;
@@ -543,84 +645,41 @@ shareyourcloning_linkml:IGEMSource a sh:NodeShape ;
             sh:nodeKind sh:Literal ;
             sh:order 1 ;
             sh:path shareyourcloning_linkml:repository_id ],
-        [ sh:in ( "addgene" "genbank" "benchling" "snapgene" "euroscarf" "igem" ) ;
+        [ sh:datatype xsd:string ;
+            sh:description "Used to specify the name of the output sequence" ;
             sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:order 2 ;
-            sh:path shareyourcloning_linkml:repository_name ] ;
+            sh:nodeKind sh:Literal ;
+            sh:order 6 ;
+            sh:path shareyourcloning_linkml:output_name ] ;
     sh:targetClass shareyourcloning_linkml:IGEMSource .
 
 shareyourcloning_linkml:InFusionSource a sh:NodeShape ;
-    rdfs:subClassOf shareyourcloning_linkml:AssemblySource ;
     sh:closed true ;
     sh:description "Represents the source of a sequence that is generated by In-Fusion cloning by Takara Bio" ;
     sh:ignoredProperties ( rdf:type ) ;
     sh:property [ sh:datatype xsd:string ;
-            sh:description "Used to specify the name of the output sequence" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 5 ;
-            sh:path shareyourcloning_linkml:output_name ],
-        [ sh:class shareyourcloning_linkml:Sequence ;
-            sh:description "Identifier of the sequence that is the output of this source." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:IRI ;
-            sh:order 3 ;
-            sh:path shareyourcloning_linkml:output ],
-        [ sh:class shareyourcloning_linkml:Sequence ;
-            sh:description "The sequences that are an input to this source. If the source represents external import of a sequence, it's empty." ;
-            sh:nodeKind sh:IRI ;
-            sh:order 2 ;
-            sh:path shareyourcloning_linkml:input ],
-        [ sh:datatype xsd:boolean ;
-            sh:description "Whether the assembly is circular or not" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 0 ;
-            sh:path shareyourcloning_linkml:circular ],
-        [ sh:class shareyourcloning_linkml:AssemblyFragment ;
-            sh:description "A list of the fragments that are assembled, in order" ;
-            sh:minCount 1 ;
-            sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 1 ;
-            sh:path shareyourcloning_linkml:assembly ],
-        [ sh:datatype xsd:integer ;
-            sh:description "A unique identifier for a thing" ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 6 ;
-            sh:path schema1:identifier ],
-        [ sh:datatype xsd:string ;
-            sh:description "Designates the class" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 4 ;
-            sh:path shareyourcloning_linkml:type ] ;
-    sh:targetClass shareyourcloning_linkml:InFusionSource .
-
-shareyourcloning_linkml:LigationSource a sh:NodeShape ;
-    rdfs:subClassOf shareyourcloning_linkml:AssemblySource ;
-    sh:closed true ;
-    sh:description "Represents the source of a sequence that is generated by ligation with sticky or blunt ends." ;
-    sh:ignoredProperties ( rdf:type ) ;
-    sh:property [ sh:class shareyourcloning_linkml:Sequence ;
-            sh:description "The sequences that are an input to this source. If the source represents external import of a sequence, it's empty." ;
-            sh:nodeKind sh:IRI ;
-            sh:order 2 ;
-            sh:path shareyourcloning_linkml:input ],
-        [ sh:datatype xsd:boolean ;
-            sh:description "Whether the assembly is circular or not" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 0 ;
-            sh:path shareyourcloning_linkml:circular ],
-        [ sh:datatype xsd:string ;
             sh:description "Designates the class" ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
             sh:order 4 ;
             sh:path shareyourcloning_linkml:type ],
+        [ sh:class shareyourcloning_linkml:Sequence ;
+            sh:description "The sequences that are an input to this source. If the source represents external import of a sequence, it's empty." ;
+            sh:nodeKind sh:IRI ;
+            sh:order 2 ;
+            sh:path shareyourcloning_linkml:input ],
+        [ sh:datatype xsd:string ;
+            sh:description "Used to specify the name of the output sequence" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 5 ;
+            sh:path shareyourcloning_linkml:output_name ],
+        [ sh:datatype xsd:boolean ;
+            sh:description "Whether the assembly is circular or not" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path shareyourcloning_linkml:circular ],
         [ sh:datatype xsd:integer ;
             sh:description "A unique identifier for a thing" ;
             sh:maxCount 1 ;
@@ -628,18 +687,60 @@ shareyourcloning_linkml:LigationSource a sh:NodeShape ;
             sh:nodeKind sh:Literal ;
             sh:order 6 ;
             sh:path schema1:identifier ],
-        [ sh:datatype xsd:string ;
-            sh:description "Used to specify the name of the output sequence" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 5 ;
-            sh:path shareyourcloning_linkml:output_name ],
         [ sh:class shareyourcloning_linkml:Sequence ;
             sh:description "Identifier of the sequence that is the output of this source." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:IRI ;
             sh:order 3 ;
             sh:path shareyourcloning_linkml:output ],
+        [ sh:class shareyourcloning_linkml:AssemblyFragment ;
+            sh:description "A list of the fragments that are assembled, in order" ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 1 ;
+            sh:path shareyourcloning_linkml:assembly ] ;
+    sh:targetClass shareyourcloning_linkml:InFusionSource .
+
+shareyourcloning_linkml:LigationSource a sh:NodeShape ;
+    sh:closed true ;
+    sh:description "Represents the source of a sequence that is generated by ligation with sticky or blunt ends." ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "Designates the class" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path shareyourcloning_linkml:type ],
+        [ sh:class shareyourcloning_linkml:Sequence ;
+            sh:description "Identifier of the sequence that is the output of this source." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 3 ;
+            sh:path shareyourcloning_linkml:output ],
+        [ sh:datatype xsd:string ;
+            sh:description "Used to specify the name of the output sequence" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 5 ;
+            sh:path shareyourcloning_linkml:output_name ],
+        [ sh:datatype xsd:boolean ;
+            sh:description "Whether the assembly is circular or not" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path shareyourcloning_linkml:circular ],
+        [ sh:class shareyourcloning_linkml:Sequence ;
+            sh:description "The sequences that are an input to this source. If the source represents external import of a sequence, it's empty." ;
+            sh:nodeKind sh:IRI ;
+            sh:order 2 ;
+            sh:path shareyourcloning_linkml:input ],
+        [ sh:datatype xsd:integer ;
+            sh:description "A unique identifier for a thing" ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 6 ;
+            sh:path schema1:identifier ],
         [ sh:class shareyourcloning_linkml:AssemblyFragment ;
             sh:description "A list of the fragments that are assembled, in order" ;
             sh:minCount 1 ;
@@ -649,69 +750,67 @@ shareyourcloning_linkml:LigationSource a sh:NodeShape ;
     sh:targetClass shareyourcloning_linkml:LigationSource .
 
 shareyourcloning_linkml:ManuallyTypedSource a sh:NodeShape ;
-    rdfs:subClassOf shareyourcloning_linkml:Source ;
     sh:closed true ;
     sh:description "Represents the source of a sequence that is manually typed by the user" ;
     sh:ignoredProperties ( rdf:type ) ;
-    sh:property [ sh:datatype xsd:boolean ;
-            sh:description "Whether the sequence is circular or not" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 3 ;
-            sh:path shareyourcloning_linkml:circular ],
-        [ sh:datatype xsd:string ;
+    sh:property [ sh:datatype xsd:string ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
             sh:nodeKind sh:Literal ;
             sh:order 2 ;
             sh:path shareyourcloning_linkml:user_input ;
             sh:pattern "^[acgtACGT]+$" ],
-        [ sh:datatype xsd:string ;
-            sh:description "Designates the class" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 6 ;
-            sh:path shareyourcloning_linkml:type ],
-        [ sh:datatype xsd:integer ;
-            sh:description "Taken from pydna's `dseq::ovhg`An integer describing the length of the crick strand overhang in the 5' of the molecule, or 3' of the crick strand" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 0 ;
-            sh:path shareyourcloning_linkml:overhang_crick_3prime ],
-        [ sh:datatype xsd:integer ;
-            sh:description "The equivalent of `overhang_crick_3prime` but for the watson strand" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 1 ;
-            sh:path shareyourcloning_linkml:overhang_watson_3prime ],
         [ sh:class shareyourcloning_linkml:Sequence ;
             sh:description "Identifier of the sequence that is the output of this source." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:IRI ;
             sh:order 5 ;
             sh:path shareyourcloning_linkml:output ],
-        [ sh:datatype xsd:string ;
-            sh:description "Used to specify the name of the output sequence" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 7 ;
-            sh:path shareyourcloning_linkml:output_name ],
         [ sh:class shareyourcloning_linkml:Sequence ;
             sh:description "The sequences that are an input to this source. If the source represents external import of a sequence, it's empty." ;
             sh:nodeKind sh:IRI ;
             sh:order 4 ;
             sh:path shareyourcloning_linkml:input ],
         [ sh:datatype xsd:integer ;
+            sh:description "Taken from pydna's `dseq::ovhg`An integer describing the length of the crick strand overhang in the 5' of the molecule, or 3' of the crick strand" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path shareyourcloning_linkml:overhang_crick_3prime ],
+        [ sh:datatype xsd:string ;
+            sh:description "Used to specify the name of the output sequence" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 7 ;
+            sh:path shareyourcloning_linkml:output_name ],
+        [ sh:datatype xsd:integer ;
             sh:description "A unique identifier for a thing" ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
             sh:nodeKind sh:Literal ;
             sh:order 8 ;
-            sh:path schema1:identifier ] ;
+            sh:path schema1:identifier ],
+        [ sh:datatype xsd:string ;
+            sh:description "Designates the class" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 6 ;
+            sh:path shareyourcloning_linkml:type ],
+        [ sh:datatype xsd:boolean ;
+            sh:description "Whether the sequence is circular or not" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path shareyourcloning_linkml:circular ],
+        [ sh:datatype xsd:integer ;
+            sh:description "The equivalent of `overhang_crick_3prime` but for the watson strand" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path shareyourcloning_linkml:overhang_watson_3prime ] ;
     sh:targetClass shareyourcloning_linkml:ManuallyTypedSource .
 
 shareyourcloning_linkml:OligoHybridizationSource a sh:NodeShape ;
-    rdfs:subClassOf shareyourcloning_linkml:Source ;
     sh:closed true ;
     sh:description "Represents the source of a sequence that is generated by oligo hybridization" ;
     sh:ignoredProperties ( rdf:type ) ;
@@ -720,38 +819,18 @@ shareyourcloning_linkml:OligoHybridizationSource a sh:NodeShape ;
             sh:nodeKind sh:IRI ;
             sh:order 3 ;
             sh:path shareyourcloning_linkml:input ],
-        [ sh:class shareyourcloning_linkml:Primer ;
-            sh:description "The forward oligo used in the hybridization" ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:nodeKind sh:IRI ;
-            sh:order 1 ;
-            sh:path shareyourcloning_linkml:forward_oligo ],
         [ sh:datatype xsd:string ;
             sh:description "Designates the class" ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
             sh:order 5 ;
             sh:path shareyourcloning_linkml:type ],
-        [ sh:class shareyourcloning_linkml:Primer ;
-            sh:description "The reverse oligo used in the hybridization" ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:nodeKind sh:IRI ;
-            sh:order 2 ;
-            sh:path shareyourcloning_linkml:reverse_oligo ],
-        [ sh:class shareyourcloning_linkml:Sequence ;
-            sh:description "Identifier of the sequence that is the output of this source." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:IRI ;
-            sh:order 4 ;
-            sh:path shareyourcloning_linkml:output ],
-        [ sh:datatype xsd:string ;
-            sh:description "Used to specify the name of the output sequence" ;
+        [ sh:datatype xsd:integer ;
+            sh:description "Taken from pydna's `dseq::ovhg`An integer describing the length of the crick strand overhang in the 5' of the molecule, or 3' of the crick strand" ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
-            sh:order 6 ;
-            sh:path shareyourcloning_linkml:output_name ],
+            sh:order 0 ;
+            sh:path shareyourcloning_linkml:overhang_crick_3prime ],
         [ sh:datatype xsd:integer ;
             sh:description "A unique identifier for a thing" ;
             sh:maxCount 1 ;
@@ -759,27 +838,39 @@ shareyourcloning_linkml:OligoHybridizationSource a sh:NodeShape ;
             sh:nodeKind sh:Literal ;
             sh:order 7 ;
             sh:path schema1:identifier ],
-        [ sh:datatype xsd:integer ;
-            sh:description "Taken from pydna's `dseq::ovhg`An integer describing the length of the crick strand overhang in the 5' of the molecule, or 3' of the crick strand" ;
+        [ sh:class shareyourcloning_linkml:Sequence ;
+            sh:description "Identifier of the sequence that is the output of this source." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 4 ;
+            sh:path shareyourcloning_linkml:output ],
+        [ sh:class shareyourcloning_linkml:Primer ;
+            sh:description "The forward oligo used in the hybridization" ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 1 ;
+            sh:path shareyourcloning_linkml:forward_oligo ],
+        [ sh:class shareyourcloning_linkml:Primer ;
+            sh:description "The reverse oligo used in the hybridization" ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 2 ;
+            sh:path shareyourcloning_linkml:reverse_oligo ],
+        [ sh:datatype xsd:string ;
+            sh:description "Used to specify the name of the output sequence" ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
-            sh:order 0 ;
-            sh:path shareyourcloning_linkml:overhang_crick_3prime ] ;
+            sh:order 6 ;
+            sh:path shareyourcloning_linkml:output_name ] ;
     sh:targetClass shareyourcloning_linkml:OligoHybridizationSource .
 
 shareyourcloning_linkml:OverlapExtensionPCRLigationSource a sh:NodeShape ;
-    rdfs:subClassOf shareyourcloning_linkml:AssemblySource ;
     sh:closed true ;
     sh:description "Represents the source of a sequence that is generated by ligation of PCR products as part of overlap extension PCR. Algorithmically equivalent to Gibson assembly." ;
     sh:ignoredProperties ( rdf:type ) ;
-    sh:property [ sh:datatype xsd:integer ;
-            sh:description "A unique identifier for a thing" ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 6 ;
-            sh:path schema1:identifier ],
-        [ sh:class shareyourcloning_linkml:AssemblyFragment ;
+    sh:property [ sh:class shareyourcloning_linkml:AssemblyFragment ;
             sh:description "A list of the fragments that are assembled, in order" ;
             sh:minCount 1 ;
             sh:nodeKind sh:BlankNodeOrIRI ;
@@ -791,23 +882,30 @@ shareyourcloning_linkml:OverlapExtensionPCRLigationSource a sh:NodeShape ;
             sh:nodeKind sh:Literal ;
             sh:order 0 ;
             sh:path shareyourcloning_linkml:circular ],
-        [ sh:class shareyourcloning_linkml:Sequence ;
-            sh:description "The sequences that are an input to this source. If the source represents external import of a sequence, it's empty." ;
-            sh:nodeKind sh:IRI ;
-            sh:order 2 ;
-            sh:path shareyourcloning_linkml:input ],
-        [ sh:class shareyourcloning_linkml:Sequence ;
-            sh:description "Identifier of the sequence that is the output of this source." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:IRI ;
-            sh:order 3 ;
-            sh:path shareyourcloning_linkml:output ],
         [ sh:datatype xsd:string ;
             sh:description "Used to specify the name of the output sequence" ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
             sh:order 5 ;
             sh:path shareyourcloning_linkml:output_name ],
+        [ sh:class shareyourcloning_linkml:Sequence ;
+            sh:description "Identifier of the sequence that is the output of this source." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 3 ;
+            sh:path shareyourcloning_linkml:output ],
+        [ sh:class shareyourcloning_linkml:Sequence ;
+            sh:description "The sequences that are an input to this source. If the source represents external import of a sequence, it's empty." ;
+            sh:nodeKind sh:IRI ;
+            sh:order 2 ;
+            sh:path shareyourcloning_linkml:input ],
+        [ sh:datatype xsd:integer ;
+            sh:description "A unique identifier for a thing" ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 6 ;
+            sh:path schema1:identifier ],
         [ sh:datatype xsd:string ;
             sh:description "Designates the class" ;
             sh:maxCount 1 ;
@@ -817,22 +915,21 @@ shareyourcloning_linkml:OverlapExtensionPCRLigationSource a sh:NodeShape ;
     sh:targetClass shareyourcloning_linkml:OverlapExtensionPCRLigationSource .
 
 shareyourcloning_linkml:PCRSource a sh:NodeShape ;
-    rdfs:subClassOf shareyourcloning_linkml:AssemblySource ;
     sh:closed true ;
     sh:description "Represents the source of a sequence that is generated by PCR" ;
     sh:ignoredProperties ( rdf:type ) ;
-    sh:property [ sh:class shareyourcloning_linkml:AssemblyFragment ;
-            sh:description "A list of the fragments that are assembled, in order" ;
-            sh:minCount 1 ;
-            sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 2 ;
-            sh:path shareyourcloning_linkml:assembly ],
-        [ sh:datatype xsd:boolean ;
-            sh:description "Whether the assembly is circular or not" ;
+    sh:property [ sh:class shareyourcloning_linkml:Sequence ;
+            sh:description "Identifier of the sequence that is the output of this source." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 4 ;
+            sh:path shareyourcloning_linkml:output ],
+        [ sh:datatype xsd:string ;
+            sh:description "Designates the class" ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
-            sh:order 1 ;
-            sh:path shareyourcloning_linkml:circular ],
+            sh:order 5 ;
+            sh:path shareyourcloning_linkml:type ],
         [ sh:datatype xsd:integer ;
             sh:description "A unique identifier for a thing" ;
             sh:maxCount 1 ;
@@ -840,43 +937,63 @@ shareyourcloning_linkml:PCRSource a sh:NodeShape ;
             sh:nodeKind sh:Literal ;
             sh:order 7 ;
             sh:path schema1:identifier ],
-        [ sh:datatype xsd:boolean ;
-            sh:description "Whether to add primer features to the PCR product" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 0 ;
-            sh:path shareyourcloning_linkml:add_primer_features ],
-        [ sh:class shareyourcloning_linkml:Sequence ;
-            sh:description "Identifier of the sequence that is the output of this source." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:IRI ;
-            sh:order 4 ;
-            sh:path shareyourcloning_linkml:output ],
+        [ sh:class shareyourcloning_linkml:AssemblyFragment ;
+            sh:description "A list of the fragments that are assembled, in order" ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 2 ;
+            sh:path shareyourcloning_linkml:assembly ],
         [ sh:class shareyourcloning_linkml:Sequence ;
             sh:description "The sequences that are an input to this source. If the source represents external import of a sequence, it's empty." ;
             sh:nodeKind sh:IRI ;
             sh:order 3 ;
             sh:path shareyourcloning_linkml:input ],
         [ sh:datatype xsd:string ;
-            sh:description "Designates the class" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 5 ;
-            sh:path shareyourcloning_linkml:type ],
-        [ sh:datatype xsd:string ;
             sh:description "Used to specify the name of the output sequence" ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
             sh:order 6 ;
-            sh:path shareyourcloning_linkml:output_name ] ;
+            sh:path shareyourcloning_linkml:output_name ],
+        [ sh:datatype xsd:boolean ;
+            sh:description "Whether the assembly is circular or not" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path shareyourcloning_linkml:circular ],
+        [ sh:datatype xsd:boolean ;
+            sh:description "Whether to add primer features to the PCR product" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path shareyourcloning_linkml:add_primer_features ] ;
     sh:targetClass shareyourcloning_linkml:PCRSource .
 
 shareyourcloning_linkml:PlannotateAnnotationReport a sh:NodeShape ;
-    rdfs:subClassOf shareyourcloning_linkml:AnnotationReport ;
     sh:closed true ;
     sh:description "Represents a report of an annotation step using Plannotate" ;
     sh:ignoredProperties ( rdf:type ) ;
     sh:property [ sh:datatype xsd:string ;
+            sh:description "Designates the class" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 14 ;
+            sh:path shareyourcloning_linkml:type ],
+        [ sh:datatype xsd:float ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path shareyourcloning_linkml:percent_identity ],
+        [ sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path shareyourcloning_linkml:strand ],
+        [ sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path shareyourcloning_linkml:end_location ],
+        [ sh:datatype xsd:string ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
             sh:order 12 ;
@@ -886,36 +1003,6 @@ shareyourcloning_linkml:PlannotateAnnotationReport a sh:NodeShape ;
             sh:nodeKind sh:Literal ;
             sh:order 6 ;
             sh:path shareyourcloning_linkml:length_of_found_feature ],
-        [ sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 0 ;
-            sh:path shareyourcloning_linkml:sseqid ],
-        [ sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 13 ;
-            sh:path shareyourcloning_linkml:sequence ],
-        [ sh:datatype xsd:float ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 4 ;
-            sh:path shareyourcloning_linkml:percent_identity ],
-        [ sh:datatype xsd:boolean ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 8 ;
-            sh:path shareyourcloning_linkml:fragment ],
-        [ sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 2 ;
-            sh:path shareyourcloning_linkml:end_location ],
-        [ sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 5 ;
-            sh:path shareyourcloning_linkml:full_length_of_feature_in_db ],
         [ sh:datatype xsd:float ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
@@ -929,42 +1016,45 @@ shareyourcloning_linkml:PlannotateAnnotationReport a sh:NodeShape ;
         [ sh:datatype xsd:string ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
-            sh:order 11 ;
-            sh:path shareyourcloning_linkml:Type ],
-        [ sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 1 ;
-            sh:path shareyourcloning_linkml:start_location ],
-        [ sh:datatype xsd:string ;
-            sh:description "Designates the class" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 14 ;
-            sh:path shareyourcloning_linkml:type ],
+            sh:order 0 ;
+            sh:path shareyourcloning_linkml:sseqid ],
         [ sh:datatype xsd:string ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
             sh:order 10 ;
             sh:path shareyourcloning_linkml:Feature ],
+        [ sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 8 ;
+            sh:path shareyourcloning_linkml:fragment ],
         [ sh:datatype xsd:integer ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
-            sh:order 3 ;
-            sh:path shareyourcloning_linkml:strand ] ;
+            sh:order 5 ;
+            sh:path shareyourcloning_linkml:full_length_of_feature_in_db ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 11 ;
+            sh:path shareyourcloning_linkml:Type ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 13 ;
+            sh:path shareyourcloning_linkml:sequence ],
+        [ sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path shareyourcloning_linkml:start_location ] ;
     sh:targetClass shareyourcloning_linkml:PlannotateAnnotationReport .
 
 shareyourcloning_linkml:PolymeraseExtensionSource a sh:NodeShape ;
-    rdfs:subClassOf shareyourcloning_linkml:Source ;
     sh:closed true ;
     sh:description "Represents the source of a sequence that is generated by polymerase extension" ;
     sh:ignoredProperties ( rdf:type ) ;
-    sh:property [ sh:class shareyourcloning_linkml:Sequence ;
-            sh:description "The sequences that are an input to this source. If the source represents external import of a sequence, it's empty." ;
-            sh:nodeKind sh:IRI ;
-            sh:order 0 ;
-            sh:path shareyourcloning_linkml:input ],
-        [ sh:datatype xsd:integer ;
+    sh:property [ sh:datatype xsd:integer ;
             sh:description "A unique identifier for a thing" ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
@@ -977,37 +1067,89 @@ shareyourcloning_linkml:PolymeraseExtensionSource a sh:NodeShape ;
             sh:nodeKind sh:Literal ;
             sh:order 2 ;
             sh:path shareyourcloning_linkml:type ],
-        [ sh:datatype xsd:string ;
-            sh:description "Used to specify the name of the output sequence" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 3 ;
-            sh:path shareyourcloning_linkml:output_name ],
+        [ sh:class shareyourcloning_linkml:Sequence ;
+            sh:description "The sequences that are an input to this source. If the source represents external import of a sequence, it's empty." ;
+            sh:nodeKind sh:IRI ;
+            sh:order 0 ;
+            sh:path shareyourcloning_linkml:input ],
         [ sh:class shareyourcloning_linkml:Sequence ;
             sh:description "Identifier of the sequence that is the output of this source." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:IRI ;
             sh:order 1 ;
-            sh:path shareyourcloning_linkml:output ] ;
-    sh:targetClass shareyourcloning_linkml:PolymeraseExtensionSource .
-
-shareyourcloning_linkml:RestrictionAndLigationSource a sh:NodeShape ;
-    rdfs:subClassOf shareyourcloning_linkml:AssemblySource ;
-    sh:closed true ;
-    sh:description "Represents the source of a sequence that is generated by restriction and ligation" ;
-    sh:ignoredProperties ( rdf:type ) ;
-    sh:property [ sh:datatype xsd:string ;
-            sh:description "Designates the class" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 5 ;
-            sh:path shareyourcloning_linkml:type ],
+            sh:path shareyourcloning_linkml:output ],
         [ sh:datatype xsd:string ;
             sh:description "Used to specify the name of the output sequence" ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
-            sh:order 6 ;
+            sh:order 3 ;
+            sh:path shareyourcloning_linkml:output_name ] ;
+    sh:targetClass shareyourcloning_linkml:PolymeraseExtensionSource .
+
+shareyourcloning_linkml:RepositoryIdSource a sh:NodeShape ;
+    sh:closed true ;
+    sh:description "Represents the source of a sequence that is identified by a repository id" ;
+    sh:ignoredProperties ( rdf:type shareyourcloning_linkml:sequence_file_url shareyourcloning_linkml:addgene_sequence_type ) ;
+    sh:property [ sh:class shareyourcloning_linkml:Sequence ;
+            sh:description "Identifier of the sequence that is the output of this source." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 3 ;
+            sh:path shareyourcloning_linkml:output ],
+        [ sh:datatype xsd:string ;
+            sh:description "Used to specify the name of the output sequence" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 5 ;
             sh:path shareyourcloning_linkml:output_name ],
+        [ sh:in ( "addgene" "genbank" "benchling" "snapgene" "euroscarf" "igem" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 1 ;
+            sh:path shareyourcloning_linkml:repository_name ],
+        [ sh:datatype xsd:string ;
+            sh:description "Designates the class" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path shareyourcloning_linkml:type ],
+        [ sh:datatype xsd:integer ;
+            sh:description "A unique identifier for a thing" ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 6 ;
+            sh:path schema1:identifier ],
+        [ sh:class shareyourcloning_linkml:Sequence ;
+            sh:description "The sequences that are an input to this source. If the source represents external import of a sequence, it's empty." ;
+            sh:nodeKind sh:IRI ;
+            sh:order 2 ;
+            sh:path shareyourcloning_linkml:input ],
+        [ sh:datatype xsd:string ;
+            sh:description "The id of the sequence in the repository" ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path shareyourcloning_linkml:repository_id ] ;
+    sh:targetClass shareyourcloning_linkml:RepositoryIdSource .
+
+shareyourcloning_linkml:RestrictionAndLigationSource a sh:NodeShape ;
+    sh:closed true ;
+    sh:description "Represents the source of a sequence that is generated by restriction and ligation" ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:class shareyourcloning_linkml:AssemblyFragment ;
+            sh:description "A list of the fragments that are assembled, in order" ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 2 ;
+            sh:path shareyourcloning_linkml:assembly ],
+        [ sh:class shareyourcloning_linkml:Sequence ;
+            sh:description "Identifier of the sequence that is the output of this source." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 4 ;
+            sh:path shareyourcloning_linkml:output ],
         [ sh:datatype xsd:string ;
             sh:minCount 1 ;
             sh:nodeKind sh:Literal ;
@@ -1020,65 +1162,59 @@ shareyourcloning_linkml:RestrictionAndLigationSource a sh:NodeShape ;
             sh:nodeKind sh:Literal ;
             sh:order 7 ;
             sh:path schema1:identifier ],
-        [ sh:class shareyourcloning_linkml:AssemblyFragment ;
-            sh:description "A list of the fragments that are assembled, in order" ;
-            sh:minCount 1 ;
-            sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 2 ;
-            sh:path shareyourcloning_linkml:assembly ],
-        [ sh:class shareyourcloning_linkml:Sequence ;
-            sh:description "The sequences that are an input to this source. If the source represents external import of a sequence, it's empty." ;
-            sh:nodeKind sh:IRI ;
-            sh:order 3 ;
-            sh:path shareyourcloning_linkml:input ],
-        [ sh:class shareyourcloning_linkml:Sequence ;
-            sh:description "Identifier of the sequence that is the output of this source." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:IRI ;
-            sh:order 4 ;
-            sh:path shareyourcloning_linkml:output ],
         [ sh:datatype xsd:boolean ;
             sh:description "Whether the assembly is circular or not" ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
             sh:order 1 ;
-            sh:path shareyourcloning_linkml:circular ] ;
-    sh:targetClass shareyourcloning_linkml:RestrictionAndLigationSource .
-
-shareyourcloning_linkml:RestrictionEnzymeDigestionSource a sh:NodeShape ;
-    rdfs:subClassOf shareyourcloning_linkml:SequenceCutSource ;
-    sh:closed true ;
-    sh:description "Represents the source of a sequence that is a subfragment of another sequence, generated by sequence cutting using restriction enzymes." ;
-    sh:ignoredProperties ( rdf:type ) ;
-    sh:property [ sh:class shareyourcloning_linkml:RestrictionSequenceCut ;
+            sh:path shareyourcloning_linkml:circular ],
+        [ sh:datatype xsd:string ;
+            sh:description "Designates the class" ;
             sh:maxCount 1 ;
-            sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 0 ;
-            sh:path shareyourcloning_linkml:left_edge ],
+            sh:nodeKind sh:Literal ;
+            sh:order 5 ;
+            sh:path shareyourcloning_linkml:type ],
         [ sh:class shareyourcloning_linkml:Sequence ;
-            sh:description "Identifier of the sequence that is the output of this source." ;
-            sh:maxCount 1 ;
+            sh:description "The sequences that are an input to this source. If the source represents external import of a sequence, it's empty." ;
             sh:nodeKind sh:IRI ;
             sh:order 3 ;
-            sh:path shareyourcloning_linkml:output ],
+            sh:path shareyourcloning_linkml:input ],
         [ sh:datatype xsd:string ;
             sh:description "Used to specify the name of the output sequence" ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
-            sh:order 5 ;
-            sh:path shareyourcloning_linkml:output_name ],
-        [ sh:datatype xsd:integer ;
+            sh:order 6 ;
+            sh:path shareyourcloning_linkml:output_name ] ;
+    sh:targetClass shareyourcloning_linkml:RestrictionAndLigationSource .
+
+shareyourcloning_linkml:RestrictionEnzymeDigestionSource a sh:NodeShape ;
+    sh:closed true ;
+    sh:description "Represents the source of a sequence that is a subfragment of another sequence, generated by sequence cutting using restriction enzymes." ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:integer ;
             sh:description "A unique identifier for a thing" ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
             sh:nodeKind sh:Literal ;
             sh:order 6 ;
             sh:path schema1:identifier ],
+        [ sh:class shareyourcloning_linkml:RestrictionSequenceCut ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 0 ;
+            sh:path shareyourcloning_linkml:left_edge ],
+        [ sh:datatype xsd:string ;
+            sh:description "Used to specify the name of the output sequence" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 5 ;
+            sh:path shareyourcloning_linkml:output_name ],
         [ sh:class shareyourcloning_linkml:Sequence ;
-            sh:description "The sequences that are an input to this source. If the source represents external import of a sequence, it's empty." ;
+            sh:description "Identifier of the sequence that is the output of this source." ;
+            sh:maxCount 1 ;
             sh:nodeKind sh:IRI ;
-            sh:order 2 ;
-            sh:path shareyourcloning_linkml:input ],
+            sh:order 3 ;
+            sh:path shareyourcloning_linkml:output ],
         [ sh:datatype xsd:string ;
             sh:description "Designates the class" ;
             sh:maxCount 1 ;
@@ -1089,21 +1225,35 @@ shareyourcloning_linkml:RestrictionEnzymeDigestionSource a sh:NodeShape ;
             sh:maxCount 1 ;
             sh:nodeKind sh:BlankNodeOrIRI ;
             sh:order 1 ;
-            sh:path shareyourcloning_linkml:right_edge ] ;
+            sh:path shareyourcloning_linkml:right_edge ],
+        [ sh:class shareyourcloning_linkml:Sequence ;
+            sh:description "The sequences that are an input to this source. If the source represents external import of a sequence, it's empty." ;
+            sh:nodeKind sh:IRI ;
+            sh:order 2 ;
+            sh:path shareyourcloning_linkml:input ] ;
     sh:targetClass shareyourcloning_linkml:RestrictionEnzymeDigestionSource .
 
-shareyourcloning_linkml:SnapGenePlasmidSource a sh:NodeShape ;
-    rdfs:subClassOf shareyourcloning_linkml:RepositoryIdSource ;
+shareyourcloning_linkml:SequenceCutSource a sh:NodeShape ;
     sh:closed true ;
-    sh:description "Represents the source of a sequence from the SnapGene plasmid library identified by a SnapGene subpath of https://www.snapgene.com/plasmids/" ;
+    sh:description "Represents the source of a sequence that is a subfragment of another sequence, generated by sequence cutting." ;
     sh:ignoredProperties ( rdf:type ) ;
-    sh:property [ sh:datatype xsd:integer ;
-            sh:description "A unique identifier for a thing" ;
+    sh:property [ sh:class shareyourcloning_linkml:SequenceCut ;
             sh:maxCount 1 ;
-            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 1 ;
+            sh:path shareyourcloning_linkml:right_edge ],
+        [ sh:datatype xsd:string ;
+            sh:description "Designates the class" ;
+            sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
-            sh:order 6 ;
-            sh:path schema1:identifier ],
+            sh:order 4 ;
+            sh:path shareyourcloning_linkml:type ],
+        [ sh:class shareyourcloning_linkml:Sequence ;
+            sh:description "Identifier of the sequence that is the output of this source." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 3 ;
+            sh:path shareyourcloning_linkml:output ],
         [ sh:class shareyourcloning_linkml:Sequence ;
             sh:description "The sequences that are an input to this source. If the source represents external import of a sequence, it's empty." ;
             sh:nodeKind sh:IRI ;
@@ -1115,6 +1265,86 @@ shareyourcloning_linkml:SnapGenePlasmidSource a sh:NodeShape ;
             sh:nodeKind sh:Literal ;
             sh:order 5 ;
             sh:path shareyourcloning_linkml:output_name ],
+        [ sh:class shareyourcloning_linkml:SequenceCut ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 0 ;
+            sh:path shareyourcloning_linkml:left_edge ],
+        [ sh:datatype xsd:integer ;
+            sh:description "A unique identifier for a thing" ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 6 ;
+            sh:path schema1:identifier ] ;
+    sh:targetClass shareyourcloning_linkml:SequenceCutSource .
+
+shareyourcloning_linkml:SequencingFile a sh:NodeShape ;
+    sh:closed true ;
+    sh:description "Represents a sequencing file and its alignment to a sequence" ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "Designates the class" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path shareyourcloning_linkml:type ],
+        [ sh:description "The type of file" ;
+            sh:in ( NCIT:C172877 ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 4 ;
+            sh:path shareyourcloning_linkml:file_type ],
+        [ sh:datatype xsd:string ;
+            sh:description "The alignment of the sequencing read to the sequence. List of strings representing aligned sequences." ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path shareyourcloning_linkml:alignment ],
+        [ sh:class shareyourcloning_linkml:Sequence ;
+            sh:description "The sequence this file is associated with" ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 2 ;
+            sh:path shareyourcloning_linkml:sequence_id ],
+        [ sh:datatype xsd:string ;
+            sh:description "The name of the file" ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path shareyourcloning_linkml:file_name ] ;
+    sh:targetClass shareyourcloning_linkml:SequencingFile .
+
+shareyourcloning_linkml:SnapGenePlasmidSource a sh:NodeShape ;
+    sh:closed true ;
+    sh:description "Represents the source of a sequence from the SnapGene plasmid library identified by a SnapGene subpath of https://www.snapgene.com/plasmids/" ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:in ( "addgene" "genbank" "benchling" "snapgene" "euroscarf" "igem" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 1 ;
+            sh:path shareyourcloning_linkml:repository_name ],
+        [ sh:datatype xsd:string ;
+            sh:description "Used to specify the name of the output sequence" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 5 ;
+            sh:path shareyourcloning_linkml:output_name ],
+        [ sh:datatype xsd:string ;
+            sh:description "The subpath of the plasmid in the SnapGene plasmid library. Requesting the plasmid is possible with https://www.snapgene.com/local/fetch.php?set={category_path}&plasmid={plasmid['subpath']} where category_path is the left part of the subpath before the first / and plasmid is the subpath after the /." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path shareyourcloning_linkml:repository_id ;
+            sh:pattern "^.+\\/.+$" ],
+        [ sh:class shareyourcloning_linkml:Sequence ;
+            sh:description "The sequences that are an input to this source. If the source represents external import of a sequence, it's empty." ;
+            sh:nodeKind sh:IRI ;
+            sh:order 2 ;
+            sh:path shareyourcloning_linkml:input ],
         [ sh:class shareyourcloning_linkml:Sequence ;
             sh:description "Identifier of the sequence that is the output of this source." ;
             sh:maxCount 1 ;
@@ -1127,23 +1357,16 @@ shareyourcloning_linkml:SnapGenePlasmidSource a sh:NodeShape ;
             sh:nodeKind sh:Literal ;
             sh:order 4 ;
             sh:path shareyourcloning_linkml:type ],
-        [ sh:in ( "addgene" "genbank" "benchling" "snapgene" "euroscarf" "igem" ) ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:order 1 ;
-            sh:path shareyourcloning_linkml:repository_name ],
-        [ sh:datatype xsd:string ;
-            sh:description "The subpath of the plasmid in the SnapGene plasmid library. Requesting the plasmid is possible with https://www.snapgene.com/local/fetch.php?set={category_path}&plasmid={plasmid['subpath']} where category_path is the left part of the subpath before the first / and plasmid is the subpath after the /." ;
+        [ sh:datatype xsd:integer ;
+            sh:description "A unique identifier for a thing" ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
             sh:nodeKind sh:Literal ;
-            sh:order 0 ;
-            sh:path shareyourcloning_linkml:repository_id ;
-            sh:pattern "^.+\\/.+$" ] ;
+            sh:order 6 ;
+            sh:path schema1:identifier ] ;
     sh:targetClass shareyourcloning_linkml:SnapGenePlasmidSource .
 
 shareyourcloning_linkml:TextFileSequence a sh:NodeShape ;
-    rdfs:subClassOf shareyourcloning_linkml:Sequence ;
     sh:closed true ;
     sh:description "A sequence (may have features) defined by the content of a text file" ;
     sh:ignoredProperties ( rdf:type ) ;
@@ -1153,24 +1376,49 @@ shareyourcloning_linkml:TextFileSequence a sh:NodeShape ;
             sh:nodeKind sh:Literal ;
             sh:order 1 ;
             sh:path shareyourcloning_linkml:overhang_crick_3prime ],
-        [ sh:datatype xsd:integer ;
-            sh:description "A unique identifier for a thing" ;
+        [ sh:description "The format of a sequence file" ;
+            sh:in ( "fasta" "genbank" "snapgene" "embl" ) ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 4 ;
-            sh:path schema1:identifier ],
-        [ sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 3 ;
-            sh:path shareyourcloning_linkml:file_content ],
+            sh:order 0 ;
+            sh:path shareyourcloning_linkml:sequence_file_format ],
         [ sh:datatype xsd:string ;
             sh:description "Designates the class" ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
             sh:order 5 ;
             sh:path shareyourcloning_linkml:type ],
+        [ sh:datatype xsd:integer ;
+            sh:description "The equivalent of `overhang_crick_3prime` but for the watson strand" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path shareyourcloning_linkml:overhang_watson_3prime ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path shareyourcloning_linkml:file_content ],
+        [ sh:datatype xsd:integer ;
+            sh:description "A unique identifier for a thing" ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path schema1:identifier ] ;
+    sh:targetClass shareyourcloning_linkml:TextFileSequence .
+
+shareyourcloning_linkml:UploadedFileSource a sh:NodeShape ;
+    sh:closed true ;
+    sh:description "Represents the source of a sequence that is uploaded as a file" ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:integer ;
+            sh:description "A unique identifier for a thing" ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 8 ;
+            sh:path schema1:identifier ],
         [ sh:description "The format of a sequence file" ;
             sh:in ( "fasta" "genbank" "snapgene" "embl" ) ;
             sh:maxCount 1 ;
@@ -1178,24 +1426,35 @@ shareyourcloning_linkml:TextFileSequence a sh:NodeShape ;
             sh:order 0 ;
             sh:path shareyourcloning_linkml:sequence_file_format ],
         [ sh:datatype xsd:integer ;
-            sh:description "The equivalent of `overhang_crick_3prime` but for the watson strand" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 2 ;
-            sh:path shareyourcloning_linkml:overhang_watson_3prime ] ;
-    sh:targetClass shareyourcloning_linkml:TextFileSequence .
-
-shareyourcloning_linkml:UploadedFileSource a sh:NodeShape ;
-    rdfs:subClassOf shareyourcloning_linkml:Source ;
-    sh:closed true ;
-    sh:description "Represents the source of a sequence that is uploaded as a file" ;
-    sh:ignoredProperties ( rdf:type ) ;
-    sh:property [ sh:datatype xsd:integer ;
             sh:description "The index of the sequence in the file" ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
             sh:order 2 ;
             sh:path shareyourcloning_linkml:index_in_file ],
+        [ sh:datatype xsd:string ;
+            sh:description "Used to specify the name of the output sequence" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 7 ;
+            sh:path shareyourcloning_linkml:output_name ],
+        [ sh:class shareyourcloning_linkml:Sequence ;
+            sh:description "Identifier of the sequence that is the output of this source." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 5 ;
+            sh:path shareyourcloning_linkml:output ],
+        [ sh:datatype xsd:string ;
+            sh:description "Designates the class" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 6 ;
+            sh:path shareyourcloning_linkml:type ],
+        [ sh:datatype xsd:boolean ;
+            sh:description "Whether the sequence should be circularized (FASTA only)" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path shareyourcloning_linkml:circularize ],
         [ sh:class shareyourcloning_linkml:Sequence ;
             sh:description "The sequences that are an input to this source. If the source represents external import of a sequence, it's empty." ;
             sh:nodeKind sh:IRI ;
@@ -1206,157 +1465,13 @@ shareyourcloning_linkml:UploadedFileSource a sh:NodeShape ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
             sh:order 1 ;
-            sh:path shareyourcloning_linkml:file_name ],
-        [ sh:datatype xsd:string ;
-            sh:description "Used to specify the name of the output sequence" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 7 ;
-            sh:path shareyourcloning_linkml:output_name ],
-        [ sh:description "The format of a sequence file" ;
-            sh:in ( "fasta" "genbank" "snapgene" "embl" ) ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:order 0 ;
-            sh:path shareyourcloning_linkml:sequence_file_format ],
-        [ sh:class shareyourcloning_linkml:Sequence ;
-            sh:description "Identifier of the sequence that is the output of this source." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:IRI ;
-            sh:order 5 ;
-            sh:path shareyourcloning_linkml:output ],
-        [ sh:datatype xsd:boolean ;
-            sh:description "Whether the sequence should be circularized (FASTA only)" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 3 ;
-            sh:path shareyourcloning_linkml:circularize ],
-        [ sh:datatype xsd:integer ;
-            sh:description "A unique identifier for a thing" ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 8 ;
-            sh:path schema1:identifier ],
-        [ sh:datatype xsd:string ;
-            sh:description "Designates the class" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 6 ;
-            sh:path shareyourcloning_linkml:type ] ;
+            sh:path shareyourcloning_linkml:file_name ] ;
     sh:targetClass shareyourcloning_linkml:UploadedFileSource .
-
-shareyourcloning_linkml:HomologousRecombinationSource a sh:NodeShape ;
-    rdfs:subClassOf shareyourcloning_linkml:AssemblySource ;
-    sh:closed true ;
-    sh:description "Represents the source of a sequence that is generated by homologous recombination" ;
-    sh:ignoredProperties ( rdf:type ) ;
-    sh:property [ sh:class shareyourcloning_linkml:AssemblyFragment ;
-            sh:description "A list of the fragments that are assembled, in order" ;
-            sh:minCount 1 ;
-            sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 1 ;
-            sh:path shareyourcloning_linkml:assembly ],
-        [ sh:class shareyourcloning_linkml:Sequence ;
-            sh:description "The sequences that are an input to this source. If the source represents external import of a sequence, it's empty." ;
-            sh:nodeKind sh:IRI ;
-            sh:order 2 ;
-            sh:path shareyourcloning_linkml:input ],
-        [ sh:class shareyourcloning_linkml:Sequence ;
-            sh:description "Identifier of the sequence that is the output of this source." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:IRI ;
-            sh:order 3 ;
-            sh:path shareyourcloning_linkml:output ],
-        [ sh:datatype xsd:string ;
-            sh:description "Used to specify the name of the output sequence" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 5 ;
-            sh:path shareyourcloning_linkml:output_name ],
-        [ sh:datatype xsd:integer ;
-            sh:description "A unique identifier for a thing" ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 6 ;
-            sh:path schema1:identifier ],
-        [ sh:datatype xsd:string ;
-            sh:description "Designates the class" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 4 ;
-            sh:path shareyourcloning_linkml:type ],
-        [ sh:datatype xsd:boolean ;
-            sh:description "Whether the assembly is circular or not" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 0 ;
-            sh:path shareyourcloning_linkml:circular ] ;
-    sh:targetClass shareyourcloning_linkml:HomologousRecombinationSource .
-
-shareyourcloning_linkml:SequenceCutSource a sh:NodeShape ;
-    rdfs:subClassOf shareyourcloning_linkml:Source ;
-    sh:closed true ;
-    sh:description "Represents the source of a sequence that is a subfragment of another sequence, generated by sequence cutting." ;
-    sh:ignoredProperties ( rdf:type ) ;
-    sh:property [ sh:class shareyourcloning_linkml:SequenceCut ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 1 ;
-            sh:path shareyourcloning_linkml:right_edge ],
-        [ sh:class shareyourcloning_linkml:Sequence ;
-            sh:description "The sequences that are an input to this source. If the source represents external import of a sequence, it's empty." ;
-            sh:nodeKind sh:IRI ;
-            sh:order 2 ;
-            sh:path shareyourcloning_linkml:input ],
-        [ sh:datatype xsd:string ;
-            sh:description "Designates the class" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 4 ;
-            sh:path shareyourcloning_linkml:type ],
-        [ sh:datatype xsd:string ;
-            sh:description "Used to specify the name of the output sequence" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 5 ;
-            sh:path shareyourcloning_linkml:output_name ],
-        [ sh:datatype xsd:integer ;
-            sh:description "A unique identifier for a thing" ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 6 ;
-            sh:path schema1:identifier ],
-        [ sh:class shareyourcloning_linkml:SequenceCut ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 0 ;
-            sh:path shareyourcloning_linkml:left_edge ],
-        [ sh:class shareyourcloning_linkml:Sequence ;
-            sh:description "Identifier of the sequence that is the output of this source." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:IRI ;
-            sh:order 3 ;
-            sh:path shareyourcloning_linkml:output ] ;
-    sh:targetClass shareyourcloning_linkml:SequenceCutSource .
-
-schema1:Thing a sh:NodeShape ;
-    sh:closed true ;
-    sh:ignoredProperties ( rdf:type ) ;
-    sh:property [ sh:datatype xsd:integer ;
-            sh:description "A unique identifier for a thing" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 0 ;
-            sh:path schema1:identifier ] ;
-    sh:targetClass schema1:Thing .
 
 shareyourcloning_linkml:AnnotationReport a sh:NodeShape ;
     sh:closed true ;
     sh:description "Represents a report of an annotation step" ;
-    sh:ignoredProperties ( rdf:type ) ;
+    sh:ignoredProperties ( shareyourcloning_linkml:Type shareyourcloning_linkml:sseqid shareyourcloning_linkml:end_location shareyourcloning_linkml:percent_identity shareyourcloning_linkml:database rdf:type shareyourcloning_linkml:Description shareyourcloning_linkml:Feature shareyourcloning_linkml:strand shareyourcloning_linkml:length_of_found_feature shareyourcloning_linkml:percent_match_length shareyourcloning_linkml:start_location shareyourcloning_linkml:full_length_of_feature_in_db shareyourcloning_linkml:sequence shareyourcloning_linkml:fragment ) ;
     sh:property [ sh:datatype xsd:string ;
             sh:description "Designates the class" ;
             sh:maxCount 1 ;
@@ -1365,18 +1480,79 @@ shareyourcloning_linkml:AnnotationReport a sh:NodeShape ;
             sh:path shareyourcloning_linkml:type ] ;
     sh:targetClass shareyourcloning_linkml:AnnotationReport .
 
-shareyourcloning_linkml:RestrictionSequenceCut a sh:NodeShape ;
-    rdfs:subClassOf shareyourcloning_linkml:SequenceCut ;
+shareyourcloning_linkml:AssociatedFile a sh:NodeShape ;
     sh:closed true ;
-    sh:description "Represents a cut in a DNA sequence that is made by a restriction enzyme" ;
-    sh:ignoredProperties ( rdf:type ) ;
-    sh:property [ sh:datatype xsd:string ;
+    sh:description "Represents a file associated with a sequence" ;
+    sh:ignoredProperties ( rdf:type shareyourcloning_linkml:alignment ) ;
+    sh:property [ sh:description "The type of file" ;
+            sh:in ( NCIT:C172877 ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 3 ;
+            sh:path shareyourcloning_linkml:file_type ],
+        [ sh:datatype xsd:string ;
+            sh:description "The name of the file" ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
             sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path shareyourcloning_linkml:file_name ],
+        [ sh:datatype xsd:string ;
+            sh:description "Designates the class" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
             sh:order 0 ;
-            sh:path shareyourcloning_linkml:restriction_enzyme ],
+            sh:path shareyourcloning_linkml:type ],
+        [ sh:class shareyourcloning_linkml:Sequence ;
+            sh:description "The sequence this file is associated with" ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 1 ;
+            sh:path shareyourcloning_linkml:sequence_id ] ;
+    sh:targetClass shareyourcloning_linkml:AssociatedFile .
+
+shareyourcloning_linkml:Source a sh:NodeShape ;
+    sh:closed false ;
+    sh:description "Represents the source of a sequence" ;
+    sh:ignoredProperties ( shareyourcloning_linkml:restriction_enzymes shareyourcloning_linkml:user_input shareyourcloning_linkml:repository_id shareyourcloning_linkml:overhang_watson_3prime shareyourcloning_linkml:sequence_file_url shareyourcloning_linkml:reaction_type shareyourcloning_linkml:add_primer_features shareyourcloning_linkml:gene_id shareyourcloning_linkml:circularize shareyourcloning_linkml:right_edge rdf:type shareyourcloning_linkml:start shareyourcloning_linkml:index_in_file shareyourcloning_linkml:circular shareyourcloning_linkml:annotation_tool_version shareyourcloning_linkml:repository_name shareyourcloning_linkml:greedy shareyourcloning_linkml:assembly_accession shareyourcloning_linkml:end shareyourcloning_linkml:file_name shareyourcloning_linkml:addgene_sequence_type shareyourcloning_linkml:strand shareyourcloning_linkml:sequence_file_format shareyourcloning_linkml:assembly shareyourcloning_linkml:locus_tag shareyourcloning_linkml:reverse_oligo shareyourcloning_linkml:sequence_accession shareyourcloning_linkml:guides shareyourcloning_linkml:annotation_tool shareyourcloning_linkml:overhang_crick_3prime shareyourcloning_linkml:annotation_report shareyourcloning_linkml:left_edge shareyourcloning_linkml:forward_oligo ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "Used to specify the name of the output sequence" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path shareyourcloning_linkml:output_name ],
+        [ sh:class shareyourcloning_linkml:Sequence ;
+            sh:description "The sequences that are an input to this source. If the source represents external import of a sequence, it's empty." ;
+            sh:nodeKind sh:IRI ;
+            sh:order 0 ;
+            sh:path shareyourcloning_linkml:input ],
+        [ sh:datatype xsd:string ;
+            sh:description "Designates the class" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path shareyourcloning_linkml:type ],
+        [ sh:class shareyourcloning_linkml:Sequence ;
+            sh:description "Identifier of the sequence that is the output of this source." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 1 ;
+            sh:path shareyourcloning_linkml:output ],
         [ sh:datatype xsd:integer ;
+            sh:description "A unique identifier for a thing" ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path schema1:identifier ] ;
+    sh:targetClass shareyourcloning_linkml:Source .
+
+shareyourcloning_linkml:RestrictionSequenceCut a sh:NodeShape ;
+    sh:closed true ;
+    sh:description "Represents a cut in a DNA sequence that is made by a restriction enzyme" ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:integer ;
             sh:description "The position of the cut in the watson strand. The cut is made before the base at this position (zero-based), so that cut position 1 cuts after the first base." ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
@@ -1389,8 +1565,34 @@ shareyourcloning_linkml:RestrictionSequenceCut a sh:NodeShape ;
             sh:minCount 1 ;
             sh:nodeKind sh:Literal ;
             sh:order 2 ;
-            sh:path shareyourcloning_linkml:overhang ] ;
+            sh:path shareyourcloning_linkml:overhang ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path shareyourcloning_linkml:restriction_enzyme ] ;
     sh:targetClass shareyourcloning_linkml:RestrictionSequenceCut .
+
+shareyourcloning_linkml:SequenceCut a sh:NodeShape ;
+    sh:closed true ;
+    sh:description "Represents a cut in a DNA sequence" ;
+    sh:ignoredProperties ( rdf:type shareyourcloning_linkml:restriction_enzyme ) ;
+    sh:property [ sh:datatype xsd:integer ;
+            sh:description "The length of the overhang that is left after the cut. It can be negative, same meaning as in pydna's `dseq::ovhg` and biopython's `Bio.Restriction.RestrictionType.ovhg`." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path shareyourcloning_linkml:overhang ],
+        [ sh:datatype xsd:integer ;
+            sh:description "The position of the cut in the watson strand. The cut is made before the base at this position (zero-based), so that cut position 1 cuts after the first base." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path shareyourcloning_linkml:cut_watson ] ;
+    sh:targetClass shareyourcloning_linkml:SequenceCut .
 
 shareyourcloning_linkml:SimpleSequenceLocation a sh:NodeShape ;
     sh:closed true ;
@@ -1404,51 +1606,30 @@ shareyourcloning_linkml:SimpleSequenceLocation a sh:NodeShape ;
             sh:order 1 ;
             sh:path shareyourcloning_linkml:end ],
         [ sh:datatype xsd:integer ;
+            sh:description "The strand of the location, should be 1 or -1 or null" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path shareyourcloning_linkml:strand ],
+        [ sh:datatype xsd:integer ;
             sh:description "The starting coordinate (1-based) of the location" ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
             sh:nodeKind sh:Literal ;
             sh:order 0 ;
-            sh:path shareyourcloning_linkml:start ],
-        [ sh:datatype xsd:integer ;
-            sh:description "The strand of the location, should be 1 or -1 or null" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 2 ;
-            sh:path shareyourcloning_linkml:strand ] ;
+            sh:path shareyourcloning_linkml:start ] ;
     sh:targetClass shareyourcloning_linkml:SimpleSequenceLocation .
 
-shareyourcloning_linkml:SequenceCut a sh:NodeShape ;
-    sh:closed true ;
-    sh:description "Represents a cut in a DNA sequence" ;
-    sh:ignoredProperties ( rdf:type ) ;
-    sh:property [ sh:datatype xsd:integer ;
-            sh:description "The position of the cut in the watson strand. The cut is made before the base at this position (zero-based), so that cut position 1 cuts after the first base." ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 0 ;
-            sh:path shareyourcloning_linkml:cut_watson ],
-        [ sh:datatype xsd:integer ;
-            sh:description "The length of the overhang that is left after the cut. It can be negative, same meaning as in pydna's `dseq::ovhg` and biopython's `Bio.Restriction.RestrictionType.ovhg`." ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 1 ;
-            sh:path shareyourcloning_linkml:overhang ] ;
-    sh:targetClass shareyourcloning_linkml:SequenceCut .
-
 shareyourcloning_linkml:Primer a sh:NodeShape ;
-    rdfs:subClassOf shareyourcloning_linkml:Sequence ;
     sh:closed true ;
     sh:description "An oligonucleotide or primer" ;
     sh:ignoredProperties ( rdf:type ) ;
     sh:property [ sh:datatype xsd:string ;
-            sh:description "Designates the class" ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
-            sh:order 3 ;
-            sh:path shareyourcloning_linkml:type ],
+            sh:order 1 ;
+            sh:path shareyourcloning_linkml:sequence ;
+            sh:pattern "^[acgtACGT]+$" ],
         [ sh:datatype xsd:integer ;
             sh:description "A unique identifier for a thing" ;
             sh:maxCount 1 ;
@@ -1457,11 +1638,11 @@ shareyourcloning_linkml:Primer a sh:NodeShape ;
             sh:order 2 ;
             sh:path schema1:identifier ],
         [ sh:datatype xsd:string ;
+            sh:description "Designates the class" ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
-            sh:order 1 ;
-            sh:path shareyourcloning_linkml:sequence ;
-            sh:pattern "^[acgtACGT]+$" ],
+            sh:order 3 ;
+            sh:path shareyourcloning_linkml:type ],
         [ sh:datatype xsd:string ;
             sh:description "A human-readable name for a thing" ;
             sh:maxCount 1 ;
@@ -1469,104 +1650,6 @@ shareyourcloning_linkml:Primer a sh:NodeShape ;
             sh:order 0 ;
             sh:path schema1:name ] ;
     sh:targetClass shareyourcloning_linkml:Primer .
-
-shareyourcloning_linkml:RepositoryIdSource a sh:NodeShape ;
-    rdfs:subClassOf shareyourcloning_linkml:Source ;
-    sh:closed true ;
-    sh:description "Represents the source of a sequence that is identified by a repository id" ;
-    sh:ignoredProperties ( rdf:type ) ;
-    sh:property [ sh:datatype xsd:string ;
-            sh:description "The id of the sequence in the repository" ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 0 ;
-            sh:path shareyourcloning_linkml:repository_id ],
-        [ sh:class shareyourcloning_linkml:Sequence ;
-            sh:description "The sequences that are an input to this source. If the source represents external import of a sequence, it's empty." ;
-            sh:nodeKind sh:IRI ;
-            sh:order 2 ;
-            sh:path shareyourcloning_linkml:input ],
-        [ sh:datatype xsd:string ;
-            sh:description "Designates the class" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 4 ;
-            sh:path shareyourcloning_linkml:type ],
-        [ sh:class shareyourcloning_linkml:Sequence ;
-            sh:description "Identifier of the sequence that is the output of this source." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:IRI ;
-            sh:order 3 ;
-            sh:path shareyourcloning_linkml:output ],
-        [ sh:datatype xsd:string ;
-            sh:description "Used to specify the name of the output sequence" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 5 ;
-            sh:path shareyourcloning_linkml:output_name ],
-        [ sh:datatype xsd:integer ;
-            sh:description "A unique identifier for a thing" ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 6 ;
-            sh:path schema1:identifier ],
-        [ sh:in ( "addgene" "genbank" "benchling" "snapgene" "euroscarf" "igem" ) ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:order 1 ;
-            sh:path shareyourcloning_linkml:repository_name ] ;
-    sh:targetClass shareyourcloning_linkml:RepositoryIdSource .
-
-shareyourcloning_linkml:AssemblySource a sh:NodeShape ;
-    rdfs:subClassOf shareyourcloning_linkml:Source ;
-    sh:closed true ;
-    sh:description "Represents the source of a sequence that is an assembly of other sequences" ;
-    sh:ignoredProperties ( rdf:type ) ;
-    sh:property [ sh:class shareyourcloning_linkml:Sequence ;
-            sh:description "Identifier of the sequence that is the output of this source." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:IRI ;
-            sh:order 3 ;
-            sh:path shareyourcloning_linkml:output ],
-        [ sh:datatype xsd:integer ;
-            sh:description "A unique identifier for a thing" ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 6 ;
-            sh:path schema1:identifier ],
-        [ sh:class shareyourcloning_linkml:Sequence ;
-            sh:description "The sequences that are an input to this source. If the source represents external import of a sequence, it's empty." ;
-            sh:nodeKind sh:IRI ;
-            sh:order 2 ;
-            sh:path shareyourcloning_linkml:input ],
-        [ sh:class shareyourcloning_linkml:AssemblyFragment ;
-            sh:description "A list of the fragments that are assembled, in order" ;
-            sh:minCount 1 ;
-            sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 1 ;
-            sh:path shareyourcloning_linkml:assembly ],
-        [ sh:datatype xsd:boolean ;
-            sh:description "Whether the assembly is circular or not" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 0 ;
-            sh:path shareyourcloning_linkml:circular ],
-        [ sh:datatype xsd:string ;
-            sh:description "Used to specify the name of the output sequence" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 5 ;
-            sh:path shareyourcloning_linkml:output_name ],
-        [ sh:datatype xsd:string ;
-            sh:description "Designates the class" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 4 ;
-            sh:path shareyourcloning_linkml:type ] ;
-    sh:targetClass shareyourcloning_linkml:AssemblySource .
 
 shareyourcloning_linkml:AssemblyFragment a sh:NodeShape ;
     sh:closed true ;
@@ -1582,63 +1665,25 @@ shareyourcloning_linkml:AssemblyFragment a sh:NodeShape ;
             sh:nodeKind sh:BlankNodeOrIRI ;
             sh:order 1 ;
             sh:path shareyourcloning_linkml:left_location ],
+        [ sh:class shareyourcloning_linkml:Sequence ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 0 ;
+            sh:path shareyourcloning_linkml:sequence ],
         [ sh:datatype xsd:boolean ;
             sh:description "Whether the sequence is reverse complemented in the assembly" ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
             sh:nodeKind sh:Literal ;
             sh:order 3 ;
-            sh:path shareyourcloning_linkml:reverse_complemented ],
-        [ sh:class shareyourcloning_linkml:Sequence ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:nodeKind sh:IRI ;
-            sh:order 0 ;
-            sh:path shareyourcloning_linkml:sequence ] ;
+            sh:path shareyourcloning_linkml:reverse_complemented ] ;
     sh:targetClass shareyourcloning_linkml:AssemblyFragment .
 
-shareyourcloning_linkml:Source a sh:NodeShape ;
-    rdfs:subClassOf schema1:Thing ;
-    sh:closed false ;
-    sh:description "Represents the source of a sequence" ;
-    sh:ignoredProperties ( rdf:type ) ;
-    sh:property [ sh:datatype xsd:string ;
-            sh:description "Designates the class" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 2 ;
-            sh:path shareyourcloning_linkml:type ],
-        [ sh:class shareyourcloning_linkml:Sequence ;
-            sh:description "The sequences that are an input to this source. If the source represents external import of a sequence, it's empty." ;
-            sh:nodeKind sh:IRI ;
-            sh:order 0 ;
-            sh:path shareyourcloning_linkml:input ],
-        [ sh:class shareyourcloning_linkml:Sequence ;
-            sh:description "Identifier of the sequence that is the output of this source." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:IRI ;
-            sh:order 1 ;
-            sh:path shareyourcloning_linkml:output ],
-        [ sh:datatype xsd:string ;
-            sh:description "Used to specify the name of the output sequence" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 3 ;
-            sh:path shareyourcloning_linkml:output_name ],
-        [ sh:datatype xsd:integer ;
-            sh:description "A unique identifier for a thing" ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 4 ;
-            sh:path schema1:identifier ] ;
-    sh:targetClass shareyourcloning_linkml:Source .
-
 shareyourcloning_linkml:Sequence a sh:NodeShape ;
-    rdfs:subClassOf schema1:Thing ;
     sh:closed false ;
     sh:description "Represents a sequence" ;
-    sh:ignoredProperties ( rdf:type ) ;
+    sh:ignoredProperties ( rdf:type shareyourcloning_linkml:overhang_crick_3prime shareyourcloning_linkml:overhang_watson_3prime shareyourcloning_linkml:sequence_file_format shareyourcloning_linkml:file_content shareyourcloning_linkml:sequence schema1:name ) ;
     sh:property [ sh:datatype xsd:string ;
             sh:description "Designates the class" ;
             sh:maxCount 1 ;
