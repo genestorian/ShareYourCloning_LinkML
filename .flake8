@@ -5,5 +5,5 @@
 # E203: See https://github.com/PyCQA/pycodestyle/issues/373
 extend-ignore = E203,E501, B008
 exclude =
-    project/python/shareyourcloning_linkml.py
-    src/shareyourcloning_linkml/datamodel/_models.py
+    project/python/opencloning_linkml.py
+    src/opencloning_linkml/datamodel/_models.py

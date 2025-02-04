@@ -1,16 +1,16 @@
 [tool.poetry]
 authors = ["Manuel Lera-Ramirez <manuel.lera-ramirez@ucl.ac.uk>"]
-description = "A LinkML data model for ShareYourCloning"
-include = ["README.md", "src/shareyourcloning_linkml/schema", "project"]
+description = "A LinkML data model for OpenCloning"
+include = ["README.md", "src/opencloning_linkml/schema", "project"]
 license = "MIT"
-name = "shareyourcloning-linkml"
+name = "opencloning-linkml"
 readme = "README.md"
 version = "0.1.0"
 package-mode = true
 
-homepage = "https://github.com/genestorian/ShareYourCloning_LinkML"
-repository = "https://github.com/genestorian/ShareYourCloning_LinkML"
-documentation = "https://genestorian.github.io/ShareYourCloning_LinkML"
+homepage = "https://github.com/genestorian/OpenCloning_LinkML"
+repository = "https://github.com/genestorian/OpenCloning_LinkML"
+documentation = "https://genestorian.github.io/OpenCloning_LinkML"
 
 classifiers = [
     "Development Status :: 3 - Alpha",

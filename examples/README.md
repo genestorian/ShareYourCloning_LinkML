@@ -1,5 +1,5 @@
-# Examples of use of shareyourcloning_linkml
+# Examples of use of opencloning_linkml
 
-This folder contains example data conforming to shareyourcloning_linkml
+This folder contains example data conforming to opencloning_linkml
 
 The source for these is in [src/data](../src/data/examples)

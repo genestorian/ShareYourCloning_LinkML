@@ -1,3 +1,3 @@
-# ShareYourCloning_LinkML
+# OpenCloning_LinkML
 
-A LinkML data model for ShareYourCloning
+A LinkML data model for OpenCloning

@@ -8,7 +8,7 @@ from typing import List, Dict
 
 
 def get_json_files_from_repo(
-    repo_name: str = "genestorian/ShareYourCloning-submission",
+    repo_name: str = "genestorian/OpenCloning-submission",
     target_dir: str = "processed",
     output_dir: str = "src/data/templates",
 ) -> List[Dict]:
@@ -73,10 +73,10 @@ def main():
     """Main function to execute the download process."""
     print("Starting test data download...")
     downloaded = get_json_files_from_repo(
-        repo_name="genestorian/ShareYourCloning-submission", target_dir="processed", output_dir="src/data/templates"
+        repo_name="genestorian/OpenCloning-submission", target_dir="processed", output_dir="src/data/templates"
     )
     downloaded += get_json_files_from_repo(
-        repo_name="manulera/ShareYourCloning_frontend", target_dir="public/examples", output_dir="src/data/examples"
+        repo_name="manulera/OpenCloning_frontend", target_dir="public/examples", output_dir="src/data/examples"
     )
     print(f"\nDownload complete! Downloaded {len(downloaded)} files.")
     for file in downloaded:

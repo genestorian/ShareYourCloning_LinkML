@@ -1,7 +1,7 @@
 ---
-name: shareyourcloning_linkml
+name: opencloning_linkml
 author: Manuel Lera-Ramirez <manuel.lera-ramirez@ucl.ac.uk>
-description: A LinkML data model for ShareYourCloning
-source_schema_path: src/shareyourcloning_linkml/schema/shareyourcloning_linkml.yaml
+description: A LinkML data model for OpenCloning
+source_schema_path: src/opencloning_linkml/schema/opencloning_linkml.yaml
 google_sheet_id: 1wVoaiFg47aT9YWNeRfTZ8tYHN8s8PAuDx5i2HUcDpvQ
 google_sheet_tabs: personinfo enums

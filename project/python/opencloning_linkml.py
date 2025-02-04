@@ -1,9 +1,9 @@
-# Auto generated from shareyourcloning_linkml.yaml by pythongen.py version: 0.0.1
-# Generation date: 2025-01-31T14:24:10
-# Schema: ShareYourCloning_LinkML
+# Auto generated from opencloning_linkml.yaml by pythongen.py version: 0.0.1
+# Generation date: 2025-02-04T10:58:31
+# Schema: OpenCloning_LinkML
 #
-# id: https://w3id.org/genestorian/ShareYourCloning_LinkML
-# description: A LinkML data model for ShareYourCloning
+# id: https://w3id.org/genestorian/OpenCloning_LinkML
+# description: A LinkML data model for OpenCloning
 # license: MIT
 
 import dataclasses
@@ -39,11 +39,9 @@ PATO = CurieNamespace("PATO", "http://purl.obolibrary.org/obo/PATO_")
 BIOLINK = CurieNamespace("biolink", "https://w3id.org/biolink/")
 EXAMPLE = CurieNamespace("example", "https://example.org/")
 LINKML = CurieNamespace("linkml", "https://w3id.org/linkml/")
+OPENCLONING_LINKML = CurieNamespace("opencloning_linkml", "https://w3id.org/genestorian/OpenCloning_LinkML/")
 SCHEMA = CurieNamespace("schema", "http://schema.org/")
-SHAREYOURCLONING_LINKML = CurieNamespace(
-    "shareyourcloning_linkml", "https://w3id.org/genestorian/ShareYourCloning_LinkML/"
-)
-DEFAULT_ = SHAREYOURCLONING_LINKML
+DEFAULT_ = OPENCLONING_LINKML
 
 
 # Types
@@ -181,7 +179,7 @@ class NamedThing(YAMLRoot):
     class_class_uri: ClassVar[URIRef] = SCHEMA["Thing"]
     class_class_curie: ClassVar[str] = "schema:Thing"
     class_name: ClassVar[str] = "NamedThing"
-    class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.NamedThing
+    class_model_uri: ClassVar[URIRef] = OPENCLONING_LINKML.NamedThing
 
     id: Union[int, NamedThingId] = None
 
@@ -202,10 +200,10 @@ class Sequence(NamedThing):
 
     _inherited_slots: ClassVar[List[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML["Sequence"]
-    class_class_curie: ClassVar[str] = "shareyourcloning_linkml:Sequence"
+    class_class_uri: ClassVar[URIRef] = OPENCLONING_LINKML["Sequence"]
+    class_class_curie: ClassVar[str] = "opencloning_linkml:Sequence"
     class_name: ClassVar[str] = "Sequence"
-    class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.Sequence
+    class_model_uri: ClassVar[URIRef] = OPENCLONING_LINKML.Sequence
 
     id: Union[int, SequenceId] = None
     type: Optional[str] = None
@@ -246,10 +244,10 @@ class TemplateSequence(Sequence):
 
     _inherited_slots: ClassVar[List[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML["TemplateSequence"]
-    class_class_curie: ClassVar[str] = "shareyourcloning_linkml:TemplateSequence"
+    class_class_uri: ClassVar[URIRef] = OPENCLONING_LINKML["TemplateSequence"]
+    class_class_curie: ClassVar[str] = "opencloning_linkml:TemplateSequence"
     class_name: ClassVar[str] = "TemplateSequence"
-    class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.TemplateSequence
+    class_model_uri: ClassVar[URIRef] = OPENCLONING_LINKML.TemplateSequence
 
     id: Union[int, TemplateSequenceId] = None
     circular: Optional[Union[bool, Bool]] = None
@@ -279,10 +277,10 @@ class TextFileSequence(Sequence):
 
     _inherited_slots: ClassVar[List[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML["TextFileSequence"]
-    class_class_curie: ClassVar[str] = "shareyourcloning_linkml:TextFileSequence"
+    class_class_uri: ClassVar[URIRef] = OPENCLONING_LINKML["TextFileSequence"]
+    class_class_curie: ClassVar[str] = "opencloning_linkml:TextFileSequence"
     class_name: ClassVar[str] = "TextFileSequence"
-    class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.TextFileSequence
+    class_model_uri: ClassVar[URIRef] = OPENCLONING_LINKML.TextFileSequence
 
     id: Union[int, TextFileSequenceId] = None
     sequence_file_format: Union[str, "SequenceFileFormat"] = None
@@ -322,10 +320,10 @@ class Primer(Sequence):
 
     _inherited_slots: ClassVar[List[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML["Primer"]
-    class_class_curie: ClassVar[str] = "shareyourcloning_linkml:Primer"
+    class_class_uri: ClassVar[URIRef] = OPENCLONING_LINKML["Primer"]
+    class_class_curie: ClassVar[str] = "opencloning_linkml:Primer"
     class_name: ClassVar[str] = "Primer"
-    class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.Primer
+    class_model_uri: ClassVar[URIRef] = OPENCLONING_LINKML.Primer
 
     id: Union[int, PrimerId] = None
     name: Optional[str] = None
@@ -355,10 +353,10 @@ class SequenceCut(YAMLRoot):
 
     _inherited_slots: ClassVar[List[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML["SequenceCut"]
-    class_class_curie: ClassVar[str] = "shareyourcloning_linkml:SequenceCut"
+    class_class_uri: ClassVar[URIRef] = OPENCLONING_LINKML["SequenceCut"]
+    class_class_curie: ClassVar[str] = "opencloning_linkml:SequenceCut"
     class_name: ClassVar[str] = "SequenceCut"
-    class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.SequenceCut
+    class_model_uri: ClassVar[URIRef] = OPENCLONING_LINKML.SequenceCut
 
     cut_watson: int = None
     overhang: int = None
@@ -385,10 +383,10 @@ class RestrictionSequenceCut(SequenceCut):
 
     _inherited_slots: ClassVar[List[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML["RestrictionSequenceCut"]
-    class_class_curie: ClassVar[str] = "shareyourcloning_linkml:RestrictionSequenceCut"
+    class_class_uri: ClassVar[URIRef] = OPENCLONING_LINKML["RestrictionSequenceCut"]
+    class_class_curie: ClassVar[str] = "opencloning_linkml:RestrictionSequenceCut"
     class_name: ClassVar[str] = "RestrictionSequenceCut"
-    class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.RestrictionSequenceCut
+    class_model_uri: ClassVar[URIRef] = OPENCLONING_LINKML.RestrictionSequenceCut
 
     cut_watson: int = None
     overhang: int = None
@@ -411,10 +409,10 @@ class Source(NamedThing):
 
     _inherited_slots: ClassVar[List[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML["Source"]
-    class_class_curie: ClassVar[str] = "shareyourcloning_linkml:Source"
+    class_class_uri: ClassVar[URIRef] = OPENCLONING_LINKML["Source"]
+    class_class_curie: ClassVar[str] = "opencloning_linkml:Source"
     class_name: ClassVar[str] = "Source"
-    class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.Source
+    class_model_uri: ClassVar[URIRef] = OPENCLONING_LINKML.Source
 
     id: Union[int, SourceId] = None
     input: Optional[Union[Union[int, SequenceId], List[Union[int, SequenceId]]]] = empty_list()
@@ -462,10 +460,10 @@ class CollectionSource(Source):
 
     _inherited_slots: ClassVar[List[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML["CollectionSource"]
-    class_class_curie: ClassVar[str] = "shareyourcloning_linkml:CollectionSource"
+    class_class_uri: ClassVar[URIRef] = OPENCLONING_LINKML["CollectionSource"]
+    class_class_curie: ClassVar[str] = "opencloning_linkml:CollectionSource"
     class_name: ClassVar[str] = "CollectionSource"
-    class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.CollectionSource
+    class_model_uri: ClassVar[URIRef] = OPENCLONING_LINKML.CollectionSource
 
     id: Union[int, CollectionSourceId] = None
     title: str = None
@@ -511,10 +509,10 @@ class CollectionOption(YAMLRoot):
 
     _inherited_slots: ClassVar[List[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML["CollectionOption"]
-    class_class_curie: ClassVar[str] = "shareyourcloning_linkml:CollectionOption"
+    class_class_uri: ClassVar[URIRef] = OPENCLONING_LINKML["CollectionOption"]
+    class_class_curie: ClassVar[str] = "opencloning_linkml:CollectionOption"
     class_name: ClassVar[str] = "CollectionOption"
-    class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.CollectionOption
+    class_model_uri: ClassVar[URIRef] = OPENCLONING_LINKML.CollectionOption
 
     name: str = None
     source: Union[dict, Source] = None
@@ -545,10 +543,10 @@ class CollectionOptionInfo(YAMLRoot):
 
     _inherited_slots: ClassVar[List[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML["CollectionOptionInfo"]
-    class_class_curie: ClassVar[str] = "shareyourcloning_linkml:CollectionOptionInfo"
+    class_class_uri: ClassVar[URIRef] = OPENCLONING_LINKML["CollectionOptionInfo"]
+    class_class_curie: ClassVar[str] = "opencloning_linkml:CollectionOptionInfo"
     class_name: ClassVar[str] = "CollectionOptionInfo"
-    class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.CollectionOptionInfo
+    class_model_uri: ClassVar[URIRef] = OPENCLONING_LINKML.CollectionOptionInfo
 
     name: Optional[str] = None
     description: Optional[str] = None
@@ -583,10 +581,10 @@ class ManuallyTypedSource(Source):
 
     _inherited_slots: ClassVar[List[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML["ManuallyTypedSource"]
-    class_class_curie: ClassVar[str] = "shareyourcloning_linkml:ManuallyTypedSource"
+    class_class_uri: ClassVar[URIRef] = OPENCLONING_LINKML["ManuallyTypedSource"]
+    class_class_curie: ClassVar[str] = "opencloning_linkml:ManuallyTypedSource"
     class_name: ClassVar[str] = "ManuallyTypedSource"
-    class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.ManuallyTypedSource
+    class_model_uri: ClassVar[URIRef] = OPENCLONING_LINKML.ManuallyTypedSource
 
     id: Union[int, ManuallyTypedSourceId] = None
     user_input: str = None
@@ -626,10 +624,10 @@ class UploadedFileSource(Source):
 
     _inherited_slots: ClassVar[List[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML["UploadedFileSource"]
-    class_class_curie: ClassVar[str] = "shareyourcloning_linkml:UploadedFileSource"
+    class_class_uri: ClassVar[URIRef] = OPENCLONING_LINKML["UploadedFileSource"]
+    class_class_curie: ClassVar[str] = "opencloning_linkml:UploadedFileSource"
     class_name: ClassVar[str] = "UploadedFileSource"
-    class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.UploadedFileSource
+    class_model_uri: ClassVar[URIRef] = OPENCLONING_LINKML.UploadedFileSource
 
     id: Union[int, UploadedFileSourceId] = None
     sequence_file_format: Union[str, "SequenceFileFormat"] = None
@@ -669,10 +667,10 @@ class RepositoryIdSource(Source):
 
     _inherited_slots: ClassVar[List[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML["RepositoryIdSource"]
-    class_class_curie: ClassVar[str] = "shareyourcloning_linkml:RepositoryIdSource"
+    class_class_uri: ClassVar[URIRef] = OPENCLONING_LINKML["RepositoryIdSource"]
+    class_class_curie: ClassVar[str] = "opencloning_linkml:RepositoryIdSource"
     class_name: ClassVar[str] = "RepositoryIdSource"
-    class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.RepositoryIdSource
+    class_model_uri: ClassVar[URIRef] = OPENCLONING_LINKML.RepositoryIdSource
 
     id: Union[int, RepositoryIdSourceId] = None
     repository_id: str = None
@@ -706,10 +704,10 @@ class AddGeneIdSource(RepositoryIdSource):
 
     _inherited_slots: ClassVar[List[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML["AddGeneIdSource"]
-    class_class_curie: ClassVar[str] = "shareyourcloning_linkml:AddGeneIdSource"
+    class_class_uri: ClassVar[URIRef] = OPENCLONING_LINKML["AddGeneIdSource"]
+    class_class_curie: ClassVar[str] = "opencloning_linkml:AddGeneIdSource"
     class_name: ClassVar[str] = "AddGeneIdSource"
-    class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.AddGeneIdSource
+    class_model_uri: ClassVar[URIRef] = OPENCLONING_LINKML.AddGeneIdSource
 
     id: Union[int, AddGeneIdSourceId] = None
     repository_id: str = None
@@ -741,10 +739,10 @@ class BenchlingUrlSource(RepositoryIdSource):
 
     _inherited_slots: ClassVar[List[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML["BenchlingUrlSource"]
-    class_class_curie: ClassVar[str] = "shareyourcloning_linkml:BenchlingUrlSource"
+    class_class_uri: ClassVar[URIRef] = OPENCLONING_LINKML["BenchlingUrlSource"]
+    class_class_curie: ClassVar[str] = "opencloning_linkml:BenchlingUrlSource"
     class_name: ClassVar[str] = "BenchlingUrlSource"
-    class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.BenchlingUrlSource
+    class_model_uri: ClassVar[URIRef] = OPENCLONING_LINKML.BenchlingUrlSource
 
     id: Union[int, BenchlingUrlSourceId] = None
     repository_name: Union[str, "RepositoryName"] = None
@@ -774,10 +772,10 @@ class SnapGenePlasmidSource(RepositoryIdSource):
 
     _inherited_slots: ClassVar[List[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML["SnapGenePlasmidSource"]
-    class_class_curie: ClassVar[str] = "shareyourcloning_linkml:SnapGenePlasmidSource"
+    class_class_uri: ClassVar[URIRef] = OPENCLONING_LINKML["SnapGenePlasmidSource"]
+    class_class_curie: ClassVar[str] = "opencloning_linkml:SnapGenePlasmidSource"
     class_name: ClassVar[str] = "SnapGenePlasmidSource"
-    class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.SnapGenePlasmidSource
+    class_model_uri: ClassVar[URIRef] = OPENCLONING_LINKML.SnapGenePlasmidSource
 
     id: Union[int, SnapGenePlasmidSourceId] = None
     repository_name: Union[str, "RepositoryName"] = None
@@ -806,10 +804,10 @@ class EuroscarfSource(RepositoryIdSource):
 
     _inherited_slots: ClassVar[List[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML["EuroscarfSource"]
-    class_class_curie: ClassVar[str] = "shareyourcloning_linkml:EuroscarfSource"
+    class_class_uri: ClassVar[URIRef] = OPENCLONING_LINKML["EuroscarfSource"]
+    class_class_curie: ClassVar[str] = "opencloning_linkml:EuroscarfSource"
     class_name: ClassVar[str] = "EuroscarfSource"
-    class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.EuroscarfSource
+    class_model_uri: ClassVar[URIRef] = OPENCLONING_LINKML.EuroscarfSource
 
     id: Union[int, EuroscarfSourceId] = None
     repository_name: Union[str, "RepositoryName"] = None
@@ -838,10 +836,10 @@ class IGEMSource(RepositoryIdSource):
 
     _inherited_slots: ClassVar[List[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML["IGEMSource"]
-    class_class_curie: ClassVar[str] = "shareyourcloning_linkml:IGEMSource"
+    class_class_uri: ClassVar[URIRef] = OPENCLONING_LINKML["IGEMSource"]
+    class_class_curie: ClassVar[str] = "opencloning_linkml:IGEMSource"
     class_name: ClassVar[str] = "IGEMSource"
-    class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.IGEMSource
+    class_model_uri: ClassVar[URIRef] = OPENCLONING_LINKML.IGEMSource
 
     id: Union[int, IGEMSourceId] = None
     repository_name: Union[str, "RepositoryName"] = None
@@ -876,10 +874,10 @@ class GenomeCoordinatesSource(Source):
 
     _inherited_slots: ClassVar[List[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML["GenomeCoordinatesSource"]
-    class_class_curie: ClassVar[str] = "shareyourcloning_linkml:GenomeCoordinatesSource"
+    class_class_uri: ClassVar[URIRef] = OPENCLONING_LINKML["GenomeCoordinatesSource"]
+    class_class_curie: ClassVar[str] = "opencloning_linkml:GenomeCoordinatesSource"
     class_name: ClassVar[str] = "GenomeCoordinatesSource"
-    class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.GenomeCoordinatesSource
+    class_model_uri: ClassVar[URIRef] = OPENCLONING_LINKML.GenomeCoordinatesSource
 
     id: Union[int, GenomeCoordinatesSourceId] = None
     sequence_accession: str = None
@@ -937,10 +935,10 @@ class SequenceCutSource(Source):
 
     _inherited_slots: ClassVar[List[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML["SequenceCutSource"]
-    class_class_curie: ClassVar[str] = "shareyourcloning_linkml:SequenceCutSource"
+    class_class_uri: ClassVar[URIRef] = OPENCLONING_LINKML["SequenceCutSource"]
+    class_class_curie: ClassVar[str] = "opencloning_linkml:SequenceCutSource"
     class_name: ClassVar[str] = "SequenceCutSource"
-    class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.SequenceCutSource
+    class_model_uri: ClassVar[URIRef] = OPENCLONING_LINKML.SequenceCutSource
 
     id: Union[int, SequenceCutSourceId] = None
     left_edge: Optional[Union[dict, SequenceCut]] = None
@@ -971,10 +969,10 @@ class RestrictionEnzymeDigestionSource(SequenceCutSource):
 
     _inherited_slots: ClassVar[List[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML["RestrictionEnzymeDigestionSource"]
-    class_class_curie: ClassVar[str] = "shareyourcloning_linkml:RestrictionEnzymeDigestionSource"
+    class_class_uri: ClassVar[URIRef] = OPENCLONING_LINKML["RestrictionEnzymeDigestionSource"]
+    class_class_curie: ClassVar[str] = "opencloning_linkml:RestrictionEnzymeDigestionSource"
     class_name: ClassVar[str] = "RestrictionEnzymeDigestionSource"
-    class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.RestrictionEnzymeDigestionSource
+    class_model_uri: ClassVar[URIRef] = OPENCLONING_LINKML.RestrictionEnzymeDigestionSource
 
     id: Union[int, RestrictionEnzymeDigestionSourceId] = None
     left_edge: Optional[Union[dict, RestrictionSequenceCut]] = None
@@ -1004,10 +1002,10 @@ class SimpleSequenceLocation(YAMLRoot):
 
     _inherited_slots: ClassVar[List[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML["SimpleSequenceLocation"]
-    class_class_curie: ClassVar[str] = "shareyourcloning_linkml:SimpleSequenceLocation"
+    class_class_uri: ClassVar[URIRef] = OPENCLONING_LINKML["SimpleSequenceLocation"]
+    class_class_curie: ClassVar[str] = "opencloning_linkml:SimpleSequenceLocation"
     class_name: ClassVar[str] = "SimpleSequenceLocation"
-    class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.SimpleSequenceLocation
+    class_model_uri: ClassVar[URIRef] = OPENCLONING_LINKML.SimpleSequenceLocation
 
     start: int = None
     end: int = None
@@ -1038,10 +1036,10 @@ class AssemblyFragment(YAMLRoot):
 
     _inherited_slots: ClassVar[List[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML["AssemblyFragment"]
-    class_class_curie: ClassVar[str] = "shareyourcloning_linkml:AssemblyFragment"
+    class_class_uri: ClassVar[URIRef] = OPENCLONING_LINKML["AssemblyFragment"]
+    class_class_curie: ClassVar[str] = "opencloning_linkml:AssemblyFragment"
     class_name: ClassVar[str] = "AssemblyFragment"
-    class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.AssemblyFragment
+    class_model_uri: ClassVar[URIRef] = OPENCLONING_LINKML.AssemblyFragment
 
     sequence: Union[int, SequenceId] = None
     reverse_complemented: Union[bool, Bool] = None
@@ -1076,10 +1074,10 @@ class AssemblySource(Source):
 
     _inherited_slots: ClassVar[List[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML["AssemblySource"]
-    class_class_curie: ClassVar[str] = "shareyourcloning_linkml:AssemblySource"
+    class_class_uri: ClassVar[URIRef] = OPENCLONING_LINKML["AssemblySource"]
+    class_class_curie: ClassVar[str] = "opencloning_linkml:AssemblySource"
     class_name: ClassVar[str] = "AssemblySource"
-    class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.AssemblySource
+    class_model_uri: ClassVar[URIRef] = OPENCLONING_LINKML.AssemblySource
 
     id: Union[int, AssemblySourceId] = None
     circular: Optional[Union[bool, Bool]] = None
@@ -1112,10 +1110,10 @@ class PCRSource(AssemblySource):
 
     _inherited_slots: ClassVar[List[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML["PCRSource"]
-    class_class_curie: ClassVar[str] = "shareyourcloning_linkml:PCRSource"
+    class_class_uri: ClassVar[URIRef] = OPENCLONING_LINKML["PCRSource"]
+    class_class_curie: ClassVar[str] = "opencloning_linkml:PCRSource"
     class_name: ClassVar[str] = "PCRSource"
-    class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.PCRSource
+    class_model_uri: ClassVar[URIRef] = OPENCLONING_LINKML.PCRSource
 
     id: Union[int, PCRSourceId] = None
     add_primer_features: Optional[Union[bool, Bool]] = False
@@ -1141,10 +1139,10 @@ class LigationSource(AssemblySource):
 
     _inherited_slots: ClassVar[List[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML["LigationSource"]
-    class_class_curie: ClassVar[str] = "shareyourcloning_linkml:LigationSource"
+    class_class_uri: ClassVar[URIRef] = OPENCLONING_LINKML["LigationSource"]
+    class_class_curie: ClassVar[str] = "opencloning_linkml:LigationSource"
     class_name: ClassVar[str] = "LigationSource"
-    class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.LigationSource
+    class_model_uri: ClassVar[URIRef] = OPENCLONING_LINKML.LigationSource
 
     id: Union[int, LigationSourceId] = None
 
@@ -1166,10 +1164,10 @@ class HomologousRecombinationSource(AssemblySource):
 
     _inherited_slots: ClassVar[List[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML["HomologousRecombinationSource"]
-    class_class_curie: ClassVar[str] = "shareyourcloning_linkml:HomologousRecombinationSource"
+    class_class_uri: ClassVar[URIRef] = OPENCLONING_LINKML["HomologousRecombinationSource"]
+    class_class_curie: ClassVar[str] = "opencloning_linkml:HomologousRecombinationSource"
     class_name: ClassVar[str] = "HomologousRecombinationSource"
-    class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.HomologousRecombinationSource
+    class_model_uri: ClassVar[URIRef] = OPENCLONING_LINKML.HomologousRecombinationSource
 
     id: Union[int, HomologousRecombinationSourceId] = None
 
@@ -1191,10 +1189,10 @@ class GibsonAssemblySource(AssemblySource):
 
     _inherited_slots: ClassVar[List[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML["GibsonAssemblySource"]
-    class_class_curie: ClassVar[str] = "shareyourcloning_linkml:GibsonAssemblySource"
+    class_class_uri: ClassVar[URIRef] = OPENCLONING_LINKML["GibsonAssemblySource"]
+    class_class_curie: ClassVar[str] = "opencloning_linkml:GibsonAssemblySource"
     class_name: ClassVar[str] = "GibsonAssemblySource"
-    class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.GibsonAssemblySource
+    class_model_uri: ClassVar[URIRef] = OPENCLONING_LINKML.GibsonAssemblySource
 
     id: Union[int, GibsonAssemblySourceId] = None
 
@@ -1216,10 +1214,10 @@ class InFusionSource(AssemblySource):
 
     _inherited_slots: ClassVar[List[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML["InFusionSource"]
-    class_class_curie: ClassVar[str] = "shareyourcloning_linkml:InFusionSource"
+    class_class_uri: ClassVar[URIRef] = OPENCLONING_LINKML["InFusionSource"]
+    class_class_curie: ClassVar[str] = "opencloning_linkml:InFusionSource"
     class_name: ClassVar[str] = "InFusionSource"
-    class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.InFusionSource
+    class_model_uri: ClassVar[URIRef] = OPENCLONING_LINKML.InFusionSource
 
     id: Union[int, InFusionSourceId] = None
 
@@ -1242,10 +1240,10 @@ class OverlapExtensionPCRLigationSource(AssemblySource):
 
     _inherited_slots: ClassVar[List[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML["OverlapExtensionPCRLigationSource"]
-    class_class_curie: ClassVar[str] = "shareyourcloning_linkml:OverlapExtensionPCRLigationSource"
+    class_class_uri: ClassVar[URIRef] = OPENCLONING_LINKML["OverlapExtensionPCRLigationSource"]
+    class_class_curie: ClassVar[str] = "opencloning_linkml:OverlapExtensionPCRLigationSource"
     class_name: ClassVar[str] = "OverlapExtensionPCRLigationSource"
-    class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.OverlapExtensionPCRLigationSource
+    class_model_uri: ClassVar[URIRef] = OPENCLONING_LINKML.OverlapExtensionPCRLigationSource
 
     id: Union[int, OverlapExtensionPCRLigationSourceId] = None
 
@@ -1267,10 +1265,10 @@ class RestrictionAndLigationSource(AssemblySource):
 
     _inherited_slots: ClassVar[List[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML["RestrictionAndLigationSource"]
-    class_class_curie: ClassVar[str] = "shareyourcloning_linkml:RestrictionAndLigationSource"
+    class_class_uri: ClassVar[URIRef] = OPENCLONING_LINKML["RestrictionAndLigationSource"]
+    class_class_curie: ClassVar[str] = "opencloning_linkml:RestrictionAndLigationSource"
     class_name: ClassVar[str] = "RestrictionAndLigationSource"
-    class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.RestrictionAndLigationSource
+    class_model_uri: ClassVar[URIRef] = OPENCLONING_LINKML.RestrictionAndLigationSource
 
     id: Union[int, RestrictionAndLigationSourceId] = None
     restriction_enzymes: Union[str, List[str]] = None
@@ -1299,10 +1297,10 @@ class GatewaySource(AssemblySource):
 
     _inherited_slots: ClassVar[List[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML["GatewaySource"]
-    class_class_curie: ClassVar[str] = "shareyourcloning_linkml:GatewaySource"
+    class_class_uri: ClassVar[URIRef] = OPENCLONING_LINKML["GatewaySource"]
+    class_class_curie: ClassVar[str] = "opencloning_linkml:GatewaySource"
     class_name: ClassVar[str] = "GatewaySource"
-    class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.GatewaySource
+    class_model_uri: ClassVar[URIRef] = OPENCLONING_LINKML.GatewaySource
 
     id: Union[int, GatewaySourceId] = None
     reaction_type: Union[str, "GatewayReactionType"] = None
@@ -1334,10 +1332,10 @@ class CRISPRSource(HomologousRecombinationSource):
 
     _inherited_slots: ClassVar[List[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML["CRISPRSource"]
-    class_class_curie: ClassVar[str] = "shareyourcloning_linkml:CRISPRSource"
+    class_class_uri: ClassVar[URIRef] = OPENCLONING_LINKML["CRISPRSource"]
+    class_class_curie: ClassVar[str] = "opencloning_linkml:CRISPRSource"
     class_name: ClassVar[str] = "CRISPRSource"
-    class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.CRISPRSource
+    class_model_uri: ClassVar[URIRef] = OPENCLONING_LINKML.CRISPRSource
 
     id: Union[int, CRISPRSourceId] = None
     guides: Union[Union[int, PrimerId], List[Union[int, PrimerId]]] = None
@@ -1366,10 +1364,10 @@ class OligoHybridizationSource(Source):
 
     _inherited_slots: ClassVar[List[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML["OligoHybridizationSource"]
-    class_class_curie: ClassVar[str] = "shareyourcloning_linkml:OligoHybridizationSource"
+    class_class_uri: ClassVar[URIRef] = OPENCLONING_LINKML["OligoHybridizationSource"]
+    class_class_curie: ClassVar[str] = "opencloning_linkml:OligoHybridizationSource"
     class_name: ClassVar[str] = "OligoHybridizationSource"
-    class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.OligoHybridizationSource
+    class_model_uri: ClassVar[URIRef] = OPENCLONING_LINKML.OligoHybridizationSource
 
     id: Union[int, OligoHybridizationSourceId] = None
     forward_oligo: Union[int, PrimerId] = None
@@ -1407,10 +1405,10 @@ class PolymeraseExtensionSource(Source):
 
     _inherited_slots: ClassVar[List[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML["PolymeraseExtensionSource"]
-    class_class_curie: ClassVar[str] = "shareyourcloning_linkml:PolymeraseExtensionSource"
+    class_class_uri: ClassVar[URIRef] = OPENCLONING_LINKML["PolymeraseExtensionSource"]
+    class_class_curie: ClassVar[str] = "opencloning_linkml:PolymeraseExtensionSource"
     class_name: ClassVar[str] = "PolymeraseExtensionSource"
-    class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.PolymeraseExtensionSource
+    class_model_uri: ClassVar[URIRef] = OPENCLONING_LINKML.PolymeraseExtensionSource
 
     id: Union[int, PolymeraseExtensionSourceId] = None
 
@@ -1432,10 +1430,10 @@ class CloningStrategy(YAMLRoot):
 
     _inherited_slots: ClassVar[List[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML["CloningStrategy"]
-    class_class_curie: ClassVar[str] = "shareyourcloning_linkml:CloningStrategy"
+    class_class_uri: ClassVar[URIRef] = OPENCLONING_LINKML["CloningStrategy"]
+    class_class_curie: ClassVar[str] = "opencloning_linkml:CloningStrategy"
     class_name: ClassVar[str] = "CloningStrategy"
-    class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.CloningStrategy
+    class_model_uri: ClassVar[URIRef] = OPENCLONING_LINKML.CloningStrategy
 
     sequences: Union[Dict[Union[int, SequenceId], Union[dict, Sequence]], List[Union[dict, Sequence]]] = empty_dict()
     sources: Union[Dict[Union[int, SourceId], Union[dict, Source]], List[Union[dict, Source]]] = empty_dict()
@@ -1472,10 +1470,10 @@ class AnnotationReport(YAMLRoot):
 
     _inherited_slots: ClassVar[List[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML["AnnotationReport"]
-    class_class_curie: ClassVar[str] = "shareyourcloning_linkml:AnnotationReport"
+    class_class_uri: ClassVar[URIRef] = OPENCLONING_LINKML["AnnotationReport"]
+    class_class_curie: ClassVar[str] = "opencloning_linkml:AnnotationReport"
     class_name: ClassVar[str] = "AnnotationReport"
-    class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.AnnotationReport
+    class_model_uri: ClassVar[URIRef] = OPENCLONING_LINKML.AnnotationReport
 
     type: Optional[str] = None
 
@@ -1509,10 +1507,10 @@ class PlannotateAnnotationReport(AnnotationReport):
 
     _inherited_slots: ClassVar[List[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML["PlannotateAnnotationReport"]
-    class_class_curie: ClassVar[str] = "shareyourcloning_linkml:PlannotateAnnotationReport"
+    class_class_uri: ClassVar[URIRef] = OPENCLONING_LINKML["PlannotateAnnotationReport"]
+    class_class_curie: ClassVar[str] = "opencloning_linkml:PlannotateAnnotationReport"
     class_name: ClassVar[str] = "PlannotateAnnotationReport"
-    class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.PlannotateAnnotationReport
+    class_model_uri: ClassVar[URIRef] = OPENCLONING_LINKML.PlannotateAnnotationReport
 
     sseqid: Optional[str] = None
     start_location: Optional[int] = None
@@ -1584,10 +1582,10 @@ class AnnotationSource(Source):
 
     _inherited_slots: ClassVar[List[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML["AnnotationSource"]
-    class_class_curie: ClassVar[str] = "shareyourcloning_linkml:AnnotationSource"
+    class_class_uri: ClassVar[URIRef] = OPENCLONING_LINKML["AnnotationSource"]
+    class_class_curie: ClassVar[str] = "opencloning_linkml:AnnotationSource"
     class_name: ClassVar[str] = "AnnotationSource"
-    class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.AnnotationSource
+    class_model_uri: ClassVar[URIRef] = OPENCLONING_LINKML.AnnotationSource
 
     id: Union[int, AnnotationSourceId] = None
     annotation_tool: Union[str, "AnnotationTool"] = None
@@ -1628,10 +1626,10 @@ class AssociatedFile(YAMLRoot):
 
     _inherited_slots: ClassVar[List[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML["AssociatedFile"]
-    class_class_curie: ClassVar[str] = "shareyourcloning_linkml:AssociatedFile"
+    class_class_uri: ClassVar[URIRef] = OPENCLONING_LINKML["AssociatedFile"]
+    class_class_curie: ClassVar[str] = "opencloning_linkml:AssociatedFile"
     class_name: ClassVar[str] = "AssociatedFile"
-    class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.AssociatedFile
+    class_model_uri: ClassVar[URIRef] = OPENCLONING_LINKML.AssociatedFile
 
     sequence_id: Union[int, SequenceId] = None
     file_name: str = None
@@ -1683,10 +1681,10 @@ class SequencingFile(AssociatedFile):
 
     _inherited_slots: ClassVar[List[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML["SequencingFile"]
-    class_class_curie: ClassVar[str] = "shareyourcloning_linkml:SequencingFile"
+    class_class_uri: ClassVar[URIRef] = OPENCLONING_LINKML["SequencingFile"]
+    class_class_curie: ClassVar[str] = "opencloning_linkml:SequencingFile"
     class_name: ClassVar[str] = "SequencingFile"
-    class_model_uri: ClassVar[URIRef] = SHAREYOURCLONING_LINKML.SequencingFile
+    class_model_uri: ClassVar[URIRef] = OPENCLONING_LINKML.SequencingFile
 
     sequence_id: Union[int, SequenceId] = None
     file_name: str = None
@@ -1818,7 +1816,7 @@ slots.id = Slot(
     uri=SCHEMA.identifier,
     name="id",
     curie=SCHEMA.curie("identifier"),
-    model_uri=SHAREYOURCLONING_LINKML.id,
+    model_uri=OPENCLONING_LINKML.id,
     domain=None,
     range=URIRef,
 )
@@ -1827,97 +1825,97 @@ slots.name = Slot(
     uri=SCHEMA.name,
     name="name",
     curie=SCHEMA.curie("name"),
-    model_uri=SHAREYOURCLONING_LINKML.name,
+    model_uri=OPENCLONING_LINKML.name,
     domain=None,
     range=Optional[str],
 )
 
 slots.restriction_enzyme = Slot(
-    uri=SHAREYOURCLONING_LINKML.restriction_enzyme,
+    uri=OPENCLONING_LINKML.restriction_enzyme,
     name="restriction_enzyme",
-    curie=SHAREYOURCLONING_LINKML.curie("restriction_enzyme"),
-    model_uri=SHAREYOURCLONING_LINKML.restriction_enzyme,
+    curie=OPENCLONING_LINKML.curie("restriction_enzyme"),
+    model_uri=OPENCLONING_LINKML.restriction_enzyme,
     domain=None,
     range=Optional[str],
 )
 
 slots.restriction_enzymes = Slot(
-    uri=SHAREYOURCLONING_LINKML.restriction_enzymes,
+    uri=OPENCLONING_LINKML.restriction_enzymes,
     name="restriction_enzymes",
-    curie=SHAREYOURCLONING_LINKML.curie("restriction_enzymes"),
-    model_uri=SHAREYOURCLONING_LINKML.restriction_enzymes,
+    curie=OPENCLONING_LINKML.curie("restriction_enzymes"),
+    model_uri=OPENCLONING_LINKML.restriction_enzymes,
     domain=None,
     range=Optional[Union[str, List[str]]],
 )
 
 slots.input = Slot(
-    uri=SHAREYOURCLONING_LINKML.input,
+    uri=OPENCLONING_LINKML.input,
     name="input",
-    curie=SHAREYOURCLONING_LINKML.curie("input"),
-    model_uri=SHAREYOURCLONING_LINKML.input,
+    curie=OPENCLONING_LINKML.curie("input"),
+    model_uri=OPENCLONING_LINKML.input,
     domain=None,
     range=Optional[Union[Union[int, SequenceId], List[Union[int, SequenceId]]]],
 )
 
 slots.output = Slot(
-    uri=SHAREYOURCLONING_LINKML.output,
+    uri=OPENCLONING_LINKML.output,
     name="output",
-    curie=SHAREYOURCLONING_LINKML.curie("output"),
-    model_uri=SHAREYOURCLONING_LINKML.output,
+    curie=OPENCLONING_LINKML.curie("output"),
+    model_uri=OPENCLONING_LINKML.output,
     domain=None,
     range=Optional[Union[int, SequenceId]],
 )
 
 slots.output_name = Slot(
-    uri=SHAREYOURCLONING_LINKML.output_name,
+    uri=OPENCLONING_LINKML.output_name,
     name="output_name",
-    curie=SHAREYOURCLONING_LINKML.curie("output_name"),
-    model_uri=SHAREYOURCLONING_LINKML.output_name,
+    curie=OPENCLONING_LINKML.curie("output_name"),
+    model_uri=OPENCLONING_LINKML.output_name,
     domain=None,
     range=Optional[str],
 )
 
 slots.type = Slot(
-    uri=SHAREYOURCLONING_LINKML.type,
+    uri=OPENCLONING_LINKML.type,
     name="type",
-    curie=SHAREYOURCLONING_LINKML.curie("type"),
-    model_uri=SHAREYOURCLONING_LINKML.type,
+    curie=OPENCLONING_LINKML.curie("type"),
+    model_uri=OPENCLONING_LINKML.type,
     domain=None,
     range=Optional[str],
 )
 
 slots.sequence_file_format = Slot(
-    uri=SHAREYOURCLONING_LINKML.sequence_file_format,
+    uri=OPENCLONING_LINKML.sequence_file_format,
     name="sequence_file_format",
-    curie=SHAREYOURCLONING_LINKML.curie("sequence_file_format"),
-    model_uri=SHAREYOURCLONING_LINKML.sequence_file_format,
+    curie=OPENCLONING_LINKML.curie("sequence_file_format"),
+    model_uri=OPENCLONING_LINKML.sequence_file_format,
     domain=None,
     range=Optional[Union[str, "SequenceFileFormat"]],
 )
 
 slots.overhang_crick_3prime = Slot(
-    uri=SHAREYOURCLONING_LINKML.overhang_crick_3prime,
+    uri=OPENCLONING_LINKML.overhang_crick_3prime,
     name="overhang_crick_3prime",
-    curie=SHAREYOURCLONING_LINKML.curie("overhang_crick_3prime"),
-    model_uri=SHAREYOURCLONING_LINKML.overhang_crick_3prime,
+    curie=OPENCLONING_LINKML.curie("overhang_crick_3prime"),
+    model_uri=OPENCLONING_LINKML.overhang_crick_3prime,
     domain=None,
     range=Optional[int],
 )
 
 slots.overhang_watson_3prime = Slot(
-    uri=SHAREYOURCLONING_LINKML.overhang_watson_3prime,
+    uri=OPENCLONING_LINKML.overhang_watson_3prime,
     name="overhang_watson_3prime",
-    curie=SHAREYOURCLONING_LINKML.curie("overhang_watson_3prime"),
-    model_uri=SHAREYOURCLONING_LINKML.overhang_watson_3prime,
+    curie=OPENCLONING_LINKML.curie("overhang_watson_3prime"),
+    model_uri=OPENCLONING_LINKML.overhang_watson_3prime,
     domain=None,
     range=Optional[int],
 )
 
 slots.sequence_file_url = Slot(
-    uri=SHAREYOURCLONING_LINKML.sequence_file_url,
+    uri=OPENCLONING_LINKML.sequence_file_url,
     name="sequence_file_url",
-    curie=SHAREYOURCLONING_LINKML.curie("sequence_file_url"),
-    model_uri=SHAREYOURCLONING_LINKML.sequence_file_url,
+    curie=OPENCLONING_LINKML.curie("sequence_file_url"),
+    model_uri=OPENCLONING_LINKML.sequence_file_url,
     domain=None,
     range=Optional[str],
     pattern=re.compile(
@@ -1926,732 +1924,732 @@ slots.sequence_file_url = Slot(
 )
 
 slots.repository_id = Slot(
-    uri=SHAREYOURCLONING_LINKML.repository_id,
+    uri=OPENCLONING_LINKML.repository_id,
     name="repository_id",
-    curie=SHAREYOURCLONING_LINKML.curie("repository_id"),
-    model_uri=SHAREYOURCLONING_LINKML.repository_id,
+    curie=OPENCLONING_LINKML.curie("repository_id"),
+    model_uri=OPENCLONING_LINKML.repository_id,
     domain=None,
     range=str,
 )
 
 slots.templateSequence__circular = Slot(
-    uri=SHAREYOURCLONING_LINKML.circular,
+    uri=OPENCLONING_LINKML.circular,
     name="templateSequence__circular",
-    curie=SHAREYOURCLONING_LINKML.curie("circular"),
-    model_uri=SHAREYOURCLONING_LINKML.templateSequence__circular,
+    curie=OPENCLONING_LINKML.curie("circular"),
+    model_uri=OPENCLONING_LINKML.templateSequence__circular,
     domain=None,
     range=Optional[Union[bool, Bool]],
 )
 
 slots.templateSequence__primer_design = Slot(
-    uri=SHAREYOURCLONING_LINKML.primer_design,
+    uri=OPENCLONING_LINKML.primer_design,
     name="templateSequence__primer_design",
-    curie=SHAREYOURCLONING_LINKML.curie("primer_design"),
-    model_uri=SHAREYOURCLONING_LINKML.templateSequence__primer_design,
+    curie=OPENCLONING_LINKML.curie("primer_design"),
+    model_uri=OPENCLONING_LINKML.templateSequence__primer_design,
     domain=None,
     range=Optional[str],
 )
 
 slots.textFileSequence__file_content = Slot(
-    uri=SHAREYOURCLONING_LINKML.file_content,
+    uri=OPENCLONING_LINKML.file_content,
     name="textFileSequence__file_content",
-    curie=SHAREYOURCLONING_LINKML.curie("file_content"),
-    model_uri=SHAREYOURCLONING_LINKML.textFileSequence__file_content,
+    curie=OPENCLONING_LINKML.curie("file_content"),
+    model_uri=OPENCLONING_LINKML.textFileSequence__file_content,
     domain=None,
     range=Optional[str],
 )
 
 slots.primer__sequence = Slot(
-    uri=SHAREYOURCLONING_LINKML.sequence,
+    uri=OPENCLONING_LINKML.sequence,
     name="primer__sequence",
-    curie=SHAREYOURCLONING_LINKML.curie("sequence"),
-    model_uri=SHAREYOURCLONING_LINKML.primer__sequence,
+    curie=OPENCLONING_LINKML.curie("sequence"),
+    model_uri=OPENCLONING_LINKML.primer__sequence,
     domain=None,
     range=Optional[str],
     pattern=re.compile(r"^[acgtACGT]+$"),
 )
 
 slots.sequenceCut__cut_watson = Slot(
-    uri=SHAREYOURCLONING_LINKML.cut_watson,
+    uri=OPENCLONING_LINKML.cut_watson,
     name="sequenceCut__cut_watson",
-    curie=SHAREYOURCLONING_LINKML.curie("cut_watson"),
-    model_uri=SHAREYOURCLONING_LINKML.sequenceCut__cut_watson,
+    curie=OPENCLONING_LINKML.curie("cut_watson"),
+    model_uri=OPENCLONING_LINKML.sequenceCut__cut_watson,
     domain=None,
     range=int,
 )
 
 slots.sequenceCut__overhang = Slot(
-    uri=SHAREYOURCLONING_LINKML.overhang,
+    uri=OPENCLONING_LINKML.overhang,
     name="sequenceCut__overhang",
-    curie=SHAREYOURCLONING_LINKML.curie("overhang"),
-    model_uri=SHAREYOURCLONING_LINKML.sequenceCut__overhang,
+    curie=OPENCLONING_LINKML.curie("overhang"),
+    model_uri=OPENCLONING_LINKML.sequenceCut__overhang,
     domain=None,
     range=int,
 )
 
 slots.collectionSource__category_id = Slot(
-    uri=SHAREYOURCLONING_LINKML.category_id,
+    uri=OPENCLONING_LINKML.category_id,
     name="collectionSource__category_id",
-    curie=SHAREYOURCLONING_LINKML.curie("category_id"),
-    model_uri=SHAREYOURCLONING_LINKML.collectionSource__category_id,
+    curie=OPENCLONING_LINKML.curie("category_id"),
+    model_uri=OPENCLONING_LINKML.collectionSource__category_id,
     domain=None,
     range=Optional[str],
 )
 
 slots.collectionSource__title = Slot(
-    uri=SHAREYOURCLONING_LINKML.title,
+    uri=OPENCLONING_LINKML.title,
     name="collectionSource__title",
-    curie=SHAREYOURCLONING_LINKML.curie("title"),
-    model_uri=SHAREYOURCLONING_LINKML.collectionSource__title,
+    curie=OPENCLONING_LINKML.curie("title"),
+    model_uri=OPENCLONING_LINKML.collectionSource__title,
     domain=None,
     range=str,
 )
 
 slots.collectionSource__description = Slot(
-    uri=SHAREYOURCLONING_LINKML.description,
+    uri=OPENCLONING_LINKML.description,
     name="collectionSource__description",
-    curie=SHAREYOURCLONING_LINKML.curie("description"),
-    model_uri=SHAREYOURCLONING_LINKML.collectionSource__description,
+    curie=OPENCLONING_LINKML.curie("description"),
+    model_uri=OPENCLONING_LINKML.collectionSource__description,
     domain=None,
     range=Optional[str],
 )
 
 slots.collectionSource__image = Slot(
-    uri=SHAREYOURCLONING_LINKML.image,
+    uri=OPENCLONING_LINKML.image,
     name="collectionSource__image",
-    curie=SHAREYOURCLONING_LINKML.curie("image"),
-    model_uri=SHAREYOURCLONING_LINKML.collectionSource__image,
+    curie=OPENCLONING_LINKML.curie("image"),
+    model_uri=OPENCLONING_LINKML.collectionSource__image,
     domain=None,
     range=Optional[Union[str, List[str]]],
 )
 
 slots.collectionSource__options = Slot(
-    uri=SHAREYOURCLONING_LINKML.options,
+    uri=OPENCLONING_LINKML.options,
     name="collectionSource__options",
-    curie=SHAREYOURCLONING_LINKML.curie("options"),
-    model_uri=SHAREYOURCLONING_LINKML.collectionSource__options,
+    curie=OPENCLONING_LINKML.curie("options"),
+    model_uri=OPENCLONING_LINKML.collectionSource__options,
     domain=None,
     range=Optional[Union[Union[dict, CollectionOption], List[Union[dict, CollectionOption]]]],
 )
 
 slots.collectionOption__source = Slot(
-    uri=SHAREYOURCLONING_LINKML.source,
+    uri=OPENCLONING_LINKML.source,
     name="collectionOption__source",
-    curie=SHAREYOURCLONING_LINKML.curie("source"),
-    model_uri=SHAREYOURCLONING_LINKML.collectionOption__source,
+    curie=OPENCLONING_LINKML.curie("source"),
+    model_uri=OPENCLONING_LINKML.collectionOption__source,
     domain=None,
     range=Union[dict, Source],
 )
 
 slots.collectionOption__info = Slot(
-    uri=SHAREYOURCLONING_LINKML.info,
+    uri=OPENCLONING_LINKML.info,
     name="collectionOption__info",
-    curie=SHAREYOURCLONING_LINKML.curie("info"),
-    model_uri=SHAREYOURCLONING_LINKML.collectionOption__info,
+    curie=OPENCLONING_LINKML.curie("info"),
+    model_uri=OPENCLONING_LINKML.collectionOption__info,
     domain=None,
     range=Optional[Union[dict, CollectionOptionInfo]],
 )
 
 slots.collectionOptionInfo__description = Slot(
-    uri=SHAREYOURCLONING_LINKML.description,
+    uri=OPENCLONING_LINKML.description,
     name="collectionOptionInfo__description",
-    curie=SHAREYOURCLONING_LINKML.curie("description"),
-    model_uri=SHAREYOURCLONING_LINKML.collectionOptionInfo__description,
+    curie=OPENCLONING_LINKML.curie("description"),
+    model_uri=OPENCLONING_LINKML.collectionOptionInfo__description,
     domain=None,
     range=Optional[str],
 )
 
 slots.collectionOptionInfo__type = Slot(
-    uri=SHAREYOURCLONING_LINKML.type,
+    uri=OPENCLONING_LINKML.type,
     name="collectionOptionInfo__type",
-    curie=SHAREYOURCLONING_LINKML.curie("type"),
-    model_uri=SHAREYOURCLONING_LINKML.collectionOptionInfo__type,
+    curie=OPENCLONING_LINKML.curie("type"),
+    model_uri=OPENCLONING_LINKML.collectionOptionInfo__type,
     domain=None,
     range=Optional[Union[str, "CollectionOptionType"]],
 )
 
 slots.collectionOptionInfo__resistance = Slot(
-    uri=SHAREYOURCLONING_LINKML.resistance,
+    uri=OPENCLONING_LINKML.resistance,
     name="collectionOptionInfo__resistance",
-    curie=SHAREYOURCLONING_LINKML.curie("resistance"),
-    model_uri=SHAREYOURCLONING_LINKML.collectionOptionInfo__resistance,
+    curie=OPENCLONING_LINKML.curie("resistance"),
+    model_uri=OPENCLONING_LINKML.collectionOptionInfo__resistance,
     domain=None,
     range=Optional[str],
 )
 
 slots.collectionOptionInfo__well = Slot(
-    uri=SHAREYOURCLONING_LINKML.well,
+    uri=OPENCLONING_LINKML.well,
     name="collectionOptionInfo__well",
-    curie=SHAREYOURCLONING_LINKML.curie("well"),
-    model_uri=SHAREYOURCLONING_LINKML.collectionOptionInfo__well,
+    curie=OPENCLONING_LINKML.curie("well"),
+    model_uri=OPENCLONING_LINKML.collectionOptionInfo__well,
     domain=None,
     range=Optional[str],
 )
 
 slots.manuallyTypedSource__user_input = Slot(
-    uri=SHAREYOURCLONING_LINKML.user_input,
+    uri=OPENCLONING_LINKML.user_input,
     name="manuallyTypedSource__user_input",
-    curie=SHAREYOURCLONING_LINKML.curie("user_input"),
-    model_uri=SHAREYOURCLONING_LINKML.manuallyTypedSource__user_input,
+    curie=OPENCLONING_LINKML.curie("user_input"),
+    model_uri=OPENCLONING_LINKML.manuallyTypedSource__user_input,
     domain=None,
     range=str,
     pattern=re.compile(r"^[acgtACGT]+$"),
 )
 
 slots.manuallyTypedSource__circular = Slot(
-    uri=SHAREYOURCLONING_LINKML.circular,
+    uri=OPENCLONING_LINKML.circular,
     name="manuallyTypedSource__circular",
-    curie=SHAREYOURCLONING_LINKML.curie("circular"),
-    model_uri=SHAREYOURCLONING_LINKML.manuallyTypedSource__circular,
+    curie=OPENCLONING_LINKML.curie("circular"),
+    model_uri=OPENCLONING_LINKML.manuallyTypedSource__circular,
     domain=None,
     range=Optional[Union[bool, Bool]],
 )
 
 slots.uploadedFileSource__file_name = Slot(
-    uri=SHAREYOURCLONING_LINKML.file_name,
+    uri=OPENCLONING_LINKML.file_name,
     name="uploadedFileSource__file_name",
-    curie=SHAREYOURCLONING_LINKML.curie("file_name"),
-    model_uri=SHAREYOURCLONING_LINKML.uploadedFileSource__file_name,
+    curie=OPENCLONING_LINKML.curie("file_name"),
+    model_uri=OPENCLONING_LINKML.uploadedFileSource__file_name,
     domain=None,
     range=Optional[str],
 )
 
 slots.uploadedFileSource__index_in_file = Slot(
-    uri=SHAREYOURCLONING_LINKML.index_in_file,
+    uri=OPENCLONING_LINKML.index_in_file,
     name="uploadedFileSource__index_in_file",
-    curie=SHAREYOURCLONING_LINKML.curie("index_in_file"),
-    model_uri=SHAREYOURCLONING_LINKML.uploadedFileSource__index_in_file,
+    curie=OPENCLONING_LINKML.curie("index_in_file"),
+    model_uri=OPENCLONING_LINKML.uploadedFileSource__index_in_file,
     domain=None,
     range=Optional[int],
 )
 
 slots.uploadedFileSource__circularize = Slot(
-    uri=SHAREYOURCLONING_LINKML.circularize,
+    uri=OPENCLONING_LINKML.circularize,
     name="uploadedFileSource__circularize",
-    curie=SHAREYOURCLONING_LINKML.curie("circularize"),
-    model_uri=SHAREYOURCLONING_LINKML.uploadedFileSource__circularize,
+    curie=OPENCLONING_LINKML.curie("circularize"),
+    model_uri=OPENCLONING_LINKML.uploadedFileSource__circularize,
     domain=None,
     range=Optional[Union[bool, Bool]],
 )
 
 slots.repositoryIdSource__repository_name = Slot(
-    uri=SHAREYOURCLONING_LINKML.repository_name,
+    uri=OPENCLONING_LINKML.repository_name,
     name="repositoryIdSource__repository_name",
-    curie=SHAREYOURCLONING_LINKML.curie("repository_name"),
-    model_uri=SHAREYOURCLONING_LINKML.repositoryIdSource__repository_name,
+    curie=OPENCLONING_LINKML.curie("repository_name"),
+    model_uri=OPENCLONING_LINKML.repositoryIdSource__repository_name,
     domain=None,
     range=Union[str, "RepositoryName"],
 )
 
 slots.addGeneIdSource__addgene_sequence_type = Slot(
-    uri=SHAREYOURCLONING_LINKML.addgene_sequence_type,
+    uri=OPENCLONING_LINKML.addgene_sequence_type,
     name="addGeneIdSource__addgene_sequence_type",
-    curie=SHAREYOURCLONING_LINKML.curie("addgene_sequence_type"),
-    model_uri=SHAREYOURCLONING_LINKML.addGeneIdSource__addgene_sequence_type,
+    curie=OPENCLONING_LINKML.curie("addgene_sequence_type"),
+    model_uri=OPENCLONING_LINKML.addGeneIdSource__addgene_sequence_type,
     domain=None,
     range=Optional[Union[str, "AddGeneSequenceType"]],
 )
 
 slots.genomeCoordinatesSource__assembly_accession = Slot(
-    uri=SHAREYOURCLONING_LINKML.assembly_accession,
+    uri=OPENCLONING_LINKML.assembly_accession,
     name="genomeCoordinatesSource__assembly_accession",
-    curie=SHAREYOURCLONING_LINKML.curie("assembly_accession"),
-    model_uri=SHAREYOURCLONING_LINKML.genomeCoordinatesSource__assembly_accession,
+    curie=OPENCLONING_LINKML.curie("assembly_accession"),
+    model_uri=OPENCLONING_LINKML.genomeCoordinatesSource__assembly_accession,
     domain=None,
     range=Optional[str],
 )
 
 slots.genomeCoordinatesSource__sequence_accession = Slot(
-    uri=SHAREYOURCLONING_LINKML.sequence_accession,
+    uri=OPENCLONING_LINKML.sequence_accession,
     name="genomeCoordinatesSource__sequence_accession",
-    curie=SHAREYOURCLONING_LINKML.curie("sequence_accession"),
-    model_uri=SHAREYOURCLONING_LINKML.genomeCoordinatesSource__sequence_accession,
+    curie=OPENCLONING_LINKML.curie("sequence_accession"),
+    model_uri=OPENCLONING_LINKML.genomeCoordinatesSource__sequence_accession,
     domain=None,
     range=str,
 )
 
 slots.genomeCoordinatesSource__locus_tag = Slot(
-    uri=SHAREYOURCLONING_LINKML.locus_tag,
+    uri=OPENCLONING_LINKML.locus_tag,
     name="genomeCoordinatesSource__locus_tag",
-    curie=SHAREYOURCLONING_LINKML.curie("locus_tag"),
-    model_uri=SHAREYOURCLONING_LINKML.genomeCoordinatesSource__locus_tag,
+    curie=OPENCLONING_LINKML.curie("locus_tag"),
+    model_uri=OPENCLONING_LINKML.genomeCoordinatesSource__locus_tag,
     domain=None,
     range=Optional[str],
 )
 
 slots.genomeCoordinatesSource__gene_id = Slot(
-    uri=SHAREYOURCLONING_LINKML.gene_id,
+    uri=OPENCLONING_LINKML.gene_id,
     name="genomeCoordinatesSource__gene_id",
-    curie=SHAREYOURCLONING_LINKML.curie("gene_id"),
-    model_uri=SHAREYOURCLONING_LINKML.genomeCoordinatesSource__gene_id,
+    curie=OPENCLONING_LINKML.curie("gene_id"),
+    model_uri=OPENCLONING_LINKML.genomeCoordinatesSource__gene_id,
     domain=None,
     range=Optional[int],
 )
 
 slots.genomeCoordinatesSource__start = Slot(
-    uri=SHAREYOURCLONING_LINKML.start,
+    uri=OPENCLONING_LINKML.start,
     name="genomeCoordinatesSource__start",
-    curie=SHAREYOURCLONING_LINKML.curie("start"),
-    model_uri=SHAREYOURCLONING_LINKML.genomeCoordinatesSource__start,
+    curie=OPENCLONING_LINKML.curie("start"),
+    model_uri=OPENCLONING_LINKML.genomeCoordinatesSource__start,
     domain=None,
     range=int,
 )
 
 slots.genomeCoordinatesSource__end = Slot(
-    uri=SHAREYOURCLONING_LINKML.end,
+    uri=OPENCLONING_LINKML.end,
     name="genomeCoordinatesSource__end",
-    curie=SHAREYOURCLONING_LINKML.curie("end"),
-    model_uri=SHAREYOURCLONING_LINKML.genomeCoordinatesSource__end,
+    curie=OPENCLONING_LINKML.curie("end"),
+    model_uri=OPENCLONING_LINKML.genomeCoordinatesSource__end,
     domain=None,
     range=int,
 )
 
 slots.genomeCoordinatesSource__strand = Slot(
-    uri=SHAREYOURCLONING_LINKML.strand,
+    uri=OPENCLONING_LINKML.strand,
     name="genomeCoordinatesSource__strand",
-    curie=SHAREYOURCLONING_LINKML.curie("strand"),
-    model_uri=SHAREYOURCLONING_LINKML.genomeCoordinatesSource__strand,
+    curie=OPENCLONING_LINKML.curie("strand"),
+    model_uri=OPENCLONING_LINKML.genomeCoordinatesSource__strand,
     domain=None,
     range=int,
 )
 
 slots.sequenceCutSource__left_edge = Slot(
-    uri=SHAREYOURCLONING_LINKML.left_edge,
+    uri=OPENCLONING_LINKML.left_edge,
     name="sequenceCutSource__left_edge",
-    curie=SHAREYOURCLONING_LINKML.curie("left_edge"),
-    model_uri=SHAREYOURCLONING_LINKML.sequenceCutSource__left_edge,
+    curie=OPENCLONING_LINKML.curie("left_edge"),
+    model_uri=OPENCLONING_LINKML.sequenceCutSource__left_edge,
     domain=None,
     range=Optional[Union[dict, SequenceCut]],
 )
 
 slots.sequenceCutSource__right_edge = Slot(
-    uri=SHAREYOURCLONING_LINKML.right_edge,
+    uri=OPENCLONING_LINKML.right_edge,
     name="sequenceCutSource__right_edge",
-    curie=SHAREYOURCLONING_LINKML.curie("right_edge"),
-    model_uri=SHAREYOURCLONING_LINKML.sequenceCutSource__right_edge,
+    curie=OPENCLONING_LINKML.curie("right_edge"),
+    model_uri=OPENCLONING_LINKML.sequenceCutSource__right_edge,
     domain=None,
     range=Optional[Union[dict, SequenceCut]],
 )
 
 slots.restrictionEnzymeDigestionSource__left_edge = Slot(
-    uri=SHAREYOURCLONING_LINKML.left_edge,
+    uri=OPENCLONING_LINKML.left_edge,
     name="restrictionEnzymeDigestionSource__left_edge",
-    curie=SHAREYOURCLONING_LINKML.curie("left_edge"),
-    model_uri=SHAREYOURCLONING_LINKML.restrictionEnzymeDigestionSource__left_edge,
+    curie=OPENCLONING_LINKML.curie("left_edge"),
+    model_uri=OPENCLONING_LINKML.restrictionEnzymeDigestionSource__left_edge,
     domain=None,
     range=Optional[Union[dict, RestrictionSequenceCut]],
 )
 
 slots.restrictionEnzymeDigestionSource__right_edge = Slot(
-    uri=SHAREYOURCLONING_LINKML.right_edge,
+    uri=OPENCLONING_LINKML.right_edge,
     name="restrictionEnzymeDigestionSource__right_edge",
-    curie=SHAREYOURCLONING_LINKML.curie("right_edge"),
-    model_uri=SHAREYOURCLONING_LINKML.restrictionEnzymeDigestionSource__right_edge,
+    curie=OPENCLONING_LINKML.curie("right_edge"),
+    model_uri=OPENCLONING_LINKML.restrictionEnzymeDigestionSource__right_edge,
     domain=None,
     range=Optional[Union[dict, RestrictionSequenceCut]],
 )
 
 slots.simpleSequenceLocation__start = Slot(
-    uri=SHAREYOURCLONING_LINKML.start,
+    uri=OPENCLONING_LINKML.start,
     name="simpleSequenceLocation__start",
-    curie=SHAREYOURCLONING_LINKML.curie("start"),
-    model_uri=SHAREYOURCLONING_LINKML.simpleSequenceLocation__start,
+    curie=OPENCLONING_LINKML.curie("start"),
+    model_uri=OPENCLONING_LINKML.simpleSequenceLocation__start,
     domain=None,
     range=int,
 )
 
 slots.simpleSequenceLocation__end = Slot(
-    uri=SHAREYOURCLONING_LINKML.end,
+    uri=OPENCLONING_LINKML.end,
     name="simpleSequenceLocation__end",
-    curie=SHAREYOURCLONING_LINKML.curie("end"),
-    model_uri=SHAREYOURCLONING_LINKML.simpleSequenceLocation__end,
+    curie=OPENCLONING_LINKML.curie("end"),
+    model_uri=OPENCLONING_LINKML.simpleSequenceLocation__end,
     domain=None,
     range=int,
 )
 
 slots.simpleSequenceLocation__strand = Slot(
-    uri=SHAREYOURCLONING_LINKML.strand,
+    uri=OPENCLONING_LINKML.strand,
     name="simpleSequenceLocation__strand",
-    curie=SHAREYOURCLONING_LINKML.curie("strand"),
-    model_uri=SHAREYOURCLONING_LINKML.simpleSequenceLocation__strand,
+    curie=OPENCLONING_LINKML.curie("strand"),
+    model_uri=OPENCLONING_LINKML.simpleSequenceLocation__strand,
     domain=None,
     range=Optional[int],
 )
 
 slots.assemblyFragment__sequence = Slot(
-    uri=SHAREYOURCLONING_LINKML.sequence,
+    uri=OPENCLONING_LINKML.sequence,
     name="assemblyFragment__sequence",
-    curie=SHAREYOURCLONING_LINKML.curie("sequence"),
-    model_uri=SHAREYOURCLONING_LINKML.assemblyFragment__sequence,
+    curie=OPENCLONING_LINKML.curie("sequence"),
+    model_uri=OPENCLONING_LINKML.assemblyFragment__sequence,
     domain=None,
     range=Union[int, SequenceId],
 )
 
 slots.assemblyFragment__left_location = Slot(
-    uri=SHAREYOURCLONING_LINKML.left_location,
+    uri=OPENCLONING_LINKML.left_location,
     name="assemblyFragment__left_location",
-    curie=SHAREYOURCLONING_LINKML.curie("left_location"),
-    model_uri=SHAREYOURCLONING_LINKML.assemblyFragment__left_location,
+    curie=OPENCLONING_LINKML.curie("left_location"),
+    model_uri=OPENCLONING_LINKML.assemblyFragment__left_location,
     domain=None,
     range=Optional[Union[dict, SimpleSequenceLocation]],
 )
 
 slots.assemblyFragment__right_location = Slot(
-    uri=SHAREYOURCLONING_LINKML.right_location,
+    uri=OPENCLONING_LINKML.right_location,
     name="assemblyFragment__right_location",
-    curie=SHAREYOURCLONING_LINKML.curie("right_location"),
-    model_uri=SHAREYOURCLONING_LINKML.assemblyFragment__right_location,
+    curie=OPENCLONING_LINKML.curie("right_location"),
+    model_uri=OPENCLONING_LINKML.assemblyFragment__right_location,
     domain=None,
     range=Optional[Union[dict, SimpleSequenceLocation]],
 )
 
 slots.assemblyFragment__reverse_complemented = Slot(
-    uri=SHAREYOURCLONING_LINKML.reverse_complemented,
+    uri=OPENCLONING_LINKML.reverse_complemented,
     name="assemblyFragment__reverse_complemented",
-    curie=SHAREYOURCLONING_LINKML.curie("reverse_complemented"),
-    model_uri=SHAREYOURCLONING_LINKML.assemblyFragment__reverse_complemented,
+    curie=OPENCLONING_LINKML.curie("reverse_complemented"),
+    model_uri=OPENCLONING_LINKML.assemblyFragment__reverse_complemented,
     domain=None,
     range=Union[bool, Bool],
 )
 
 slots.assemblySource__circular = Slot(
-    uri=SHAREYOURCLONING_LINKML.circular,
+    uri=OPENCLONING_LINKML.circular,
     name="assemblySource__circular",
-    curie=SHAREYOURCLONING_LINKML.curie("circular"),
-    model_uri=SHAREYOURCLONING_LINKML.assemblySource__circular,
+    curie=OPENCLONING_LINKML.curie("circular"),
+    model_uri=OPENCLONING_LINKML.assemblySource__circular,
     domain=None,
     range=Optional[Union[bool, Bool]],
 )
 
 slots.assemblySource__assembly = Slot(
-    uri=SHAREYOURCLONING_LINKML.assembly,
+    uri=OPENCLONING_LINKML.assembly,
     name="assemblySource__assembly",
-    curie=SHAREYOURCLONING_LINKML.curie("assembly"),
-    model_uri=SHAREYOURCLONING_LINKML.assemblySource__assembly,
+    curie=OPENCLONING_LINKML.curie("assembly"),
+    model_uri=OPENCLONING_LINKML.assemblySource__assembly,
     domain=None,
     range=Optional[Union[Union[dict, AssemblyFragment], List[Union[dict, AssemblyFragment]]]],
 )
 
 slots.pCRSource__add_primer_features = Slot(
-    uri=SHAREYOURCLONING_LINKML.add_primer_features,
+    uri=OPENCLONING_LINKML.add_primer_features,
     name="pCRSource__add_primer_features",
-    curie=SHAREYOURCLONING_LINKML.curie("add_primer_features"),
-    model_uri=SHAREYOURCLONING_LINKML.pCRSource__add_primer_features,
+    curie=OPENCLONING_LINKML.curie("add_primer_features"),
+    model_uri=OPENCLONING_LINKML.pCRSource__add_primer_features,
     domain=None,
     range=Optional[Union[bool, Bool]],
 )
 
 slots.gatewaySource__reaction_type = Slot(
-    uri=SHAREYOURCLONING_LINKML.reaction_type,
+    uri=OPENCLONING_LINKML.reaction_type,
     name="gatewaySource__reaction_type",
-    curie=SHAREYOURCLONING_LINKML.curie("reaction_type"),
-    model_uri=SHAREYOURCLONING_LINKML.gatewaySource__reaction_type,
+    curie=OPENCLONING_LINKML.curie("reaction_type"),
+    model_uri=OPENCLONING_LINKML.gatewaySource__reaction_type,
     domain=None,
     range=Union[str, "GatewayReactionType"],
 )
 
 slots.gatewaySource__greedy = Slot(
-    uri=SHAREYOURCLONING_LINKML.greedy,
+    uri=OPENCLONING_LINKML.greedy,
     name="gatewaySource__greedy",
-    curie=SHAREYOURCLONING_LINKML.curie("greedy"),
-    model_uri=SHAREYOURCLONING_LINKML.gatewaySource__greedy,
+    curie=OPENCLONING_LINKML.curie("greedy"),
+    model_uri=OPENCLONING_LINKML.gatewaySource__greedy,
     domain=None,
     range=Optional[Union[bool, Bool]],
 )
 
 slots.cRISPRSource__guides = Slot(
-    uri=SHAREYOURCLONING_LINKML.guides,
+    uri=OPENCLONING_LINKML.guides,
     name="cRISPRSource__guides",
-    curie=SHAREYOURCLONING_LINKML.curie("guides"),
-    model_uri=SHAREYOURCLONING_LINKML.cRISPRSource__guides,
+    curie=OPENCLONING_LINKML.curie("guides"),
+    model_uri=OPENCLONING_LINKML.cRISPRSource__guides,
     domain=None,
     range=Union[Union[int, PrimerId], List[Union[int, PrimerId]]],
 )
 
 slots.oligoHybridizationSource__forward_oligo = Slot(
-    uri=SHAREYOURCLONING_LINKML.forward_oligo,
+    uri=OPENCLONING_LINKML.forward_oligo,
     name="oligoHybridizationSource__forward_oligo",
-    curie=SHAREYOURCLONING_LINKML.curie("forward_oligo"),
-    model_uri=SHAREYOURCLONING_LINKML.oligoHybridizationSource__forward_oligo,
+    curie=OPENCLONING_LINKML.curie("forward_oligo"),
+    model_uri=OPENCLONING_LINKML.oligoHybridizationSource__forward_oligo,
     domain=None,
     range=Union[int, PrimerId],
 )
 
 slots.oligoHybridizationSource__reverse_oligo = Slot(
-    uri=SHAREYOURCLONING_LINKML.reverse_oligo,
+    uri=OPENCLONING_LINKML.reverse_oligo,
     name="oligoHybridizationSource__reverse_oligo",
-    curie=SHAREYOURCLONING_LINKML.curie("reverse_oligo"),
-    model_uri=SHAREYOURCLONING_LINKML.oligoHybridizationSource__reverse_oligo,
+    curie=OPENCLONING_LINKML.curie("reverse_oligo"),
+    model_uri=OPENCLONING_LINKML.oligoHybridizationSource__reverse_oligo,
     domain=None,
     range=Union[int, PrimerId],
 )
 
 slots.cloningStrategy__sequences = Slot(
-    uri=SHAREYOURCLONING_LINKML.sequences,
+    uri=OPENCLONING_LINKML.sequences,
     name="cloningStrategy__sequences",
-    curie=SHAREYOURCLONING_LINKML.curie("sequences"),
-    model_uri=SHAREYOURCLONING_LINKML.cloningStrategy__sequences,
+    curie=OPENCLONING_LINKML.curie("sequences"),
+    model_uri=OPENCLONING_LINKML.cloningStrategy__sequences,
     domain=None,
     range=Union[Dict[Union[int, SequenceId], Union[dict, Sequence]], List[Union[dict, Sequence]]],
 )
 
 slots.cloningStrategy__sources = Slot(
-    uri=SHAREYOURCLONING_LINKML.sources,
+    uri=OPENCLONING_LINKML.sources,
     name="cloningStrategy__sources",
-    curie=SHAREYOURCLONING_LINKML.curie("sources"),
-    model_uri=SHAREYOURCLONING_LINKML.cloningStrategy__sources,
+    curie=OPENCLONING_LINKML.curie("sources"),
+    model_uri=OPENCLONING_LINKML.cloningStrategy__sources,
     domain=None,
     range=Union[Dict[Union[int, SourceId], Union[dict, Source]], List[Union[dict, Source]]],
 )
 
 slots.cloningStrategy__primers = Slot(
-    uri=SHAREYOURCLONING_LINKML.primers,
+    uri=OPENCLONING_LINKML.primers,
     name="cloningStrategy__primers",
-    curie=SHAREYOURCLONING_LINKML.curie("primers"),
-    model_uri=SHAREYOURCLONING_LINKML.cloningStrategy__primers,
+    curie=OPENCLONING_LINKML.curie("primers"),
+    model_uri=OPENCLONING_LINKML.cloningStrategy__primers,
     domain=None,
     range=Optional[Union[Dict[Union[int, PrimerId], Union[dict, Primer]], List[Union[dict, Primer]]]],
 )
 
 slots.cloningStrategy__description = Slot(
-    uri=SHAREYOURCLONING_LINKML.description,
+    uri=OPENCLONING_LINKML.description,
     name="cloningStrategy__description",
-    curie=SHAREYOURCLONING_LINKML.curie("description"),
-    model_uri=SHAREYOURCLONING_LINKML.cloningStrategy__description,
+    curie=OPENCLONING_LINKML.curie("description"),
+    model_uri=OPENCLONING_LINKML.cloningStrategy__description,
     domain=None,
     range=Optional[str],
 )
 
 slots.cloningStrategy__files = Slot(
-    uri=SHAREYOURCLONING_LINKML.files,
+    uri=OPENCLONING_LINKML.files,
     name="cloningStrategy__files",
-    curie=SHAREYOURCLONING_LINKML.curie("files"),
-    model_uri=SHAREYOURCLONING_LINKML.cloningStrategy__files,
+    curie=OPENCLONING_LINKML.curie("files"),
+    model_uri=OPENCLONING_LINKML.cloningStrategy__files,
     domain=None,
     range=Optional[Union[Union[dict, AssociatedFile], List[Union[dict, AssociatedFile]]]],
 )
 
 slots.plannotateAnnotationReport__sseqid = Slot(
-    uri=SHAREYOURCLONING_LINKML.sseqid,
+    uri=OPENCLONING_LINKML.sseqid,
     name="plannotateAnnotationReport__sseqid",
-    curie=SHAREYOURCLONING_LINKML.curie("sseqid"),
-    model_uri=SHAREYOURCLONING_LINKML.plannotateAnnotationReport__sseqid,
+    curie=OPENCLONING_LINKML.curie("sseqid"),
+    model_uri=OPENCLONING_LINKML.plannotateAnnotationReport__sseqid,
     domain=None,
     range=Optional[str],
 )
 
 slots.plannotateAnnotationReport__start_location = Slot(
-    uri=SHAREYOURCLONING_LINKML.start_location,
+    uri=OPENCLONING_LINKML.start_location,
     name="plannotateAnnotationReport__start_location",
-    curie=SHAREYOURCLONING_LINKML.curie("start_location"),
-    model_uri=SHAREYOURCLONING_LINKML.plannotateAnnotationReport__start_location,
+    curie=OPENCLONING_LINKML.curie("start_location"),
+    model_uri=OPENCLONING_LINKML.plannotateAnnotationReport__start_location,
     domain=None,
     range=Optional[int],
 )
 
 slots.plannotateAnnotationReport__end_location = Slot(
-    uri=SHAREYOURCLONING_LINKML.end_location,
+    uri=OPENCLONING_LINKML.end_location,
     name="plannotateAnnotationReport__end_location",
-    curie=SHAREYOURCLONING_LINKML.curie("end_location"),
-    model_uri=SHAREYOURCLONING_LINKML.plannotateAnnotationReport__end_location,
+    curie=OPENCLONING_LINKML.curie("end_location"),
+    model_uri=OPENCLONING_LINKML.plannotateAnnotationReport__end_location,
     domain=None,
     range=Optional[int],
 )
 
 slots.plannotateAnnotationReport__strand = Slot(
-    uri=SHAREYOURCLONING_LINKML.strand,
+    uri=OPENCLONING_LINKML.strand,
     name="plannotateAnnotationReport__strand",
-    curie=SHAREYOURCLONING_LINKML.curie("strand"),
-    model_uri=SHAREYOURCLONING_LINKML.plannotateAnnotationReport__strand,
+    curie=OPENCLONING_LINKML.curie("strand"),
+    model_uri=OPENCLONING_LINKML.plannotateAnnotationReport__strand,
     domain=None,
     range=Optional[int],
 )
 
 slots.plannotateAnnotationReport__percent_identity = Slot(
-    uri=SHAREYOURCLONING_LINKML.percent_identity,
+    uri=OPENCLONING_LINKML.percent_identity,
     name="plannotateAnnotationReport__percent_identity",
-    curie=SHAREYOURCLONING_LINKML.curie("percent_identity"),
-    model_uri=SHAREYOURCLONING_LINKML.plannotateAnnotationReport__percent_identity,
+    curie=OPENCLONING_LINKML.curie("percent_identity"),
+    model_uri=OPENCLONING_LINKML.plannotateAnnotationReport__percent_identity,
     domain=None,
     range=Optional[float],
 )
 
 slots.plannotateAnnotationReport__full_length_of_feature_in_db = Slot(
-    uri=SHAREYOURCLONING_LINKML.full_length_of_feature_in_db,
+    uri=OPENCLONING_LINKML.full_length_of_feature_in_db,
     name="plannotateAnnotationReport__full_length_of_feature_in_db",
-    curie=SHAREYOURCLONING_LINKML.curie("full_length_of_feature_in_db"),
-    model_uri=SHAREYOURCLONING_LINKML.plannotateAnnotationReport__full_length_of_feature_in_db,
+    curie=OPENCLONING_LINKML.curie("full_length_of_feature_in_db"),
+    model_uri=OPENCLONING_LINKML.plannotateAnnotationReport__full_length_of_feature_in_db,
     domain=None,
     range=Optional[int],
 )
 
 slots.plannotateAnnotationReport__length_of_found_feature = Slot(
-    uri=SHAREYOURCLONING_LINKML.length_of_found_feature,
+    uri=OPENCLONING_LINKML.length_of_found_feature,
     name="plannotateAnnotationReport__length_of_found_feature",
-    curie=SHAREYOURCLONING_LINKML.curie("length_of_found_feature"),
-    model_uri=SHAREYOURCLONING_LINKML.plannotateAnnotationReport__length_of_found_feature,
+    curie=OPENCLONING_LINKML.curie("length_of_found_feature"),
+    model_uri=OPENCLONING_LINKML.plannotateAnnotationReport__length_of_found_feature,
     domain=None,
     range=Optional[int],
 )
 
 slots.plannotateAnnotationReport__percent_match_length = Slot(
-    uri=SHAREYOURCLONING_LINKML.percent_match_length,
+    uri=OPENCLONING_LINKML.percent_match_length,
     name="plannotateAnnotationReport__percent_match_length",
-    curie=SHAREYOURCLONING_LINKML.curie("percent_match_length"),
-    model_uri=SHAREYOURCLONING_LINKML.plannotateAnnotationReport__percent_match_length,
+    curie=OPENCLONING_LINKML.curie("percent_match_length"),
+    model_uri=OPENCLONING_LINKML.plannotateAnnotationReport__percent_match_length,
     domain=None,
     range=Optional[float],
 )
 
 slots.plannotateAnnotationReport__fragment = Slot(
-    uri=SHAREYOURCLONING_LINKML.fragment,
+    uri=OPENCLONING_LINKML.fragment,
     name="plannotateAnnotationReport__fragment",
-    curie=SHAREYOURCLONING_LINKML.curie("fragment"),
-    model_uri=SHAREYOURCLONING_LINKML.plannotateAnnotationReport__fragment,
+    curie=OPENCLONING_LINKML.curie("fragment"),
+    model_uri=OPENCLONING_LINKML.plannotateAnnotationReport__fragment,
     domain=None,
     range=Optional[Union[bool, Bool]],
 )
 
 slots.plannotateAnnotationReport__database = Slot(
-    uri=SHAREYOURCLONING_LINKML.database,
+    uri=OPENCLONING_LINKML.database,
     name="plannotateAnnotationReport__database",
-    curie=SHAREYOURCLONING_LINKML.curie("database"),
-    model_uri=SHAREYOURCLONING_LINKML.plannotateAnnotationReport__database,
+    curie=OPENCLONING_LINKML.curie("database"),
+    model_uri=OPENCLONING_LINKML.plannotateAnnotationReport__database,
     domain=None,
     range=Optional[str],
 )
 
 slots.plannotateAnnotationReport__Feature = Slot(
-    uri=SHAREYOURCLONING_LINKML.Feature,
+    uri=OPENCLONING_LINKML.Feature,
     name="plannotateAnnotationReport__Feature",
-    curie=SHAREYOURCLONING_LINKML.curie("Feature"),
-    model_uri=SHAREYOURCLONING_LINKML.plannotateAnnotationReport__Feature,
+    curie=OPENCLONING_LINKML.curie("Feature"),
+    model_uri=OPENCLONING_LINKML.plannotateAnnotationReport__Feature,
     domain=None,
     range=Optional[str],
 )
 
 slots.plannotateAnnotationReport__Type = Slot(
-    uri=SHAREYOURCLONING_LINKML.Type,
+    uri=OPENCLONING_LINKML.Type,
     name="plannotateAnnotationReport__Type",
-    curie=SHAREYOURCLONING_LINKML.curie("Type"),
-    model_uri=SHAREYOURCLONING_LINKML.plannotateAnnotationReport__Type,
+    curie=OPENCLONING_LINKML.curie("Type"),
+    model_uri=OPENCLONING_LINKML.plannotateAnnotationReport__Type,
     domain=None,
     range=Optional[str],
 )
 
 slots.plannotateAnnotationReport__Description = Slot(
-    uri=SHAREYOURCLONING_LINKML.Description,
+    uri=OPENCLONING_LINKML.Description,
     name="plannotateAnnotationReport__Description",
-    curie=SHAREYOURCLONING_LINKML.curie("Description"),
-    model_uri=SHAREYOURCLONING_LINKML.plannotateAnnotationReport__Description,
+    curie=OPENCLONING_LINKML.curie("Description"),
+    model_uri=OPENCLONING_LINKML.plannotateAnnotationReport__Description,
     domain=None,
     range=Optional[str],
 )
 
 slots.plannotateAnnotationReport__sequence = Slot(
-    uri=SHAREYOURCLONING_LINKML.sequence,
+    uri=OPENCLONING_LINKML.sequence,
     name="plannotateAnnotationReport__sequence",
-    curie=SHAREYOURCLONING_LINKML.curie("sequence"),
-    model_uri=SHAREYOURCLONING_LINKML.plannotateAnnotationReport__sequence,
+    curie=OPENCLONING_LINKML.curie("sequence"),
+    model_uri=OPENCLONING_LINKML.plannotateAnnotationReport__sequence,
     domain=None,
     range=Optional[str],
 )
 
 slots.annotationSource__annotation_tool = Slot(
-    uri=SHAREYOURCLONING_LINKML.annotation_tool,
+    uri=OPENCLONING_LINKML.annotation_tool,
     name="annotationSource__annotation_tool",
-    curie=SHAREYOURCLONING_LINKML.curie("annotation_tool"),
-    model_uri=SHAREYOURCLONING_LINKML.annotationSource__annotation_tool,
+    curie=OPENCLONING_LINKML.curie("annotation_tool"),
+    model_uri=OPENCLONING_LINKML.annotationSource__annotation_tool,
     domain=None,
     range=Union[str, "AnnotationTool"],
 )
 
 slots.annotationSource__annotation_tool_version = Slot(
-    uri=SHAREYOURCLONING_LINKML.annotation_tool_version,
+    uri=OPENCLONING_LINKML.annotation_tool_version,
     name="annotationSource__annotation_tool_version",
-    curie=SHAREYOURCLONING_LINKML.curie("annotation_tool_version"),
-    model_uri=SHAREYOURCLONING_LINKML.annotationSource__annotation_tool_version,
+    curie=OPENCLONING_LINKML.curie("annotation_tool_version"),
+    model_uri=OPENCLONING_LINKML.annotationSource__annotation_tool_version,
     domain=None,
     range=Optional[str],
 )
 
 slots.annotationSource__annotation_report = Slot(
-    uri=SHAREYOURCLONING_LINKML.annotation_report,
+    uri=OPENCLONING_LINKML.annotation_report,
     name="annotationSource__annotation_report",
-    curie=SHAREYOURCLONING_LINKML.curie("annotation_report"),
-    model_uri=SHAREYOURCLONING_LINKML.annotationSource__annotation_report,
+    curie=OPENCLONING_LINKML.curie("annotation_report"),
+    model_uri=OPENCLONING_LINKML.annotationSource__annotation_report,
     domain=None,
     range=Optional[Union[Union[dict, AnnotationReport], List[Union[dict, AnnotationReport]]]],
 )
 
 slots.associatedFile__sequence_id = Slot(
-    uri=SHAREYOURCLONING_LINKML.sequence_id,
+    uri=OPENCLONING_LINKML.sequence_id,
     name="associatedFile__sequence_id",
-    curie=SHAREYOURCLONING_LINKML.curie("sequence_id"),
-    model_uri=SHAREYOURCLONING_LINKML.associatedFile__sequence_id,
+    curie=OPENCLONING_LINKML.curie("sequence_id"),
+    model_uri=OPENCLONING_LINKML.associatedFile__sequence_id,
     domain=None,
     range=Union[int, SequenceId],
 )
 
 slots.associatedFile__file_name = Slot(
-    uri=SHAREYOURCLONING_LINKML.file_name,
+    uri=OPENCLONING_LINKML.file_name,
     name="associatedFile__file_name",
-    curie=SHAREYOURCLONING_LINKML.curie("file_name"),
-    model_uri=SHAREYOURCLONING_LINKML.associatedFile__file_name,
+    curie=OPENCLONING_LINKML.curie("file_name"),
+    model_uri=OPENCLONING_LINKML.associatedFile__file_name,
     domain=None,
     range=str,
 )
 
 slots.associatedFile__file_type = Slot(
-    uri=SHAREYOURCLONING_LINKML.file_type,
+    uri=OPENCLONING_LINKML.file_type,
     name="associatedFile__file_type",
-    curie=SHAREYOURCLONING_LINKML.curie("file_type"),
-    model_uri=SHAREYOURCLONING_LINKML.associatedFile__file_type,
+    curie=OPENCLONING_LINKML.curie("file_type"),
+    model_uri=OPENCLONING_LINKML.associatedFile__file_type,
     domain=None,
     range=Union[str, "AssociatedFileType"],
 )
 
 slots.sequencingFile__alignment = Slot(
-    uri=SHAREYOURCLONING_LINKML.alignment,
+    uri=OPENCLONING_LINKML.alignment,
     name="sequencingFile__alignment",
-    curie=SHAREYOURCLONING_LINKML.curie("alignment"),
-    model_uri=SHAREYOURCLONING_LINKML.sequencingFile__alignment,
+    curie=OPENCLONING_LINKML.curie("alignment"),
+    model_uri=OPENCLONING_LINKML.sequencingFile__alignment,
     domain=None,
     range=Union[str, List[str]],
 )
 
 slots.TextFileSequence_sequence_file_format = Slot(
-    uri=SHAREYOURCLONING_LINKML.sequence_file_format,
+    uri=OPENCLONING_LINKML.sequence_file_format,
     name="TextFileSequence_sequence_file_format",
-    curie=SHAREYOURCLONING_LINKML.curie("sequence_file_format"),
-    model_uri=SHAREYOURCLONING_LINKML.TextFileSequence_sequence_file_format,
+    curie=OPENCLONING_LINKML.curie("sequence_file_format"),
+    model_uri=OPENCLONING_LINKML.TextFileSequence_sequence_file_format,
     domain=TextFileSequence,
     range=Union[str, "SequenceFileFormat"],
 )
 
 slots.TextFileSequence_overhang_crick_3prime = Slot(
-    uri=SHAREYOURCLONING_LINKML.overhang_crick_3prime,
+    uri=OPENCLONING_LINKML.overhang_crick_3prime,
     name="TextFileSequence_overhang_crick_3prime",
-    curie=SHAREYOURCLONING_LINKML.curie("overhang_crick_3prime"),
-    model_uri=SHAREYOURCLONING_LINKML.TextFileSequence_overhang_crick_3prime,
+    curie=OPENCLONING_LINKML.curie("overhang_crick_3prime"),
+    model_uri=OPENCLONING_LINKML.TextFileSequence_overhang_crick_3prime,
     domain=TextFileSequence,
     range=Optional[int],
 )
 
 slots.TextFileSequence_overhang_watson_3prime = Slot(
-    uri=SHAREYOURCLONING_LINKML.overhang_watson_3prime,
+    uri=OPENCLONING_LINKML.overhang_watson_3prime,
     name="TextFileSequence_overhang_watson_3prime",
-    curie=SHAREYOURCLONING_LINKML.curie("overhang_watson_3prime"),
-    model_uri=SHAREYOURCLONING_LINKML.TextFileSequence_overhang_watson_3prime,
+    curie=OPENCLONING_LINKML.curie("overhang_watson_3prime"),
+    model_uri=OPENCLONING_LINKML.TextFileSequence_overhang_watson_3prime,
     domain=TextFileSequence,
     range=Optional[int],
 )
 
 slots.RestrictionSequenceCut_restriction_enzyme = Slot(
-    uri=SHAREYOURCLONING_LINKML.restriction_enzyme,
+    uri=OPENCLONING_LINKML.restriction_enzyme,
     name="RestrictionSequenceCut_restriction_enzyme",
-    curie=SHAREYOURCLONING_LINKML.curie("restriction_enzyme"),
-    model_uri=SHAREYOURCLONING_LINKML.RestrictionSequenceCut_restriction_enzyme,
+    curie=OPENCLONING_LINKML.curie("restriction_enzyme"),
+    model_uri=OPENCLONING_LINKML.RestrictionSequenceCut_restriction_enzyme,
     domain=RestrictionSequenceCut,
     range=str,
 )
@@ -2660,7 +2658,7 @@ slots.CollectionOption_name = Slot(
     uri=SCHEMA.name,
     name="CollectionOption_name",
     curie=SCHEMA.curie("name"),
-    model_uri=SHAREYOURCLONING_LINKML.CollectionOption_name,
+    model_uri=OPENCLONING_LINKML.CollectionOption_name,
     domain=CollectionOption,
     range=str,
 )
@@ -2669,82 +2667,82 @@ slots.CollectionOptionInfo_name = Slot(
     uri=SCHEMA.name,
     name="CollectionOptionInfo_name",
     curie=SCHEMA.curie("name"),
-    model_uri=SHAREYOURCLONING_LINKML.CollectionOptionInfo_name,
+    model_uri=OPENCLONING_LINKML.CollectionOptionInfo_name,
     domain=CollectionOptionInfo,
     range=Optional[str],
 )
 
 slots.ManuallyTypedSource_overhang_crick_3prime = Slot(
-    uri=SHAREYOURCLONING_LINKML.overhang_crick_3prime,
+    uri=OPENCLONING_LINKML.overhang_crick_3prime,
     name="ManuallyTypedSource_overhang_crick_3prime",
-    curie=SHAREYOURCLONING_LINKML.curie("overhang_crick_3prime"),
-    model_uri=SHAREYOURCLONING_LINKML.ManuallyTypedSource_overhang_crick_3prime,
+    curie=OPENCLONING_LINKML.curie("overhang_crick_3prime"),
+    model_uri=OPENCLONING_LINKML.ManuallyTypedSource_overhang_crick_3prime,
     domain=ManuallyTypedSource,
     range=Optional[int],
 )
 
 slots.ManuallyTypedSource_overhang_watson_3prime = Slot(
-    uri=SHAREYOURCLONING_LINKML.overhang_watson_3prime,
+    uri=OPENCLONING_LINKML.overhang_watson_3prime,
     name="ManuallyTypedSource_overhang_watson_3prime",
-    curie=SHAREYOURCLONING_LINKML.curie("overhang_watson_3prime"),
-    model_uri=SHAREYOURCLONING_LINKML.ManuallyTypedSource_overhang_watson_3prime,
+    curie=OPENCLONING_LINKML.curie("overhang_watson_3prime"),
+    model_uri=OPENCLONING_LINKML.ManuallyTypedSource_overhang_watson_3prime,
     domain=ManuallyTypedSource,
     range=Optional[int],
 )
 
 slots.UploadedFileSource_sequence_file_format = Slot(
-    uri=SHAREYOURCLONING_LINKML.sequence_file_format,
+    uri=OPENCLONING_LINKML.sequence_file_format,
     name="UploadedFileSource_sequence_file_format",
-    curie=SHAREYOURCLONING_LINKML.curie("sequence_file_format"),
-    model_uri=SHAREYOURCLONING_LINKML.UploadedFileSource_sequence_file_format,
+    curie=OPENCLONING_LINKML.curie("sequence_file_format"),
+    model_uri=OPENCLONING_LINKML.UploadedFileSource_sequence_file_format,
     domain=UploadedFileSource,
     range=Union[str, "SequenceFileFormat"],
 )
 
 slots.BenchlingUrlSource_repository_id = Slot(
-    uri=SHAREYOURCLONING_LINKML.repository_id,
+    uri=OPENCLONING_LINKML.repository_id,
     name="BenchlingUrlSource_repository_id",
-    curie=SHAREYOURCLONING_LINKML.curie("repository_id"),
-    model_uri=SHAREYOURCLONING_LINKML.BenchlingUrlSource_repository_id,
+    curie=OPENCLONING_LINKML.curie("repository_id"),
+    model_uri=OPENCLONING_LINKML.BenchlingUrlSource_repository_id,
     domain=BenchlingUrlSource,
     range=str,
     pattern=re.compile(r"^https:\/\/benchling\.com\/.+\.gb$"),
 )
 
 slots.SnapGenePlasmidSource_repository_id = Slot(
-    uri=SHAREYOURCLONING_LINKML.repository_id,
+    uri=OPENCLONING_LINKML.repository_id,
     name="SnapGenePlasmidSource_repository_id",
-    curie=SHAREYOURCLONING_LINKML.curie("repository_id"),
-    model_uri=SHAREYOURCLONING_LINKML.SnapGenePlasmidSource_repository_id,
+    curie=OPENCLONING_LINKML.curie("repository_id"),
+    model_uri=OPENCLONING_LINKML.SnapGenePlasmidSource_repository_id,
     domain=SnapGenePlasmidSource,
     range=str,
     pattern=re.compile(r"^.+\/.+$"),
 )
 
 slots.EuroscarfSource_repository_id = Slot(
-    uri=SHAREYOURCLONING_LINKML.repository_id,
+    uri=OPENCLONING_LINKML.repository_id,
     name="EuroscarfSource_repository_id",
-    curie=SHAREYOURCLONING_LINKML.curie("repository_id"),
-    model_uri=SHAREYOURCLONING_LINKML.EuroscarfSource_repository_id,
+    curie=OPENCLONING_LINKML.curie("repository_id"),
+    model_uri=OPENCLONING_LINKML.EuroscarfSource_repository_id,
     domain=EuroscarfSource,
     range=str,
     pattern=re.compile(r"^P\d+$"),
 )
 
 slots.IGEMSource_repository_id = Slot(
-    uri=SHAREYOURCLONING_LINKML.repository_id,
+    uri=OPENCLONING_LINKML.repository_id,
     name="IGEMSource_repository_id",
-    curie=SHAREYOURCLONING_LINKML.curie("repository_id"),
-    model_uri=SHAREYOURCLONING_LINKML.IGEMSource_repository_id,
+    curie=OPENCLONING_LINKML.curie("repository_id"),
+    model_uri=OPENCLONING_LINKML.IGEMSource_repository_id,
     domain=IGEMSource,
     range=str,
 )
 
 slots.IGEMSource_sequence_file_url = Slot(
-    uri=SHAREYOURCLONING_LINKML.sequence_file_url,
+    uri=OPENCLONING_LINKML.sequence_file_url,
     name="IGEMSource_sequence_file_url",
-    curie=SHAREYOURCLONING_LINKML.curie("sequence_file_url"),
-    model_uri=SHAREYOURCLONING_LINKML.IGEMSource_sequence_file_url,
+    curie=OPENCLONING_LINKML.curie("sequence_file_url"),
+    model_uri=OPENCLONING_LINKML.IGEMSource_sequence_file_url,
     domain=IGEMSource,
     range=str,
     pattern=re.compile(
@@ -2753,10 +2751,10 @@ slots.IGEMSource_sequence_file_url = Slot(
 )
 
 slots.RestrictionAndLigationSource_restriction_enzymes = Slot(
-    uri=SHAREYOURCLONING_LINKML.restriction_enzymes,
+    uri=OPENCLONING_LINKML.restriction_enzymes,
     name="RestrictionAndLigationSource_restriction_enzymes",
-    curie=SHAREYOURCLONING_LINKML.curie("restriction_enzymes"),
-    model_uri=SHAREYOURCLONING_LINKML.RestrictionAndLigationSource_restriction_enzymes,
+    curie=OPENCLONING_LINKML.curie("restriction_enzymes"),
+    model_uri=OPENCLONING_LINKML.RestrictionAndLigationSource_restriction_enzymes,
     domain=RestrictionAndLigationSource,
     range=Union[str, List[str]],
 )

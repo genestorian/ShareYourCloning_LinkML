@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: publish
-      url: https://pypi.org/p/shareyourcloning-linkml
+      url: https://pypi.org/p/opencloning-linkml
     permissions:
       id-token: write
       contents: write
