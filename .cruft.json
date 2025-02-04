@@ -4,11 +4,11 @@
   "checkout": null,
   "context": {
     "cookiecutter": {
-      "project_name": "ShareYourCloning_LinkML",
-      "__project_slug": "shareyourcloning_linkml",
+      "project_name": "OpenCloning_LinkML",
+      "__project_slug": "opencloning_linkml",
       "github_org": "genestorian",
-      "__source_path": "src/shareyourcloning_linkml/schema/shareyourcloning_linkml.yaml",
-      "project_description": "A LinkML data model for ShareYourCloning",
+      "__source_path": "src/opencloning_linkml/schema/opencloning_linkml.yaml",
+      "project_description": "A LinkML data model for OpenCloning",
       "full_name": "Manuel Lera-Ramirez",
       "email": "manuel.lera-ramirez@ucl.ac.uk",
       "__author": "Manuel Lera-Ramirez <manuel.lera-ramirez@ucl.ac.uk>",

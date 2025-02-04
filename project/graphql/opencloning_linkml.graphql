@@ -485,3 +485,4 @@ type UploadedFileSource
     indexInFile: Integer
     circularize: Boolean
   }
+

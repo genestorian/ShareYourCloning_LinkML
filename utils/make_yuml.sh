@@ -1,1 +1,1 @@
-gen-yuml -f yuml ../src/shareyourcloning_linkml/schema/shareyourcloning_linkml.yaml > yuml.txt
+gen-yuml -f yuml ../src/opencloning_linkml/schema/opencloning_linkml.yaml > yuml.txt

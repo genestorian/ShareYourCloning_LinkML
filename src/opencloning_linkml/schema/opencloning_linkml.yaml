@@ -1,17 +1,17 @@
 ---
-id: https://w3id.org/genestorian/ShareYourCloning_LinkML
-name: ShareYourCloning_LinkML
-title: ShareYourCloning_LinkML
+id: https://w3id.org/genestorian/OpenCloning_LinkML
+name: OpenCloning_LinkML
+title: OpenCloning_LinkML
 description: |-
-  A LinkML data model for ShareYourCloning
+  A LinkML data model for OpenCloning
 license: MIT
 see_also:
-  - https://genestorian.github.io/ShareYourCloning_LinkML
+  - https://genestorian.github.io/OpenCloning_LinkML
 
 prefixes:
   # These are the prefixes that you would use in the URL to refer to the classes,
   # for example, for NCIT:C172877 http://purl.obolibrary.org/obo/NCIT_C172877
-  shareyourcloning_linkml: https://w3id.org/genestorian/ShareYourCloning_LinkML/
+  opencloning_linkml: https://w3id.org/genestorian/OpenCloning_LinkML/
   linkml: https://w3id.org/linkml/
   biolink: https://w3id.org/biolink/
   schema: http://schema.org/
@@ -19,7 +19,7 @@ prefixes:
   example: https://example.org/
   OBI: http://purl.obolibrary.org/obo/OBI_
   NCIT: http://purl.obolibrary.org/obo/NCIT_
-default_prefix: shareyourcloning_linkml
+default_prefix: opencloning_linkml
 default_range: string
 
 imports:

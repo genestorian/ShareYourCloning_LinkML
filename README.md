@@ -1,20 +1,20 @@
-# ShareYourCloning_LinkML
+# OpenCloning_LinkML
 
-A LinkML data model for ShareYourCloning, a standardized schema for describing molecular cloning strategies and DNA assembly protocols.
+A LinkML data model for OpenCloning, a standardized schema for describing molecular cloning strategies and DNA assembly protocols.
 
 ## Website
 
-[https://genestorian.github.io/ShareYourCloning_LinkML](https://genestorian.github.io/ShareYourCloning_LinkML)
+[https://genestorian.github.io/OpenCloning_LinkML](https://genestorian.github.io/OpenCloning_LinkML)
 
 ## Repository Structure
 
 * [examples/](examples/) - example data
 * [project/](project/) - project files (do not edit these)
 * [src/](src/) - source files (edit these)
-  * [shareyourcloning_linkml](src/shareyourcloning_linkml)
-    * [schema](src/shareyourcloning_linkml/schema) -- LinkML schema
+  * [opencloning_linkml](src/opencloning_linkml)
+    * [schema](src/opencloning_linkml/schema) -- LinkML schema
       (edit this)
-    * [datamodel](src/shareyourcloning_linkml/datamodel) -- generated
+    * [datamodel](src/opencloning_linkml/datamodel) -- generated
       Python datamodel
 * [tests/](tests/) - Python tests
 
@@ -23,7 +23,7 @@ A LinkML data model for ShareYourCloning, a standardized schema for describing m
 The python package can be installed from PyPI:
 
 ```bash
-pip install shareyourcloning-linkml
+pip install opencloning-linkml
 ```
 
 <details>

@@ -1,5 +1,5 @@
 ---
-site_name: "ShareYourCloning_LinkML"
+site_name: "OpenCloning_LinkML"
 theme:
   name: material
   # palette:
@@ -14,9 +14,8 @@ nav:
   # - Home: home.md
   - Index: index.md
   - About: about.md
-site_url: https://genestorian.github.io/ShareYourCloning_LinkML
-repo_url: https://github.com/genestorian/ShareYourCloning_LinkML
-
+site_url: https://genestorian.github.io/OpenCloning_LinkML
+repo_url: https://github.com/genestorian/OpenCloning_LinkML
 # Uncomment this block to enable use of Google Analytics.
 # Replace the property value with your own ID.
 # extra:

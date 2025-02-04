@@ -5,7 +5,7 @@ import glob
 import unittest
 
 from linkml_runtime.loaders import json_loader
-from shareyourcloning_linkml.datamodel import CloningStrategy
+from opencloning_linkml.datamodel import CloningStrategy
 
 ROOT = os.path.join(os.path.dirname(__file__), "..")
 DATA_DIR = os.path.join(ROOT, "src", "data")

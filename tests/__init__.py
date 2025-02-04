@@ -1,1 +1,1 @@
-"""Tests for ShareYourCloning_LinkML."""
+"""Tests for OpenCloning_LinkML."""
