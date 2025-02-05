@@ -558,6 +558,7 @@ class CollectionOption(ConfiguredBaseModel):
         CRISPRSource,
         RestrictionEnzymeDigestionSource,
         AddGeneIdSource,
+        WekWikGeneIdSource,
         BenchlingUrlSource,
         SnapGenePlasmidSource,
         EuroscarfSource,
@@ -859,7 +860,10 @@ class AddGeneIdSource(RepositoryIdSource):
         default=None,
         description="""The URL of a sequence file""",
         json_schema_extra={
-            "linkml_meta": {"alias": "sequence_file_url", "domain_of": ["AddGeneIdSource", "IGEMSource"]}
+            "linkml_meta": {
+                "alias": "sequence_file_url",
+                "domain_of": ["AddGeneIdSource", "WekWikGeneIdSource", "IGEMSource"],
+            }
         },
     )
     addgene_sequence_type: Optional[AddGeneSequenceType] = Field(
@@ -921,6 +925,104 @@ class AddGeneIdSource(RepositoryIdSource):
         elif isinstance(v, str):
             if not pattern.match(v):
                 raise ValueError(f"Invalid sequence_file_url format: {v}")
+        return v
+
+
+class WekWikGeneIdSource(RepositoryIdSource):
+    """
+    Represents the source of a sequence that is identified by a WekWikGene id
+    """
+
+    linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta(
+        {
+            "from_schema": "https://w3id.org/genestorian/OpenCloning_LinkML",
+            "slot_usage": {
+                "repository_id": {
+                    "description": "The id of the gene in the " "WekWik gene database",
+                    "name": "repository_id",
+                    "pattern": "^\\d+$",
+                }
+            },
+        }
+    )
+
+    sequence_file_url: Optional[str] = Field(
+        default=None,
+        description="""The URL of a sequence file""",
+        json_schema_extra={
+            "linkml_meta": {
+                "alias": "sequence_file_url",
+                "domain_of": ["AddGeneIdSource", "WekWikGeneIdSource", "IGEMSource"],
+            }
+        },
+    )
+    repository_id: str = Field(
+        default=...,
+        description="""The id of the gene in the WekWik gene database""",
+        json_schema_extra={"linkml_meta": {"alias": "repository_id", "domain_of": ["RepositoryIdSource"]}},
+    )
+    repository_name: RepositoryName = Field(
+        default=...,
+        json_schema_extra={"linkml_meta": {"alias": "repository_name", "domain_of": ["RepositoryIdSource"]}},
+    )
+    input: Optional[List[int]] = Field(
+        default=None,
+        description="""The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.""",
+        json_schema_extra={"linkml_meta": {"alias": "input", "domain_of": ["Source"]}},
+    )
+    output: Optional[int] = Field(
+        default=None,
+        description="""Identifier of the sequence that is the output of this source.""",
+        json_schema_extra={"linkml_meta": {"alias": "output", "domain_of": ["Source"]}},
+    )
+    type: Literal["WekWikGeneIdSource"] = Field(
+        default="WekWikGeneIdSource",
+        description="""Designates the class""",
+        json_schema_extra={
+            "linkml_meta": {
+                "alias": "type",
+                "designates_type": True,
+                "domain_of": ["Sequence", "Source", "CollectionOptionInfo", "AnnotationReport", "AssociatedFile"],
+            }
+        },
+    )
+    output_name: Optional[str] = Field(
+        default=None,
+        description="""Used to specify the name of the output sequence""",
+        json_schema_extra={"linkml_meta": {"alias": "output_name", "domain_of": ["Source"]}},
+    )
+    id: int = Field(
+        default=...,
+        description="""A unique identifier for a thing""",
+        json_schema_extra={
+            "linkml_meta": {"alias": "id", "domain_of": ["NamedThing", "Sequence"], "slot_uri": "schema:identifier"}
+        },
+    )
+
+    @field_validator("sequence_file_url")
+    def pattern_sequence_file_url(cls, v):
+        pattern = re.compile(
+            r"^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)$"
+        )
+        if isinstance(v, list):
+            for element in v:
+                if isinstance(v, str) and not pattern.match(element):
+                    raise ValueError(f"Invalid sequence_file_url format: {element}")
+        elif isinstance(v, str):
+            if not pattern.match(v):
+                raise ValueError(f"Invalid sequence_file_url format: {v}")
+        return v
+
+    @field_validator("repository_id")
+    def pattern_repository_id(cls, v):
+        pattern = re.compile(r"^\d+$")
+        if isinstance(v, list):
+            for element in v:
+                if isinstance(v, str) and not pattern.match(element):
+                    raise ValueError(f"Invalid repository_id format: {element}")
+        elif isinstance(v, str):
+            if not pattern.match(v):
+                raise ValueError(f"Invalid repository_id format: {v}")
         return v
 
 
@@ -1184,7 +1286,10 @@ class IGEMSource(RepositoryIdSource):
         default=...,
         description="""The URL of the sequence file, for now github repository""",
         json_schema_extra={
-            "linkml_meta": {"alias": "sequence_file_url", "domain_of": ["AddGeneIdSource", "IGEMSource"]}
+            "linkml_meta": {
+                "alias": "sequence_file_url",
+                "domain_of": ["AddGeneIdSource", "WekWikGeneIdSource", "IGEMSource"],
+            }
         },
     )
     repository_id: str = Field(
@@ -2260,6 +2365,7 @@ class CloningStrategy(ConfiguredBaseModel):
             CRISPRSource,
             RestrictionEnzymeDigestionSource,
             AddGeneIdSource,
+            WekWikGeneIdSource,
             BenchlingUrlSource,
             SnapGenePlasmidSource,
             EuroscarfSource,
@@ -2553,6 +2659,7 @@ ManuallyTypedSource.model_rebuild()
 UploadedFileSource.model_rebuild()
 RepositoryIdSource.model_rebuild()
 AddGeneIdSource.model_rebuild()
+WekWikGeneIdSource.model_rebuild()
 BenchlingUrlSource.model_rebuild()
 SnapGenePlasmidSource.model_rebuild()
 EuroscarfSource.model_rebuild()

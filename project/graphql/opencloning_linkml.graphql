@@ -486,3 +486,14 @@ type UploadedFileSource
     circularize: Boolean
   }
 
+type WekWikGeneIdSource
+  {
+    id: Integer!
+    input: [Sequence]
+    output: Sequence
+    type: String
+    outputName: String
+    repositoryName: RepositoryName!
+    sequenceFileUrl: String
+    repositoryId: String!
+  }

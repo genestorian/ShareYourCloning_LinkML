@@ -283,6 +283,18 @@ classes:
     slots:
       - sequence_file_url
 
+  WekWikGeneIdSource:
+    is_a: RepositoryIdSource
+    description: >-
+      Represents the source of a sequence that is identified by a WekWikGene id
+    slot_usage:
+      repository_id:
+        description: >-
+          The id of the gene in the WekWik gene database
+        pattern: ^\d+$
+    slots:
+      - sequence_file_url
+
   BenchlingUrlSource:
     is_a: RepositoryIdSource
     description: >-

@@ -1,5 +1,5 @@
 # Auto generated from opencloning_linkml.yaml by pythongen.py version: 0.0.1
-# Generation date: 2025-02-04T10:58:31
+# Generation date: 2025-02-05T18:17:07
 # Schema: OpenCloning_LinkML
 #
 # id: https://w3id.org/genestorian/OpenCloning_LinkML
@@ -89,6 +89,10 @@ class RepositoryIdSourceId(SourceId):
 
 
 class AddGeneIdSourceId(RepositoryIdSourceId):
+    pass
+
+
+class WekWikGeneIdSourceId(RepositoryIdSourceId):
     pass
 
 
@@ -726,6 +730,42 @@ class AddGeneIdSource(RepositoryIdSource):
 
         if self.addgene_sequence_type is not None and not isinstance(self.addgene_sequence_type, AddGeneSequenceType):
             self.addgene_sequence_type = AddGeneSequenceType(self.addgene_sequence_type)
+
+        super().__post_init__(**kwargs)
+        self.type = str(self.class_name)
+
+
+@dataclass(repr=False)
+class WekWikGeneIdSource(RepositoryIdSource):
+    """
+    Represents the source of a sequence that is identified by a WekWikGene id
+    """
+
+    _inherited_slots: ClassVar[List[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = OPENCLONING_LINKML["WekWikGeneIdSource"]
+    class_class_curie: ClassVar[str] = "opencloning_linkml:WekWikGeneIdSource"
+    class_name: ClassVar[str] = "WekWikGeneIdSource"
+    class_model_uri: ClassVar[URIRef] = OPENCLONING_LINKML.WekWikGeneIdSource
+
+    id: Union[int, WekWikGeneIdSourceId] = None
+    repository_name: Union[str, "RepositoryName"] = None
+    repository_id: str = None
+    sequence_file_url: Optional[str] = None
+
+    def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
+        if self._is_empty(self.id):
+            self.MissingRequiredField("id")
+        if not isinstance(self.id, WekWikGeneIdSourceId):
+            self.id = WekWikGeneIdSourceId(self.id)
+
+        if self._is_empty(self.repository_id):
+            self.MissingRequiredField("repository_id")
+        if not isinstance(self.repository_id, str):
+            self.repository_id = str(self.repository_id)
+
+        if self.sequence_file_url is not None and not isinstance(self.sequence_file_url, str):
+            self.sequence_file_url = str(self.sequence_file_url)
 
         super().__post_init__(**kwargs)
         self.type = str(self.class_name)
@@ -2697,6 +2737,16 @@ slots.UploadedFileSource_sequence_file_format = Slot(
     model_uri=OPENCLONING_LINKML.UploadedFileSource_sequence_file_format,
     domain=UploadedFileSource,
     range=Union[str, "SequenceFileFormat"],
+)
+
+slots.WekWikGeneIdSource_repository_id = Slot(
+    uri=OPENCLONING_LINKML.repository_id,
+    name="WekWikGeneIdSource_repository_id",
+    curie=OPENCLONING_LINKML.curie("repository_id"),
+    model_uri=OPENCLONING_LINKML.WekWikGeneIdSource_repository_id,
+    domain=WekWikGeneIdSource,
+    range=str,
+    pattern=re.compile(r"^\d+$"),
 )
 
 slots.BenchlingUrlSource_repository_id = Slot(
