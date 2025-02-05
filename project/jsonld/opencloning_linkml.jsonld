@@ -385,6 +385,10 @@
         {
           "text": "igem",
           "description": "iGEM collection"
+        },
+        {
+          "text": "wekwikgene",
+          "description": "WekWikGene"
         }
       ]
     },
@@ -3353,9 +3357,9 @@
   ],
   "metamodel_version": "1.7.0",
   "source_file": "opencloning_linkml.yaml",
-  "source_file_date": "2025-02-05T18:16:31",
-  "source_file_size": 24117,
-  "generation_date": "2025-02-05T18:17:07",
+  "source_file_date": "2025-02-05T18:20:28",
+  "source_file_size": 24180,
+  "generation_date": "2025-02-05T18:20:34",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/opencloning_linkml.context.jsonld",

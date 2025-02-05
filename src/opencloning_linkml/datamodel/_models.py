@@ -85,6 +85,8 @@ class RepositoryName(str, Enum):
     euroscarf = "euroscarf"
     # iGEM collection
     igem = "igem"
+    # WekWikGene
+    wekwikgene = "wekwikgene"
 
 
 class Collection(str, Enum):

@@ -1983,7 +1983,8 @@
                 "benchling",
                 "snapgene",
                 "euroscarf",
-                "igem"
+                "igem",
+                "wekwikgene"
             ],
             "title": "RepositoryName",
             "type": "string"

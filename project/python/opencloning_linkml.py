@@ -1,5 +1,5 @@
 # Auto generated from opencloning_linkml.yaml by pythongen.py version: 0.0.1
-# Generation date: 2025-02-05T18:17:07
+# Generation date: 2025-02-05T18:20:35
 # Schema: OpenCloning_LinkML
 #
 # id: https://w3id.org/genestorian/OpenCloning_LinkML
@@ -1751,6 +1751,7 @@ class RepositoryName(EnumDefinitionImpl):
     snapgene = PermissibleValue(text="snapgene", description="SnapGene plasmid library")
     euroscarf = PermissibleValue(text="euroscarf", description="Euroscarf (plasmids only)")
     igem = PermissibleValue(text="igem", description="iGEM collection")
+    wekwikgene = PermissibleValue(text="wekwikgene", description="WekWikGene")
 
     _defn = EnumDefinition(
         name="RepositoryName",

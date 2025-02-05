@@ -41,6 +41,7 @@ enum RepositoryName
     snapgene
     euroscarf
     igem
+    wekwikgene
   }
 
 enum SequenceFileFormat

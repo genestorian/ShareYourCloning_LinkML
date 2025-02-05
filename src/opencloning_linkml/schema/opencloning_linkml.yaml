@@ -805,6 +805,9 @@ enums:
       igem:
         description: >-
           iGEM collection
+      wekwikgene:
+        description: >-
+          WekWikGene
 
   Collection:
     permissible_values:

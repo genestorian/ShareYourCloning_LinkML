@@ -526,7 +526,7 @@ CREATE TABLE "UploadedFileSource" (
 );
 CREATE TABLE "RepositoryIdSource" (
 	repository_id TEXT NOT NULL,
-	repository_name VARCHAR(9) NOT NULL,
+	repository_name VARCHAR(10) NOT NULL,
 	output INTEGER,
 	type TEXT,
 	output_name TEXT,
@@ -538,7 +538,7 @@ CREATE TABLE "AddGeneIdSource" (
 	sequence_file_url TEXT,
 	addgene_sequence_type VARCHAR(14),
 	repository_id TEXT NOT NULL,
-	repository_name VARCHAR(9) NOT NULL,
+	repository_name VARCHAR(10) NOT NULL,
 	output INTEGER,
 	type TEXT,
 	output_name TEXT,
@@ -549,7 +549,7 @@ CREATE TABLE "AddGeneIdSource" (
 CREATE TABLE "WekWikGeneIdSource" (
 	sequence_file_url TEXT,
 	repository_id TEXT NOT NULL,
-	repository_name VARCHAR(9) NOT NULL,
+	repository_name VARCHAR(10) NOT NULL,
 	output INTEGER,
 	type TEXT,
 	output_name TEXT,
@@ -559,7 +559,7 @@ CREATE TABLE "WekWikGeneIdSource" (
 );
 CREATE TABLE "BenchlingUrlSource" (
 	repository_id TEXT NOT NULL,
-	repository_name VARCHAR(9) NOT NULL,
+	repository_name VARCHAR(10) NOT NULL,
 	output INTEGER,
 	type TEXT,
 	output_name TEXT,
@@ -569,7 +569,7 @@ CREATE TABLE "BenchlingUrlSource" (
 );
 CREATE TABLE "SnapGenePlasmidSource" (
 	repository_id TEXT NOT NULL,
-	repository_name VARCHAR(9) NOT NULL,
+	repository_name VARCHAR(10) NOT NULL,
 	output INTEGER,
 	type TEXT,
 	output_name TEXT,
@@ -579,7 +579,7 @@ CREATE TABLE "SnapGenePlasmidSource" (
 );
 CREATE TABLE "EuroscarfSource" (
 	repository_id TEXT NOT NULL,
-	repository_name VARCHAR(9) NOT NULL,
+	repository_name VARCHAR(10) NOT NULL,
 	output INTEGER,
 	type TEXT,
 	output_name TEXT,
@@ -590,7 +590,7 @@ CREATE TABLE "EuroscarfSource" (
 CREATE TABLE "IGEMSource" (
 	sequence_file_url TEXT NOT NULL,
 	repository_id TEXT NOT NULL,
-	repository_name VARCHAR(9) NOT NULL,
+	repository_name VARCHAR(10) NOT NULL,
 	output INTEGER,
 	type TEXT,
 	output_name TEXT,
