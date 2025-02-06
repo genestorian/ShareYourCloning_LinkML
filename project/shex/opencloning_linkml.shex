@@ -349,11 +349,13 @@ linkml:Sparqlpath xsd:string
                 <https://w3id.org/genestorian/OpenCloning_LinkML/RepositoryName#benchling>
                 <https://w3id.org/genestorian/OpenCloning_LinkML/RepositoryName#snapgene>
                 <https://w3id.org/genestorian/OpenCloning_LinkML/RepositoryName#euroscarf>
-                <https://w3id.org/genestorian/OpenCloning_LinkML/RepositoryName#igem> ]
+                <https://w3id.org/genestorian/OpenCloning_LinkML/RepositoryName#igem>
+                <https://w3id.org/genestorian/OpenCloning_LinkML/RepositoryName#wekwikgene> ]
           ) ;
           rdf:type [ <RepositoryIdSource> ]
        )
-    } OR @<AddGeneIdSource> OR @<BenchlingUrlSource> OR @<EuroscarfSource> OR @<IGEMSource> OR @<SnapGenePlasmidSource>
+    } OR @<AddGeneIdSource> OR @<BenchlingUrlSource> OR @<EuroscarfSource> OR @<IGEMSource> OR @<SnapGenePlasmidSource> OR
+    @<WekWikGeneIdSource>
 )
 
 <RestrictionAndLigationSource> CLOSED {
@@ -504,3 +506,12 @@ linkml:Sparqlpath xsd:string
     )
 }
 
+<WekWikGeneIdSource> CLOSED {
+    (  $<WekWikGeneIdSource_tes> (  &<RepositoryIdSource_tes> ;
+          rdf:type [ <RepositoryIdSource> ] ? ;
+          <sequence_file_url> @linkml:String ? ;
+          <repository_id> @linkml:String
+       ) ;
+       rdf:type [ <WekWikGeneIdSource> ]
+    )
+}

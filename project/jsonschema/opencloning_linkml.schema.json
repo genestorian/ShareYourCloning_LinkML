@@ -584,6 +584,9 @@
                                 "$ref": "#/$defs/AddGeneIdSource"
                             },
                             {
+                                "$ref": "#/$defs/WekWikGeneIdSource"
+                            },
+                            {
                                 "$ref": "#/$defs/BenchlingUrlSource"
                             },
                             {
@@ -699,6 +702,9 @@
                         },
                         {
                             "$ref": "#/$defs/AddGeneIdSource"
+                        },
+                        {
+                            "$ref": "#/$defs/WekWikGeneIdSource"
                         },
                         {
                             "$ref": "#/$defs/BenchlingUrlSource"
@@ -1977,7 +1983,8 @@
                 "benchling",
                 "snapgene",
                 "euroscarf",
-                "igem"
+                "igem",
+                "wekwikgene"
             ],
             "title": "RepositoryName",
             "type": "string"
@@ -2539,6 +2546,73 @@
                 "id"
             ],
             "title": "UploadedFileSource",
+            "type": "object"
+        },
+        "WekWikGeneIdSource": {
+            "additionalProperties": false,
+            "description": "Represents the source of a sequence that is identified by a WekWikGene id",
+            "properties": {
+                "id": {
+                    "description": "A unique identifier for a thing",
+                    "type": "integer"
+                },
+                "input": {
+                    "description": "The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.",
+                    "items": {
+                        "type": "integer"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "output": {
+                    "description": "Identifier of the sequence that is the output of this source.",
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "output_name": {
+                    "description": "Used to specify the name of the output sequence",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "repository_id": {
+                    "description": "The id of the gene in the WekWik gene database",
+                    "pattern": "^\\d+$",
+                    "type": "string"
+                },
+                "repository_name": {
+                    "$ref": "#/$defs/RepositoryName"
+                },
+                "sequence_file_url": {
+                    "description": "The URL of a sequence file",
+                    "pattern": "^https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)$",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "type": {
+                    "description": "Designates the class",
+                    "enum": [
+                        "WekWikGeneIdSource"
+                    ],
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "repository_id",
+                "repository_name",
+                "id"
+            ],
+            "title": "WekWikGeneIdSource",
             "type": "object"
         }
     },
