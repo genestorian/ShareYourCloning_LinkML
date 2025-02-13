@@ -3290,6 +3290,23 @@
       "@type": "ClassDefinition"
     },
     {
+      "name": "ReverseComplementSource",
+      "definition_uri": "https://w3id.org/genestorian/OpenCloning_LinkML/ReverseComplementSource",
+      "description": "Represents the in-silico transformation of a sequence into its reverse complement",
+      "from_schema": "https://w3id.org/genestorian/OpenCloning_LinkML",
+      "is_a": "Source",
+      "slots": [
+        "id",
+        "input",
+        "output",
+        "type",
+        "output_name"
+      ],
+      "slot_usage": {},
+      "class_uri": "https://w3id.org/genestorian/OpenCloning_LinkML/ReverseComplementSource",
+      "@type": "ClassDefinition"
+    },
+    {
       "name": "AssociatedFile",
       "definition_uri": "https://w3id.org/genestorian/OpenCloning_LinkML/AssociatedFile",
       "description": "Represents a file associated with a sequence",
@@ -3357,9 +3374,9 @@
   ],
   "metamodel_version": "1.7.0",
   "source_file": "opencloning_linkml.yaml",
-  "source_file_date": "2025-02-05T18:20:28",
-  "source_file_size": 24180,
-  "generation_date": "2025-02-05T18:20:34",
+  "source_file_date": "2025-02-13T14:43:18",
+  "source_file_size": 24333,
+  "generation_date": "2025-02-13T14:43:37",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/opencloning_linkml.context.jsonld",

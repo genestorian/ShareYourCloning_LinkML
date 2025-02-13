@@ -549,6 +549,7 @@ class CollectionOption(ConfiguredBaseModel):
         OligoHybridizationSource,
         PolymeraseExtensionSource,
         AnnotationSource,
+        ReverseComplementSource,
         PCRSource,
         LigationSource,
         HomologousRecombinationSource,
@@ -2356,6 +2357,7 @@ class CloningStrategy(ConfiguredBaseModel):
             OligoHybridizationSource,
             PolymeraseExtensionSource,
             AnnotationSource,
+            ReverseComplementSource,
             PCRSource,
             LigationSource,
             HomologousRecombinationSource,
@@ -2565,6 +2567,48 @@ class AnnotationSource(Source):
     )
 
 
+class ReverseComplementSource(Source):
+    """
+    Represents the in-silico transformation of a sequence into its reverse complement
+    """
+
+    linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({"from_schema": "https://w3id.org/genestorian/OpenCloning_LinkML"})
+
+    input: Optional[List[int]] = Field(
+        default=None,
+        description="""The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.""",
+        json_schema_extra={"linkml_meta": {"alias": "input", "domain_of": ["Source"]}},
+    )
+    output: Optional[int] = Field(
+        default=None,
+        description="""Identifier of the sequence that is the output of this source.""",
+        json_schema_extra={"linkml_meta": {"alias": "output", "domain_of": ["Source"]}},
+    )
+    type: Literal["ReverseComplementSource"] = Field(
+        default="ReverseComplementSource",
+        description="""Designates the class""",
+        json_schema_extra={
+            "linkml_meta": {
+                "alias": "type",
+                "designates_type": True,
+                "domain_of": ["Sequence", "Source", "CollectionOptionInfo", "AnnotationReport", "AssociatedFile"],
+            }
+        },
+    )
+    output_name: Optional[str] = Field(
+        default=None,
+        description="""Used to specify the name of the output sequence""",
+        json_schema_extra={"linkml_meta": {"alias": "output_name", "domain_of": ["Source"]}},
+    )
+    id: int = Field(
+        default=...,
+        description="""A unique identifier for a thing""",
+        json_schema_extra={
+            "linkml_meta": {"alias": "id", "domain_of": ["NamedThing", "Sequence"], "slot_uri": "schema:identifier"}
+        },
+    )
+
+
 class AssociatedFile(ConfiguredBaseModel):
     """
     Represents a file associated with a sequence
@@ -2687,5 +2731,6 @@ CloningStrategy.model_rebuild()
 AnnotationReport.model_rebuild()
 PlannotateAnnotationReport.model_rebuild()
 AnnotationSource.model_rebuild()
+ReverseComplementSource.model_rebuild()
 AssociatedFile.model_rebuild()
 SequencingFile.model_rebuild()

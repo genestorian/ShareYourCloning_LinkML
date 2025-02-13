@@ -386,6 +386,14 @@ linkml:Sparqlpath xsd:string
     )
 }
 
+<ReverseComplementSource> CLOSED {
+    (  $<ReverseComplementSource_tes> (  &<Source_tes> ;
+          rdf:type [ <Source> ] ?
+       ) ;
+       rdf:type [ <ReverseComplementSource> ]
+    )
+}
+
 <Sequence>  (
     @<Primer> OR @<TemplateSequence> OR @<TextFileSequence>
 )
@@ -450,8 +458,8 @@ linkml:Sparqlpath xsd:string
 
 <Source>  (
     @<AnnotationSource> OR @<AssemblySource> OR @<CollectionSource> OR @<GenomeCoordinatesSource> OR @<ManuallyTypedSource> OR
-    @<OligoHybridizationSource> OR @<PolymeraseExtensionSource> OR @<RepositoryIdSource> OR @<SequenceCutSource> OR
-    @<UploadedFileSource>
+    @<OligoHybridizationSource> OR @<PolymeraseExtensionSource> OR @<RepositoryIdSource> OR @<ReverseComplementSource> OR
+    @<SequenceCutSource> OR @<UploadedFileSource>
 )
 
 <Source_struct> {
@@ -515,3 +523,4 @@ linkml:Sparqlpath xsd:string
        rdf:type [ <WekWikGeneIdSource> ]
     )
 }
+

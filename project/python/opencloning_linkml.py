@@ -1,5 +1,5 @@
 # Auto generated from opencloning_linkml.yaml by pythongen.py version: 0.0.1
-# Generation date: 2025-02-05T18:20:35
+# Generation date: 2025-02-13T14:43:39
 # Schema: OpenCloning_LinkML
 #
 # id: https://w3id.org/genestorian/OpenCloning_LinkML
@@ -173,6 +173,10 @@ class PolymeraseExtensionSourceId(SourceId):
 
 
 class AnnotationSourceId(SourceId):
+    pass
+
+
+class ReverseComplementSourceId(SourceId):
     pass
 
 
@@ -1653,6 +1657,31 @@ class AnnotationSource(Source):
         self.annotation_report = [
             v if isinstance(v, AnnotationReport) else AnnotationReport(**as_dict(v)) for v in self.annotation_report
         ]
+
+        super().__post_init__(**kwargs)
+        self.type = str(self.class_name)
+
+
+@dataclass(repr=False)
+class ReverseComplementSource(Source):
+    """
+    Represents the in-silico transformation of a sequence into its reverse complement
+    """
+
+    _inherited_slots: ClassVar[List[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = OPENCLONING_LINKML["ReverseComplementSource"]
+    class_class_curie: ClassVar[str] = "opencloning_linkml:ReverseComplementSource"
+    class_name: ClassVar[str] = "ReverseComplementSource"
+    class_model_uri: ClassVar[URIRef] = OPENCLONING_LINKML.ReverseComplementSource
+
+    id: Union[int, ReverseComplementSourceId] = None
+
+    def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
+        if self._is_empty(self.id):
+            self.MissingRequiredField("id")
+        if not isinstance(self.id, ReverseComplementSourceId):
+            self.id = ReverseComplementSourceId(self.id)
 
         super().__post_init__(**kwargs)
         self.type = str(self.class_name)
