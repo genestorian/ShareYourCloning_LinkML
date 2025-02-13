@@ -1937,4 +1937,3 @@ opencloning_linkml:Sequence a sh:NodeShape ;
             sh:order 1 ;
             sh:path opencloning_linkml:type ] ;
     sh:targetClass opencloning_linkml:Sequence .
-

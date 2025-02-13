@@ -2011,4 +2011,3 @@ opencloning_linkml:type a owl:ObjectProperty,
     rdfs:subClassOf opencloning_linkml:OverlapExtensionPCRLigationSource ;
     owl:onProperty opencloning_linkml:type ;
     owl:someValuesFrom opencloning_linkml:OverlapExtensionPCRLigationSource .
-

@@ -507,4 +507,3 @@ type WekWikGeneIdSource
     sequenceFileUrl: String
     repositoryId: String!
   }
-

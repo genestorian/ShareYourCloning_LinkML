@@ -523,4 +523,3 @@ linkml:Sparqlpath xsd:string
        rdf:type [ <WekWikGeneIdSource> ]
     )
 }
-
