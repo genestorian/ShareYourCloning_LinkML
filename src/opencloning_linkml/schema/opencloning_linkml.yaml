@@ -670,6 +670,11 @@ classes:
           inlined_as_list: true
           multivalued: true
 
+  ReverseComplementSource:
+    is_a: Source
+    description: >-
+      Represents the in-silico transformation of a sequence into its reverse complement
+
   AssociatedFile:
     description: >-
       Represents a file associated with a sequence

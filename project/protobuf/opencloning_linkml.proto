@@ -345,6 +345,15 @@ message RestrictionSequenceCut
   integer overhang = 0
   string restrictionEnzyme = 0
  }
+// Represents the in-silico transformation of a sequence into its reverse complement
+message ReverseComplementSource
+ {
+  integer id = 0
+ repeated  sequence input = 0
+  sequence output = 0
+  string type = 0
+  string outputName = 0
+ }
 // Represents a cut in a DNA sequence
 message SequenceCut
  {

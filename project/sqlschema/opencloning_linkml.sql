@@ -283,6 +283,11 @@
 --     * Slot: type Description: Designates the class
 --     * Slot: output_name Description: Used to specify the name of the output sequence
 --     * Slot: id Description: A unique identifier for a thing
+-- # Class: "ReverseComplementSource" Description: "Represents the in-silico transformation of a sequence into its reverse complement"
+--     * Slot: output Description: Identifier of the sequence that is the output of this source.
+--     * Slot: type Description: Designates the class
+--     * Slot: output_name Description: Used to specify the name of the output sequence
+--     * Slot: id Description: A unique identifier for a thing
 -- # Class: "AssociatedFile" Description: "Represents a file associated with a sequence"
 --     * Slot: id Description:
 --     * Slot: type Description: Designates the class
@@ -385,6 +390,9 @@
 --     * Slot: input_id Description: The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.
 -- # Class: "AnnotationSource_input" Description: ""
 --     * Slot: AnnotationSource_id Description: Autocreated FK slot
+--     * Slot: input_id Description: The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.
+-- # Class: "ReverseComplementSource_input" Description: ""
+--     * Slot: ReverseComplementSource_id Description: Autocreated FK slot
 --     * Slot: input_id Description: The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.
 -- # Class: "SequencingFile_alignment" Description: ""
 --     * Slot: SequencingFile_id Description: Autocreated FK slot
@@ -761,6 +769,14 @@ CREATE TABLE "AnnotationSource" (
 	PRIMARY KEY (id),
 	FOREIGN KEY(output) REFERENCES "Sequence" (id)
 );
+CREATE TABLE "ReverseComplementSource" (
+	output INTEGER,
+	type TEXT,
+	output_name TEXT,
+	id INTEGER NOT NULL,
+	PRIMARY KEY (id),
+	FOREIGN KEY(output) REFERENCES "Sequence" (id)
+);
 CREATE TABLE "AssociatedFile" (
 	id INTEGER NOT NULL,
 	type TEXT,
@@ -1036,6 +1052,13 @@ CREATE TABLE "AnnotationSource_input" (
 	input_id INTEGER,
 	PRIMARY KEY ("AnnotationSource_id", input_id),
 	FOREIGN KEY("AnnotationSource_id") REFERENCES "AnnotationSource" (id),
+	FOREIGN KEY(input_id) REFERENCES "Sequence" (id)
+);
+CREATE TABLE "ReverseComplementSource_input" (
+	"ReverseComplementSource_id" INTEGER,
+	input_id INTEGER,
+	PRIMARY KEY ("ReverseComplementSource_id", input_id),
+	FOREIGN KEY("ReverseComplementSource_id") REFERENCES "ReverseComplementSource" (id),
 	FOREIGN KEY(input_id) REFERENCES "Sequence" (id)
 );
 CREATE TABLE "SequencingFile_alignment" (

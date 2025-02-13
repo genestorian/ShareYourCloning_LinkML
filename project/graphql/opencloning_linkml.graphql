@@ -397,6 +397,15 @@ type RestrictionSequenceCut
     restrictionEnzyme: String!
   }
 
+type ReverseComplementSource
+  {
+    id: Integer!
+    input: [Sequence]
+    output: Sequence
+    type: String
+    outputName: String
+  }
+
 interface Sequence
   {
     id: Integer!

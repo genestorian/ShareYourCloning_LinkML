@@ -551,6 +551,9 @@
                                 "$ref": "#/$defs/AnnotationSource"
                             },
                             {
+                                "$ref": "#/$defs/ReverseComplementSource"
+                            },
+                            {
                                 "$ref": "#/$defs/PCRSource"
                             },
                             {
@@ -669,6 +672,9 @@
                         },
                         {
                             "$ref": "#/$defs/AnnotationSource"
+                        },
+                        {
+                            "$ref": "#/$defs/ReverseComplementSource"
                         },
                         {
                             "$ref": "#/$defs/PCRSource"
@@ -2153,6 +2159,55 @@
                 "overhang"
             ],
             "title": "RestrictionSequenceCut",
+            "type": "object"
+        },
+        "ReverseComplementSource": {
+            "additionalProperties": false,
+            "description": "Represents the in-silico transformation of a sequence into its reverse complement",
+            "properties": {
+                "id": {
+                    "description": "A unique identifier for a thing",
+                    "type": "integer"
+                },
+                "input": {
+                    "description": "The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.",
+                    "items": {
+                        "type": "integer"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "output": {
+                    "description": "Identifier of the sequence that is the output of this source.",
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "output_name": {
+                    "description": "Used to specify the name of the output sequence",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "type": {
+                    "description": "Designates the class",
+                    "enum": [
+                        "ReverseComplementSource"
+                    ],
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "id"
+            ],
+            "title": "ReverseComplementSource",
             "type": "object"
         },
         "SequenceCut": {
