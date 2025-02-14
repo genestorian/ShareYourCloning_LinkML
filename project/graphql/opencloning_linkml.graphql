@@ -42,6 +42,7 @@ enum RepositoryName
     euroscarf
     igem
     wekwikgene
+    seva
   }
 
 enum SequenceFileFormat
@@ -436,6 +437,18 @@ type SequencingFile
     fileName: String!
     fileType: AssociatedFileType!
     alignment: [String]!
+  }
+
+type SEVASource
+  {
+    id: Integer!
+    input: [Sequence]
+    output: Sequence
+    type: String
+    outputName: String
+    repositoryName: RepositoryName!
+    sequenceFileUrl: String!
+    repositoryId: String!
   }
 
 type SimpleSequenceLocation

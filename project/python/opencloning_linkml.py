@@ -1,5 +1,5 @@
 # Auto generated from opencloning_linkml.yaml by pythongen.py version: 0.0.1
-# Generation date: 2025-02-13T14:43:39
+# Generation date: 2025-02-14T10:45:07
 # Schema: OpenCloning_LinkML
 #
 # id: https://w3id.org/genestorian/OpenCloning_LinkML
@@ -93,6 +93,10 @@ class AddGeneIdSourceId(RepositoryIdSourceId):
 
 
 class WekWikGeneIdSourceId(RepositoryIdSourceId):
+    pass
+
+
+class SEVASourceId(RepositoryIdSourceId):
     pass
 
 
@@ -770,6 +774,44 @@ class WekWikGeneIdSource(RepositoryIdSource):
 
         if self.sequence_file_url is not None and not isinstance(self.sequence_file_url, str):
             self.sequence_file_url = str(self.sequence_file_url)
+
+        super().__post_init__(**kwargs)
+        self.type = str(self.class_name)
+
+
+@dataclass(repr=False)
+class SEVASource(RepositoryIdSource):
+    """
+    Represents the source of a sequence that is identified by a SEVA id
+    """
+
+    _inherited_slots: ClassVar[List[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = OPENCLONING_LINKML["SEVASource"]
+    class_class_curie: ClassVar[str] = "opencloning_linkml:SEVASource"
+    class_name: ClassVar[str] = "SEVASource"
+    class_model_uri: ClassVar[URIRef] = OPENCLONING_LINKML.SEVASource
+
+    id: Union[int, SEVASourceId] = None
+    repository_name: Union[str, "RepositoryName"] = None
+    sequence_file_url: str = None
+    repository_id: str = None
+
+    def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
+        if self._is_empty(self.id):
+            self.MissingRequiredField("id")
+        if not isinstance(self.id, SEVASourceId):
+            self.id = SEVASourceId(self.id)
+
+        if self._is_empty(self.sequence_file_url):
+            self.MissingRequiredField("sequence_file_url")
+        if not isinstance(self.sequence_file_url, str):
+            self.sequence_file_url = str(self.sequence_file_url)
+
+        if self._is_empty(self.repository_id):
+            self.MissingRequiredField("repository_id")
+        if not isinstance(self.repository_id, str):
+            self.repository_id = str(self.repository_id)
 
         super().__post_init__(**kwargs)
         self.type = str(self.class_name)
@@ -1781,6 +1823,7 @@ class RepositoryName(EnumDefinitionImpl):
     euroscarf = PermissibleValue(text="euroscarf", description="Euroscarf (plasmids only)")
     igem = PermissibleValue(text="igem", description="iGEM collection")
     wekwikgene = PermissibleValue(text="wekwikgene", description="WekWikGene")
+    seva = PermissibleValue(text="seva", description="SEVA (Standard European Vector Architecture)")
 
     _defn = EnumDefinition(
         name="RepositoryName",
@@ -2777,6 +2820,28 @@ slots.WekWikGeneIdSource_repository_id = Slot(
     domain=WekWikGeneIdSource,
     range=str,
     pattern=re.compile(r"^\d+$"),
+)
+
+slots.SEVASource_repository_id = Slot(
+    uri=OPENCLONING_LINKML.repository_id,
+    name="SEVASource_repository_id",
+    curie=OPENCLONING_LINKML.curie("repository_id"),
+    model_uri=OPENCLONING_LINKML.SEVASource_repository_id,
+    domain=SEVASource,
+    range=str,
+    pattern=re.compile(r"^pSEVA\d+.*$"),
+)
+
+slots.SEVASource_sequence_file_url = Slot(
+    uri=OPENCLONING_LINKML.sequence_file_url,
+    name="SEVASource_sequence_file_url",
+    curie=OPENCLONING_LINKML.curie("sequence_file_url"),
+    model_uri=OPENCLONING_LINKML.SEVASource_sequence_file_url,
+    domain=SEVASource,
+    range=str,
+    pattern=re.compile(
+        r"^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)$"
+    ),
 )
 
 slots.BenchlingUrlSource_repository_id = Slot(

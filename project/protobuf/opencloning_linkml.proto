@@ -380,6 +380,18 @@ message SequencingFile
   associatedFileType fileType = 0
  repeated  string alignment = 0
  }
+// Represents the source of a sequence that is identified by a SEVA id
+message SEVASource
+ {
+  integer id = 0
+ repeated  sequence input = 0
+  sequence output = 0
+  string type = 0
+  string outputName = 0
+  repositoryName repositoryName = 0
+  string sequenceFileUrl = 0
+  string repositoryId = 0
+ }
 // Represents a location within a sequence, for now support for ranges only
 message SimpleSequenceLocation
  {

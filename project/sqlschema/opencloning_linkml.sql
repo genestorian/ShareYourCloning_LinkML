@@ -100,6 +100,14 @@
 --     * Slot: type Description: Designates the class
 --     * Slot: output_name Description: Used to specify the name of the output sequence
 --     * Slot: id Description: A unique identifier for a thing
+-- # Class: "SEVASource" Description: "Represents the source of a sequence that is identified by a SEVA id"
+--     * Slot: sequence_file_url Description: The URL of the sequence file, which can refer to a a gb file hosted on the SEVA website or an entry in the NCBI.
+--     * Slot: repository_id Description: The SEVA plasmid name
+--     * Slot: repository_name Description:
+--     * Slot: output Description: Identifier of the sequence that is the output of this source.
+--     * Slot: type Description: Designates the class
+--     * Slot: output_name Description: Used to specify the name of the output sequence
+--     * Slot: id Description: A unique identifier for a thing
 -- # Class: "BenchlingUrlSource" Description: "Represents the source of a sequence that is identified by a Benchling URL"
 --     * Slot: repository_id Description: The url of the gb file associated with the sequence
 --     * Slot: repository_name Description:
@@ -324,6 +332,9 @@
 --     * Slot: input_id Description: The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.
 -- # Class: "WekWikGeneIdSource_input" Description: ""
 --     * Slot: WekWikGeneIdSource_id Description: Autocreated FK slot
+--     * Slot: input_id Description: The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.
+-- # Class: "SEVASource_input" Description: ""
+--     * Slot: SEVASource_id Description: Autocreated FK slot
 --     * Slot: input_id Description: The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.
 -- # Class: "BenchlingUrlSource_input" Description: ""
 --     * Slot: BenchlingUrlSource_id Description: Autocreated FK slot
@@ -556,6 +567,17 @@ CREATE TABLE "AddGeneIdSource" (
 );
 CREATE TABLE "WekWikGeneIdSource" (
 	sequence_file_url TEXT,
+	repository_id TEXT NOT NULL,
+	repository_name VARCHAR(10) NOT NULL,
+	output INTEGER,
+	type TEXT,
+	output_name TEXT,
+	id INTEGER NOT NULL,
+	PRIMARY KEY (id),
+	FOREIGN KEY(output) REFERENCES "Sequence" (id)
+);
+CREATE TABLE "SEVASource" (
+	sequence_file_url TEXT NOT NULL,
 	repository_id TEXT NOT NULL,
 	repository_name VARCHAR(10) NOT NULL,
 	output INTEGER,
@@ -899,6 +921,13 @@ CREATE TABLE "WekWikGeneIdSource_input" (
 	input_id INTEGER,
 	PRIMARY KEY ("WekWikGeneIdSource_id", input_id),
 	FOREIGN KEY("WekWikGeneIdSource_id") REFERENCES "WekWikGeneIdSource" (id),
+	FOREIGN KEY(input_id) REFERENCES "Sequence" (id)
+);
+CREATE TABLE "SEVASource_input" (
+	"SEVASource_id" INTEGER,
+	input_id INTEGER,
+	PRIMARY KEY ("SEVASource_id", input_id),
+	FOREIGN KEY("SEVASource_id") REFERENCES "SEVASource" (id),
 	FOREIGN KEY(input_id) REFERENCES "Sequence" (id)
 );
 CREATE TABLE "BenchlingUrlSource_input" (
