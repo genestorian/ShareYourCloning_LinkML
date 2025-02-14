@@ -590,6 +590,9 @@
                                 "$ref": "#/$defs/WekWikGeneIdSource"
                             },
                             {
+                                "$ref": "#/$defs/SEVASource"
+                            },
+                            {
                                 "$ref": "#/$defs/BenchlingUrlSource"
                             },
                             {
@@ -711,6 +714,9 @@
                         },
                         {
                             "$ref": "#/$defs/WekWikGeneIdSource"
+                        },
+                        {
+                            "$ref": "#/$defs/SEVASource"
                         },
                         {
                             "$ref": "#/$defs/BenchlingUrlSource"
@@ -1990,7 +1996,8 @@
                 "snapgene",
                 "euroscarf",
                 "igem",
-                "wekwikgene"
+                "wekwikgene",
+                "seva"
             ],
             "title": "RepositoryName",
             "type": "string"
@@ -2208,6 +2215,71 @@
                 "id"
             ],
             "title": "ReverseComplementSource",
+            "type": "object"
+        },
+        "SEVASource": {
+            "additionalProperties": false,
+            "description": "Represents the source of a sequence that is identified by a SEVA id",
+            "properties": {
+                "id": {
+                    "description": "A unique identifier for a thing",
+                    "type": "integer"
+                },
+                "input": {
+                    "description": "The sequences that are an input to this source. If the source represents external import of a sequence, it's empty.",
+                    "items": {
+                        "type": "integer"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "output": {
+                    "description": "Identifier of the sequence that is the output of this source.",
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "output_name": {
+                    "description": "Used to specify the name of the output sequence",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "repository_id": {
+                    "description": "The SEVA plasmid name",
+                    "pattern": "^pSEVA\\d+.*$",
+                    "type": "string"
+                },
+                "repository_name": {
+                    "$ref": "#/$defs/RepositoryName"
+                },
+                "sequence_file_url": {
+                    "description": "The URL of the sequence file, which can refer to a a gb file hosted on the SEVA website or an entry in the NCBI.",
+                    "pattern": "^https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)$",
+                    "type": "string"
+                },
+                "type": {
+                    "description": "Designates the class",
+                    "enum": [
+                        "SEVASource"
+                    ],
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "sequence_file_url",
+                "repository_id",
+                "repository_name",
+                "id"
+            ],
+            "title": "SEVASource",
             "type": "object"
         },
         "SequenceCut": {

@@ -389,6 +389,10 @@
         {
           "text": "wekwikgene",
           "description": "WekWikGene"
+        },
+        {
+          "text": "seva",
+          "description": "SEVA (Standard European Vector Architecture)"
         }
       ]
     },
@@ -674,6 +678,7 @@
       "domain_of": [
         "AddGeneIdSource",
         "WekWikGeneIdSource",
+        "SEVASource",
         "IGEMSource"
       ],
       "range": "string",
@@ -1913,6 +1918,46 @@
       "@type": "SlotDefinition"
     },
     {
+      "name": "SEVASource_repository_id",
+      "definition_uri": "https://w3id.org/genestorian/OpenCloning_LinkML/repository_id",
+      "description": "The SEVA plasmid name",
+      "from_schema": "https://w3id.org/genestorian/OpenCloning_LinkML",
+      "is_a": "repository_id",
+      "domain": "SEVASource",
+      "slot_uri": "https://w3id.org/genestorian/OpenCloning_LinkML/repository_id",
+      "alias": "repository_id",
+      "owner": "SEVASource",
+      "domain_of": [
+        "SEVASource"
+      ],
+      "is_usage_slot": true,
+      "usage_slot_name": "repository_id",
+      "range": "string",
+      "required": true,
+      "pattern": "^pSEVA\\d+.*$",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "SEVASource_sequence_file_url",
+      "definition_uri": "https://w3id.org/genestorian/OpenCloning_LinkML/sequence_file_url",
+      "description": "The URL of the sequence file, which can refer to a a gb file hosted on the SEVA website or an entry in the NCBI.",
+      "from_schema": "https://w3id.org/genestorian/OpenCloning_LinkML",
+      "is_a": "sequence_file_url",
+      "domain": "SEVASource",
+      "slot_uri": "https://w3id.org/genestorian/OpenCloning_LinkML/sequence_file_url",
+      "alias": "sequence_file_url",
+      "owner": "SEVASource",
+      "domain_of": [
+        "SEVASource"
+      ],
+      "is_usage_slot": true,
+      "usage_slot_name": "sequence_file_url",
+      "range": "string",
+      "required": true,
+      "pattern": "^https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)$",
+      "@type": "SlotDefinition"
+    },
+    {
       "name": "BenchlingUrlSource_repository_id",
       "definition_uri": "https://w3id.org/genestorian/OpenCloning_LinkML/repository_id",
       "description": "The url of the gb file associated with the sequence",
@@ -2486,6 +2531,26 @@
       ],
       "slot_usage": {},
       "class_uri": "https://w3id.org/genestorian/OpenCloning_LinkML/WekWikGeneIdSource",
+      "@type": "ClassDefinition"
+    },
+    {
+      "name": "SEVASource",
+      "definition_uri": "https://w3id.org/genestorian/OpenCloning_LinkML/SEVASource",
+      "description": "Represents the source of a sequence that is identified by a SEVA id",
+      "from_schema": "https://w3id.org/genestorian/OpenCloning_LinkML",
+      "is_a": "RepositoryIdSource",
+      "slots": [
+        "id",
+        "input",
+        "output",
+        "type",
+        "output_name",
+        "repositoryIdSource__repository_name",
+        "SEVASource_sequence_file_url",
+        "SEVASource_repository_id"
+      ],
+      "slot_usage": {},
+      "class_uri": "https://w3id.org/genestorian/OpenCloning_LinkML/SEVASource",
       "@type": "ClassDefinition"
     },
     {
@@ -3374,9 +3439,9 @@
   ],
   "metamodel_version": "1.7.0",
   "source_file": "opencloning_linkml.yaml",
-  "source_file_date": "2025-02-13T14:43:18",
-  "source_file_size": 24333,
-  "generation_date": "2025-02-13T14:43:37",
+  "source_file_date": "2025-02-14T10:44:58",
+  "source_file_size": 24927,
+  "generation_date": "2025-02-14T10:45:05",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/opencloning_linkml.context.jsonld",

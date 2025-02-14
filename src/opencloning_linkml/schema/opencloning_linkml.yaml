@@ -295,6 +295,23 @@ classes:
     slots:
       - sequence_file_url
 
+  SEVASource:
+    is_a: RepositoryIdSource
+    description: >-
+      Represents the source of a sequence that is identified by a SEVA id
+    slots:
+      - sequence_file_url
+    slot_usage:
+      repository_id:
+        description: >-
+          The SEVA plasmid name
+        pattern: ^pSEVA\d+.*$
+      sequence_file_url:
+        description: >-
+          The URL of the sequence file, which can refer to a a gb file hosted on the SEVA website or an
+          entry in the NCBI.
+        required: true
+
   BenchlingUrlSource:
     is_a: RepositoryIdSource
     description: >-
@@ -813,6 +830,9 @@ enums:
       wekwikgene:
         description: >-
           WekWikGene
+      seva:
+        description: >-
+          SEVA (Standard European Vector Architecture)
 
   Collection:
     permissible_values:
